@@ -15,7 +15,8 @@ and open the template in the editor.
         
         <?php
 echo 'Hola Mundo';        
-echo 'soy helen;'
+echo 'soy helen';
+echo ' y pedro soy helen';
 // put your code here
         ?>
     </body>
