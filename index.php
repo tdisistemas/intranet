@@ -17,6 +17,7 @@ and open the template in the editor.
 echo 'Hola Mundo';        
 echo 'soy helen';
 echo ' y pedro soy helen';
+echo ' y pedro soy helen';
 // put your code here
         ?>
     </body>
