@@ -82,6 +82,7 @@
     notificador.php
     notificar.php
     notihistorial.php
+    funciones.js
 
     # Package Files #
     *.jar
