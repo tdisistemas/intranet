@@ -13,6 +13,45 @@
     notificaciones/
     src/
     var/
+    actualizacion/
+    admin_visit/
+    admindb/
+    ahorro/
+    ahorroadmin/
+    ame/
+    ameadmin/
+    auth/
+    bye/
+    cedulacion/
+    clasif/
+    clasificados/
+    clasificadosadmin/
+    comunicaciones/
+    comunicaciones_reno/
+    comunicacionesv2/
+    constancias/
+    cvadmin/
+    dashboard/
+    desdeelanden/
+    directorio/
+    documentos/
+    generadormd5/
+    juan/
+    listines/
+    metroinforma/
+    modulo_ejemplo/
+    notificacionesadmin/
+    perfil/
+    permisos/
+    planvacacionalfront/
+    prestaciones/
+    recepcion/
+    recursos/
+    reintegros/
+    serviciosfamiliares/
+    visitas/
+    visitasadmin/
+    webmail/
 
     ## generic files to ignore
     *~
