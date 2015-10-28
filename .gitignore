@@ -3,6 +3,16 @@
 
     #netbeans ignore personal stuff
     nbproject/
+    3rd-party/
+    canvas/
+    cv_metro/
+    docs/
+    labs/
+    logs/
+    mailmonitor/
+    notificaciones/
+    src/
+    var/
 
     ## generic files to ignore
     *~
@@ -10,6 +20,8 @@
     *.DS_Store
     *.swp
     *.out
+    variables_config.php
+    conexiones_config.php
 
     # Package Files #
     *.jar
