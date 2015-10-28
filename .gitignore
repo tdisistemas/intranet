@@ -44,6 +44,7 @@
     perfil/
     permisos/
     planvacacionalfront/
+    planvacacionaladmin/
     prestaciones/
     recepcion/
     recursos/
@@ -61,6 +62,26 @@
     *.out
     variables_config.php
     conexiones_config.php
+    initrd.img
+    module_security.class.php
+    prestaciones.tar.gz
+    visitas.zip
+    .htaccess
+    1dashboard.php
+    CHULETA.php
+    bypass.php
+    bypass_cedula.php
+    bypass_dev.php
+    dashboard_dev.php
+    encabezado.php
+    encamail.php
+    error_log
+    index.php
+    index_dev.php
+    noie.php
+    notificador.php
+    notificar.php
+    notihistorial.php
 
     # Package Files #
     *.jar
