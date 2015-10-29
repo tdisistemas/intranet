@@ -84,7 +84,8 @@
     notificar.php
     notihistorial.php
     funciones.js
-
+    metro_5.sql
+    control_conse.sql
     # Package Files #
     *.jar
     *.war
