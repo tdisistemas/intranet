@@ -54,6 +54,7 @@
     visitasadmin/
     webmail/
     inventario/
+    inventariojs/
 
     ## generic files to ignore
     *~
