@@ -36,7 +36,7 @@ $_SESSION['tokeconst'] = $anticachecret;
                         <tr>
                         <div class="control-group" style="text-align: center">
 
-                            <br>
+                            <br> 
                             <label>Investigaciones</label><br>
                             <textarea name="texto" cols="60" rows="10"></textarea>
                             <br>

@@ -57,7 +57,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 $sql.="LEFT JOIN datos_empleado_rrhh ON usuario_bkp.usuario = datos_empleado_rrhh.cedula ";
                 $sql.="WHERE usuario_bkp.habilitado=1 AND usuario_bkp.correo_principal='';";
                 $result = mysql_query($sql);
-                if (!$result) {
+                if (!$result) { 
                     if ($SQL_debug == '1') {
                         die('Error en Consulta de Auth - Respuesta del Motor: ' . mysql_error());
                     } else {
