@@ -58,6 +58,7 @@
     visitasadmin/
     webmail/
     inventario/
+    inventariojsASD/
 
     ## generic files to ignore
     *~
