@@ -9,6 +9,18 @@ switch ($t) {
     case ("inicio"):include('modules/metroinforma/metroinforma.php');
         ?><script>activame('inicio');</script><?php
         break;
+    
+    /*     * ** ASUNTOS INTERNOS *** */
+    case ("usuario-ai"):include('modules/asuntos_internos/usuarios_ai.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("usuario-ai-edit"):include('modules/asuntos_internos/editar_us_ai.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("investigacion"):include('modules/asuntos_internos/investigacion_ai.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    
     /*     * ** PRUEBA *** */
     case ("pruebainsert"):include('modules/ModuloPrueba/NuevoUsuario.php');
         ?><script>activame('prueba');</script><?php
