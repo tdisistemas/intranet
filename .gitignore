@@ -5,6 +5,11 @@
     nbproject/
     3rd-party/
     canvas/
+    ModuloPrueba/
+    comunicaciones_externa/
+    comunicar/
+    comunicar_admin/
+    control_gestion/
     cv_metro/
     docs/
     labs/
@@ -39,7 +44,6 @@
     juan/
     listines/
     metroinforma/
-    modulo_ejemplo/
     notificacionesadmin/
     perfil/
     permisos/
@@ -85,7 +89,8 @@
     notificar.php
     notihistorial.php
     funciones.js
-
+    metro_5.sql
+    control_conse.sql
     # Package Files #
     *.jar
     *.war
