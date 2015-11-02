@@ -161,7 +161,7 @@ if ($perfil_qry) {
                             <label>Gerencia a que Pertenece:</label>
                             <div class="field">
                                 <textarea style="background-color:lightgray" name="cedula" readonly value="<?php echo $gerencia; ?>" type="text" name="gerencia" id="gerencia" cols="50" rows="2" ><?php echo $gerencia; ?></textarea>	
-                            </div> 		
+                            </div>		
                         </div> <!-- .field-group -->
 
                         <div class="field-group">
