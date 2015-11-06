@@ -9,18 +9,49 @@ switch ($t) {
     case ("inicio"):include('modules/metroinforma/metroinforma.php');
         ?><script>activame('inicio');</script><?php
         break;
-    
-    /*     * ** ASUNTOS INTERNOS *** */
-    case ("usuario-ai"):include('modules/asuntos_internos/usuarios_ai.php');
+
+    /*     * ******************************************** */
+    /*     * ******** ASUNTOS INTERNOS ADMIN ************ */
+    /*     * ******************************************** */
+    case ("admin_ai"):include('modules/SIIT-Metro(Admin)/ai_admin.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigadores"):include('modules/SIIT-Metro(Admin)/ai_investigadores.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_investigadores"):include('modules/SIIT-Metro(Admin)/add_investigadores.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigador-ai-info"):include('modules/SIIT-Metro(Admin)/ai_investigadores.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigador-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_investigador.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+
+    /*     * ******************************************** */
+    /*     * *********** ASUNTOS INTERNOS *************** */
+    /*     * ******************************************** */
+
+    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
         ?><script>activame('investigacion');</script><?php
         break;
-    case ("usuario-ai-edit"):include('modules/asuntos_internos/editar_us_ai.php');
+    case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');
         ?><script>activame('investigacion');</script><?php
         break;
-    case ("investigacion"):include('modules/asuntos_internos/investigacion_ai.php');
+    case ("investigacion"):include('modules/SIIT-Metro/investigacion_ai.php');
         ?><script>activame('investigacion');</script><?php
         break;
-    
+    case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("denuncias-ai"):include('modules/SIIT-Metro/denuncias_ai.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("add_denuncias"):include('modules/SIIT-Metro/add_denuncias.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+
     /*     * ** PRUEBA *** */
     case ("pruebainsert"):include('modules/ModuloPrueba/NuevoUsuario.php');
         ?><script>activame('prueba');</script><?php
@@ -41,16 +72,19 @@ switch ($t) {
 
     /*     * ** LISTINES *** */
     case ("listines"):include('modules/listines/listinesv4.php');
-        ?><script>activame('listines');</script><?php break;
+        ?><script>activame('listines');</script><?php
+        break;
     case ("listines-r"):include('modules/listines/listinesv4r.php');
-        ?><script>activame('listines');</script><?php break;
+        ?><script>activame('listines');</script><?php
+        break;
     case ("listines-arc"):include('modules/listines/listinesv4arc.php');
         ?><script>activame('listines');</script><?php
         break;
 
     /*     * ** AME *** */
     case ("ame"):include('modules/ame/intro.php');
-        ?><script>activame('ame');</script><?php break;
+        ?><script>activame('ame');</script><?php
+        break;
     case ("amee"):include('modules/ame/extro.php');
         ?><script>activame('ame');</script><?php
         break;
@@ -62,9 +96,11 @@ switch ($t) {
 
     /*     * ** AHORRO *** */
     case ("cahorro"):include('modules/ahorro/intro.php');
-        ?><script>activame('cahorro');</script><?php break;
+        ?><script>activame('cahorro');</script><?php
+        break;
     case ("cahorroe"):include('modules/ahorro/extro.php');
-        ?><script>activame('cahorro');</script><?php break;
+        ?><script>activame('cahorro');</script><?php
+        break;
     case ("gestionca"):include('modules/ahorro/gestion.php');
         ?><script>activame('cahorro');</script><?php
         break;
@@ -86,7 +122,8 @@ switch ($t) {
 
     /*     * ** COMUNICACIONES *** */
     case ("comunicaciones"):include('modules/comunicaciones/generador.php');
-        ?><script>activame('comunicaciones');</script><?php break;
+        ?><script>activame('comunicaciones');</script><?php
+        break;
     case ("comunicacionesv2"):include('modules/comunicacionesv2/intro.php');
         ?><script>activame('comunicacionesv2');</script><?php
         break;
@@ -169,12 +206,15 @@ switch ($t) {
 
     /*     * ** ADMINISTRAR METRO INFORMA *** */
     case ("admin-mi"):include('modules/metroinforma/ver_mi.php');
-        ?><script>activame('metroinforma');</script><?php break;
+        ?><script>activame('metroinforma');</script><?php
+        break;
 
     case ("agregar-mi"): include('modules/metroinforma/nueva_mi.php');
-        ?><script>activame('metroinforma');</script><?php break;
+        ?><script>activame('metroinforma');</script><?php
+        break;
     case ("editar-mi"): include('modules/metroinforma/editar_mi.php');
-        ?><script>activame('metroinforma');</script><?php break;
+        ?><script>activame('metroinforma');</script><?php
+        break;
     case ("eliminar-mi"):include('modules/metroinforma/eliminar_mi.php');
         ?><script>activame('metroinforma');</script><?php
         break;
@@ -216,14 +256,18 @@ switch ($t) {
     /*     * **  PERFILES DE USUARIOS *** */
 
     case ("perfiles"):include('modules/auth/perfiles.php');
-        ?><script>activame('auth');</script><?php break;
+        ?><script>activame('auth');</script><?php
+        break;
 
     case ("agregar-pe"): include('modules/auth/nueva_pe.php');
-        ?><script>activame('auth');</script><?php break;
+        ?><script>activame('auth');</script><?php
+        break;
     case ("editar-pe"): include('modules/auth/editar_pe.php');
-        ?><script>activame('auth');</script><?php break;
+        ?><script>activame('auth');</script><?php
+        break;
     case ("eliminar-pe"):include('modules/auth/eliminar_pe.php');
-        ?><script>activame('auth');</script><?php break;
+        ?><script>activame('auth');</script><?php
+        break;
 
     case ("auth-reload"):include('modules/auth/reload.php');
         ?><script>activame('auth');</script><?php
@@ -232,12 +276,15 @@ switch ($t) {
     /*     * **  USUARIOS *** */
 
     case ("usuarios"):include('modules/auth/usuarios.php');
-        ?><script>activame('auth');</script><?php break;
+        ?><script>activame('auth');</script><?php
+        break;
 
     case ("agregar-us"): include('modules/auth/nuevo_us.php');
-        ?><script>activame('auth');</script><?php break;
+        ?><script>activame('auth');</script><?php
+        break;
     case ("editar-us"): include('modules/auth/editar_us.php');
-        ?><script>activame('auth');</script><?php break;
+        ?><script>activame('auth');</script><?php
+        break;
     case ("eliminar-us"):include('modules/auth/eliminar_us.php');
         ?><script>activame('auth');</script><?php
         break;
@@ -276,7 +323,7 @@ switch ($t) {
 
 
 
-        /*     * ** EJEMPLO *** */
+    /*     * ** EJEMPLO *** */
 
     case ("ejemploinsert"):include('modules/modulo_ejemplo/ejempinsert.php');
         ?><script>activame('ejemplo');</script><?php
@@ -285,13 +332,17 @@ switch ($t) {
     /*     * ** ADMINISTRADOR DE CV *** */
 
     case ("cvadmin"):include('modules/cvadmin/cvadmin.php');
-        ?><script>activame('cvadmin');</script><?php break;
+        ?><script>activame('cvadmin');</script><?php
+        break;
     case ("det-asp"):include('modules/cvadmin/reporte_asp.php');
-        ?><script>activame('cvadmin');</script><?php break;
+        ?><script>activame('cvadmin');</script><?php
+        break;
     case ("carga-cv-rh"):include('modules/cvadmin/carga_cv_rh.php');
-        ?><script>activame('cvadmin');</script><?php break;
+        ?><script>activame('cvadmin');</script><?php
+        break;
     case ("proc-cv-rh"):include('modules/cvadmin/proc_cv_rh.php');
-        ?><script>activame('cvadmin');</script><?php break;
+        ?><script>activame('cvadmin');</script><?php
+        break;
     case ("sav-cv-rh"):include('modules/cvadmin/guardar_cv_rh.php');
         ?><script>activame('cvadmin');</script><?php
         break;

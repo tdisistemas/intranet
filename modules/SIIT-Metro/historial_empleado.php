@@ -51,7 +51,7 @@ if (!$_GET['flag']) {
 </style>
 
 <div id="contentHeader">
-    <h2>Ficha del Empleado</h2>
+    <h2>Historial del Empleado</h2>
 </div> <!-- #contentHeader -->	
 <?php
 decode_get2($_SERVER["REQUEST_URI"], 2);
@@ -90,6 +90,7 @@ if ($perfil_qry) {
     $num_rows = mysql_num_rows($perfil_qry);
     if ($num_rows == 1) {
 
+        $id_empleado = $reg[0];
         $cedula = $reg[3];
         $nombre = $reg[1];
         $apellido = $reg[2];
@@ -115,8 +116,8 @@ if ($perfil_qry) {
             . "d.telefono_contacto "
             . "FROM datos_empleado_rrhh d, ctrabajo_datos_empleados c,encabezado_listin e "
             . "WHERE d.cedula=c.cedula_empleado "
-            . "AND e.cedula=d.cedula AND e.cedula=". $cedula;
-    
+            . "AND e.cedula=d.cedula AND e.cedula=" . $cedula;
+
     $sql = mysql_query($sqlcode);
     while ($row = mysql_fetch_array($sql)) {
 
@@ -146,16 +147,15 @@ if ($perfil_qry) {
                         <h3>Información del Empleado</h3>
                     </div>
                     <div class="widget-content">
-                        <img align="right" style=" border: solid 5px #ddd;width: 100px;margin: 0;  float: right;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>  
-                        <br><br><br><br><br>  
                         <div class="row">
-                            <div class="grid-9">
-                                <div class="field-group">								
-                                    <label style="color:#B22222">Cedula:</label>
+                            <div class="grid-1">
+                            </div>
+                            <div class="grid-10">
+                                <div class="field-group">
                                     <div class="field">
-                                        <span><?php echo $cedula; ?></span>
+                                        <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                     </div>
-                                </div> <!-- .field-group -->				 
+                                </div> <!-- .field-group -->	
 
                                 <div class="field-group">
                                     <label style="color:#B22222">Nombre y Apellido:</label>
@@ -163,6 +163,13 @@ if ($perfil_qry) {
                                         <span><?php echo $nombre . ' ' . $apellido; ?></span>			
                                     </div>
                                 </div> <!-- .field-group -->
+
+                                <div class="field-group">								
+                                    <label style="color:#B22222">Cedula:</label>
+                                    <div class="field">
+                                        <span><?php echo $cedula; ?></span>
+                                    </div>
+                                </div> <!-- .field-group -->				 
 
                                 <div class="field-group">
                                     <label style="color:#B22222">Fecha de Nacimiento:</label>
@@ -195,7 +202,7 @@ if ($perfil_qry) {
                                 <div class="field-group">
                                     <label style="color:#B22222">Persona de Contacto:</label>
                                     <?php
-                                    if ($nombre_contacto==' ') {
+                                    if ($nombre_contacto != ' ' && $nombre_contacto != '') {
                                         ?>
                                         <div class="field Tarjeta">
                                             <label style="text-align: left; font-weight: bold; ">Nombre: </label>
@@ -224,11 +231,11 @@ if ($perfil_qry) {
                                             . "WHERE cedula_empleado =" . $cedula . " "
                                             . "AND cedula_familiar > 0 "
                                             . "ORDER BY cedula_familiar ASC";
-                                    
+
                                     $sql = mysql_query($sqlcode);
                                     if ($row = mysql_fetch_array($sql)) {
 
-                                        do{
+                                        do {
 
                                             $parentesco = $row["parentesco"];
                                             $nombres_familiar = $row["nombres"];
@@ -248,7 +255,7 @@ if ($perfil_qry) {
                                                 ?>
                                             </div>
                                             <?php
-                                        }while ($row = mysql_fetch_array($sql));
+                                        } while ($row = mysql_fetch_array($sql));
                                     } else {
                                         ?>
                                         <div class="field">
@@ -259,7 +266,7 @@ if ($perfil_qry) {
                                     ?>
                                 </div> <!-- .field-group -->
                             </div>
-                            <div class="grid-9">
+                            <div class="grid-10">
                                 <div class="field-group">
                                     <label style="color:#B22222">Gerencia a que Pertenece:</label>
                                     <div class="field">
@@ -305,7 +312,7 @@ if ($perfil_qry) {
                                           $poseecorreo = "*** No Posee Correo ***";
                                           } */
                                         ?>
-                                        <span><?php echo $correo_principal; //echo $poseecorreo;?></span>	
+                                        <span><?php echo $correo_principal; //echo $poseecorreo;      ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
                                 <div class="field-group">
@@ -320,11 +327,11 @@ if ($perfil_qry) {
                                             . "WHERE cedula_empleado=" . $cedula . " "
                                             . "AND status=6 "
                                             . "ORDER BY fecha";
-                                    
+
                                     $sql = mysql_query($sqlcode);
                                     if ($row = mysql_fetch_array($sql)) {
 
-                                        do{
+                                        do {
 
                                             $motivo = $row["motivo_sol"];
                                             $duracion = $row["fecha_s"] . ' ( ' . $row["duracion"] . ' ' . $row["tipo_duracion"] . " )";
@@ -332,11 +339,11 @@ if ($perfil_qry) {
                                             <div class="field Tarjeta">
                                                 <label style="text-align: left; font-weight: bold; ">Motivo: </label>
                                                 <label for="fname" ><?php echo $motivo; ?></label>			
-                                                <label style="text-align: left; font-weight: bold; ">Duración: </label>
+                                                <label style="text-align: left; font-weight: bold; ">Fecha y Duración: </label>
                                                 <label for="fname" ><?php echo $duracion; ?></label>
                                             </div>
                                             <?php
-                                        }while ($row = mysql_fetch_array($sql));
+                                        } while ($row = mysql_fetch_array($sql));
                                     } else {
                                         ?>
                                         <div class="field">
@@ -350,16 +357,21 @@ if ($perfil_qry) {
                             </div><!-- .grid -->
                         </div><!-- .grid -->
                     </div><!-- .grid -->
-                    <div class="actions" style="text-aling:left">
-                        <button name="Submit" type="submit" class="btn btn-error">Agregar Incidencia</button>
-                        <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
-                    </div> <!-- .actions -->
                 </div><!-- .grid -->	
             </div><!-- .grid -->	
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta seccion podra visualizar la ficha de los usuarios en el sistema</p>
+                    <p>En esta seccion podra visualizar la ficha de empleados de la Empresa</p>
+                    <div class="box plain">
+                        <?php
+                        $parametros = 'id=' . $id_empleado;
+                        $parametros = _desordenar($parametros);
+                        ?>  
+                        <a href="dashboard.php?data=usuario-ai-edit&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add" >Historial de Incidentes</a>
+                        <a href="dashboard.php?data=investigacion" class="btn btn-primary btn-large dashboard_add">Agregar Incidencia</a>
+                        <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                    </div>
                 </div>
             </div>
         </form>

@@ -69,13 +69,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                                         <span class="icon-home"></span>
                                         <a href="dashboard.php?data=inicio">Página Principal</a>				
                                     </li>
-                                    <?php if (in_array('Asuntos_internos', $usuario_permisos)) { ?>
+                                    <?php if (in_array('SIIT-Metro', $usuario_permisos)) { ?>
                                         <li id="investigacion" class="nav "> 
                                             <span class="icon-document-alt-stroke"></span>
-                                            <a href="javascript:;">Asuntos Internos</a>				
+                                            <a href="javascript:;">SIIT-Metro</a>				
                                             <ul class="subNav">
+                                                <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
                                                 <li><a href="dashboard.php?data=usuario-ai">Investigaciones</a></li>
                                             </ul>						
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (in_array('SIIT-Metro(Admin)', $usuario_permisos)) { ?>
+                                        <li id="admin_ai" class="nav">
+                                            <span class="icon-key-stroke"></span>
+                                            <a href="dashboard.php?data=admin_ai">SIIT-Metro Admin</a>				
                                         </li>
                                     <?php } ?>
                                     <?php if (in_array('ModuloPrueba', $usuario_permisos)) { ?>
@@ -386,9 +393,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                         <script type="text/javascript" src="src/javascripts/QapTcha.jquery.js?<?php echo $anticache; ?>"></script>
 
                         <script type="text/javascript">
-                                                                    $(document).ready(function () {
-                                                                        $('.QapTcha').QapTcha({<?php echo @$js; ?>});
-                                                                    });
+                                                            $(document).ready(function () {
+                                                                $('.QapTcha').QapTcha({<?php echo @$js; ?>});
+                                                            });
                         </script>
 
                         <script>

@@ -111,10 +111,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 $reg = mysql_fetch_array($result);
                 $d = $reg[0];
 
-
-
-
-                _adios_mysql();
+                mysql_query("set names utf8");
                 ?>
 
                 <div style="margin-left: 400px;" class="dashboard_report first activeState">
@@ -142,17 +139,13 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                     <thead>
                         <tr>
                             <th style="width:15%">Cedula</th>
-                            <th style="width:23%">Nombre y Apellido</th>
+                            <th style="width:35%">Nombre y Apellido</th>
                             <th style="width:35%">Gerencia</th>
-
-                            <th style="width:12%">Opciones</th>
+                            <th style="width:15%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        _bienvenido_mysql();
-                        mysql_query("set names utf8");
-
                         $sqlcode = "SELECT usuario_bkp.id_usuario,usuario_bkp.nombre,usuario_bkp.apellido,usuario_bkp.usuario,autenticacion.clave,
                         usuario_bkp.correo_corporativo,usuario_bkp.correo_principal,
                         usuario_bkp.telefono,usuario_bkp.habilitado,usuario_bkp.usuario_int,'disponible',autenticacion.perfil,perfiles.perfil AS perfil_nom,perfiles.role AS role,usuario_bkp.ubicacion_laboral
@@ -173,8 +166,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     $parametros = 'id=' . $row["id_usuario"];
                                     $parametros = _desordenar($parametros);
                                     ?>  
-                                    <a href="dashboard.php?data=usuario-ai-edit&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
-                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
+                                    <a href="dashboard.php?data=usuario-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
+                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-user"></span></div>
                                     </a>
                                 </td>
                             </tr>									
