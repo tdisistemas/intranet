@@ -8,21 +8,21 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 if (!$_GET["flag"]) {
-    ir('dashboard.php?data=investigadores');
+    ir('dashboard.php?data=denuncias-ai');
 }
 
 if ($_GET["flag"]) {
     decode_get2($_SERVER["REQUEST_URI"], 2);
-    $idinvest = _antinyeccionSQL($_GET["id"]);
+    $iddenun = _antinyeccionSQL($_GET["id"]);
     _bienvenido_mysql();
-    $sql = "UPDATE investigadores_ai SET status = 1 WHERE id_invest = " . $idinvest;
-    $result = mysql_query($sql) or die('Error Eliminando Investigador - ' . mysql_error());
+    $sql = "UPDATE denuncias_ai SET status = 9 WHERE idDenuncia = " . $iddenun;
+    $result = mysql_query($sql) or die('Error Eliminando Denuncia - ' . mysql_error());
     if ($result) {
-        notificar("Investigador eliminado con exito", "dashboard.php?data=investigadores", "notify-error");
+        notificar("Denuncia eliminada con exito", "dashboard.php?data=denuncias-ai", "notify-error");
     } else {
         die(mysql_error());
     }
 } else {
-    ir("dashboard.php?data=investigadores");
+    ir("dashboard.php?data=denuncias-ai");
 }
 ?>

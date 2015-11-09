@@ -27,7 +27,18 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 _bienvenido_mysql();
                 mysql_query("set names utf8");
 
-                $sqlcode = "SELECT i.id_invest,i.cedula_invest,d.cargo,d.nombre,d.apellido,i.status,d.gerencia FROM investigadores_ai i inner join datos_empleado_rrhh d WHERE i.cedula_invest = d.cedula AND i.status=0 ";
+                $sqlcode = "SELECT "
+                        . "i.id_invest,"
+                        . "i.cedula_invest,"
+                        . "d.cargo,d.nombre,"
+                        . "d.apellido,"
+                        . "i.status,"
+                        . "d.gerencia "
+                        . "FROM investigadores_ai i "
+                        . "INNER JOIN datos_empleado_rrhh d "
+                        . "WHERE i.cedula_invest = d.cedula "
+                        . "AND i.status=0 ";
+                
                 $sql = mysql_query($sqlcode);
                 $a = mysql_num_rows($sql);
                 ?>
@@ -49,8 +60,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         <div class="widget widget-table">
             <div class="widget-header">
                 <span class="icon-list"></span>
-                <h3 class="icon chart">Registro de Investigadores</h3>		
-                <span class="icon-user"></span>
+                <h3 class="icon chart">Registro de Investigadores</h3>
             </div>
             <div class="widget-content">
                 <table class="table table-bordered table-striped data-table">

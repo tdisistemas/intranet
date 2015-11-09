@@ -28,6 +28,15 @@ switch ($t) {
     case ("investigador-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_investigador.php');
         ?><script>activame('admin_ai');</script><?php
         break;
+    case ("denuncias-ai"):include('modules/SIIT-Metro(Admin)/denuncias_ai.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_denuncias"):include('modules/SIIT-Metro(Admin)/add_denuncias.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("denuncia-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_denuncia.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
 
     /*     * ******************************************** */
     /*     * *********** ASUNTOS INTERNOS *************** */
@@ -43,12 +52,6 @@ switch ($t) {
         ?><script>activame('investigacion');</script><?php
         break;
     case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("denuncias-ai"):include('modules/SIIT-Metro/denuncias_ai.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("add_denuncias"):include('modules/SIIT-Metro/add_denuncias.php');
         ?><script>activame('investigacion');</script><?php
         break;
 

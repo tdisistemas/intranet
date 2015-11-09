@@ -45,7 +45,7 @@ _bienvenido_mysql();
 <?php
 if (isset($_POST['Submit'])) {
 
-    $cedula = $_POST["CedulaInvest"];
+    $cedula = $_POST["CedulaInvestigadorID"];
     $sql = "INSERT INTO investigadores_ai(cedula_invest, status) VALUES(" . $cedula . ",0)";
     $result = mysql_query($sql);
     if ($result) {
@@ -64,36 +64,35 @@ if (isset($_POST['Submit'])) {
 
     <div class="container">
         <div class="row">
-            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" >
+            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" onsubmit="return Seleccionado()">
                 <div class="grid-18">
                     <div class="widget">
                         <div class="widget-content">
                             <div class="row-fluid">
-                                <div class="grid-11">
+                                <div class="grid-12">
                                     <div class="field-group">
-                                        <label style="color:#B22222">Lista de Empleados:</label>
+                                        <label style="color:#B22222">Buscar Investigador:</label>
                                         <div class="field">
-                                            <select id="CedulaInvest" name="CedulaInvest" class="validate[required]" onchange="javascript:SeleccionarEmpleado($('#CedulaInvest'))">
-                                                <?php
-                                                $sql = mysql_query("SELECT nombre,apellido,cedula FROM datos_empleado_rrhh WHERE gerencia LIKE '%seguridad integral%' ORDER BY nombre");
-                                                ?>
-                                                <option value="" selected> *** Seleccionar un Empleado ***</option>
-                                                <?php
-                                                while ($row = mysql_fetch_array($sql)) {
-                                                    ?>
-                                                    <option value="<?php echo $row["cedula"]; ?>"><?php echo $row["nombre"] . ' ' . $row['apellido']; ?></option>
-                                                <?php }
-                                                ?>
-                                            </select>		
+                                            <div class="form-inline">
+                                                <input id="Buscadorinvestigador" type="text" class="form-control"/>
+                                                <input type="button" name="Buscar" onclick="javascript:SeleccionarInvestigador($('#Buscadorinvestigador'));" class="btn btn-error" value="Buscar" />
+                                            </div><!-- /input-group -->
                                         </div>
                                     </div>
+                                    <div class="field-group" id="campo-tabla" style="display: none; height: 300px; overflow: scroll">
+                                        <label style="color:#B22222;" id="lvlBusqueda"></label>
+                                        <table class="table table-striped">
+                                            <tbody id="BusquedaRes" style="display: block; height: 420px; overflow-y: auto; width: 100%"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="grid-12">
                                     <div class="field-group">
                                         <div class="" style="text-align: center">
                                             <img id="retrato" style=" border: solid 5px #ddd;width: 100px;" src="src/images/FOTOS/No-User.jpg"/>
                                         </div>
-                                    </div> <!-- .field-group -->	
-                                </div>
-                                <div class="grid-11">
+                                        </br>
+                                    </div> <!-- .field-group -->
                                     <div class="field-group">
                                         <label style="color:#B22222">Nombre y Apellido:</label>
                                         <div class="field">
@@ -105,6 +104,7 @@ if (isset($_POST['Submit'])) {
                                         <label style="color:#B22222">Cedula:</label>
                                         <div class="field">
                                             <span id="CedulaInvestigador"><br></span>	
+                                            <input id="CedulaInvestigadorID" name="CedulaInvestigadorID" style="display: none" value=""/>	
                                         </div>
                                     </div> <!-- .field-group -->				 
 
@@ -128,12 +128,12 @@ if (isset($_POST['Submit'])) {
                                             <span id="PersonalInvestigador"> <br></span>	
                                         </div>
                                     </div> <!-- .field-group -->
+                                    <div class="actions" style="text-aling:center">
+                                        <button name="Submit" type="submit" class="btn btn-error">Agrega Investigador</button>
+                                        <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
+                                    </div> <!-- .actions -->
                                 </div> <!-- .row-fluid -->
                             </div> <!-- .row-fluid -->
-                            <div class="actions" style="text-aling:center">
-                                <button name="Submit" type="submit" class="btn btn-error">Agrega Investigador</button>
-                                <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
-                            </div> <!-- .actions -->
                         </div> <!-- .widget-content -->
                     </div> <!-- .widget -->	
                 </div><!-- .grid -->	
@@ -157,28 +157,84 @@ _adios_mysql();
         espejo_gerencia();
     }
 
-    function SeleccionarEmpleado(Selected) {
-        var cedula = Selected.val();
+    function Seleccionado() {
+        if (document.getElementById("CedulaInvestigadorID").value == '') {
+            $.alert({
+                type: 'alert'
+                , title: 'Alerta'
+                , text: '<h3>Debe seleccionar a un investigador!</h3>',
+            });
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-        $.ajax({
-            url: 'modules/SIIT-Metro(Admin)/DatosInvestigador.php',
-            dataType: 'JSON',
-            method: 'POST',
-            beforeSend: function () {
-                document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.jpg');
-            },
-            data: {
-                cedula: cedula
-            },
-            success: function (data) {
-                document.getElementById("NombreInvestigador").innerHTML = data.nombre + ' ' + data.apellido;
-                document.getElementById("CedulaInvestigador").innerHTML = data.cedula;
-                document.getElementById("CorreoInvestigador").innerHTML = data.correo;
-                document.getElementById("TelefonoInvestigador").innerHTML = data.telefono_habitacion;
-                document.getElementById("PersonalInvestigador").innerHTML = data.celular;
-                document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + data.cedula + '.jpg');
-            },
-        })
+    function SeleccionarInvestigador(Selected) {
+        var campo = Selected.val();
+        if (campo) {
+            $.ajax({
+                url: 'modules/SIIT-Metro(Admin)/DatosInvestigador.php',
+                dataType: 'JSON',
+                method: 'POST',
+                beforeSend: function () {
+                    document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.jpg');
+                    document.getElementById("NombreInvestigador").innerHTML = '<br>';
+                    document.getElementById("CedulaInvestigador").innerHTML = '<br>';
+                    document.getElementById("CorreoInvestigador").innerHTML = '<br>';
+                    document.getElementById("TelefonoInvestigador").innerHTML = '<br>';
+                    document.getElementById("PersonalInvestigador").innerHTML = '<br>';
+                    document.getElementById("CedulaInvestigadorID").value = '';
+                },
+                data: {
+                    Campo: campo
+                },
+                success: function (data) {
+                    document.getElementById("lvlBusqueda").innerHTML = 'Resultados(' + data.campos + ')';
+                    var datos = {
+                        nombre: '',
+                        cedula: '',
+                    };
+                    var aux = 0;
+                    var lista = '';
+                    while (aux < data.campos)
+                    {
+                        datos.nombre = data.datos[aux].nombre + ' ' + data.datos[aux].apellido;
+                        datos.cedula = data.datos[aux].cedula;
+                        datos.correo = data.datos[aux].correo;
+                        datos.telefono = data.datos[aux].telefono_habitacion;
+                        datos.celular = data.datos[aux].celular;
+                        lista += '<tr>\n\
+                                <td style="width: 30%">' + datos.cedula + '</td>\n\
+                                <td style="width: 60%">' + datos.nombre + '</td>\n\
+                                <td class="center" style="width: 10%">\n\
+                                <a title="Seleccionar" >\n\
+                                <i style="cursor: pointer; " onclick="javascript:InvestigadorSeleccionado(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'' + datos.correo + '\',\'' + datos.telefono + '\',\'' + datos.celular + '\')" class="fa fa-sign-in"></i>\n\
+                                </a>\n\
+                                </td>\n\
+                                </tr>';
+                        aux++;
+                    }
+                    document.getElementById("BusquedaRes").innerHTML = lista;
+                    document.getElementById("campo-tabla").style.display = 'initial';
+                },
+            });
+        } else {
+            $.alert({
+                type: 'alert'
+                , title: 'Alerta'
+                , text: '<h3>Debe agregar un elemento a la busqueda!</h3>',
+            });
+        }
 
+    }
+    function InvestigadorSeleccionado(nombre, cedula, correo, telefono, celular) {
+        document.getElementById("NombreInvestigador").innerHTML = nombre;
+        document.getElementById("CedulaInvestigador").innerHTML = cedula;
+        document.getElementById("CorreoInvestigador").innerHTML = correo;
+        document.getElementById("TelefonoInvestigador").innerHTML = telefono;
+        document.getElementById("PersonalInvestigador").innerHTML = celular;
+        document.getElementById("CedulaInvestigadorID").value = cedula;
+        document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
     }
 </script>

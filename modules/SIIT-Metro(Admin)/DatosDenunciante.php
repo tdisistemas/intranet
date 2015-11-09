@@ -25,6 +25,8 @@ if (is_numeric($_GET['Campo'])) {
             . " AND CONCAT_WS(' ',nombre,apellido) LIKE '%" . $cadena[0] . "%')"
             . " OR CONCAT_WS(' ',nombre,apellido) LIKE '%" . $_GET['Campo'] . "%'";
 }
+$sqlcode.=' ORDER BY cedula';
+
 $sql = mysql_query($sqlcode);
 $i = 0;
 while ($result = mysql_fetch_array($sql)) {

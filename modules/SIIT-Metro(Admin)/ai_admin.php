@@ -73,9 +73,10 @@ _bienvenido_mysql();
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta seccion podra acceder al panel de control del modulo Asuntos Internos</p>
+                    <p>En esta seccion podra acceder al panel de control del modulo Asuntos Internos.</p>
                     <div class="box plain">
                         <a href="dashboard.php?data=investigadores" class="btn btn-primary btn-large dashboard_add">Investigadores</a>
+                        <a href="dashboard.php?data=denuncias-ai" class="btn btn-primary btn-large dashboard_add">Denuncias</a>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>
