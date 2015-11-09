@@ -76,6 +76,19 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <a href="dashboard.php?data=prueba">Página de Prueba</a>				
                                         </li>
                                     <?php } ?>
+                                    
+                                    
+                                    <?php if (in_array('ControlGestion', $usuario_permisos)) { ?>
+                                        <li id="controlgestion" class="nav "> 
+                                            <span class="icon-document-alt-stroke"></span>
+                                            <a href="javascript:;">Control y Gestión</a>				
+                                            <ul class="subNav">
+                                                <li><a href="dashboard.php?data=controlg">Clase I</a></li>
+                                                <li><a href="dashboard.php?data=controlcl">Clase II y Clase IV</a></li>
+                                            </ul>						
+                                        </li>
+                                    <?php } ?>
+                                    
                                     <?php if (in_array('Listines', $usuario_permisos)) { ?>
                                         <li id="listines" class="nav">
                                             <span class="icon-layers"></span>

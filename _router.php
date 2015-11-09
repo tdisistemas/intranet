@@ -22,6 +22,38 @@ switch ($t) {
     case ("prueba"):include('modules/ModuloPrueba/Ver_Usuarios.php');
         ?><script>activame('prueba');</script><?php
         break;
+    
+    /*     * ** CONTROL Y GESTIÓN CLASE I *** */
+    case ("controlg"):include('modules/ControlGestion/registro_cl1.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("insertar_cl1"):include('modules/ControlGestion/insertar_cl1.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("inser-proy"):include('modules/ControlGestion/insertar-proy.php');
+        ?><script>activame('controlg');</script><?php
+        break;
+    case ("edicion_reg"):include('modules/ControlGestion/edicion.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("seg_fase"):include('modules/ControlGestion/segunda_fase.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("consultar"):include('modules/ControlGestion/consulta.php');
+        ?><script>activame('controlg');</script><?php
+        break;
+    
+     /*     * ** CONTROL Y GESTIÓN CLASE II y CLASE IV *** */
+    case ("controlcl"):include('modules/ControlGestion/registro_cl2.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("insertar_cl2"):include('modules/ControlGestion/insertar_cl2.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("insertar-proy1"):include('modules/ControlGestion/insertar-proy1.php');
+        ?><script>activame('controlg');</script><?php
+        break;
+    case ("edicion_reg1"):include('modules/ControlGestion/edicion1.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("seg_fase1"):include('modules/ControlGestion/segunda_fase1.php');
+        ?><script>activame('controlg');</script><?php break;
+    case ("consultar"):include('modules/ControlGestion/consulta.php');
+        ?><script>activame('controlg');</script><?php
+        break;
 
     /*     * ** NOTIFICACION *** */
     case ("notificar"):include('./notificar.php');
