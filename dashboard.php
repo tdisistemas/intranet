@@ -83,8 +83,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <span class="icon-document-alt-stroke"></span>
                                             <a href="javascript:;">Control y Gestión</a>				
                                             <ul class="subNav">
-                                                <li><a href="dashboard.php?data=controlg">Clase I</a></li>
-                                                <li><a href="dashboard.php?data=controlcl">Clase II y Clase IV</a></li>
+                                                <li><a href="dashboard.php?data=controlg">Proyecto</a></li>
+                                               
                                             </ul>						
                                         </li>
                                     <?php } ?>

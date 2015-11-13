@@ -50,7 +50,7 @@ if (isset($_POST['enviar'])) {
     $consecutivo = mysql_query("update control_conse set conse='" . $conse1 . "' where caracteristicas='$tipo_soli' ");
     $pdc = $caracteristica .'-'. $id. '-00'.$conse1.'-' . $actual[1] ;
     
-    $status = mysql_query("update control_gestion set estatus_servi=1 where n_proceso='$id' ");
+    $status = mysql_query("update control_gestion set estatus_servi=3 where n_proceso='$id' ");
     $sql = "INSERT INTO `control_gestion2` (punto_cuenta,`tipo_solicitud`,montoec,`montooc`, `deviacion`, `montoate`, n_proceso) VALUES"
             . " ('" . $pdc . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "', '" . $id . "')";
     $result = mysql_query($sql);
@@ -88,7 +88,7 @@ if (isset($_POST['enviar'])) {
                                     <div class="field">
                                     <select name="tipo_soli" id="tipo_soli" style="width:130px" >
                                         <option value="">Seleccione</option>
-                                    <option value="EC">Estimados de Costo</option>
+                                    <option value="AP">Ajuste de Precio</option>
                                     
                                 </select>
                                     </div>
@@ -223,5 +223,3 @@ function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
 javascript</script>
-
-

@@ -10,50 +10,52 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 ?>
-<?php
-if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
-    header("Location: ../../dashboard.php");
-}
-if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
-    notificar("Usted no tiene permisos para esta Sección/Módulo", "dashboard.php?data=notificar", "notify-error");
-    _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
-}
-_wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
-?>
+
 
 <div id="contentHeader">
 
-    <?php //decode_get2($_SERVER["REQUEST_URI"],1);  ?>
-
-    <h2>Insertar Tipo de solicitud <?= $_GET["estatus"]; ?></h2>
+    <?php 
+decode_get2($_SERVER["REQUEST_URI"], 2);
+    $id = _antinyeccionSQL($_GET["np"]);
+//decode_get2($_SERVER["REQUEST_URI"],1);  ?>
+    
+    <h2>Segunda Fase del Proyecto</h2>
 </div> <!-- #contentHeader -->	
 
 <?php
 if (isset($_POST['enviar'])) {
 
-    $id_cgestion2=$_POST['id_cgestion2'];
-    $tipo_soli=$_POST['tipo_soli'];
-    $monto=$_POST['monto'];
-    $estatus2=$_POST['estatus'];
-    $gerente_costo=$_POST['gerente_costo'];
-    $enviado_presi=$_POST['enviado_presi'];
-    $recibido_presi=$_POST['recibido_presi'];
-    $instrucciones=$_POST['instruccion']; 
-    $fecha_egreso=$_POST['fecha_egreso']; 
-    $entregado=$_POST['entregado'];
-    $observaciones=$_POST['observaciones'];
+    $id_cgestion2 = $_POST['id_cgestion2'];
+    $tipo_soli = $_POST['tipo_soli'];
+    $monto1 = $_POST['monto1'];
+    $monto2 = $_POST['monto2'];
+    $monto3 = $_POST['monto3'];
+    $deviacion = $_POST['deviacion'];
     
-    _bienvenido_mysql();
 
+    $sql = mysql_query("SELECT caracteristicas, conse 
+    FROM `control_conse`
+    WHERE `caracteristicas` = '$tipo_soli'");
 
-    decode_get2($_SERVER["REQUEST_URI"], 2);
-    $id = _antinyeccionSQL($_GET["np"]);
-   
-    $sql = "INSERT INTO `control_gestion2` (`tipo_solicitud`,monto,`estatus2`, `gerente_costo`, `enviado_presidencia`, `recibido_presidencia`, `instruccion`, `fecha_egreso`,  `entregado`, `observaciones`, id_cgestion) VALUES"
-        . " ('" . $tipo_soli . "','" . $monto . "','" . $estatus2 . "', '" . $gerente_costo . "','" . $enviado_presi . "','" . $recibido_presi . "','" . $instrucciones . "','" . $fecha_egreso . "','" . $entregado . "','" . $observaciones . "', '" . $id . "')";
+    while ($row = mysql_fetch_array($sql)) {
+
+        $caracteristica = $row['caracteristicas'];
+        $conse = $row['conse'];
+    }
+    
+    $correlativo=(explode('-',$id));
+    $ano = date('Y');
+    $actual = (explode("20", $ano));
+    $conse1 = $conse + 1;
+    $consecutivo = mysql_query("update control_conse set conse='" . $conse1 . "' where caracteristicas='$tipo_soli' ");
+    $pdc = $caracteristica .'-'. $id. '-00'.$conse1.'-' . $actual[1] ;
+    $status = mysql_query("update control_gestion set estatus_servi=2 where n_proceso='$id' ");
+    
+    $sql = "INSERT INTO `control_gestion2` (punto_cuenta,`tipo_solicitud`,montoec,`montooc`, `deviacion`, `montoate`, n_proceso) VALUES"
+            . " ('" . $pdc . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "', '" . $id . "')";
     $result = mysql_query($sql);
     if ($result) {
-        notificar("Usuario ingresado con exito", "dashboard.php?data=controlcl", "notify-success");
+        notificar("Segunda Fase del Proceso Ingresada con exito", "dashboard.php?data=controlg", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -61,120 +63,163 @@ if (isset($_POST['enviar'])) {
             die('Error en Agregar Registro');
         }
     }
-}			
-
-
-    
-
+}
 ?>
 
 
 <!-- #contentHeader -->
 <div class="container">
-  <div class="row">
-    <div class="grid-24">
-      <div class="widget">
-        <div class="widget-header"> <span class="icon-layers"></span>
-          <h3>Cargar Datos </h3>
+    <div class="row">
+        <div class="grid-16">
+            <div class="widget">
+                <div class="widget-header"  > <span class="icon-folder-fill"></span>
+                    <h3>Segunda Fase del Proyecto</h3>
+                </div>
+
+                <div class="widget-content">
+                    <div class="row">
+                        <form class="form validateForm" action="#" method="post"  onsubmit="return validarForm(this)" >
+                            
+                            <div class="grid-4">
+                            </div>
+                            <div class="grid-8">
+                                <div class="field-group">
+                                    <label>Tipo de Solicitud:<br></label>   
+                                    <div class="field">
+                                    <select name="tipo_soli" id="tipo_soli" style="width:130px" >
+                                        <option value="">Seleccione</option>
+                                    <option value="ATE">Análisis Técnico- Económico</option>
+                                    
+                                </select>
+                                    </div>
+                                </div>
+                                <div class="field-group">
+                                    <label for="required">Monto Oferta Comercial:</br></label>   
+                                    <div class="field">
+                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC."/>
+                                    </div>
+                                </div>
+                              
+                                  <div class="field-group">
+                                    <label for="required">Monto ATE:</br></label>   
+                                    <div class="field">
+                                   <input type="text" name="monto3" id="monto3" size="16" placeholder="Monto Bsf ATE."/>
+                                    </div>
+                                </div>
+                            </div>
+                   
+                            <div class="grid-12">
+                                <div class="field-group">
+                                    <label for="required">Monto Estimación de Costo:</br></label>   
+                                    <div class="field">
+                                   <input type="text" name="monto1" id="monto1" size="16" placeholder="Monto Bsf EC."/>
+                                    </div>
+                                </div>
+                                  <div class="field-group">
+                                    <label for="required">Deviación:</br></label>   
+                                    <div class="field">
+                                   <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación."/>
+                                    </div>
+                                </div>
+                             
+                                
+                            </div>
+                          
+               
+                                <div class="grid-24" align="center">
+                                    <table >
+                                        
+                                        <tr>
+                                            <td align="center"><button type="submit" name="enviar" class="btn btn-primary">Enviar</button></td>
+                                            <td><button type="submit" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" >Regresar</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-<div class="widget-content">
-							
-<form class="form validateForm" action="#" method="post"  onsubmit="return validate()" enctype="multipart/form-data" >
-
-
-<div class="grid-4">
-<label>Tipo de Solicitud:<br></label>   
-<select name="tipo_soli" id="tipo_soli" style="width:130px" >
-    <option>Seleccione</option>
-    <option value="EC">Estimados de Costo</option>
-    <option value="ATE">Análisis Técnico-Económico</option>
-    <option value="AP">Ajuste de Precio</option>
-</select>
-</div>	
-
-<div class="grid-4">
-<label for="required">Monto Bs.:</br></label>
-<input type="text" name="monto" id="monto" size="14" class="validate[required]" placeholder="Monto Bs."/>	
-</div>
-
-    
-<div class="grid-4">		
-<label for="datepicker">VoBo Gerente de Costos:</br></label>
-<input type="date" name="gerente_costo" id="datepicker" size="14" class="validate[required]" placeholder="Fecha Gerente de Costo"/>
-</div>
-
-<div class="grid-4">		
-<label for="datepicker">Enviado a Presidencia:</br></label>
-<input type="date" name="enviado_presi" id="datepicker" size="14" class="validate[required]" placeholder="Enviado a presidencia"/>
-</div>
-
-
-<div class="grid-4">		
-<label for="datepicker">Recibido de Presidencia:</br></label>
-<input type="date" name="recibido_presi" id="datepicker" size="14" class="validate[required]" placeholder="Enviado a presidencia"/>
-</div>
-
-<div class="grid-4">
-<label>Instrucción del Presidente:<br></label>   
-<select name="instruccion" id="instruccion" style="width:130px" >
-    <option>Seleccione</option>
-    <option value="Aprobado">Aprobado</option>
-    <option value="Rechazado">Rechazado</option>
-    
-</select>
-</div>	
-<div class="grid-4">		
-<label for="datepicker">Fecha de Egreso del Expediente de Costos:</br></label>
-<input type="date" name="fecha_egreso" id="datepicker" size="14" class="validate[required]" placeholder="Enviado a presidencia"/>
-</div>
-    
-<div class="grid-4">
-<label for="required">Entregado a:</br></label>
-<input type="text" name="entregado" id="nombre_empre" size="14" class="validate[required]" placeholder="Nombre de la Empresa y/o Constructor"/>	
-</div>    
-
-<div class="grid-4">
-<label for="required">Observaciones:</br></label>
-<input type="text" name="observaciones" id="nombre_empre" size="14" class="validate[required]" placeholder="Nombre de la Empresa y/o Constructor"/>	
-</div>  
-
-<div class="grid-4 ">
-<label>Estatus del Tramite:<br></label>   
-<select  name="estatus" id="estatus" style="width:130px">
-<option>Seleccione</option>
-<option value="R">Revisión</option>
-<option value="ET">En tramite</option>
-<option value="D">Devuelto</option>
-<option value="E">Entregado</option>
-</select>
-</div>
-
- 
-
-<div class="grid-24" align="center">
-<table >
-  <tr>
-    <td align="center">
-<div id="cargador" style="display:none;font-size:14px"> <img src="src/images/loaders/indicator-big.gif" width="10" height="10" /> Cargando </div> 
-<div id="cargador_2" style="display:none;font-size:14px"> <img src="src/images/loaders/indicator-big.gif" width="10" height="10" /> Cargando </div>
-
-</td>
-  </tr>
-  <tr>
-      <td align="center"><button type="submit" name="enviar" class="btn btn-primary">Enviar</button></td>
-      <td input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" >Regresar</td>
-  </tr>
-</table>
-</div>
-
-
-</form>
+    </div>
+    <div class="grid-8">				
+        <div class="widget">			
+          <div class="widget-header">
+          <span class="icon-layers"></span>
+            <h3></h3>
+          </div>
+          <div class="widget-content">
+            <h3>Estimado, <?php echo $usuario_datos[1] . ' ' . $usuario_datos[2]  ; ?></h3>
+            <p>En esta sección podrá ingresar los datos de la segunda fase del proceso</p>
+            <!-- .pad -->
+            </div>  
+           
+          </div>
+        </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
+<script type="text/javascript">
+    function validarForm(formulario) {
 
-
+  if(formulario.tipo_soli.value.length==0) { //¿Tiene 0 caracteres?
+    formulario.tipo_soli.focus();    // Damos el foco al control
+    alert('Debe seleccionar el Tipo de solicitud'); //Mostramos el mensaje
+    return false; //devolvemos el foco
+  }
+   if(formulario.monto.value.length==0) { //¿Tiene 0 caracteres?
+    formulario.monto.focus();    // Damos el foco al control
+    alert('Debe ingresar un Monto'); //Mostramos el mensaje
+    return false; //devolvemos el foco
+  }
+  
+   }
+  $(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker").datepicker({
+dateFormat: 'yy-mm-dd',
+changeMonth: true,
+changeYear: true,
+yearRange: "1950:2014"
+});
+});
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker1").datepicker({
+dateFormat: 'yy-mm-dd',
+changeMonth: true,
+changeYear: true,
+yearRange: "1950:2014"
+});
+});
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker2").datepicker({
+dateFormat: 'yy-mm-dd',
+changeMonth: true,
+changeYear: true,
+yearRange: "1950:2014"
+});
+});
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker3").datepicker({
+dateFormat: 'yy-mm-dd',
+changeMonth: true,
+changeYear: true,
+yearRange: "1950:2014"
+});
+});
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker4").datepicker({
+dateFormat: 'yy-mm-dd',
+changeMonth: true,
+changeYear: true,
+yearRange: "1950:2014"
+});
+});
+function conMayusculas(field) {
+field.value = field.value.toUpperCase()
+}
+javascript</script>

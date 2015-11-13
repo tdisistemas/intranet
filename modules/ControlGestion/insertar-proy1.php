@@ -18,7 +18,7 @@ $nombre_empre=$_POST['nombre_empre'];
 $deviacion=$_POST['deviacion']; 
 $estatus=$_POST['estatus'];
 
-  _bienvenido_mysql();
+
 $sql = mysql_query("SELECT caracteristicas, conse 
 FROM `control_conse`
 WHERE `caracteristicas` = 'GC'");
@@ -48,7 +48,7 @@ $result=  mysql_query($u);
     }
 }
  else {
-   ir('dashboard.php?data=controlcl');  
+   notificar("Primera Fase del Proyeto Ingresada con Exito", "dashboard.php?data=controlcl", "notify-success");
 }
 
 

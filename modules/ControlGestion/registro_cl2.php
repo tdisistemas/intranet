@@ -8,71 +8,38 @@ _wm($usuario_datos[9],'Acceso Autorizado en: '.ucwords(array_pop(explode('/', __
 ?>
 
 <div id="contentHeader">
-	<h2>Registro de Proyectos</h2>
+	<h2>Registro de Procesos</h2>
 </div> <!-- #contentHeader -->	
 
 <div class="container">
 	<?php include('notificador.php'); ?>
   
   
-	<div class="grid-24">	
-  	<div class="widget widget-plain">
-					
-					<div class="widget-content">
-				
-
-						
-						<div class="dashboard_report first activeState">
-							<div class="pad">
-								<span class="value"><?php echo $a; ?></span> Total de Empleados
-							</div> <!-- .pad -->
-						</div>
-						
-						<div class="dashboard_report defaultState">
-							<div class="pad">
-								<span class="value"><?php echo $b; ?></span> Total sin correos personal
-							</div> <!-- .pad -->
-						</div>
-						
-						<div class="dashboard_report defaultState">
-							<div class="pad">
-								<span class="value"><?php echo $c; ?></span> Total sin usuario institucional
-							</div> <!-- .pad -->
-						</div>
-						
-						<div class="dashboard_report defaultState last">
-							<div class="pad">
-								<span class="value"><?php echo $d; ?></span> Total sin perfil asignado
-							</div> <!-- .pad -->
-						</div>
-						
-					</div> <!-- .widget-content -->
-					
-				</div> <!-- .widget -->	
-	</div> <!-- .grid -->
-
   <div class="grid-24">	
 		<div class="widget widget-table">
 			<div class="widget-header">
 				<span class="icon-list"></span>
-				<h3 class="icon chart">Registro de Proyectos</h3>		
+				<h3 class="icon chart">Registro de Procesos Clase II y Clase IV</h3>		
 				<span class="icon-folder-fill"></span>
-				<h3 class="icon chart"><a href="dashboard.php?data=insertar_cl2" style="color: white;text-decoration: none;">Agregar Proyecto</a></h3>		
+				<h3 class="icon chart"><a href="dashboard.php?data=insertar_cl2" style="color: white;text-decoration: none;">Agregar Procesos</a></h3>		
 			</div>
 			<div class="widget-content">
 				<table class="table table-bordered table-striped data-table">
 					<thead>
 						<tr>
-							<th style="width:15%">N° de Proceso</th>
-							<th style="width:23%">Fecha de Ingreso</th>
-                                                        <th style="width:35%">Gerencia Requiriente</th>
+							<th style="width:10%">N° de Proceso</th>
+							<th style="width:10%">Fecha de Ingreso</th>
+                                                        <th style="width:20%">Gerencia Requiriente</th>
                                                         <th style="width:15%">Responsable</th>
+                                                        <th style="width:15%">Nombre de la Obra/Actividad</th>
+                                                        <th style="width:10%">Nombre de la Empresa y/o Contructor</th>
+                                                        <th style="width:10%">Estatus del Tramite</th>
 							<th style="width:12%">Opciones</th>
 						</tr>
 					</thead>
 					<tbody>
                             <?php
-						_bienvenido_mysql();
+						
 						mysql_query("set names utf8");
 						$sql=mysql_query("SELECT *FROM control_gestion WHERE clase='ClaseII' or clase='ClaseIV'");
 						while($row=mysql_fetch_array($sql)){
@@ -82,6 +49,9 @@ _wm($usuario_datos[9],'Acceso Autorizado en: '.ucwords(array_pop(explode('/', __
                                 <td><?php echo $row[3] ?></td>
                                 <td><?php echo $row[4] ?></td>
                                 <td><?php echo $row[5] ?></td>
+                                <td><?php echo $row[6] ?></td>
+                                <td><?php echo $row[7] ?></td>
+                                <td><?php echo $row[9] ?></td>
                                 <td class="center">
                                     <?php
                                     $parametros = 'id=' . $row[0];
@@ -106,10 +76,26 @@ _wm($usuario_datos[9],'Acceso Autorizado en: '.ucwords(array_pop(explode('/', __
                                     <?php
                                     }
                                     ?>
-                                    <a href="dashboard.php?data=consultar&flag=1&<?php echo $parametro; ?>" id="consultar" title="Consultar">
+                                    <?php
+                                    $boton=  mysql_query("SELECT * FROM `control_gestion2` "
+                                                . "WHERE `id_cgestion` = '$row[2]'");
+                                        $res=  mysql_num_rows($boton);
+                                    if($res<=0){
+                                                                            
+                                    ?>
+                                    
+                                    <?php
+                                    } else {
+                                        
+                                    ?>
+                                    <a href="dashboard.php?data=consultar2&flag=1&<?php echo $parametro; ?>" id="consultar" title="Consultar">
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-magnifying-glass"></span></div>
                                     </a>
-                                    
+                                      
+                                    <?php
+                                    } 
+                                        
+                                    ?>
                                     <!--<a href="javascript:eliminar('<?php echo $row["Nombre"] ?>','dashboard.php?data=pruebadelete&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
                                     </a-->

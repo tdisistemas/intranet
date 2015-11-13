@@ -8,23 +8,24 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 ?>
-<?php
-include('notificador.php');
-decode_get2($_SERVER["REQUEST_URI"], 2);
-$id = _antinyeccionSQL($_GET["np"]);
-decode_get2($_SERVER["REQUEST_URI"], 2);
-$id_2 = _antinyeccionSQL($_GET["np_2"]);
-?>
+ <?php
+    include('notificador.php');
+    decode_get2($_SERVER["REQUEST_URI"], 2);
+    $id = _antinyeccionSQL($_GET["np"]);
+    decode_get2($_SERVER["REQUEST_URI"], 2);
+    $id_2 = _antinyeccionSQL($_GET["np_2"]);
+    ?>
 <div id="contentHeader">
     <h2>Registro de Procesos</h2>
 </div> <!-- #contentHeader -->	
+
 <div class="container">
-    
+   
     <div class="grid-24">	
         <div class="widget widget-table">
             <div class="widget-header">
                 <span class="icon-arrow-left"></span>
-                <h3 class="icon chart"><a href="dashboard.php?data=controlg" style="color: white;text-decoration: none;">Regresar</a></h3>	
+                <h3 class="icon chart"><a href="dashboard.php?data=controlcl" style="color: white;text-decoration: none;">Regresar</a></h3>	
 
             </div>
             <div class="widget-content">
@@ -44,7 +45,7 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
                     <tbody>
                         <?php
                         mysql_query("set names utf8");
-                        $sql = mysql_query("SELECT * FROM control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "' ");
+                        $sql = mysql_query("SELECT * FROM control_gestion2 WHERE id_cgestion='" . $id . "' || id_cgestion='" . $id_2 . "' ");
                         while ($row = mysql_fetch_array($sql)) {
                             ?>
                             <tr class="gradeA">
@@ -62,15 +63,14 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
                                     $parametros = _desordenar($parametros);
                                     $parametro = 'np=' . $row[2];
                                     $parametro = _desordenar($parametro);
-                                    
                                     ?>  
-                                    <a href="dashboard.php?data=edicion_reg&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
+                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
                                     </a>
                                 </td>
                             </tr>
 
-                        <?php } ?>
+<?php } ?>
 
 
                     </tbody>

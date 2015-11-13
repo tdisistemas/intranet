@@ -20,19 +20,19 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $id = _antinyeccionSQL($_GET["id"]);
-    
+    _bienvenido_mysql();
     $result = mysql_query("SELECT * FROM control_gestion2 WHERE id_cgestion2 = " . $id);
     $reg = mysql_fetch_array($result);
-    $parametros = 'id=' . $id;
+$parametros = 'id=' . $id;
  $parametros = _desordenar($parametros);
     $num_rows = mysql_num_rows($result);
 
     if ($num_rows == 1) {
         $id_2 = $reg["id_cgestion"];
-        $punto_cuenta1 = $reg[1];
+        $punto_cuenta1 = $reg["punto_cuenta"];
         $tiposoli = $reg[2];
         $monto = $reg[3];
-        $estatu= $reg[4];
+        $estatu = $reg[4];
         $gerente_costo = $reg[5];
         $enviado_presi = $reg[6];
         $recibido_presi = $reg[7];
@@ -46,8 +46,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 if (isset($_POST['Submit'])) {
     
     $id = $_POST["id_cgestion2"];
-    $punto_cuenta = $_POST["punto_cuenta"];
-    
+    $punto_cuenta=$_POST["punto_cuenta"];
     $monto = $_POST["monto"];
     $estatus = $_POST["estatus"];
     $gerente_costo = $_POST["gerente_costo"];
@@ -60,18 +59,16 @@ if (isset($_POST['Submit'])) {
     $parametro = 'np=' . $id_2;
     $parametro = _desordenar($parametro);
        
-$auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`accion`, `cambio`, `n_proceso`,`punto_cuenta`) VALUES ('$usuario_datos[9]', '$estatu', 'Update', '$estatus','$id_2', '$punto_cuenta1')"); 
- 
- $sql="UPDATE control_gestion2 SET  monto='".$monto."', estatus2='".$estatus."', gerente_costo='".$gerente_costo."', enviado_presidencia='".$enviado_presi."', "
+ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`accion`, `cambio`, `n_proceso`,`punto_cuenta`) VALUES ('$usuario_datos[9]', '$estatu', 'Update', '$estatus','$id_2', '$punto_cuenta1')");  
+ $sql="UPDATE control_gestion2 SET  punto_cuenta='".$punto_cuenta."',monto='".$monto."', "
+          . "estatus2='".$estatus."', gerente_costo='".$gerente_costo."', enviado_presidencia='".$enviado_presi."', "
           . "recibido_presidencia='".$recibido_presi."',instruccion='".$instrucciones."', fecha_egreso='".$fecha_egreso."',"
           . "entregado='".$entregado."', observaciones='".$observaciones."' WHERE id_cgestion2=".$id;
-  
-  
   
   $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
   if($result){
-    notificar("Segunda Fase Modificada con Exito" ,"dashboard.php?data=consultar&flag=1&$parametro", "notify-success");
+    notificar("Segunda Fase Modificada con Exito" ,"dashboard.php?data=consultar2&flag=1&$parametro", "notify-success");
   }
   else { 
     die(mysql_error());
@@ -97,7 +94,7 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                              <div class="field-group" align="center">
                                     <label for="required">Punto de Cuenta:</label>    
                                     <div class="field">
-                                        <input type="text"  name="punto_cuenta" id="NombreUser" size="14"  value="<?php echo $punto_cuenta1; ?>" disabled  />
+                                        <input type="text"  name="punto_cuenta" id="NombreUser" size="14"  value="<?php echo $punto_cuenta; ?>" />
                                     </div>
                                 </div>
                           </div>
@@ -113,14 +110,14 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                                 <div class="field-group">
                                     <label for="datepicker">Enviado a Presidencia:</br></label>   
                                     <div class="field">
-                                        <input id="datepicker" name="enviado_presi" size="14"  value="<?php echo $enviado_presi; ?>">
+                                    <input id="datepicker" name="enviado_presi" size="14"  value="<?php echo $enviado_presi; ?>">
                                     </div>
                                 </div>
                                 
                                 <div class="field-group">
                                     <label for="datepicker">Fecha de Egreso:</br></label> 
                                     <div class="field">
-                                    <input type="date" name="fecha_egreso" id="datepicker1" size="14" value="<?php echo $fecha_egreso; ?>"/>
+                                    <input type="date" name="fecha_egreso" id="datepicker1" size="14" placeholder="Enviado a presidencia" value="<?php echo $fecha_egreso; ?>"/>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +128,7 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                                 <div class="field-group">
                                     <label for="required">Monto Bs.:</br></label>   
                                     <div class="field">
-                                        <input type="text" name="monto" id="monto" size="14" value="<?php echo $monto; ?>" disabled/>
+                                   <input type="text" name="monto" id="monto" size="14" value="<?php echo $monto; ?>"/>
                                     </div>
                                 </div>
                                 
@@ -145,7 +142,7 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                                 <div class="field-group">
                                     <label for="required">Entregado a:</br></label> 
                                     <div class="field">
-                                   <input type="text" name="entregado" id="nombre_empre" size="14"  placeholder="Nombre de la Empresa y/o Constructor" value="<?php echo $entregado; ?>" onChange="conMayusculas(this)"/>	
+                                   <input type="text" name="entregado" id="nombre_empre" size="14" placeholder="Nombre de la Empresa y/o Constructor" value="<?php echo $entregado; ?>"onChange="conMayusculas(this)"/>	
                                     </div>
                                 </div>
                             </div>
@@ -154,14 +151,14 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                                 <div class="field-group">
                                     <label for="datepicker">Fecha de Aprobación:</br></label>   
                                     <div class="field">
-                                        <input type="date" name="gerente_costo" id="datepicker3" size="14"  value="<?php echo $gerente_costo; ?>" disabled />
+                                   <input type="date" name="gerente_costo" id="datepicker3" size="14" value="<?php echo $gerente_costo; ?>" />
                                     </div>
                                 </div>
                                 <div class="field-group">
                                     <label>Instrucción Presidente:<br></label>      
                                     <div class="field">
                                    <select name="instruccion" id="instruccion" style="width:130px" value="<?php echo $instrucciones; ?>">
-                                       <option value="">Seleccione</option>
+                                    <option>Seleccione</option>
                                     <option value="Aprobado">Aprobado</option>
                                     <option value="Rechazado">Rechazado</option>
 
@@ -173,7 +170,7 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                                     <label>Estatus:<br></label>         
                                     <div class="field">
                                    <select  name="estatus" id="estatus" style="width:130px">
-                                        <option>Seleccione</option>
+                                       <option value="">Seleccione</option>
                                         <option value="REVISIÓN">Revisión</option>
                                         <option value="EN TRAMITE">En tramite</option>
                                         <option value="DEVUELTO">Devuelto</option>
@@ -191,7 +188,7 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                                     <label for="required">Observaciones:</label>    
                                     <div class="field">
                                         
-                                        <textarea name="observaciones" id="observaciones" cols="60" rows="4" class="" onChange="conMayusculas(this)"><?php echo $observaciones; ?></textarea>
+                                        <textarea name="observaciones" id="observaciones" cols="60" rows="4" onChange="conMayusculas(this)"><?php echo $observaciones; ?></textarea>
                   <label for="date"></label>	
                                     </div>
                                 </div>
@@ -210,7 +207,8 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
                                         </tr>
                                         <tr>
                                             <div class="actions">
-                                            <td align="center"><button type="submit" name="Submit" class="btn btn-primary">Enviar</button></td>
+                                            
+                                                <td align="center"><button type="submit" name="Submit" onclick="javascript:window.history.back(5);" class="btn btn-primary">Enviar</button></td>
                                             <td align="center"><button type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error"/>Regresar</button></td>
                                             </div>
                                             </tr>
@@ -235,12 +233,13 @@ $auditoria=mysql_query("INSERT INTO `control_auditoria` ( `usuario`, antes,`acci
             <p>En esta sección podrá editar los datos de la segunda fase del proceso</p>
             <!-- .pad -->
             </div>  
-           
+            <?php
+            _adios_mysql();
+            ?>
           </div>
         </div>
 </div>
 </div>
-
 
 <script type="text/javascript">
 
@@ -285,3 +284,5 @@ function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
 javascript</script>
+
+
