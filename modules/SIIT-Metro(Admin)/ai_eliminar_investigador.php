@@ -15,7 +15,7 @@ if ($_GET["flag"]) {
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $idinvest = _antinyeccionSQL($_GET["id"]);
     _bienvenido_mysql();
-    $sql = "UPDATE investigadores_ai SET status = 1 WHERE id_invest = " . $idinvest;
+    $sql = "UPDATE ai_investigadores SET status = 1 WHERE id_invest = " . $idinvest;
     $result = mysql_query($sql) or die('Error Eliminando Investigador - ' . mysql_error());
     if ($result) {
         notificar("Investigador eliminado con exito", "dashboard.php?data=investigadores", "notify-error");

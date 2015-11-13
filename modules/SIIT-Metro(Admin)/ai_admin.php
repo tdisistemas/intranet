@@ -7,7 +7,6 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
-
 ?>
 
 <script type="text/javascript">
@@ -54,22 +53,99 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 <?php
 decode_get2($_SERVER["REQUEST_URI"], 2);
 _bienvenido_mysql();
-
 ?>
 <div class="container">
+    <div class="grid-24">	
+        <div class="widget widget-plain">
+
+            <div class="widget-content">
+
+                <?php
+
+                $sqlcode = "SELECT "
+                        . "a.idAveriguacion,"
+                        . "a.codigo_ave,"
+                        . "b.codigo,"
+                        . "b.status AS st_den,"
+                        . "a.fecha,"
+                        . "d.nombre,"
+                        . "d.apellido,"
+                        . "a.status AS st_ave "
+                        . "FROM ai_averiguaciones a "
+                        . "INNER JOIN ai_denuncias b ON a.denuncia = b.idDenuncia "
+                        . "INNER JOIN ai_investigadores c ON a.investigador=c.id_invest "
+                        . "INNER JOIN datos_empleado_rrhh d ON c.cedula_invest = d.cedula";
+                
+                $sql = mysql_query($sqlcode);
+                $a = mysql_num_rows($sql);
+                ?>
+
+                <div style="margin-left: 400px;" class="dashboard_report first activeState">
+                    <div class="pad" align="center">
+                        <span class="value"><?php echo $a; ?></span> Total de Averiguaciones
+                    </div> <!-- .pad -->
+                </div>
+
+
+
+            </div> <!-- .widget-content -->
+
+        </div> <!-- .widget -->	
+    </div> <!-- .grid -->
     <div class="row"> 
         <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
-            <div class="grid-18">
-                <div class="widget">
-                    <div class="widget-header">
-                        <span class="icon-layers"></span>
-                        <h3>Investigaciones en Abiertas</h3>
-                    </div>
-                    <div class="widget-content">
-                        
-                    </div><!-- .grid -->
-                </div><!-- .grid -->	
-            </div><!-- .grid -->	
+            <div class="grid-18">	
+        <div class="widget widget-table">
+            <div class="widget-header">
+                <span class="icon-list"></span>
+                <h3 class="icon chart">Registro de Averiguaciones</h3>
+            </div>
+            <div class="widget-content">
+                <table class="table table-bordered table-striped data-table">
+                    <thead>
+                        <tr>
+                            <th style="width:15%">Codigo</th>
+                            <th style="width:15%">Denuncia</th>
+                            <th style="width:10%">Fecha</th>
+                            <th style="width:5%">Estatus D</th>
+                            <th style="width:5%">Estatus A</th>
+                            <th style="width:40%">Investigador</th>
+                            <th style="width:10%">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($row = mysql_fetch_array($sql)) {
+                            ?>
+                            <tr class="gradeA">
+                                <td><?php echo $row['codigo_ave'] ?></td>
+                                <td><?php echo $row['codigo'] ?></td>
+                                <td><?php echo $row['fecha'] ?></td>
+                                <td><?php echo $row['st_den'] ?></td>
+                                <td><?php echo $row['st_ave'] ?></td>
+                                <td><?php echo $row['nombre'].' '.$row['apellido'] ?></td>
+
+                                <td class="center">
+                                    <?php
+                                    $parametros = 'id=' . $row["idAveriguacion"];
+                                    $parametros = _desordenar($parametros);
+                                    ?>  
+                                    <a href="dashboard.php?data=investigacion-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
+                                        <i class="fa fa-search-plus" style="color: black"></i>
+                                    </a><!--
+                                    <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
+                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
+                                    </a>-->
+                                </td>
+                            </tr>									
+                            <?php
+                        }
+                        ?> 
+                    </tbody>
+                </table>
+            </div> <!-- .widget-content -->
+        </div>
+    </div> <!-- .grid -->	
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>

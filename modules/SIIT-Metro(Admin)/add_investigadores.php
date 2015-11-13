@@ -46,7 +46,7 @@ _bienvenido_mysql();
 if (isset($_POST['Submit'])) {
 
     $cedula = $_POST["CedulaInvestigadorID"];
-    $sql = "INSERT INTO investigadores_ai(cedula_invest, status) VALUES(" . $cedula . ",0)";
+    $sql = "INSERT INTO ai_investigadores(cedula_invest, status) VALUES(" . $cedula . ",0)";
     $result = mysql_query($sql);
     if ($result) {
         notificar('Invertigador registrado con exito', "dashboard.php?data=investigadores", "notify-success");
@@ -209,7 +209,7 @@ _adios_mysql();
                                 <td style="width: 60%">' + datos.nombre + '</td>\n\
                                 <td class="center" style="width: 10%">\n\
                                 <a title="Seleccionar" >\n\
-                                <i style="cursor: pointer; " onclick="javascript:InvestigadorSeleccionado(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'' + datos.correo + '\',\'' + datos.telefono + '\',\'' + datos.celular + '\')" class="fa fa-sign-in"></i>\n\
+                                <i style="cursor: pointer; " onclick="javascript:InvestigadorSeleccionado(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'' + datos.correo + '\',\'' + datos.telefono + '\',\'' + datos.celular + '\')" class="fa fa-share"></i>\n\
                                 </a>\n\
                                 </td>\n\
                                 </tr>';

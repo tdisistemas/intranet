@@ -15,7 +15,7 @@ if ($_GET["flag"]) {
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $iddenun = _antinyeccionSQL($_GET["id"]);
     _bienvenido_mysql();
-    $sql = "UPDATE denuncias_ai SET status = 9 WHERE idDenuncia = " . $iddenun;
+    $sql = "UPDATE ai_denuncias SET status = 9 WHERE idDenuncia = " . $iddenun;
     $result = mysql_query($sql) or die('Error Eliminando Denuncia - ' . mysql_error());
     if ($result) {
         notificar("Denuncia eliminada con exito", "dashboard.php?data=denuncias-ai", "notify-error");

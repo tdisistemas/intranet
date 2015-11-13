@@ -38,10 +38,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         . "de.cedula,"
                         . "d.codigo,"
                         . "de.apellido "
-                        . "FROM denuncias_ai d "
+                        . "FROM ai_denuncias d "
                         . "INNER JOIN datos_empleado_rrhh de "
-                        . "WHERE d.denunciante = de.cedula "
-                        . "AND d.status<>9";
+                        . "WHERE d.denunciante = de.cedula ";
 
 
 
@@ -91,16 +90,16 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <td><?php echo $row['tipo'] ?></td>
                                 <td><?php echo $row['descripcion'] ?></td>
 
-                                <td class="center">
+                                <td class="center" >
                                     <?php
                                     $parametros = 'id=' . $row["idDenuncia"];
                                     $parametros = _desordenar($parametros);
                                     ?>  
-                                    <a href="dashboard.php?data=usuario-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
-                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-user"></span></div>
+                                    <a href="dashboard.php?data=denuncia-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
+                                        <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a>
                                     <a href="javascript:eliminar('<?php echo $row['codigo'] ?>','dashboard.php?data=denuncia-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
-                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
+                                        <i class="fa fa-trash-o" style="color: black; font-size: 15px"></i>
                                     </a>
                                 </td>
                             </tr>									

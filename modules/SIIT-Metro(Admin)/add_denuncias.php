@@ -49,7 +49,7 @@ if (isset($_POST['Submit'])) {
     $cedula = $_POST["CedulaDenuncianteID"];
     $tipo = $_POST["TipoDenuncia"];
     $descrip = $_POST["DescripDenuncia"];
-    $sql = "INSERT INTO denuncias_ai(fecha,denunciante,tipo,descripcion) VALUES(NOW()," . $cedula . "," . $tipo . ",'" . $descrip . "')";
+    $sql = "INSERT INTO ai_denuncias(fecha,denunciante,tipo,descripcion) VALUES(NOW()," . $cedula . ",'" . $tipo . "','" . $descrip . "')";
     $result = mysql_query($sql);
     $nuevoID = mysql_insert_id();
     switch (strlen($nuevoID)) {
@@ -73,11 +73,11 @@ if (isset($_POST['Submit'])) {
             break;
     }
     $codigoNuevo = 'DEN-' . $cod_completo . '-' . substr(date('Y'), -2);
-    $sql = "UPDATE denuncias_ai SET codigo='" . $codigoNuevo . "' WHERE idDenuncia=" . $nuevoID;
+    $sql = "UPDATE ai_denuncias SET codigo='" . $codigoNuevo . "' WHERE idDenuncia=" . $nuevoID;
     $result2 = mysql_query($sql);
 
     if ($result) {
-        notificar('Denuncia registrado con exito', "dashboard.php?data=denuncias-ai", "notify-success");
+        notificar('Denuncia registrada con exito', "dashboard.php?data=denuncias-ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -139,8 +139,8 @@ if (isset($_POST['Submit'])) {
                                         <div class="field">
                                             <select id="TipoDenuncia" name="TipoDenuncia" class="validate[required]">
                                                 <option selected value=""> ** Seleccionar un Tipo ** </option>
-                                                <option value="1">Tipo 1</option>
-                                                <option value="2">Tipo 2</option>
+                                                <option value="Verbal">Verbal</option>
+                                                <option value="Escrita">Escrita</option>
                                             </select>
                                         </div>
                                     </div> <!-- .field-group -->
@@ -150,13 +150,15 @@ if (isset($_POST['Submit'])) {
                                             <textarea id="DescripDenuncia" name="DescripDenuncia" cols="8" rows="8" style="width: 300px" class="validate[required]"></textarea>
                                         </div>
                                     </div> <!-- .field-group -->
+                                </div> <!-- .row-fluid -->
+                                <div class="grid-24" style="text-align: center">
                                     <div class="field-group">								
                                         <div class="actions" style="text-aling:left">
                                             <button name="Submit" type="submit" class="btn btn-error">Registrar Denuncia</button>
                                             <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
                                         </div> <!-- .actions -->
                                     </div> <!-- .field-group -->
-                                </div> <!-- .row-fluid -->
+                                </div>
                             </div> <!-- .row-fluid -->
                         </div> <!-- .widget-content -->
                     </div> <!-- .widget -->	
@@ -198,7 +200,7 @@ _adios_mysql();
         var campo = Selected.val();
         if (campo) {
             $.ajax({
-                url: 'modules/SIIT-Metro(Admin)/DatosDenunciante.php',
+                url: 'modules/SIIT-Metro(Admin)/DatosPersonales.php',
                 dataType: 'JSON',
                 method: 'POST',
                 beforeSend: function () {
@@ -227,7 +229,7 @@ _adios_mysql();
                                 <td style="width: 60%">' + datos.nombre + '</td>\n\
                                 <td class="center" style="width: 10%">\n\
                                 <a title="Seleccionar" >\n\
-                                <i style="cursor: pointer; " onclick="javascript:SeleccionarDenunciante(\'' + datos.nombre + '\',\'' + datos.cedula + '\')" class="fa fa-sign-in"></i>\n\
+                                <i style="cursor: pointer; " onclick="javascript:SeleccionarDenunciante(\'' + datos.nombre + '\',\'' + datos.cedula + '\')" class="fa fa-share"></i>\n\
                                 </a>\n\
                                 </td>\n\
                                 </tr>';

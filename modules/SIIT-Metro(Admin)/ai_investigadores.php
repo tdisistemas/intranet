@@ -34,7 +34,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         . "d.apellido,"
                         . "i.status,"
                         . "d.gerencia "
-                        . "FROM investigadores_ai i "
+                        . "FROM ai_investigadores i "
                         . "INNER JOIN datos_empleado_rrhh d "
                         . "WHERE i.cedula_invest = d.cedula "
                         . "AND i.status=0 ";

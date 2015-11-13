@@ -28,13 +28,22 @@ switch ($t) {
     case ("investigador-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_investigador.php');
         ?><script>activame('admin_ai');</script><?php
         break;
-    case ("denuncias-ai"):include('modules/SIIT-Metro(Admin)/denuncias_ai.php');
+    case ("denuncias-ai"):include('modules/SIIT-Metro(Admin)/ai_denuncias.php');
         ?><script>activame('admin_ai');</script><?php
         break;
     case ("add_denuncias"):include('modules/SIIT-Metro(Admin)/add_denuncias.php');
         ?><script>activame('admin_ai');</script><?php
         break;
     case ("denuncia-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_denuncia.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("denuncia-ai-info"):include('modules/SIIT-Metro(Admin)/ai_denuncia_info.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigacion-ai-info"):include('modules/SIIT-Metro(Admin)/ai_investigacion_info.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_investigacion"):include('modules/SIIT-Metro(Admin)/add_investigaciones.php');
         ?><script>activame('admin_ai');</script><?php
         break;
 
