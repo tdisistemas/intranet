@@ -292,7 +292,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                                 </ul>      
 
                             </div> <!-- #sidebar -->
-                            <div id="content" style="background:url('src/images/logo-t.png') #ffffff no-repeat center 200px;">
+                            <div id="content" style="background:url('src/images/logo-t.png') #ffffff no-repeat center 200px fixed;">
                                 <?php include('_router.php'); ?>
                             </div> <!-- #content -->
                             <div id="topNav">

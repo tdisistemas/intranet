@@ -48,7 +48,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 </style>
 
 <div id="contentHeader">
-    <h2>Modulo Administrativo de Asuntos Internos</h2>
+    <h2>Módulo Administrativo de Asuntos Internos</h2>
 </div> <!-- #contentHeader -->	
 <?php
 decode_get2($_SERVER["REQUEST_URI"], 2);
@@ -80,9 +80,27 @@ _bienvenido_mysql();
                 $a = mysql_num_rows($sql);
                 ?>
 
-                <div style="margin-left: 400px;" class="dashboard_report first activeState">
+                <div style="" class="dashboard_report first activeState">
                     <div class="pad" align="center">
                         <span class="value"><?php echo $a; ?></span> Total de Averiguaciones
+                    </div> <!-- .pad -->
+                </div>
+                <?php
+                
+                $sqlcodeDen = "SELECT "
+                        . "idDenuncia "
+                        . "FROM ai_denuncias "
+                        . "WHERE 1";
+
+
+
+                $sqlDen = mysql_query($sqlcodeDen);
+                $b = mysql_num_rows($sqlDen);
+                ?>
+
+                <div style="" class="dashboard_report first activeState">
+                    <div class="pad" align="center">
+                        <span class="value"><?php echo $b; ?></span> Total de Denuncias
                     </div> <!-- .pad -->
                 </div>
 
@@ -104,7 +122,7 @@ _bienvenido_mysql();
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
-                            <th style="width:15%">Codigo</th>
+                            <th style="width:15%">Código</th>
                             <th style="width:15%">Denuncia</th>
                             <th style="width:10%">Fecha</th>
                             <th style="width:5%">Estatus D</th>
@@ -131,7 +149,7 @@ _bienvenido_mysql();
                                     $parametros = _desordenar($parametros);
                                     ?>  
                                     <a href="dashboard.php?data=investigacion-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
-                                        <i class="fa fa-search-plus" style="color: black"></i>
+                                        <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a><!--
                                     <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
@@ -149,7 +167,7 @@ _bienvenido_mysql();
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta seccion podra acceder al panel de control del modulo Asuntos Internos.</p>
+                    <p>En esta sección podrá acceder al panel de control del módulo Asuntos Internos, así como visualizar la lista de las averiguaciones registradas.</p>
                     <div class="box plain">
                         <a href="dashboard.php?data=investigadores" class="btn btn-primary btn-large dashboard_add">Investigadores</a>
                         <a href="dashboard.php?data=denuncias-ai" class="btn btn-primary btn-large dashboard_add">Denuncias</a>

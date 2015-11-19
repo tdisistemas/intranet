@@ -36,7 +36,7 @@ if (!$_GET['flag']) {
         padding: 5px;
         box-shadow: 2px 2px 5px #999;
     }
-    
+
     .Tarjeta p{
         font-size: 10px;
         color: #000000;
@@ -44,11 +44,11 @@ if (!$_GET['flag']) {
         margin-left: 5px;
         margin-right: 5px;
     }
-    
+
     .Tarjeta .TituloTarjeta{
         text-align: left;
         color: #C14747;
-        
+
     }
 
     div.selector {
@@ -170,19 +170,19 @@ if ($perfil_qry) {
                                     <div class="field">
                                         <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                     </div>
-                                </div> <!-- .field-group -->	
+                                </div> <!-- .field-group -->
+                                
+                                <div class="field-group">								
+                                    <label style="color:#B22222">Cédula:</label>
+                                    <div class="field">
+                                        <span><?php echo $cedula; ?></span>
+                                    </div>
+                                </div> <!-- .field-group -->
 
                                 <div class="field-group">
                                     <label style="color:#B22222">Nombre y Apellido:</label>
                                     <div class="field">
                                         <span><?php echo $nombre . ' ' . $apellido; ?></span>			
-                                    </div>
-                                </div> <!-- .field-group -->
-
-                                <div class="field-group">								
-                                    <label style="color:#B22222">Cedula:</label>
-                                    <div class="field">
-                                        <span><?php echo $cedula; ?></span>
                                     </div>
                                 </div> <!-- .field-group -->				 
 
@@ -292,7 +292,7 @@ if ($perfil_qry) {
                                 <div class="field-group">
                                     <label style="color:#B22222">Extención:</label>
                                     <div class="field">
-                                        <?php echo $extencion!='0' ? '<span>'.$extencion.'</span>' : '<label for="fname">*** No Posee Extención Registrada! *** </label>' ?>	
+                                        <?php echo $extencion != '0' ? '<span>' . $extencion . '</span>' : '<label for="fname">*** No Posee Extención Registrada! *** </label>' ?>	
                                     </div>
                                 </div> <!-- .field-group -->   
 
@@ -334,7 +334,7 @@ if ($perfil_qry) {
                                           $poseecorreo = "*** No Posee Correo ***";
                                           } */
                                         ?>
-                                        <span><?php echo $correo_principal; //echo $poseecorreo;      ?></span>	
+                                        <span><?php echo $correo_principal; //echo $poseecorreo;       ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
                                 <div class="field-group">
@@ -384,7 +384,7 @@ if ($perfil_qry) {
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta seccion podra visualizar la ficha de empleados de la Empresa</p>
+                    <p>En esta sección podrá visualizar la ficha de empleados de la Empresa</p>
                     <div class="box plain">
                         <?php
                         $parametros = 'id=' . $id_empleado;

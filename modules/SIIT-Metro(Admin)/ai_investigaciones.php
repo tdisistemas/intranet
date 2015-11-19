@@ -67,7 +67,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
-                            <th style="width:15%">Codigo</th>
+                            <th style="width:15%">Código</th>
                             <th style="width:15%">Denuncia</th>
                             <th style="width:20%">Fecha</th>
                             <th style="width:40%">Investigador</th>
@@ -108,7 +108,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     <div class="grid-6">
         <div id="gettingStarted" class="box">
             <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-            <p>En esta seccion podra visualizar la lista de las Averiguaciones registradas.</p>
+            <p>En esta sección podrá visualizar la lista de las Averiguaciones registradas.</p>
         </div>
     </div>
 

@@ -157,17 +157,17 @@ if ($perfil_qry) {
                                     </div>
                                 </div> <!-- .field-group -->	
 
+                                <div class="field-group">								
+                                    <label style="color:#B22222">Cédula:</label>
+                                    <div class="field">
+                                        <span><?php echo $cedula; ?></span>
+                                    </div>
+                                </div> <!-- .field-group -->
+
                                 <div class="field-group">
                                     <label style="color:#B22222">Nombre y Apellido:</label>
                                     <div class="field">
                                         <span><?php echo $nombre . ' ' . $apellido; ?></span>			
-                                    </div>
-                                </div> <!-- .field-group -->
-
-                                <div class="field-group">								
-                                    <label style="color:#B22222">Cedula:</label>
-                                    <div class="field">
-                                        <span><?php echo $cedula; ?></span>
                                     </div>
                                 </div> <!-- .field-group -->				 
 
@@ -179,7 +179,7 @@ if ($perfil_qry) {
                                 </div> <!-- .field-group --> 
 
                                 <div class="field-group">
-                                    <label style="color:#B22222">Telefono:</label>
+                                    <label style="color:#B22222">Teléfono:</label>
                                     <div class="field">
                                         <span><?php echo $telefono; ?></span>
                                     </div>
@@ -362,7 +362,7 @@ if ($perfil_qry) {
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta seccion podra visualizar la ficha de empleados de la Empresa</p>
+                    <p>En esta sección podrá visualizar la ficha de empleados de la Empresa</p>
                     <div class="box plain">
                         <?php
                         $parametros = 'id=' . $id_empleado;

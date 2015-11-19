@@ -14,52 +14,31 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 </div> <!-- #contentHeader -->	
 
 <div class="container">
-    <?php include('notificador.php'); ?>
+    <?php
+    include('notificador.php');
+    _bienvenido_mysql();
+    mysql_query("set names utf8");
+
+    $sqlcode = "SELECT "
+            . "d.idDenuncia,"
+            . "d.fecha,"
+            . "d.denunciante,"
+            . "d.tipo,"
+            . "d.status,"
+            . "d.descripcion,"
+            . "de.nombre,"
+            . "de.cedula,"
+            . "d.codigo,"
+            . "de.apellido "
+            . "FROM ai_denuncias d "
+            . "INNER JOIN datos_empleado_rrhh de "
+            . "WHERE d.denunciante = de.cedula ";
 
 
 
-    <div class="grid-24">	
-        <div class="widget widget-plain">
-
-            <div class="widget-content">
-
-                <?php
-                _bienvenido_mysql();
-                mysql_query("set names utf8");
-
-                $sqlcode = "SELECT "
-                        . "d.idDenuncia,"
-                        . "d.fecha,"
-                        . "d.denunciante,"
-                        . "d.tipo,"
-                        . "d.status,"
-                        . "d.descripcion,"
-                        . "de.nombre,"
-                        . "de.cedula,"
-                        . "d.codigo,"
-                        . "de.apellido "
-                        . "FROM ai_denuncias d "
-                        . "INNER JOIN datos_empleado_rrhh de "
-                        . "WHERE d.denunciante = de.cedula ";
-
-
-
-                $sql = mysql_query($sqlcode);
-                $a = mysql_num_rows($sql);
-                ?>
-
-                <div style="margin-left: 400px;" class="dashboard_report first activeState">
-                    <div class="pad" align="center">
-                        <span class="value"><?php echo $a; ?></span> Total de Denuncias
-                    </div> <!-- .pad -->
-                </div>
-
-
-
-            </div> <!-- .widget-content -->
-
-        </div> <!-- .widget -->	
-    </div> <!-- .grid -->
+    $sql = mysql_query($sqlcode);
+    $a = mysql_num_rows($sql);
+    ?>
 
     <div class="grid-18">	
         <div class="widget widget-table">
@@ -71,12 +50,12 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
-                            <th style="width:10%">Codigo</th>
+                            <th style="width:10%">Código</th>
                             <th style="width:10%">Fecha</th>
-                            <th style="width:25%">Denunciante</th>
+                            <th style="width:30%">Denunciante</th>
                             <th style="width:10%">Tipo</th>
                             <th style="width:30%">Descripción</th>
-                            <th style="width:15%">Opciones</th>
+                            <th style="width:10%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +82,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     </a>
                                 </td>
                             </tr>									
-                        <?php } ?> 
+<?php } ?> 
                     </tbody>
                 </table>
             </div> <!-- .widget-content -->
@@ -112,7 +91,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     <div class="grid-6">
         <div id="gettingStarted" class="box">
             <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-            <p>En esta seccion podra visualizar la lista de Denuncias registradas.</p>
+            <p>En esta sección podrá visualizar la lista de Denuncias registradas.</p>
             <div class="box plain">
                 <a class="btn btn-primary btn-large dashboard_add" href="dashboard.php?data=add_denuncias" style="color: white;text-decoration: none;">Agregar Denuncia</a>
                 <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>

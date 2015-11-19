@@ -14,47 +14,25 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 </div> <!-- #contentHeader -->	
 
 <div class="container">
-    <?php include('notificador.php'); ?>
+    <?php include('notificador.php'); 
+    _bienvenido_mysql();
+    mysql_query("set names utf8");
 
+    $sqlcode = "SELECT "
+            . "i.id_invest,"
+            . "i.cedula_invest,"
+            . "d.cargo,d.nombre,"
+            . "d.apellido,"
+            . "i.status,"
+            . "d.gerencia "
+            . "FROM ai_investigadores i "
+            . "INNER JOIN datos_empleado_rrhh d "
+            . "WHERE i.cedula_invest = d.cedula "
+            . "AND i.status=0 ";
 
-
-    <div class="grid-24">	
-        <div class="widget widget-plain">
-
-            <div class="widget-content">
-
-                <?php
-                _bienvenido_mysql();
-                mysql_query("set names utf8");
-
-                $sqlcode = "SELECT "
-                        . "i.id_invest,"
-                        . "i.cedula_invest,"
-                        . "d.cargo,d.nombre,"
-                        . "d.apellido,"
-                        . "i.status,"
-                        . "d.gerencia "
-                        . "FROM ai_investigadores i "
-                        . "INNER JOIN datos_empleado_rrhh d "
-                        . "WHERE i.cedula_invest = d.cedula "
-                        . "AND i.status=0 ";
-                
-                $sql = mysql_query($sqlcode);
-                $a = mysql_num_rows($sql);
-                ?>
-
-                <div style="margin-left: 400px;" class="dashboard_report first activeState">
-                    <div class="pad" align="center">
-                        <span class="value"><?php echo $a; ?></span> Total de Investigadores
-                    </div> <!-- .pad -->
-                </div>
-
-
-
-            </div> <!-- .widget-content -->
-
-        </div> <!-- .widget -->	
-    </div> <!-- .grid -->
+    $sql = mysql_query($sqlcode);
+    $a = mysql_num_rows($sql);
+    ?>
 
     <div class="grid-18">	
         <div class="widget widget-table">
@@ -66,7 +44,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
-                            <th style="width:10%">Cedula</th>
+                            <th style="width:10%">Cédula</th>
                             <th style="width:20%">Nombre y Apellido</th>
                             <th style="width:25%">Cargo</th>
                             <th style="width:35%">Gerencia</th>
@@ -90,10 +68,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     $parametros = _desordenar($parametros);
                                     ?>  
                                     <a href="dashboard.php?data=investigador-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
-                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-user"></span></div>
+                                        <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a>
                                     <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
-                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
+                                        <i class="fa fa-trash-o" style="color: black; font-size: 15px"></i>
                                     </a>
                                 </td>
                             </tr>									
@@ -108,7 +86,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     <div class="grid-6">
         <div id="gettingStarted" class="box">
             <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-            <p>En esta seccion podra visualizar la lista de los investigadores de Asuntos Internos</p>
+            <p>En esta sección podrá la lista de los investigadores de Asuntos Internos</p>
             <div class="box plain">
                 <a href="dashboard.php?data=add_investigadores" class="btn btn-primary btn-large dashboard_add">Agregar Investigador</a>
                 <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>

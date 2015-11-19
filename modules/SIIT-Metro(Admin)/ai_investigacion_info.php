@@ -62,81 +62,30 @@ if (!$_GET['flag']) {
         width:100%;
     }
 
-    bordeado{
+    .bordeado{
         border: 1px solid #A5A5A5; 
         border-style: outset; 
         border-radius: 0px 0px 15px 15px;
     }
-
-    .encabezado {
-        background: #FF8484;
-        background:-moz-linear-gradient(top, #FF8484 0%, #FF8484 100%); /* FF3.6+ */
-        background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FF8484), color-stop(100%,#FF8484)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #FF8484 0%,#FF8484 100%); /* Chrome10+,Safari5.1+ */
-        background:-o-linear-gradient(top, #FF8484 0%,#FF8484 100%); /* Opera11.10+ */
-        background:-ms-linear-gradient(top, #FF8484 0%,#FF8484 100%); /* IE10+ */
-        background:linear-gradient(top, #FF8484 0%,#FF8484 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
-
-        height: 40px;
-        line-height: 40px;
-
-        border-bottom: 1px solid #D5D5D5;
-
-        position: relative;
-
-        -webkit-border-top-left-radius: 4px;
-        -webkit-border-top-right-radius: 4px;
-        -moz-border-radius-topleft: 4px;
-        -moz-border-radius-topright: 4px;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-
-        -webkit-background-clip: padding-box;
+    .bordeado > div:not(.widget-header):not(.field-group):not(.field){
+        margin-left: 3.5%;
     }
-    .encabezado-in {
-	background: #E9E9E9;
-	background:-moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%); /* FF3.6+ */
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FAFAFA), color-stop(100%,#E9E9E9)); /* Chrome,Safari4+ */
-	background:-webkit-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%); /* Chrome10+,Safari5.1+ */
-	background:-o-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%); /* Opera11.10+ */
-	background:-ms-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%); /* IE10+ */
-	background:linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
-	
-	height: 40px;
-	line-height: 40px;
-	
-	border-bottom: 1px solid #D5D5D5;
-	
-	position: relative;
-	
-	-webkit-border-top-left-radius: 4px;
-	-webkit-border-top-right-radius: 4px;
-	-moz-border-radius-topleft: 4px;
-	-moz-border-radius-topright: 4px;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	
-	-webkit-background-clip: padding-box;
-	margin-bottom: 15px;
+
+    .widget-header > h3{
+        padding-top: 10px; 
+        padding-left: 15px
     }
-    .encabezado h3{
 
-        font-size: 14px;
-        font-weight: 800;
-        color: #FFF;
-        line-height: 18px;
-        display: inline-block;
-        margin-right: 3em;
-
-        position: relative;
-        top: 2px;
-        left: 10px;
-
-        text-shadow: 1px 1px 2px rgba(255,255,255,.5);
+    .btn-edit{
+        border-width: 0px; 
+        padding-right: 6px; 
+        padding-left: 6px;
+        text-align: center;
+        width: 30px;
+    }
+    .inactivo{ 
+        opacity: .3; 
+        cursor: default;
     }
 
 </style>
@@ -151,17 +100,22 @@ _bienvenido_mysql();
 $sqlquery = "SELECT "
         . "a.codigo_ave,"
         . "a.causa,"
+        . "a.recomendacion,"
+        . "a.conclusion,"
         . "b.codigo,"
         . "b.status AS st_den,"
         . "a.fecha,"
         . "b.fecha AS fecha_den,"
         . "b.descripcion,"
+        . "b.tipo,"
         . "d.nombre,"
         . "d.apellido,"
         . "e.gerencia,"
+        . "e.ext_telefonica,"
         . "e.nombre AS Invo_nombre,"
         . "a.involucrado,"
         . "e.apellido AS Invo_apellido,"
+        . "e.cargo,"
         . "a.status AS st_ave "
         . "FROM ai_averiguaciones a "
         . "INNER JOIN ai_denuncias b ON a.denuncia = b.idDenuncia "
@@ -177,7 +131,6 @@ $codigo = $respuesta['codigo'];
 $codigo_ave = $respuesta['codigo_ave'];
 $nombre = $respuesta['nombre'] . ' ' . $respuesta['apellido'];
 $nombreInvo = $respuesta['Invo_nombre'] . ' ' . $respuesta['Invo_apellido'];
-$fecha = $respuesta['fecha'];
 $causa = $respuesta['causa'];
 $st_den = $respuesta['st_den'];
 $st_ave = $respuesta['st_ave'];
@@ -186,31 +139,41 @@ $gerencia = $respuesta['gerencia'];
 $fecha = $respuesta['fecha'];
 $fecha_den = $respuesta['fecha_den'];
 $descripcion = $respuesta['descripcion'];
+$extension = $respuesta['ext_telefonica'];
+$tipo = $respuesta['tipo'];
+$recomendacion = $respuesta['recomendacion'];
+$conclusion = $respuesta['conclusion'];
+$cargo = $respuesta['cargo'];
+
+$parametros = 'id=' . $id;
+$parametros = _desordenar($parametros);
 ?>
 <div class="container">
     <div class="row"> 
         <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
-                <div class="widget">
-                    <div class="widget-header">
-                        <span class="icon-layers"></span>
-                        <h3>Averiguación # <?php echo $codigo_ave; ?></h3>
-                    </div>
-                    <div class="widget-content">
+                <div class="">
+                    <div class="">
                         <div class="row">
-                            <div class="grid-24 bordeado" style="">
-                                <div class="encabezado">
-                                    <h3 style="padding-top: 10px; padding-left: 15px">Involucrado </h3>
+                            <div class="grid-24 bordeado">
+                                <div class="widget-header">
+                                    <h3>Involucrado </h3>
                                 </div>
                                 <br>
-                                <div class="grid-5">
+                                <div class="grid-4">
                                     <div class="field-group">
                                         <div class="field">
                                             <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                         </div>
                                     </div> <!-- .field-group -->
                                 </div>
-                                <div class="grid-11">
+                                <div class="grid-8">
+                                    <div class="field-group">								
+                                        <label style="color:#B22222">Cédula:</label>
+                                        <div class="field">
+                                            <span><?php echo $cedula; ?></span>
+                                        </div>
+                                    </div> <!-- .field-group -->
                                     <div class="field-group">
                                         <label style="color:#B22222">Nombre:</label>
                                         <div class="field">
@@ -218,45 +181,53 @@ $descripcion = $respuesta['descripcion'];
                                         </div>
                                     </div> <!-- .field-group -->
                                     <div class="field-group">
+                                        <label style="color:#B22222">Cargo:</label>
+                                        <div class="field">
+                                            <span><?php echo $cargo; ?></span>			
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                </div>
+                                <div class="grid-10">
+                                    <div class="field-group">
                                         <label style="color:#B22222">Gerencia:</label>
                                         <div class="field">
                                             <span><?php echo $gerencia; ?></span>	
                                         </div>		
                                     </div> <!-- .field-group -->
-                                </div>
-                                <div class="grid-8">
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Cedula:</label>
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Extensión:</label>
                                         <div class="field">
-                                            <span><?php echo $cedula; ?></span>
-                                        </div>
+                                            <span><?php echo $extension; ?></span>	
+                                        </div>		
                                     </div> <!-- .field-group -->
                                 </div>
-
-
                             </div>
-                            <div class="grid-24 bordeado">
+                            <div class="grid-24 bordeado" >
                                 <div class="widget-header">
-                                    <h3 style="padding-top: 10px; padding-left: 15px">Denuncia</h3>
+                                    <h3>Denuncia</h3>
                                 </div>
                                 <br>
                                 <div class="grid-8">
                                     <div class="field-group">
-                                        <label style="color:#B22222">Codigo:</label>
+                                        <label style="color:#B22222">Código:</label>
                                         <div class="field">
                                             <span><b><?php echo $codigo; ?></b></span>	
                                         </div>
                                     </div> <!-- .field-group -->
-                                </div>
-                                <div class="grid-8">
                                     <div class="field-group">
                                         <label style="color:#B22222">Fecha:</label>
                                         <div class="field">
                                             <span><?php echo $fecha_den; ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Tipo:</label>
+                                        <div class="field">
+                                            <span><?php echo $tipo; ?></span>	
+                                        </div>
+                                    </div> <!-- .field-group -->
                                 </div>
-                                <div class="grid-8">
+                                <div class="grid-14">
                                     <div class="field-group">
                                         <label style="color:#B22222">Descripción:</label>
                                         <div class="field">
@@ -265,14 +236,85 @@ $descripcion = $respuesta['descripcion'];
                                     </div> <!-- .field-group -->
                                 </div><!-- .grid -->
                             </div><!-- .grid -->
+                            <div class="grid-24 bordeado">
+                                <div class="widget-header">
+                                    <h3>Averiguación</h3>
+                                </div>
+                                <br>
+                                <div class="grid-8">
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Código:</label>
+                                        <div class="field">
+                                            <span><b><?php echo $codigo_ave; ?></b></span>	
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Fecha:</label>
+                                        <div class="field">
+                                            <span><?php echo $fecha; ?></span>	
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Investigador:</label>
+                                        <div class="field">
+                                            <span><?php echo $nombre; ?></span>	
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                </div>
+                                <div class="grid-14">
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Causa:</label>
+                                        <div class="field">
+                                            <span><?php echo $causa; ?></span>	
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                </div><!-- .grid -->
+                            </div><!-- .grid -->
+                            <div class="grid-24 bordeado">
+                                <div class="widget-header">
+                                    <h3>Conclusiones</h3>
+                                </div>
+                                <br>
+                                <div class="grid-24">
+                                    <div class="field-group">
+                                        <div class="field" id="Conclu_Mostrado">
+                                            <?php echo $conclusion == '' ? '<label for="fname">** No posee Conclusiones registradas. **<label>' : '<span>' . $conclusion . '</span>'; ?>	
+                                        </div>
+                                        <div class="field" id="Conclu_Editado" style="display: none">
+                                            <textarea id="Conclu_Nueva" rows="4" cols="60"><?= $conclusion ?></textarea>	
+                                        </div>
+                                        <div style="text-align: left">
+                                            <button style="display: " onclick="javascript:EditarCampo('Conclu_')" title="Editar" id="Conclu_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                            <button style="display: none" onclick="javascript:AceptarEdit('Conclu_', 1,'<?=$id?>')" title="Aceptar" id="Conclu_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                            <button style="display: none" onclick="javascript:CancelarEdit('Conclu_')" title="Cancelar" id="Conclu_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- .grid -->
+                            <div class="grid-24 bordeado">
+                                <div class="widget-header">
+                                    <h3>Recomendaciones</h3>
+                                </div>
+                                <br>
+                                <div class="grid-24">
+                                    <div class="field-group">
+                                        <div class="field" id="Recom_Mostrado">
+                                            <?php echo $recomendacion == '' ? '<label for="fname">*** No posee Recomandaciones registradas. ***<label>' : '<span>' . $recomendacion . '</span>'; ?>	
+                                        </div>
+                                        <div class="field" id="Recom_Editado" style="display: none">
+                                            <textarea id="Recom_Nueva" rows="4" cols="60"><?= $recomendacion ?></textarea>	
+                                        </div>
+                                        <div style="text-align: left">
+                                            <button style="display: " onclick="javascript:EditarCampo('Recom_')" title="Editar" id="Recom_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                            <button style="display: none" onclick="javascript:AceptarEdit('Recom_', 2,'<?=$id?>')" title="Aceptar" id="Recom_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                            <button style="display: none" onclick="javascript:CancelarEdit('Recom_')" title="Cancelar" id="Recom_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- .grid -->
                             <div class="grid-24" style="text-align: center">
                                 <div class="field-group">								
                                     <div class="actions">
-                                        <?php
-                                        $parametros = 'id=' . $id;
-                                        $parametros = _desordenar($parametros);
-                                        ?> 
-
                                         <button onclick="javascript:NuevaAveriguacion('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error">Iniciar Averiguación</button>
                                         <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
                                     </div> <!-- .actions -->
@@ -285,7 +327,7 @@ $descripcion = $respuesta['descripcion'];
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta seccion podra visualizar la información de la averiguación numero <b><?= $codigo_ave ?></b></p>
+                    <p>En esta sección podrá visualizar la información de la averiguación numero <b><?= $codigo_ave ?></b></p>
                 </div>
             </div>
         </form>
@@ -297,7 +339,40 @@ $descripcion = $respuesta['descripcion'];
         espejo_gerencia();
     }
 
-    function NuevaAveriguacion(data) {
-        window.location = "dashboard.php?data=add_investigacion&flag=1&" + data;
+    function AceptarEdit(id, tipo, parametro) {
+        var dato = document.getElementById(id + 'Nueva').value;
+        $.ajax({
+            url: 'modules/SIIT-Metro(Admin)/Conclusiones_Recomendaciones.php',
+            method: 'POST',
+            dataType: 'TEXT',
+            data: {
+                aver: parametro,
+                dato: dato,
+                tipo: tipo
+            },
+            success: function (data) {
+                document.getElementById(id + 'Mostrado').innerHTML = '<span>'+data+'</span>';
+                CancelarEdit(id);
+            }
+        });
+    }
+
+    function EditarCampo(id) {
+        document.getElementById(id + 'Mostrado').style.display = 'none';
+        document.getElementById(id + 'Editado').style.display = '';
+        document.getElementById(id + 'Editar').style.display = 'none';
+        document.getElementById(id + 'Aceptar').style.display = '';
+        document.getElementById(id + 'Cancelar').style.display = '';
+        document.getElementById(id + 'Nueva').focus();
+
+    }
+
+    function CancelarEdit(id) {
+        document.getElementById(id + 'Mostrado').style.display = '';
+        document.getElementById(id + 'Editado').style.display = 'none';
+        document.getElementById(id + 'Editar').style.display = '';
+        document.getElementById(id + 'Aceptar').style.display = 'none';
+        document.getElementById(id + 'Cancelar').style.display = 'none';
+
     }
 </script>

@@ -19,9 +19,9 @@ if (isset($_POST['Submit'])) {
     $idDenuncia = $_POST['idDenuncia'];
     $remitidoS = $_POST['remitido'];
 
-    $sql = "INSERT INTO ai_averiguaciones(denuncia,fecha,involucrado,causa,sitio_suceso,investigador,remitido) VALUES(" . $idDenuncia . ",NOW()," . $cedula . ",'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . ",".$remitidoS.")";
-    $result = mysql_query($sql);
-    $nuevoID = mysql_insert_id();
+    $sql = "INSERT INTO ai_averiguaciones(denuncia,fecha,involucrado,causa,sitio_suceso,investigador,remitido) VALUES(" . $idDenuncia . ",NOW()," . $cedula . ",'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
+    //$result = mysql_query($sql);
+    //$nuevoID = mysql_insert_id();
     switch (strlen($nuevoID)) {
         case 1:
             $cod_completo = '00000' . $nuevoID;
@@ -44,13 +44,14 @@ if (isset($_POST['Submit'])) {
     }
     $codigoNuevo = 'AIM-' . $cod_completo . '-' . substr(date('Y'), -2);
     $sqlUp = "UPDATE ai_averiguaciones SET codigo_ave ='" . $codigoNuevo . "' WHERE idAveriguacion=" . $nuevoID;
-    $result2 = mysql_query($sqlUp);
+    //$result2 = mysql_query($sqlUp);
 
     $sqlUpDen = "UPDATE ai_denuncias SET status = 1 WHERE idDenuncia=" . $idDenuncia;
-    $result3 = mysql_query($sqlUpDen);
-
+    //$result3 = mysql_query($sqlUpDen);
+$result = true;
     if ($result) {
-        notificar('Averiguación creada con exito!', "dashboard.php?data=admin_ai", "notify-success");
+        //notificar('Averiguación creada con exito!', "dashboard.php?data=admin_ai", "notify-success");
+        notificar('index Total='.$_POST['Index'], "dashboard.php?data=admin_ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -110,6 +111,32 @@ if (isset($_POST['Submit'])) {
         select {
             width:100%;
         }
+        #Inicio > div > div{
+            margin-bottom: 0em;
+        }
+        #Inicio > div{
+            margin-bottom: 0em;
+        }
+        #Implicados > div > div > div{
+            margin-bottom: -15px;
+            margin-top: -5px;
+        }
+        #Implicados > div > div > div > label{
+            font-size: 10px;
+        }
+        #Implicados > div > div > div > .field{
+            font-size: 10px;
+        }
+        #Implicados > div > div > .field-group{
+            margin-left: 10px;
+        }
+        #Implicados > div{
+            border: solid 1px #999; 
+            border-style: inset; 
+            border-radius: 4px 4px 4px 4px; 
+            padding-top: 10px; 
+            max-width: 350px
+        }
     </style>
     <div id="contentHeader">
         <h2>Apertura de Averiguación</h2>
@@ -156,7 +183,7 @@ if (isset($_POST['Submit'])) {
             . "WHERE 1";
 
     $Remit = mysql_query($remitidosQuery);
-    
+
     $codigo = $respuesta['codigo'];
     $descripcion = $respuesta['descripcion'];
     ?>
@@ -170,75 +197,82 @@ if (isset($_POST['Submit'])) {
                             <h3>Denuncia # <?php echo $codigo; ?></h3>
                         </div>
                         <div class="widget-content">
-                            <div class="row">
-
-                                <div class="grid-10">
-
-                                    <div class="field-group">
-                                        <div class="" style="text-align: center">
-                                            <img id="retrato" style=" border: solid 5px #ddd;width: 100px;" src="src/images/FOTOS/No-User.jpg"/>
-                                        </div>
-                                        </br>
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Nombre y Apellido:</label>
-                                        <div class="field">
-                                            <span id="Nombre" ><br></span>			
-                                        </div>
-                                    </div> <!-- .field-group -->
-
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Cedula:</label>
-                                        <div class="field">
-                                            <span id="Cedula"><br></span>
-                                            <input name="CedulaID" id="CedulaID" title="ASD" style="display: none" class="validate[required]" />
-                                        </div>
-                                    </div> <!-- .field-group -->
-
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Codigo de la Denuncia:</label>
-                                        <div class="field">
-                                            <span><b><?php echo $codigo; ?></b></span>	
-                                            <input name="idDenuncia" id="idDenuncia" value="<?php echo $id; ?>" style="display: none"/>	
-                                        </div>
-                                    </div> <!-- .field-group -->
-
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Descripción de la Denuncia:</label>
-                                        <div class="field">
-                                            <span> "<i><?= $descripcion ?></i>"</span>
-                                        </div>
-                                    </div> <!-- .field-group -->
-
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Causa:</label>
-                                        <div class="field">
-                                            <textarea id="Causa" name="Causa" cols="8" rows="8" style="width: 300px" class="validate[required]"></textarea>
-                                        </div>
-                                    </div> <!-- .field-group -->
-
-                                </div> <!-- .row-fluid -->
-                                <div class="grid-12">
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Buscar Autor(es):</label>
-                                        <div class="field">
-                                            <div class="form-inline">
-                                                <input id="Buscador" type="text" class="form-control"/>
-                                                <input type="button" name="Buscar" onclick="javascript:SeleccionarEmpleado($('#Buscador'));" class="btn btn-error" value="Buscar" />
-                                            </div><!-- /input-group -->
+                            <div class="row" id="Inicio">
+                                <div class="grid-24">
+                                    <div class="grid-14">
+                                        <div class="field-group">
+                                            <label style="color:#B22222">Buscar Autor(es):</label>
+                                            <div class="field">
+                                                <div class="form-inline">
+                                                    <input id="Buscador" type="text" class="form-control"/>
+                                                    <input type="button" name="Buscar" onclick="javascript:SeleccionarEmpleado($('#Buscador'));" class="btn btn-error" value="Buscar" />
+                                                </div><!-- /input-group -->
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="field-group" id="campo-tabla" style="display: none; height: 300px; overflow: scroll">
+                                </div>
+                                <div class="grid-12" id="campo-tabla" style="display: none;">
+                                    <div class="field-group">
+                                        <i class="fa fa-remove pull-right" title="Cerrar Busqueda" onclick="document.getElementById('campo-tabla').style.display = 'none'" style="color: #B22222; cursor: pointer"></i>
                                         <label style="color:#B22222;" id="lvlBusqueda"></label>
                                         <table class="table table-striped">
                                             <tbody id="BusquedaRes" style="display: block; height: 350px; overflow-y: auto; width: 100%"></tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="grid-1">
-                                </div>
+                                <div class="grid-12">
+                                    <div class="grid-24" id="Implicados">
+                                        <div class="grid-24" id='implicado1'>
+                                            <i class="fa fa-close pull-right" title="Limpiar" onclick="javascript: LimpiarCampos()" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>
+                                            <div class="grid-8">
+                                                <div class="field-group" style="">
+                                                    <div class="" style="margin: auto">
+                                                        <img id="retrato" style=" border: solid 5px #ddd;width: 90px; height: 90px;" src="src/images/FOTOS/No-User.jpg"/>
+                                                    </div>
+                                                </div> <!-- .field-group -->
+                                            </div> <!-- .field-group -->
+                                            <div class="grid-16">								
+                                                <div class="field-group">								
+                                                    <label style="color:#B22222;">Cédula:</label>
+                                                    <div class="field">
+                                                        <span id="Cedula"><br></span>
+                                                        <input name="CedulaID" id="CedulaID" style="display: none" class="validate[required]" />
+                                                        <input name="Index" id="Index" style="display: none" />
+                                                    </div>
+                                                </div> <!-- .field-group -->
+                                                <div class="field-group">
+                                                    <label style="color:#B22222">Nombre:</label>
+                                                    <div class="field">
+                                                        <span id="Nombre" ><br></span>			
+                                                    </div>
+                                                </div> <!-- .field-group -->
+                                            </div> <!-- .field-group -->
+                                        </div> <!-- .Implicado_1 -->
+                                    </div> <!-- .Implicado_1 -->
+                                </div> <!-- .row-fluid -->
                                 <div class="grid-20">
                                     <div class="grid-10">
+                                        <div class="field-group">
+                                            <label style="color:#B22222">Código de la Denuncia:</label>
+                                            <div class="field">
+                                                <span><b><?php echo $codigo; ?></b></span>	
+                                                <input name="idDenuncia" id="idDenuncia" value="<?php echo $id; ?>" style="display: none"/>	
+                                            </div>
+                                        </div> <!-- .field-group -->
+
+                                        <div class="field-group">								
+                                            <label style="color:#B22222">Descripción de la Denuncia:</label>
+                                            <div class="field">
+                                                <span> "<i><?= $descripcion ?></i>"</span>
+                                            </div>
+                                        </div> <!-- .field-group -->
+
+                                        <div class="field-group">								
+                                            <label style="color:#B22222">Causa:</label>
+                                            <div class="field">
+                                                <textarea id="Causa" name="Causa" cols="8" rows="8" style="width: 300px; max-width: 250px" class="validate[required]"></textarea>
+                                            </div>
+                                        </div> <!-- .field-group -->
 
                                         <div class="field-group">
                                             <label style="color:#B22222">Sitio del Suceso:</label>
@@ -305,7 +339,7 @@ if (isset($_POST['Submit'])) {
                 <div class="grid-6">
                     <div id="gettingStarted" class="box">
                         <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                        <p>En esta seccion podra iniciar Investigaciones nuevas.</p>
+                        <p>En esta sección podrá iniciar nuevas Averiguaciones.</p>
                     </div>
                 </div>
             </form>
@@ -316,13 +350,15 @@ if (isset($_POST['Submit'])) {
 _adios_mysql();
 ?>
 <script type="text/javascript">
+    var indice = 2;
+
     window.onload = function () {
         espejo_gerencia();
     }
 
 
     function Seleccionado() {
-        if (document.getElementById("CedulaID").value == '') {
+        if (document.getElementById("Nombre").innerHTML === '<br>') {
             $.alert({
                 type: 'alert'
                 , title: 'Alerta'
@@ -342,10 +378,7 @@ _adios_mysql();
                 dataType: 'JSON',
                 method: 'POST',
                 beforeSend: function () {
-                    document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.jpg');
-                    document.getElementById("Nombre").innerHTML = '<br>';
-                    document.getElementById("Cedula").innerHTML = '<br>';
-                    document.getElementById("CedulaID").value = '';
+
                 },
                 data: {
                     Campo: campo
@@ -363,13 +396,13 @@ _adios_mysql();
                         datos.nombre = data.datos[aux].nombre + ' ' + data.datos[aux].apellido;
                         datos.cedula = data.datos[aux].cedula;
                         lista += '<tr>\n\
-                                <td class="center" style="width: 10%">\n\
-                                <a title="Seleccionar" >\n\
-                                <i style="cursor: pointer; " onclick="javascript:Seleccionar(\'' + datos.nombre + '\',\'' + datos.cedula + '\')" class="fa fa-reply"></i>\n\
-                                </a>\n\
-                                </td>\n\
                                 <td style="width: 30%">' + datos.cedula + '</td>\n\
                                 <td style="width: 60%">' + datos.nombre + '</td>\n\
+                                <td class="center" style="width: 10%">\n\
+                                <a title="Seleccionar" >\n\
+                                <i style="cursor: pointer; " onclick="javascript:Seleccionar(\'' + datos.nombre + '\',\'' + datos.cedula + '\')" class="fa fa-share"></i>\n\
+                                </a>\n\
+                                </td>\n\
                                 </tr>';
                         aux++;
                     }
@@ -387,11 +420,57 @@ _adios_mysql();
 
     }
     function Seleccionar(nombre, cedula) {
+        var NuevoCampo;
+        if (document.getElementById("Nombre").innerHTML === '<br>') {
 
-        document.getElementById("Nombre").innerHTML = nombre;
-        document.getElementById("Cedula").innerHTML = cedula;
-        document.getElementById("CedulaID").value = cedula;
-        document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
+            document.getElementById("Nombre").innerHTML = nombre;
+            document.getElementById("Cedula").innerHTML = cedula;
+            document.getElementById("CedulaID").value = cedula;
+            document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
+
+        } else {
+            NuevoCampo = '<div class="grid-24" id="implicado' + indice + '"> \n\
+                            <i class="fa fa-close pull-right" title="Limpiar" onclick="javascript: LimpiarCampos(' + indice + ')" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>\n\
+                            <div class="grid-8">\n\
+                                <div class="field-group" style="">\n\
+                                    <div class="" style="margin: auto">\n\
+                                        <img style=" border: solid 5px #ddd;width: 90px; height: 90px;" src="src/images/FOTOS/' + cedula + '.jpg"/>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="grid-16">\n\
+                                <div class="field-group">\n\
+                                    <label style="color:#B22222;">Cédula:</label>\n\
+                                    <div class="field">\n\
+                                        <span>' + cedula + '</span>\n\
+                                        <input name="CedulaID' + indice + '" value="' + cedula + '" id="CedulaID' + indice + '" style="display: none" class="validate[required]" />\n\
+                                    </div>\n\
+                                </div>\n\
+                                <div class="field-group">\n\
+                                    <label style="color:#B22222">Nombre:</label>\n\
+                                    <div class="field">\n\
+                                        <span>' + nombre + '</span>\n\
+                                    </div>\n\
+                                </div>\n\
+                            </div>\n\
+                        </div>';
+            indice++;
+            document.getElementById("Index").value = indice;
+            var CampoCompleto = document.getElementById("Implicados").innerHTML;
+            document.getElementById("Implicados").innerHTML = CampoCompleto + '' + NuevoCampo;
+        }
+    }
+
+    function LimpiarCampos(index) {
+        if (index == null) {
+            document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.jpg');
+            document.getElementById("Nombre").innerHTML = '<br>';
+            document.getElementById("Cedula").innerHTML = '<br>';
+            document.getElementById("CedulaID").value = '';
+        } else {
+            document.getElementById('implicado' + index).style.display = 'none';
+            document.getElementById('implicado' + index).innerHTML = '';
+        }
     }
 
 </script>

@@ -105,6 +105,7 @@ if (isset($_POST['Submit'])) {
                                         </div>
                                     </div>
                                     <div class="field-group" id="campo-tabla" style="display: none; height: 300px; overflow: scroll">
+                                        <i class="fa fa-remove pull-right" title="Cerrar Busqueda" onclick="document.getElementById('campo-tabla').style.display='none'" style="color: #B22222; cursor: pointer"></i>
                                         <label style="color:#B22222;" id="lvlBusqueda"></label>
                                         <table class="table table-striped">
                                             <tbody id="BusquedaRes" style="display: block; height: 420px; overflow-y: auto; width: 100%"></tbody>
@@ -119,18 +120,19 @@ if (isset($_POST['Submit'])) {
                                         </div>
                                         </br>
                                     </div> <!-- .field-group -->
+                                    
+                                    <div class="field-group">								
+                                        <label style="color:#B22222">Cédula:</label>
+                                        <div class="field">
+                                            <span id="CedulaDenunciante"><br></span>
+                                            <input name="CedulaDenuncianteID" id="CedulaDenuncianteID" title="ASD" style="display: none" class="validate[required]" />
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                    
                                     <div class="field-group">
                                         <label style="color:#B22222">Nombre y Apellido:</label>
                                         <div class="field">
                                             <span id="NombreDenunciante" ><br></span>			
-                                        </div>
-                                    </div> <!-- .field-group -->
-
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Cedula:</label>
-                                        <div class="field">
-                                            <span id="CedulaDenunciante"><br></span>
-                                            <input name="CedulaDenuncianteID" id="CedulaDenuncianteID" title="ASD" style="display: none" class="validate[required]" />
                                         </div>
                                     </div> <!-- .field-group -->
 
@@ -166,7 +168,7 @@ if (isset($_POST['Submit'])) {
                 <div class="grid-6">
                     <div id="gettingStarted" class="box">
                         <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                        <p>En esta seccion podra registrar nuevas Denuncias.</p>
+                        <p>En esta sección podrá registrar nuevas Denuncias.</p>
                     </div>
                 </div>
         </div> <!-- .grid -->	

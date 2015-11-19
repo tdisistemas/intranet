@@ -26,102 +26,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <?php
                 _bienvenido_mysql();
 
-                $sql = "";
-                $sql = "SELECT ";
-                $sql.="count(*) ";
-                $sql.="FROM ";
-                $sql.="usuario_bkp ";
-                $sql.="LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario ";
-                $sql.="LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id ";
-                $sql.="LEFT JOIN datos_empleado_rrhh ON usuario_bkp.usuario = datos_empleado_rrhh.cedula ";
-                $sql.="WHERE usuario_bkp.habilitado=1;";
-                $result = mysql_query($sql);
-                if (!$result) {
-                    if ($SQL_debug == '1') {
-                        die('Error en Consulta de Auth - Respuesta del Motor: ' . mysql_error());
-                    } else {
-                        die('Error en Consulta de Auth');
-                    }
-                }
-                $reg = mysql_fetch_array($result);
-                $a = $reg[0];
-
-
-                $sql = "";
-                $sql = "SELECT ";
-                $sql.="count(*) ";
-                $sql.="FROM ";
-                $sql.="usuario_bkp ";
-                $sql.="LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario ";
-                $sql.="LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id ";
-                $sql.="LEFT JOIN datos_empleado_rrhh ON usuario_bkp.usuario = datos_empleado_rrhh.cedula ";
-                $sql.="WHERE usuario_bkp.habilitado=1 AND usuario_bkp.correo_principal='';";
-                $result = mysql_query($sql);
-                if (!$result) {
-                    if ($SQL_debug == '1') {
-                        die('Error en Consulta de Auth - Respuesta del Motor: ' . mysql_error());
-                    } else {
-                        die('Error en Consulta de Auth');
-                    }
-                }
-                $reg = mysql_fetch_array($result);
-                $b = $reg[0];
-
-
-
-                $sql = "";
-                $sql = "SELECT ";
-                $sql.="count(*) ";
-                $sql.="FROM ";
-                $sql.="usuario_bkp ";
-                $sql.="LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario ";
-                $sql.="LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id ";
-                $sql.="LEFT JOIN datos_empleado_rrhh ON usuario_bkp.usuario = datos_empleado_rrhh.cedula ";
-                $sql.="WHERE usuario_bkp.habilitado=1 AND usuario_bkp.usuario_int='';";
-                $result = mysql_query($sql);
-                if (!$result) {
-                    if ($SQL_debug == '1') {
-                        die('Error en Consulta de Auth - Respuesta del Motor: ' . mysql_error());
-                    } else {
-                        die('Error en Consulta de Auth');
-                    }
-                }
-                $reg = mysql_fetch_array($result);
-                $c = $reg[0];
-
-
-
-                $sql = "";
-                $sql = "SELECT ";
-                $sql.="count(*) ";
-                $sql.="FROM ";
-                $sql.="usuario_bkp ";
-                $sql.="LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario ";
-                $sql.="LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id ";
-                $sql.="LEFT JOIN datos_empleado_rrhh ON usuario_bkp.usuario = datos_empleado_rrhh.cedula ";
-                $sql.="WHERE usuario_bkp.habilitado=1 AND isnull(autenticacion.perfil);";
-                $result = mysql_query($sql);
-                if (!$result) {
-                    if ($SQL_debug == '1') {
-                        die('Error en Consulta de Auth - Respuesta del Motor: ' . mysql_error());
-                    } else {
-                        die('Error en Consulta de Auth');
-                    }
-                }
-                $reg = mysql_fetch_array($result);
-                $d = $reg[0];
-
-                mysql_query("set names utf8");
                 ?>
-
-                <div style="margin-left: 400px;" class="dashboard_report first activeState">
-                    <div class="pad" align="center">
-                        <span class="value"><?php echo $a; ?></span> Total de Empleados
-                    </div> <!-- .pad -->
-                </div>
-
-
-
             </div> <!-- .widget-content -->
 
         </div> <!-- .widget -->	
@@ -138,10 +43,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
-                            <th style="width:15%">Cedula</th>
-                            <th style="width:35%">Nombre y Apellido</th>
+                            <th style="width:15%">Cédula</th>
+                            <th style="width:40%">Nombre y Apellido</th>
                             <th style="width:35%">Gerencia</th>
-                            <th style="width:15%">Opciones</th>
+                            <th style="width:10%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -167,7 +72,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     $parametros = _desordenar($parametros);
                                     ?>  
                                     <a href="dashboard.php?data=usuario-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
-                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-user"></span></div>
+                                        <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a>
                                 </td>
                             </tr>									
