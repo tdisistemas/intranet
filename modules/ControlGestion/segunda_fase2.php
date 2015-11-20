@@ -31,28 +31,52 @@ if (isset($_POST['enviar'])) {
     $monto2 = $_POST['monto2'];
     $monto3 = $_POST['monto3'];
     $deviacion = $_POST['deviacion'];
+    $valipdc=  isset($_POST['pdc']) ? $_POST['pdc']:'0';
+    $validarpdc= $valipdc;
     
 
-    $sql = mysql_query("SELECT caracteristicas, conse 
-    FROM `control_conse`
-    WHERE `caracteristicas` = '$tipo_soli'");
+    $sql = mysql_query("SELECT *
+                    FROM `gc_control_gestion2`
+                    WHERE `n_proceso` = '$id'
+                    AND `tipo_solicitud` = '$tipo_soli'
+                    ORDER BY `servicio` DESC
+                    LIMIT 1 ");
 
     while ($row = mysql_fetch_array($sql)) {
 
-        $caracteristica = $row['caracteristicas'];
-        $conse = $row['conse'];
+        
+        $conse = $row['servicio'];
+        
     }
-    
+    $conse1 = $conse + 1; 
     $correlativo=(explode('-',$id));
     $ano = date('Y');
     $actual = (explode("20", $ano));
-    $conse1 = $conse + 1;
-    $consecutivo = mysql_query("update control_conse set conse='" . $conse1 . "' where caracteristicas='$tipo_soli' ");
-    $pdc = $caracteristica .'-'. $id. '-00'.$conse1.'-' . $actual[1] ;
+
     
-    $status = mysql_query("update control_gestion set estatus_servi=3 where n_proceso='$id' ");
-    $sql = "INSERT INTO `control_gestion2` (punto_cuenta,`tipo_solicitud`,montoec,`montooc`, `deviacion`, `montoate`, n_proceso) VALUES"
-            . " ('" . $pdc . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "', '" . $id . "')";
+    $status = mysql_query("update gc_control_gestion set estatus_servi=3 where n_proceso='$id' ");
+    if ($validarpdc>0){
+        
+         $sql = mysql_query("SELECT caracteristicas, conse 
+            FROM `gc_controlconse`
+            WHERE `caracteristicas` = 'PDC'");
+
+    while ($row = mysql_fetch_array($sql)) {
+    
+    $caracteristica = $row['caracteristicas'];
+    $conse2 = $row['conse'];
+
+}
+
+$ano = date('Y');
+$actual=(explode("20",$ano));
+$conse3=$conse2+1;
+$consecutivo=mysql_query("update gc_controlconse set conse='".$conse3."' where caracteristicas='PDC' ");
+$punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
+    }
+    
+    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,montoec,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
+            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
     $result = mysql_query($sql);
     if ($result) {
         notificar("Segunda Fase del Proceso Ingresada con exito", "dashboard.php?data=controlg", "notify-success");
@@ -121,7 +145,12 @@ if (isset($_POST['enviar'])) {
                                    <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación."/>
                                     </div>
                                 </div>
-                             
+                             <div class="field-group">
+                                    <label for="required">Punto de Cuenta:</br></label>   
+                                    <div class="field">
+                                        <input type="checkbox" name="pdc" id="deviacion" size="16" value="1" placeholder="% de Deviación."/>
+                                    </div>
+                                </div>
                                 
                             </div>
                           

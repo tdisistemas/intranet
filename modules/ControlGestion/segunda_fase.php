@@ -28,14 +28,17 @@ if (isset($_POST['enviar'])) {
     $id_cgestion2 = $_POST['id_cgestion2'];
     $tipo_soli = $_POST['tipo_soli'];
     $monto1 = $_POST['monto1'];
-    $monto2 = $_POST['monto2'];
-    $monto3 = $_POST['monto3'];
-    $deviacion = $_POST['deviacion'];
+    $enviado_presi = $_POST['enviado_presi'];
+    $recibido_presi = $_POST['recibido_presi'];
+ 
     
 
-    $sql = mysql_query("SELECT caracteristicas, conse 
-    FROM `control_conse`
-    WHERE `caracteristicas` = '$tipo_soli'");
+    $sql = mysql_query("SELECT *
+                    FROM `gc_control_gestion2`
+                    WHERE `n_proceso` = '$id'
+                    AND `tipo_solicitud` = '$tipo_soli'
+                    ORDER BY `servicio` DESC
+                    LIMIT 1 ");
 
     while ($row = mysql_fetch_array($sql)) {
 
@@ -46,13 +49,11 @@ if (isset($_POST['enviar'])) {
     $correlativo=(explode('-',$id));
     $ano = date('Y');
     $actual = (explode("20", $ano));
-    $conse1 = $conse + 1;
-    $consecutivo = mysql_query("update control_conse set conse='" . $conse1 . "' where caracteristicas='$tipo_soli' ");
-    $pdc = $caracteristica .'-'. $id. '-00'.$conse1.'-' . $actual[1] ;
-    
-    $status = mysql_query("update control_gestion set estatus_servi=1 where n_proceso='$id' ");
-    $sql = "INSERT INTO `control_gestion2` (punto_cuenta,`tipo_solicitud`,montoec,`montooc`, `deviacion`, `montoate`, n_proceso) VALUES"
-            . " ('" . $pdc . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "', '" . $id . "')";
+    $conse1 = $conse+1;
+
+    $status = mysql_query("update gc_control_gestion set estatus_servi=1 where n_proceso='$id' ");
+    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,montoec,`enviado_presidencia`, `recibido_presidencia`, n_proceso) VALUES"
+            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "', '" . $recibido_presi . "', '" . $id . "')";
     $result = mysql_query($sql);
     if ($result) {
         notificar("Segunda Fase del Proceso Ingresada con exito", "dashboard.php?data=controlg", "notify-success");
@@ -93,19 +94,13 @@ if (isset($_POST['enviar'])) {
                                 </select>
                                     </div>
                                 </div>
-                                <div class="field-group">
-                                    <label for="required">Monto Oferta Comercial:</br></label>   
+                                 <div class="field-group">
+                                    <label for="datepicker">Enviado a Presidencia:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC."/>
+                                        <input id="datepicker" name="enviado_presi" size="14">
                                     </div>
                                 </div>
-                              
-                                  <div class="field-group">
-                                    <label for="required">Monto ATE:</br></label>   
-                                    <div class="field">
-                                   <input type="text" name="monto3" id="monto3" size="16" placeholder="Monto Bsf ATE."/>
-                                    </div>
-                                </div>
+                                
                             </div>
                    
                             <div class="grid-12">
@@ -116,11 +111,12 @@ if (isset($_POST['enviar'])) {
                                     </div>
                                 </div>
                                   <div class="field-group">
-                                    <label for="required">Deviación:</br></label>   
+                                    <label for="datepicker">Recibido de Presidencia:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación."/>
+                                        <input id="datepicker1" name="recibido_presi" size="14">
                                     </div>
                                 </div>
+                                
                              
                                 
                             </div>
@@ -192,33 +188,7 @@ changeYear: true,
 yearRange: "1950:2014"
 });
 });
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker2").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker3").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker4").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
+
 function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }

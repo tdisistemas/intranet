@@ -8,6 +8,7 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 ?>
+
 <?php
 include('notificador.php');
 decode_get2($_SERVER["REQUEST_URI"], 2);
@@ -44,7 +45,7 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
                     <tbody>
                         <?php
                         mysql_query("set names utf8");
-                        $sql = mysql_query("SELECT * FROM control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "' ");
+                        $sql = mysql_query("SELECT * FROM gc_control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "' ");
                         while ($row = mysql_fetch_array($sql)) {
                             ?>
                             <tr class="gradeA">

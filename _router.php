@@ -42,7 +42,8 @@ switch ($t) {
     case ("consultar"):include('modules/ControlGestion/consulta.php');
         ?><script>activame('controlgestion');</script><?php
         break;
-    
+    case ("puntoc"):include('modules/ControlGestion/puntocuenta.php');
+        ?><script>activame('controlgestion');</script><?php break;
      
 
     /*     * ** NOTIFICACION *** */

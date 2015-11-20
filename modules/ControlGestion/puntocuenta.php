@@ -22,38 +22,42 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         <div class="widget widget-table">
             <div class="widget-header">
                 <span class="icon-list"></span>
-                <h3 class="icon chart">Registro de Procesos</h3>		
-                <span class="icon-folder-fill"></span>
-                <h3 class="icon chart"><a href="dashboard.php?data=insertar_cl1" style="color: white;text-decoration: none;">Agregar Procesos</a></h3>		
+                <h3 class="icon chart">Registro de Procesos con Punto de Cuenta</h3>		
+               
+                	
             </div>
             <div class="widget-content">
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
-                            <th style="width:10%">N° de Proceso</th>
-                            <th style="width:10%">Fecha de Ingreso</th>
-                            <th style="width:20%">Gerencia Requiriente</th>
-                            <th style="width:20%">Responsable</th>
-                            <th style="width:15%">Nombre de la Obra/Actividad</th>
-                            <th style="width:15%">Estatus del Tramite</th>
+                            <th style="width:20%">N° de Proceso</th>
+                            <th style="width:20%">N° de Servicio</th>
+                            <th style="width:20%">Punto de Cuenta</th>
+                            <th style="width:25%">Nombre de la Obra/Actividad
                             <th style="width:15%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         mysql_query("set names utf8");
-                        $sql = mysql_query("SELECT * FROM gc_control_gestion");
+                        
+                       
+                        
+                        $sql = mysql_query("SELECT  gc_control_gestion.obra, gc_control_gestion2.n_proceso, gc_control_gestion2.servicio, gc_control_gestion2.punto_cuenta, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,gc_control_gestion2 WHERE "
+                                . "gc_control_gestion2.n_proceso=gc_control_gestion.n_proceso and validacion_pdc=1");
                         $ano = date('y');
                         $actual = (explode("20", $ano));
+                         
                         while ($row = mysql_fetch_array($sql)) {
                             ?>
                             <tr class="gradeA">
-                                <td><?php echo 'GC-' . $row[2] . '-' . $actual[0] ?></td>
-                                <td><?php echo $row[3] ?></td>
-                                <td><?php echo $row[4] ?></td>
-                                <td><?php echo $row[5] ?></td>
-                                <td><?php echo $row[6] ?></td>
-                                <td><?php echo $row[7] ?></td>
+                                <td><?php echo 'GC-' . $row["n_proceso"] . '-' . $actual[0] ?></td>
+                                <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
+                                <td><?php echo 'PDC-'.'00'.$row["punto_cuenta"]. '-'.$actual[0] ?></td>
+                                <td><?php echo $row["obra"] ?></td>
+                                
+                               
+                        
 
                                 <td class="center">
                                     <?php
@@ -107,6 +111,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 </td>
                             </tr>									
                                 <?php } ?>
+                               
 
                     </tbody>
                 </table>
@@ -116,11 +121,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         </div>
         
     </div> <!-- .grid -->
-    
+   
                                 </td>
                             </tr>
 
-                     
 
 
                     </tbody>

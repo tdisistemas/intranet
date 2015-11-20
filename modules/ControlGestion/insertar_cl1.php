@@ -22,9 +22,9 @@ _wm($usuario_datos[9],'Acceso Autorizado en: '.ucwords(array_pop(explode('/', __
 <div class="widget-content">
 							
 <form class="form validateForm" action="dashboard.php?data=insertar-proy" method="post"  onsubmit="return validarForm(this)" >
-                              <div class="grid-4">
+                              <div class="grid-2">
                               </div>
-                              <div class="grid-8">
+                              <div class="grid-10">
                               <div class="field-group">
                                 <label>Clase:<br></label>   
                               <div class="field">
@@ -53,7 +53,7 @@ _wm($usuario_datos[9],'Acceso Autorizado en: '.ucwords(array_pop(explode('/', __
                                 <div class="field-group">
                                     <label for="required">Nombre de la Obra/Actividad:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="nombre_obra" id="nombre_obra" size="14" placeholder="Nombre de la Obra/Actividad" onChange="conMayusculas(this)"/>	
+                                   <input type="text" name="nombre_obra" id="nombre_obra" size="24" placeholder="Nombre de la Obra/Actividad" onChange="conMayusculas(this)"/>	
                                     </div>
                                 </div>
                                 
@@ -70,7 +70,9 @@ _wm($usuario_datos[9],'Acceso Autorizado en: '.ucwords(array_pop(explode('/', __
                             </div>
                          
                               </div>
-                                <div class="grid-12">
+                                <div class="grid-2">
+                                </div>
+                                <div class="grid-10">
                                  <div class="field-group">
                                     <label for="datepicker">Fecha de Ingreso:<br></label>   
                                     <div class="field">
@@ -80,7 +82,7 @@ _wm($usuario_datos[9],'Acceso Autorizado en: '.ucwords(array_pop(explode('/', __
                                 <div class="field-group">
                                     <label for="required">Responsable del Requerimiento:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="responsable_req" id="responsable_req" size="14" placeholder="Responsable del Requerimiento" onChange="conMayusculas(this)"/>
+                                   <input type="text" name="responsable_req" id="responsable_req" size="22" placeholder="Responsable del Requerimiento" onChange="conMayusculas(this)"/>
                                     </div>
                                 </div>
                              

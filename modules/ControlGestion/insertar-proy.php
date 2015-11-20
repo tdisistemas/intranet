@@ -24,22 +24,25 @@ $anexos= isset($_POST['anexos']) ? $_POST['anexos']:'0';
 
 $documentose= $alcance. "," .$memoriad. "," .$computos. "," .$especificaciones. "," .$planos. "," .$anexos; 
 
-  _bienvenido_mysql();
-$sql = mysql_query("SELECT conse 
-FROM `control_conse`");
+  
+$sql = mysql_query("SELECT caracteristicas, conse 
+FROM `gc_controlconse`
+WHERE `caracteristicas` = 'GC'");
 
 while ($row = mysql_fetch_array($sql)) {
     
+    $caracteristica = $row['caracteristicas'];
     $conse  = $row['conse'];
 
 }
 
+$ano = date('Y');
+$actual=(explode("20",$ano));
 $conse1=$conse+1;
-$consecutivo=mysql_query("update control_conse set conse='".$conse1."'");
-
+$consecutivo=mysql_query("update gc_controlconse set conse='".$conse1."' where caracteristicas='GC' ");
 
    
-  $u      = "INSERT INTO `control_gestion` (clase, n_proceso,`fecha_ingreso`, `gerencia_req`, `responsable`, `obra`,  `estatus`, `documentos_entre`) VALUES"
+  $u      = "INSERT INTO `gc_control_gestion` (clase, n_proceso,`fecha_ingreso`, `gerencia_req`, `responsable`, `obra`,  `estatus`, `documentos_entre`) VALUES"
         . " ('" . $clase . "','".  '00'.$conse1."','" . $fecha_ing . "', '" . $gerencia . "','" . $responsable . "','" . $nombre_obra . "','" . $estatus . "', '" . $documentose . "')";
 
 $result=  mysql_query($u);

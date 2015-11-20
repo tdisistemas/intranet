@@ -84,7 +84,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <a href="javascript:;">Control y Gestión</a>				
                                             <ul class="subNav">
                                                 <li><a href="dashboard.php?data=controlg">Proyecto</a></li>
-                                               
+                                               <li><a href="dashboard.php?data=puntoc">Punto de Cuenta</a></li>
                                             </ul>						
                                         </li>
                                     <?php } ?>
