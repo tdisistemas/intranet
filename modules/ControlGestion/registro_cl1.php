@@ -34,7 +34,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             <th style="width:10%">Fecha de Ingreso</th>
                             <th style="width:20%">Gerencia Requiriente</th>
                             <th style="width:20%">Responsable</th>
-                            <th style="width:15%">Nombre de la Obra/Actividad</th>
+                            <th style="width:10%">Nombre de la Obra/Actividad</th>
                             <th style="width:15%">Estatus del Tramite</th>
                             <th style="width:15%">Opciones</th>
                         </tr>
@@ -84,7 +84,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         
                                         if ($row[13]>=2){
                                             ?>
-                                            <a href="dashboard.php?data=seg_fase2&flag=1&<?php echo $parametro; ?>" id="seg_fase2" title="Insertar AP">
+                                            <a href="dashboard.php?data=seg_fase2&flag=1&<?php echo $parametros; ?>" id="seg_fase2" title="Insertar AP">
                                             <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-folder-stroke"></span></div>
                                                 </a>
                                         <?php
@@ -100,7 +100,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         
                                         ?>
                               
-
+                                         <a href="dashboard.php?data=edicion_reg&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
+                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
+                                    </a>
     <!--<a href="javascript:eliminar('<?php echo $row["Nombre"] ?>','dashboard.php?data=pruebadelete&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
     </a>-->

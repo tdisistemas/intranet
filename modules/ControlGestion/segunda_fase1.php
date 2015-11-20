@@ -112,8 +112,8 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                     <label>Tipo de Solicitud:<br></label>   
                                     <div class="field">
                                     <select name="tipo_soli" id="tipo_soli" style="width:130px" >
-                                        <option value="">Seleccione</option>
-                                    <option value="ATE">Análisis Técnico- Económico</option>
+                                        
+                                        <option value="ATE" selected>Análisis Técnico- Económico</option>
                                     
                                 </select>
                                     </div>
@@ -137,7 +137,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                 <div class="field-group">
                                     <label for="required">Monto Estimación de Costo:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto1" id="monto1" size="16" placeholder="Monto Bsf EC."/>
+                                        <input type="text" name="monto1" id="monto1" size="16" value="<?php echo $monto2;?>"/>
                                     </div>
                                 </div>
                                   <div class="field-group">
@@ -149,8 +149,8 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                 <div class="field-group">
                                     <label for="required">Generar Punto de Cuenta:</br></label>   
                                     <div class="field">
-                                        <input type="checkbox" name="pdc" id="deviacion" size="16" value="1" />
-                                        <input type="checkbox" name="pdc2" id="deviacion" size="16" value="0" />
+                                        SI<input type="checkbox" name="pdc" id="deviacion" size="16" value="1" />
+                                       NO <input type="checkbox" name="pdc2" id="deviacion" size="16" value="0" />
                                     </div>
                                 </div>
                              
@@ -163,7 +163,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                         
                                         <tr>
                                             <td align="center"><button type="submit" name="enviar" class="btn btn-primary">Enviar</button></td>
-                                            <td><button type="submit" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" >Regresar</button></td>
+                                            <td align="center"><button type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error"/>Regresar</button></td>
                                         </tr>
                                     </table>
                                 </div>

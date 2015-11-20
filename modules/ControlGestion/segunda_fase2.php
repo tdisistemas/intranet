@@ -23,6 +23,7 @@ decode_get2($_SERVER["REQUEST_URI"], 2);
 </div> <!-- #contentHeader -->	
 
 <?php
+
 if (isset($_POST['enviar'])) {
 
     $id_cgestion2 = $_POST['id_cgestion2'];
@@ -111,8 +112,8 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                     <label>Tipo de Solicitud:<br></label>   
                                     <div class="field">
                                     <select name="tipo_soli" id="tipo_soli" style="width:130px" >
-                                        <option value="">Seleccione</option>
-                                    <option value="AP">Ajuste de Precio</option>
+                                        
+                                        <option value="AP" selected>Ajuste de Precio</option>
                                     
                                 </select>
                                     </div>
@@ -120,7 +121,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                 <div class="field-group">
                                     <label for="required">Monto Oferta Comercial:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC."/>
+                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC." />
                                     </div>
                                 </div>
                               
@@ -146,9 +147,10 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                     </div>
                                 </div>
                              <div class="field-group">
-                                    <label for="required">Punto de Cuenta:</br></label>   
+                                    <label for="required">Generar Punto de Cuenta:</br></label>   
                                     <div class="field">
-                                        <input type="checkbox" name="pdc" id="deviacion" size="16" value="1" placeholder="% de Deviación."/>
+                                        SI<input type="checkbox" name="pdc" id="deviacion" size="16" value="1" />
+                                       NO <input type="checkbox" name="pdc2" id="deviacion" size="16" value="0" />
                                     </div>
                                 </div>
                                 
@@ -160,7 +162,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                         
                                         <tr>
                                             <td align="center"><button type="submit" name="enviar" class="btn btn-primary">Enviar</button></td>
-                                            <td><button type="submit" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" >Regresar</button></td>
+                                            <td align="center"><button type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error"/>Regresar</button></td>
                                         </tr>
                                     </table>
                                 </div>

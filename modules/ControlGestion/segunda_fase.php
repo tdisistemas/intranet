@@ -87,9 +87,9 @@ if (isset($_POST['enviar'])) {
                                 <div class="field-group">
                                     <label>Tipo de Solicitud:<br></label>   
                                     <div class="field">
-                                    <select name="tipo_soli" id="tipo_soli" style="width:130px" >
-                                        <option value="">Seleccione</option>
-                                    <option value="EC">Estimados de Costo</option>
+                                        <select name="tipo_soli" id="tipo_soli" style="width:130px" >
+                                        
+                                        <option value="EC" selected>Estimados de Costo</option>
                                     
                                 </select>
                                     </div>
@@ -127,7 +127,7 @@ if (isset($_POST['enviar'])) {
                                         
                                         <tr>
                                             <td align="center"><button type="submit" name="enviar" class="btn btn-primary">Enviar</button></td>
-                                            <td><button type="submit" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" >Regresar</button></td>
+                                            <td align="center"><button type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error"/>Regresar</button></td>
                                         </tr>
                                     </table>
                                 </div>

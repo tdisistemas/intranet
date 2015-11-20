@@ -32,30 +32,29 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
-                            <th style="width:10%">Punto de Cuenta</th>
+                            <th style="width:10%">N° de Servicio</th>
                             <th style="width:10%">Tipo de Solicitud</th>
-                            <th style="width:10%">Monto</th>
-                            <th style="width:10%">Estatus de Tramite</th>
-                            <th style="width:10%">Fecha de Aprobación</th>
-                            <th style="width:10%">Enviado a Presidencia</th>
-                            <th style="width:10%">Recibido de Presidencia</th>
+                            <th style="width:10%">Monto Estimado de Costos</th>
+                            <th style="width:10%">Monto Oferta Comercial</th>
+                            <th style="width:10%">Monto Análisis Técnico-Económico</th>
                             <th style="width:10%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         mysql_query("set names utf8");
-                        $sql = mysql_query("SELECT * FROM gc_control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "' ");
+                        $sql = mysql_query("SELECT * FROM gc_control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "'");
+                        $ano = date('y');
+                        $actual = (explode("20", $ano));
                         while ($row = mysql_fetch_array($sql)) {
                             ?>
                             <tr class="gradeA">
-                                <td><?php echo $row[1] ?></td>
+                                <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
                                 <td><?php echo $row[2] ?></td>
                                 <td><?php echo $row[3] ?></td>
                                 <td><?php echo $row[4] ?></td>
-                                <td><?php echo $row[5] ?></td>
                                 <td><?php echo $row[6] ?></td>
-                                <td><?php echo $row[7] ?></td>
+                              
 
                                 <td class="center">
                                     <?php
@@ -65,7 +64,7 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
                                     $parametro = _desordenar($parametro);
                                     
                                     ?>  
-                                    <a href="dashboard.php?data=edicion_reg&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
+                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
                                     </a>
                                 </td>
