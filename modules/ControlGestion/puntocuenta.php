@@ -30,9 +30,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <table class="table table-bordered table-striped data-table">
                     <thead>
                         <tr>
+                            <th style="width:20%">Punto de Cuenta</th>
                             <th style="width:20%">N° de Proceso</th>
                             <th style="width:20%">N° de Servicio</th>
-                            <th style="width:20%">Punto de Cuenta</th>
                             <th style="width:25%">Nombre de la Obra/Actividad
                             <th style="width:15%">Opciones</th>
                         </tr>
@@ -51,9 +51,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         while ($row = mysql_fetch_array($sql)) {
                             ?>
                             <tr class="gradeA">
+                                <td><?php echo 'PDC-'.'00'.$row["punto_cuenta"]. '-'.$actual[0] ?></td>
                                 <td><?php echo 'GC-' . $row["n_proceso"] . '-' . $actual[0] ?></td>
                                 <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
-                                <td><?php echo 'PDC-'.'00'.$row["punto_cuenta"]. '-'.$actual[0] ?></td>
                                 <td><?php echo $row["obra"] ?></td>
                                 
                                

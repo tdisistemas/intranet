@@ -35,6 +35,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         $responsable = $reg[5];
         $obra = $reg[6];
         $estatus = $reg[7];
+        $documentose = $reg[8];
+        $documentos=  explode(',', $documentose);
       
     } else {
         notificar("No Existen Registros", "dashboard.php?data=controlg", "notify-error");
@@ -43,12 +45,19 @@ if (isset($_POST['enviar'])) {
     
     $id = $_POST["id_cgestion2"];
     $estatus = $_POST["estatus"];
-   
+    $alcance=  isset($_POST['alcance']) ? $_POST['alcance']:'0';
+    $memoriad= isset($_POST['memoriad']) ? $_POST['memoriad']:'0';
+    $computos= isset($_POST['computos']) ? $_POST['computos']:'0';
+    $especificaciones= isset($_POST['especificaciones']) ? $_POST['especificaciones']:'0';
+    $planos= isset($_POST['planos']) ? $_POST['planos']:'0';
+    $anexos= isset($_POST['anexos']) ? $_POST['anexos']:'0';
+    $documentose= $alcance. "," .$memoriad. "," .$computos. "," .$especificaciones. "," .$planos. "," .$anexos; 
+    
     $parametro = 'np=' . $id_2;
     $parametro = _desordenar($parametro);
        
  
- $sql="UPDATE gc_control_gestion SET  ". "estatus='".$estatus."' WHERE id_cgestion=".$id_2;
+ $sql="UPDATE gc_control_gestion SET  ". "estatus='".$estatus."', ". "documentos_entre='".$documentose."' WHERE id_cgestion=".$id_2;
   
   $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
@@ -128,12 +137,12 @@ if (isset($_POST['enviar'])) {
                                 <div class="field-group">
                                     <label for="required">Documentos Entregados:</br></label>   
                                     <div class="field">
-                                        <input type="checkbox" name="alcance" id="alcance" value="1" size="14" />&nbsp;&nbsp;Alcance del Proyecto</br>
-                                   <input type="checkbox" name="memoriad" id="memoriad" value="1" size="14" />&nbsp;&nbsp;Memoría Descriptiva</br>
-                                   <input type="checkbox" name="computos" id="computos" value="1" size="14" />&nbsp;&nbsp;Computos Metricos</br>
-                                   <input type="checkbox" name="especificaciones" id="especificaciones" value="1" size="14" />&nbsp;&nbsp;Especificaciones Tecnicas</br>
-                                   <input type="checkbox" name="planos" id="planos" value="1" size="14" />&nbsp;&nbsp;Planos</br>
-                                   <input type="checkbox" name="anexos" id="anexos" value="1" size="14" />&nbsp;&nbsp;Anexos</br>
+                                        <input type="checkbox"name="alcance" id="alcance" value="1" size="14" <?php echo $documentos[0]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Alcance del Proyecto</br>
+                                   <input type="checkbox" name="memoriad" id="memoriad" value="1" size="14" <?php echo $documentos[1]=="1" ? "checked disabled" : '';?> />&nbsp;&nbsp;Memoría Descriptiva</br>
+                                   <input type="checkbox" name="computos" id="computos" value="1" size="14" <?php echo $documentos[2]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Computos Metricos</br>
+                                   <input type="checkbox" name="especificaciones" id="especificaciones" value="1" size="14" <?php echo $documentos[3]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Especificaciones Tecnicas</br>
+                                   <input type="checkbox" name="planos" id="planos" value="1" size="14" <?php echo $documentos[4]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Planos</br>
+                                   <input type="checkbox" name="anexos" id="anexos" value="1" size="14" <?php echo $documentos[5]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Anexos</br>
                                     </div>
                                 </div>
                                  </div>
@@ -188,6 +197,7 @@ if (isset($_POST['enviar'])) {
 
 
 <script type="text/javascript">
+    
     function validarForm(formulario) {
 
   if(formulario.datepicker.value.length==0) { //¿Tiene 0 caracteres?

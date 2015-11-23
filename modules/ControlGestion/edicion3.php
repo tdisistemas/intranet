@@ -169,5 +169,3 @@ function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
 javascript</script>
-
-

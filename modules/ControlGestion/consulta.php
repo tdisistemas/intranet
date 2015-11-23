@@ -43,28 +43,27 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
                     <tbody>
                         <?php
                         mysql_query("set names utf8");
-                        $sql = mysql_query("SELECT * FROM gc_control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "'");
+                        $sql = mysql_query("SELECT id_cgestion2,tipo_solicitud, n_proceso, servicio, montoec, montooc, montoate FROM gc_control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "'");
                         $ano = date('y');
                         $actual = (explode("20", $ano));
                         while ($row = mysql_fetch_array($sql)) {
                             ?>
                             <tr class="gradeA">
                                 <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
-                                <td><?php echo $row[2] ?></td>
-                                <td><?php echo $row[3] ?></td>
-                                <td><?php echo $row[4] ?></td>
-                                <td><?php echo $row[6] ?></td>
+                                <td><?php echo $row["tipo_solicitud"] ?></td>
+                                <td><?php echo $row["montoec"] ?></td>
+                                <td><?php echo $row["montooc"] ?></td>
+                                <td><?php echo $row["montoate"] ?></td>
                               
 
                                 <td class="center">
                                     <?php
-                                    $parametros = 'id=' . $row[0];
+                                     $parametros = 'id=' . $row[1];
                                     $parametros = _desordenar($parametros);
-                                    $parametro = 'np=' . $row[2];
+                                    $parametro = 'np=' . $row[0];
                                     $parametro = _desordenar($parametro);
-                                    
                                     ?>  
-                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
+                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametro.'&'. $parametros; ?>" id="editar" title="Editar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
                                     </a>
                                 </td>

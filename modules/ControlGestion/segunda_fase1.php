@@ -15,7 +15,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 <div id="contentHeader">
 
     <?php 
-decode_get2($_SERVER["REQUEST_URI"], 2);
+    decode_get2($_SERVER["REQUEST_URI"], 2);
     $id = _antinyeccionSQL($_GET["np"]);
 //decode_get2($_SERVER["REQUEST_URI"],1);  ?>
     
@@ -23,6 +23,12 @@ decode_get2($_SERVER["REQUEST_URI"], 2);
 </div> <!-- #contentHeader -->	
 
 <?php
+ $montoec = mysql_query("SELECT montoec FROM `gc_control_gestion2`
+                    WHERE `n_proceso` = '$id'");
+ $monto=  mysql_fetch_array($montoec);
+
+ 
+                    
 if (isset($_POST['enviar'])) {
 
     $id_cgestion2 = $_POST['id_cgestion2'];
@@ -33,8 +39,7 @@ if (isset($_POST['enviar'])) {
     $deviacion = $_POST['deviacion'];
     $valipdc=  isset($_POST['pdc']) ? $_POST['pdc']:'0';
     $validarpdc= $valipdc;
-     $sql = mysql_query("SELECT *
-                    FROM `gc_control_gestion2`
+     $sql = mysql_query("SELECT * FROM `gc_control_gestion2`
                     WHERE `n_proceso` = '$id'
                     AND `tipo_solicitud` = '$tipo_soli'
                     ORDER BY `servicio` DESC
@@ -44,7 +49,7 @@ if (isset($_POST['enviar'])) {
 
         
         $conse = $row['servicio'];
-        
+       
     }
     $conse1 = $conse + 1; 
     
@@ -76,9 +81,10 @@ $consecutivo=mysql_query("update gc_controlconse set conse='".$conse3."' where c
 $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
     }
     
-    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,montoec,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
+    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
             . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
     $result = mysql_query($sql);
+    
     if ($result) {
         notificar("Segunda Fase del Proceso Ingresada con exito", "dashboard.php?data=controlg", "notify-success");
     } else {
@@ -137,7 +143,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                 <div class="field-group">
                                     <label for="required">Monto Estimación de Costo:</br></label>   
                                     <div class="field">
-                                        <input type="text" name="monto1" id="monto1" size="16" value="<?php echo $monto2;?>"/>
+                                        <input type="text" name="monto1" id="monto1" size="16" value="<?php echo $monto['montoec'];?>" readonly/>
                                     </div>
                                 </div>
                                   <div class="field-group">

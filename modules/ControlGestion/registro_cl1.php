@@ -84,7 +84,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         
                                         if ($row[13]>=2){
                                             ?>
-                                            <a href="dashboard.php?data=seg_fase2&flag=1&<?php echo $parametros; ?>" id="seg_fase2" title="Insertar AP">
+                                            <a href="dashboard.php?data=seg_fase2&flag=1&<?php echo $parametro; ?>" id="seg_fase2" title="Insertar AP">
                                             <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-folder-stroke"></span></div>
                                                 </a>
                                         <?php
