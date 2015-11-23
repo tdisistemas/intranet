@@ -110,18 +110,11 @@ $sqlquery = "SELECT "
         . "b.tipo,"
         . "d.nombre,"
         . "d.apellido,"
-        . "e.gerencia,"
-        . "e.ext_telefonica,"
-        . "e.nombre AS Invo_nombre,"
-        . "a.involucrado,"
-        . "e.apellido AS Invo_apellido,"
-        . "e.cargo,"
         . "a.status AS st_ave "
         . "FROM ai_averiguaciones a "
         . "INNER JOIN ai_denuncias b ON a.denuncia = b.idDenuncia "
         . "INNER JOIN ai_investigadores c ON a.investigador=c.id_invest "
         . "INNER JOIN datos_empleado_rrhh d ON c.cedula_invest = d.cedula "
-        . "INNER JOIN datos_empleado_rrhh e ON a.involucrado = e.cedula "
         . "WHERE a.idAveriguacion=" . $id;
 
 $sql = mysql_query($sqlquery);
@@ -130,23 +123,32 @@ $respuesta = mysql_fetch_array($sql);
 $codigo = $respuesta['codigo'];
 $codigo_ave = $respuesta['codigo_ave'];
 $nombre = $respuesta['nombre'] . ' ' . $respuesta['apellido'];
-$nombreInvo = $respuesta['Invo_nombre'] . ' ' . $respuesta['Invo_apellido'];
 $causa = $respuesta['causa'];
 $st_den = $respuesta['st_den'];
 $st_ave = $respuesta['st_ave'];
-$cedula = $respuesta['involucrado'];
-$gerencia = $respuesta['gerencia'];
 $fecha = $respuesta['fecha'];
 $fecha_den = $respuesta['fecha_den'];
 $descripcion = $respuesta['descripcion'];
-$extension = $respuesta['ext_telefonica'];
 $tipo = $respuesta['tipo'];
 $recomendacion = $respuesta['recomendacion'];
 $conclusion = $respuesta['conclusion'];
-$cargo = $respuesta['cargo'];
 
 $parametros = 'id=' . $id;
 $parametros = _desordenar($parametros);
+
+$sqlInvol = "SELECT "
+        . "a.cedula,"
+        . "c.nombre,"
+        . "c.apellido,"
+        . "c.cargo,"
+        . "c.gerencia,"
+        . "c.ext_telefonica "
+        . "FROM ai_autores a "
+        . "INNER JOIN ai_averiguaciones b ON a.idAveriguacion = b.idAveriguacion "
+        . "INNER JOIN datos_empleado_rrhh c ON c.cedula = a.cedula "
+        . "WHERE a.idAveriguacion = " . $id;
+
+$sqlqueryInv = mysql_query($sqlInvol);
 ?>
 <div class="container">
     <div class="row"> 
@@ -157,50 +159,74 @@ $parametros = _desordenar($parametros);
                         <div class="row">
                             <div class="grid-24 bordeado">
                                 <div class="widget-header">
-                                    <h3>Involucrado </h3>
+                                    <h3>Involucrado(s) </h3>
                                 </div>
                                 <br>
-                                <div class="grid-4">
-                                    <div class="field-group">
-                                        <div class="field">
-                                            <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                <br>
+                                <?php
+                                $i = 0;
+                                while ($Involucrado = mysql_fetch_array($sqlqueryInv)) {
+
+                                    $cedula = $Involucrado['cedula'];
+                                    $nombreInvo = $Involucrado['nombre'] . ' ' . $Involucrado['apellido'];
+                                    $cargo = $Involucrado['cargo'];
+                                    $gerencia = $Involucrado['gerencia'];
+                                    $extension = $Involucrado['ext_telefonica'];
+                                    if ($i != 0) {
+                                        ?>
+                                        <div class="grid-24" style="text-align: center; margin-left: 1.5%;">
+                                            <hr style="border-top: 1px dotted #000; height: 1px; width:75%;">
                                         </div>
-                                    </div> <!-- .field-group -->
-                                </div>
-                                <div class="grid-8">
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Cédula:</label>
-                                        <div class="field">
-                                            <span><?php echo $cedula; ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                    <div class="grid-24">
+                                        <div class="grid-4">
+                                            <div class="field-group">
+                                                <div class="field">
+                                                    <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                                </div>
+                                            </div> <!-- .field-group -->
                                         </div>
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Nombre:</label>
-                                        <div class="field">
-                                            <span><?php echo $nombreInvo; ?></span>			
+                                        <div class="grid-8">
+                                            <div class="field-group">								
+                                                <label style="color:#B22222">Cédula:</label>
+                                                <div class="field">
+                                                    <span><?php echo $cedula; ?></span>
+                                                </div>
+                                            </div> <!-- .field-group -->
+                                            <div class="field-group">
+                                                <label style="color:#B22222">Nombre:</label>
+                                                <div class="field">
+                                                    <span><?php echo $nombreInvo; ?></span>			
+                                                </div>
+                                            </div> <!-- .field-group -->
+                                            <div class="field-group">
+                                                <label style="color:#B22222">Cargo:</label>
+                                                <div class="field">
+                                                    <span><?php echo $cargo; ?></span>			
+                                                </div>
+                                            </div> <!-- .field-group -->
                                         </div>
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Cargo:</label>
-                                        <div class="field">
-                                            <span><?php echo $cargo; ?></span>			
+                                        <div class="grid-10">
+                                            <div class="field-group">
+                                                <label style="color:#B22222">Gerencia:</label>
+                                                <div class="field">
+                                                    <span><?php echo $gerencia; ?></span>	
+                                                </div>		
+                                            </div> <!-- .field-group -->
+                                            <div class="field-group">
+                                                <label style="color:#B22222">Extensión:</label>
+                                                <div class="field">
+                                                    <span><?php echo $extension; ?></span>	
+                                                </div>		
+                                            </div> <!-- .field-group -->
                                         </div>
-                                    </div> <!-- .field-group -->
-                                </div>
-                                <div class="grid-10">
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Gerencia:</label>
-                                        <div class="field">
-                                            <span><?php echo $gerencia; ?></span>	
-                                        </div>		
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Extensión:</label>
-                                        <div class="field">
-                                            <span><?php echo $extension; ?></span>	
-                                        </div>		
-                                    </div> <!-- .field-group -->
-                                </div>
+                                    </div>
+                                    <?php
+                                    $i++;
+                                }
+                                ?>
                             </div>
                             <div class="grid-24 bordeado" >
                                 <div class="widget-header">
@@ -285,7 +311,7 @@ $parametros = _desordenar($parametros);
                                         </div>
                                         <div style="text-align: left">
                                             <button style="display: " onclick="javascript:EditarCampo('Conclu_')" title="Editar" id="Conclu_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
-                                            <button style="display: none" onclick="javascript:AceptarEdit('Conclu_', 1,'<?=$id?>')" title="Aceptar" id="Conclu_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                            <button style="display: none" onclick="javascript:AceptarEdit('Conclu_', 1, '<?= $id ?>')" title="Aceptar" id="Conclu_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
                                             <button style="display: none" onclick="javascript:CancelarEdit('Conclu_')" title="Cancelar" id="Conclu_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
                                         </div>
                                     </div>
@@ -306,7 +332,7 @@ $parametros = _desordenar($parametros);
                                         </div>
                                         <div style="text-align: left">
                                             <button style="display: " onclick="javascript:EditarCampo('Recom_')" title="Editar" id="Recom_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
-                                            <button style="display: none" onclick="javascript:AceptarEdit('Recom_', 2,'<?=$id?>')" title="Aceptar" id="Recom_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                            <button style="display: none" onclick="javascript:AceptarEdit('Recom_', 2, '<?= $id ?>')" title="Aceptar" id="Recom_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
                                             <button style="display: none" onclick="javascript:CancelarEdit('Recom_')" title="Cancelar" id="Recom_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
                                         </div>
                                     </div>
@@ -315,7 +341,7 @@ $parametros = _desordenar($parametros);
                             <div class="grid-24" style="text-align: center">
                                 <div class="field-group">								
                                     <div class="actions">
-                                        <button onclick="javascript:NuevaAveriguacion('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error">Iniciar Averiguación</button>
+                                        <button onclick="javascript:Revision('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error">Enviar a Revisión</button>
                                         <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
                                     </div> <!-- .actions -->
                                 </div> <!-- .field-group -->
@@ -351,7 +377,7 @@ $parametros = _desordenar($parametros);
                 tipo: tipo
             },
             success: function (data) {
-                document.getElementById(id + 'Mostrado').innerHTML = '<span>'+data+'</span>';
+                document.getElementById(id + 'Mostrado').innerHTML = '<span>' + data + '</span>';
                 CancelarEdit(id);
             }
         });

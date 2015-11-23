@@ -12,16 +12,18 @@ if (!$_GET['flag']) {
 }
 _bienvenido_mysql();
 if (isset($_POST['Submit'])) {
-    $cedula = $_POST['CedulaID'];
     $Causa = $_POST['Causa'];
     $ubicacion_laboral = $_POST['ubicacion_laboral'];
     $investigador = $_POST['investigador'];
     $idDenuncia = $_POST['idDenuncia'];
     $remitidoS = $_POST['remitido'];
+    $indice = $_POST['Index'];
+    $i = $aux = 0;
 
-    $sql = "INSERT INTO ai_averiguaciones(denuncia,fecha,involucrado,causa,sitio_suceso,investigador,remitido) VALUES(" . $idDenuncia . ",NOW()," . $cedula . ",'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
-    //$result = mysql_query($sql);
-    //$nuevoID = mysql_insert_id();
+
+    $sql = "INSERT INTO ai_averiguaciones(denuncia,fecha,causa,sitio_suceso,investigador,remitido) VALUES(" . $idDenuncia . ",NOW(),'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
+    $result = mysql_query($sql);
+    $nuevoID = mysql_insert_id();
     switch (strlen($nuevoID)) {
         case 1:
             $cod_completo = '00000' . $nuevoID;
@@ -44,14 +46,21 @@ if (isset($_POST['Submit'])) {
     }
     $codigoNuevo = 'AIM-' . $cod_completo . '-' . substr(date('Y'), -2);
     $sqlUp = "UPDATE ai_averiguaciones SET codigo_ave ='" . $codigoNuevo . "' WHERE idAveriguacion=" . $nuevoID;
-    //$result2 = mysql_query($sqlUp);
+    $result2 = mysql_query($sqlUp);
+
+    while ($i <= $indice) {
+        if (isset($_POST['CedulaID' . $i])) {
+            $sqlAutores = "INSERT INTO ai_autores(idAveriguacion,cedula) VALUES(" . $nuevoID . "," . $_POST['CedulaID' . $i] . ")";
+            $resultAutores = mysql_query($sqlAutores);
+        }
+        $i++;
+    }
 
     $sqlUpDen = "UPDATE ai_denuncias SET status = 1 WHERE idDenuncia=" . $idDenuncia;
-    //$result3 = mysql_query($sqlUpDen);
-$result = true;
+    $result3 = mysql_query($sqlUpDen);
+    $result = true;
     if ($result) {
-        //notificar('Averiguación creada con exito!', "dashboard.php?data=admin_ai", "notify-success");
-        notificar('index Total='.$_POST['Index'], "dashboard.php?data=admin_ai", "notify-success");
+        notificar('Averiguación creada con exito!', "dashboard.php?data=admin_ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -189,7 +198,7 @@ $result = true;
     ?>
     <div class="container">
         <div class="row"> 
-            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" onsubmit="return Seleccionado()">
+            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="POST" action="" onsubmit="return Seleccionado()">
                 <div class="grid-18">
                     <div class="widget">
                         <div class="widget-header">
@@ -221,9 +230,10 @@ $result = true;
                                     </div>
                                 </div>
                                 <div class="grid-12">
+                                    <input name="Index" id="Index" value="1" style="display: none"/>
+                                    <input name="Count" id="Count" value="0" style="display: none"/>
                                     <div class="grid-24" id="Implicados">
-                                        <div class="grid-24" id='implicado1'>
-                                            <i class="fa fa-close pull-right" title="Limpiar" onclick="javascript: LimpiarCampos()" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>
+                                        <div class="grid-24" id='implicadoX'>
                                             <div class="grid-8">
                                                 <div class="field-group" style="">
                                                     <div class="" style="margin: auto">
@@ -236,8 +246,6 @@ $result = true;
                                                     <label style="color:#B22222;">Cédula:</label>
                                                     <div class="field">
                                                         <span id="Cedula"><br></span>
-                                                        <input name="CedulaID" id="CedulaID" style="display: none" class="validate[required]" />
-                                                        <input name="Index" id="Index" style="display: none" />
                                                     </div>
                                                 </div> <!-- .field-group -->
                                                 <div class="field-group">
@@ -248,6 +256,7 @@ $result = true;
                                                 </div> <!-- .field-group -->
                                             </div> <!-- .field-group -->
                                         </div> <!-- .Implicado_1 -->
+
                                     </div> <!-- .Implicado_1 -->
                                 </div> <!-- .row-fluid -->
                                 <div class="grid-20">
@@ -350,7 +359,6 @@ $result = true;
 _adios_mysql();
 ?>
 <script type="text/javascript">
-    var indice = 2;
 
     window.onload = function () {
         espejo_gerencia();
@@ -358,7 +366,7 @@ _adios_mysql();
 
 
     function Seleccionado() {
-        if (document.getElementById("Nombre").innerHTML === '<br>') {
+        if (document.getElementById("Count").value <= 0) {
             $.alert({
                 type: 'alert'
                 , title: 'Alerta'
@@ -420,17 +428,9 @@ _adios_mysql();
 
     }
     function Seleccionar(nombre, cedula) {
-        var NuevoCampo;
-        if (document.getElementById("Nombre").innerHTML === '<br>') {
-
-            document.getElementById("Nombre").innerHTML = nombre;
-            document.getElementById("Cedula").innerHTML = cedula;
-            document.getElementById("CedulaID").value = cedula;
-            document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
-
-        } else {
-            NuevoCampo = '<div class="grid-24" id="implicado' + indice + '"> \n\
-                            <i class="fa fa-close pull-right" title="Limpiar" onclick="javascript: LimpiarCampos(' + indice + ')" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>\n\
+        var NuevoCampo = '';
+        NuevoCampo = '<div class="grid-24" id="implicado' + document.getElementById("Index").value + '"> \n\
+                            <i class="fa fa-close pull-right" title="Limpiar" onclick="javascript: LimpiarCampos(' + document.getElementById("Index").value + ')" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>\n\
                             <div class="grid-8">\n\
                                 <div class="field-group" style="">\n\
                                     <div class="" style="margin: auto">\n\
@@ -443,7 +443,7 @@ _adios_mysql();
                                     <label style="color:#B22222;">Cédula:</label>\n\
                                     <div class="field">\n\
                                         <span>' + cedula + '</span>\n\
-                                        <input name="CedulaID' + indice + '" value="' + cedula + '" id="CedulaID' + indice + '" style="display: none" class="validate[required]" />\n\
+                                        <input name="CedulaID' + document.getElementById("Index").value + '" value="' + cedula + '" id="CedulaID' + document.getElementById("Index").value + '" style="display: non" />\n\
                                     </div>\n\
                                 </div>\n\
                                 <div class="field-group">\n\
@@ -454,23 +454,20 @@ _adios_mysql();
                                 </div>\n\
                             </div>\n\
                         </div>';
-            indice++;
-            document.getElementById("Index").value = indice;
-            var CampoCompleto = document.getElementById("Implicados").innerHTML;
-            document.getElementById("Implicados").innerHTML = CampoCompleto + '' + NuevoCampo;
-        }
+        document.getElementById("Index").value++;
+        document.getElementById("Count").value++;
+        var CampoCompleto = document.getElementById("Implicados").innerHTML;
+        document.getElementById("Implicados").innerHTML = CampoCompleto + '' + NuevoCampo;
+        document.getElementById("implicadoX").style.display = 'none';
     }
 
     function LimpiarCampos(index) {
-        if (index == null) {
-            document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.jpg');
-            document.getElementById("Nombre").innerHTML = '<br>';
-            document.getElementById("Cedula").innerHTML = '<br>';
-            document.getElementById("CedulaID").value = '';
-        } else {
-            document.getElementById('implicado' + index).style.display = 'none';
-            document.getElementById('implicado' + index).innerHTML = '';
+        document.getElementById("Count").value--;
+        if (document.getElementById("Count").value == 0) {
+            document.getElementById("implicadoX").style.display = '';
         }
+        document.getElementById('implicado' + index).style.display = 'none';
+        document.getElementById('implicado' + index).innerHTML = '';
     }
 
 </script>
