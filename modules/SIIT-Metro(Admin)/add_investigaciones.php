@@ -443,7 +443,7 @@ _adios_mysql();
                                     <label style="color:#B22222;">Cédula:</label>\n\
                                     <div class="field">\n\
                                         <span>' + cedula + '</span>\n\
-                                        <input name="CedulaID' + document.getElementById("Index").value + '" value="' + cedula + '" id="CedulaID' + document.getElementById("Index").value + '" style="display: non" />\n\
+                                        <input name="CedulaID' + document.getElementById("Index").value + '" value="' + cedula + '" id="CedulaID' + document.getElementById("Index").value + '" style="display: none" />\n\
                                     </div>\n\
                                 </div>\n\
                                 <div class="field-group">\n\

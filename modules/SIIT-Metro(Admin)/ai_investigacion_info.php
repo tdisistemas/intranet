@@ -350,7 +350,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                     </div><!-- .grid -->
                 </div><!-- .grid -->	
             </div><!-- .grid -->	
-            <div class="grid-6">
+            <div class="grid-6"> 
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá visualizar la información de la averiguación numero <b><?= $codigo_ave ?></b></p>

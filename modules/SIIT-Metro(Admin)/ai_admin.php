@@ -131,7 +131,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
+                                <?php 
                                 while ($row = mysql_fetch_array($sql)) {
                                     ?>
                                     <tr class="gradeA">
