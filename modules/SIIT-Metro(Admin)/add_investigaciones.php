@@ -232,6 +232,7 @@ if (isset($_POST['Submit'])) {
                                 <div class="grid-12">
                                     <input name="Index" id="Index" value="1" style="display: none"/>
                                     <input name="Count" id="Count" value="0" style="display: none"/>
+                                    <input id="Existentes" value="," style="display: none"/>
                                     <div class="grid-24" id="Implicados">
                                         <div class="grid-24" id='implicadoX'>
                                             <div class="grid-8">
@@ -364,6 +365,21 @@ _adios_mysql();
         espejo_gerencia();
     }
 
+    function Verificar(Valor) {
+        var aux = 1;
+
+        if (document.getElementById("Existentes").value != ',') {
+            var arreglo = document.getElementById("Existentes").value.split(',');
+            while (aux <= document.getElementById("Count").value) {
+                if (Valor === document.getElementById("CedulaID" + arreglo[aux]).value) {
+                    return false;
+                }
+                aux++;
+            }
+        }
+        return true;
+    }
+
 
     function Seleccionado() {
         if (document.getElementById("Count").value <= 0) {
@@ -429,7 +445,10 @@ _adios_mysql();
     }
     function Seleccionar(nombre, cedula) {
         var NuevoCampo = '';
-        NuevoCampo = '<div class="grid-24" id="implicado' + document.getElementById("Index").value + '"> \n\
+
+        if (Verificar(cedula))
+        {
+            NuevoCampo = '<div class="grid-24" id="implicado' + document.getElementById("Index").value + '"> \n\
                             <i class="fa fa-close pull-right" title="Limpiar" onclick="javascript: LimpiarCampos(' + document.getElementById("Index").value + ')" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>\n\
                             <div class="grid-8">\n\
                                 <div class="field-group" style="">\n\
@@ -454,14 +473,19 @@ _adios_mysql();
                                 </div>\n\
                             </div>\n\
                         </div>';
-        document.getElementById("Index").value++;
-        document.getElementById("Count").value++;
-        var CampoCompleto = document.getElementById("Implicados").innerHTML;
-        document.getElementById("Implicados").innerHTML = CampoCompleto + '' + NuevoCampo;
-        document.getElementById("implicadoX").style.display = 'none';
+
+            document.getElementById("Existentes").value = document.getElementById("Existentes").value + document.getElementById("Index").value + ',';
+            document.getElementById("Index").value++;
+            document.getElementById("Count").value++;
+            var CampoCompleto = document.getElementById("Implicados").innerHTML;
+            document.getElementById("Implicados").innerHTML = CampoCompleto + '' + NuevoCampo;
+            document.getElementById("implicadoX").style.display = 'none';
+        }
     }
 
     function LimpiarCampos(index) {
+        var campo = ',' + index + ',';
+        document.getElementById("Existentes").value = document.getElementById("Existentes").value.replace(campo, ',');
         document.getElementById("Count").value--;
         if (document.getElementById("Count").value == 0) {
             document.getElementById("implicadoX").style.display = '';
