@@ -99,20 +99,27 @@ _bienvenido_mysql();
 
 $sqlquery = "SELECT "
         . "a.codigo_ave,"
+        . "a.tipo_origen,"
         . "a.causa,"
         . "a.recomendacion,"
         . "a.conclusion,"
-        . "b.codigo,"
+        . "b.codigo AS cod_den,"
+        . "e.codigo AS cod_org,"
         . "b.status AS st_den,"
+        . "e.status AS st_org,"
         . "a.fecha,"
         . "b.fecha AS fecha_den,"
-        . "b.descripcion,"
-        . "b.tipo,"
+        . "e.fecha AS fecha_org,"
+        . "b.descripcion AS desc_den,"
+        . "e.descripcion AS desc_org,"
+        . "b.tipo AS tipo_den,"
+        . "e.tipo AS tipo_org,"
         . "d.nombre,"
         . "d.apellido,"
         . "a.status AS st_ave "
         . "FROM ai_averiguaciones a "
-        . "INNER JOIN ai_denuncias b ON a.denuncia = b.idDenuncia "
+        . "LEFT JOIN ai_denuncias b ON a.origen = b.idDenuncia AND a.tipo_origen = 1 "
+        . "LEFT JOIN ai_oficios e ON a.origen = e.idOficio AND a.tipo_origen = 2 "
         . "INNER JOIN ai_investigadores c ON a.investigador=c.id_invest "
         . "INNER JOIN datos_empleado_rrhh d ON c.cedula_invest = d.cedula "
         . "WHERE a.idAveriguacion=" . $id;
@@ -120,16 +127,22 @@ $sqlquery = "SELECT "
 $sql = mysql_query($sqlquery);
 $respuesta = mysql_fetch_array($sql);
 
-$codigo = $respuesta['codigo'];
+$tipo_origen = $respuesta['tipo_origen'];
+$cod_den = $respuesta['cod_den'];
+$cod_org = $respuesta['cod_org'];
 $codigo_ave = $respuesta['codigo_ave'];
 $nombre = $respuesta['nombre'] . ' ' . $respuesta['apellido'];
 $causa = $respuesta['causa'];
 $st_den = $respuesta['st_den'];
+$st_org = $respuesta['st_org'];
 $st_ave = $respuesta['st_ave'];
 $fecha = $respuesta['fecha'];
 $fecha_den = $respuesta['fecha_den'];
-$descripcion = $respuesta['descripcion'];
-$tipo = $respuesta['tipo'];
+$fecha_org = $respuesta['fecha_org'];
+$desc_den = $respuesta['desc_den'];
+$desc_org = $respuesta['desc_org'];
+$tipo_org = $respuesta['tipo_org'];
+$tipo_den = $respuesta['tipo_den'];
 $recomendacion = $respuesta['recomendacion'];
 $conclusion = $respuesta['conclusion'];
 
@@ -230,26 +243,26 @@ $sqlqueryInv = mysql_query($sqlInvol);
                             </div>
                             <div class="grid-24 bordeado" >
                                 <div class="widget-header">
-                                    <h3>Denuncia</h3>
+                                    <h3><?= $tipo_origen == '1' ? 'Denuncia' : 'Oficio' ?></h3>
                                 </div>
                                 <br>
                                 <div class="grid-8">
                                     <div class="field-group">
                                         <label style="color:#B22222">Código:</label>
                                         <div class="field">
-                                            <span><b><?php echo $codigo; ?></b></span>	
+                                            <span><b><?php echo $tipo_origen == '1' ? $cod_den : $cod_org ?></b></span>	
                                         </div>
                                     </div> <!-- .field-group -->
                                     <div class="field-group">
                                         <label style="color:#B22222">Fecha:</label>
                                         <div class="field">
-                                            <span><?php echo $fecha_den; ?></span>	
+                                            <span><?php echo $tipo_origen == '1' ? $fecha_den : $fecha_org; ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
                                     <div class="field-group">
                                         <label style="color:#B22222">Tipo:</label>
                                         <div class="field">
-                                            <span><?php echo $tipo; ?></span>	
+                                            <span><?php echo $tipo_origen == '1' ? $tipo_den : $tipo_org; ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
                                 </div>
@@ -257,7 +270,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                     <div class="field-group">
                                         <label style="color:#B22222">Descripción:</label>
                                         <div class="field">
-                                            <span><?php echo $descripcion; ?></span>	
+                                            <span><?php echo $tipo_origen == '1' ? $desc_den : $desc_org; ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
                                 </div><!-- .grid -->
@@ -286,6 +299,49 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             <span><?php echo $nombre; ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Estatus:</label>
+                                        <div class="field">
+                                            <?php
+                                            $Archivar = '';
+                                            $Retomar = 'none';
+                                            $Revision = 'none';
+                                            $Remitir = 'none';
+                                            $editable = '';
+                                            switch ($st_ave) {
+                                                case 0: $st = "clock-o";
+                                                    $color = "#8B8B8B";
+                                                    $texto = 'En progreso.';
+                                                    $Revision = '';
+                                                    break;
+                                                case 1: $st = "edit";
+                                                    $color = "#1100CD";
+                                                    $texto = 'En revisión.';
+                                                    $Remitir = '';
+                                                    break;
+                                                case 2: $st = "sign-out";
+                                                    $color = "green";
+                                                    $texto = 'Remitida.';
+                                                    $editable = 'none';
+                                                    Break;
+                                                case 3: $st = "lock";
+                                                    $color = "green";
+                                                    $texto = 'Finalizada.';
+                                                    $Archivar = 'none';
+                                                    $editable = 'none';
+                                                    Break;
+                                                case 9: $st = "lock";
+                                                    $color = "red";
+                                                    $texto = 'Archivada.';
+                                                    $Archivar = 'none';
+                                                    $Retomar = '';
+                                                    $editable = 'none';
+                                                    break;
+                                            }
+                                            ?>
+                                            <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                        </div>
+                                    </div> <!-- .field-group -->
                                 </div>
                                 <div class="grid-14">
                                     <div class="field-group">
@@ -310,7 +366,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             <textarea id="Conclu_Nueva" rows="4" cols="60"><?= $conclusion ?></textarea>	
                                         </div>
                                         <div style="text-align: left">
-                                            <button style="display: " onclick="javascript:EditarCampo('Conclu_')" title="Editar" id="Conclu_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                            <button style="display: <?= $editable ?>" onclick="javascript:EditarCampo('Conclu_')" title="Editar" id="Conclu_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
                                             <button style="display: none" onclick="javascript:AceptarEdit('Conclu_', 1, '<?= $id ?>')" title="Aceptar" id="Conclu_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
                                             <button style="display: none" onclick="javascript:CancelarEdit('Conclu_')" title="Cancelar" id="Conclu_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
                                         </div>
@@ -331,7 +387,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             <textarea id="Recom_Nueva" rows="4" cols="60"><?= $recomendacion ?></textarea>	
                                         </div>
                                         <div style="text-align: left">
-                                            <button style="display: " onclick="javascript:EditarCampo('Recom_')" title="Editar" id="Recom_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                            <button style="display: <?= $editable ?>" onclick="javascript:EditarCampo('Recom_')" title="Editar" id="Recom_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
                                             <button style="display: none" onclick="javascript:AceptarEdit('Recom_', 2, '<?= $id ?>')" title="Aceptar" id="Recom_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
                                             <button style="display: none" onclick="javascript:CancelarEdit('Recom_')" title="Cancelar" id="Recom_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
                                         </div>
@@ -341,7 +397,10 @@ $sqlqueryInv = mysql_query($sqlInvol);
                             <div class="grid-24" style="text-align: center">
                                 <div class="field-group">								
                                     <div class="actions">
-                                        <button onclick="javascript:Revision('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error">Enviar a Revisión</button>
+                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '0', '<?= $parametros ?>', 'Retomar')" name="Retomar" type="button" class="btn btn-error" style="display: <?= $Retomar ?>">Retomar</button>
+                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '9', '<?= $parametros ?>', 'Archivar')" name="Archivar" type="button" class="btn btn-error" style="display: <?= $Archivar ?>">Archivar</button>
+                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '1', '<?= $parametros ?>', 'Enviar a Revisión')" name="Revision" type="button" class="btn btn-error" style="display: <?= $Revision ?>">Enviar a Revisión</button>
+                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '2', '<?= $parametros ?>', 'Remitir a Presidencia')" name="Remitir" type="button" class="btn btn-error" style="display: <?= $Remitir ?>">Remitir</button>
                                         <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
                                     </div> <!-- .actions -->
                                 </div> <!-- .field-group -->
@@ -353,7 +412,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
             <div class="grid-6"> 
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta sección podrá visualizar la información de la averiguación numero <b><?= $codigo_ave ?></b></p>
+                    <p>En esta sección podrá visualizar la información de la averiguación número <b><?= $codigo_ave ?></b></p>
                 </div>
             </div>
         </form>
@@ -363,6 +422,41 @@ $sqlqueryInv = mysql_query($sqlInvol);
 <script type="text/javascript">
     window.onload = function () {
         espejo_gerencia();
+    }
+
+    function CambioStatus(campo, st, parametro, mensaje) {
+        $.alert({
+            type: 'confirm',
+            title: 'Alerta',
+            text: '<h3>¿Esta seguro que desea <u>' + mensaje + '</u> esta Averiguación ?</h3>',
+            callback: function () {
+                Cambio(campo, st, parametro);
+            }
+        });
+    }
+
+    function Cambio(campo, st, parametro) {
+
+        $.ajax({
+            url: 'modules/SIIT-Metro(Admin)/CambioStatus.php',
+            method: 'POST',
+            dataType: 'TEXT',
+            data: {
+                aver: campo,
+                acc: st
+            },
+            success: function (data) {
+                $.alert({
+                    type: 'alert',
+                    title: 'Alerta',
+                    text: '<h3>La investigación ha sido <u>' + data + '</u>.</h3>',
+                    callback: function () {
+                        window.location = "dashboard.php?data=investigacion-ai-info&flag=1&" + parametro;
+                    }
+                });
+                setTimeout(function(){window.location = "dashboard.php?data=investigacion-ai-info&flag=1&" + parametro;}, 3000);
+            }
+        });
     }
 
     function AceptarEdit(id, tipo, parametro) {

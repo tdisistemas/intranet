@@ -8,7 +8,7 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 if (!$_GET['flag']) {
-    ir('dashboard.php?data=denuncias-ai');
+    ir('dashboard.php?data=oficios-ai');
 }
 ?>
 
@@ -63,7 +63,7 @@ if (!$_GET['flag']) {
     }
 </style>
 <div id="contentHeader">
-    <h2>Información de Denuncias</h2>
+    <h2>Información de Oficios</h2>
 </div> <!-- #contentHeader -->	
 <?php
 decode_get2($_SERVER["REQUEST_URI"], 2);
@@ -73,36 +73,20 @@ _bienvenido_mysql();
 $sqlquery = "SELECT "
         . "d.codigo,"
         . "d.fecha,"
-        . "d.denunciante,"
         . "d.descripcion,"
         . "d.status,"
-        . "e.nombre,"
-        . "e.apellido,"
-        . "e.cedula,"
-        . "e.cargo,"
-        . "e.telefono_habitacion,"
-        . "e.correo_electronico,"
-        . "e.gerencia,"
         . "d.tipo "
-        . "FROM ai_denuncias d "
-        . "INNER JOIN datos_empleado_rrhh e "
-        . "WHERE d.denunciante = e.cedula "
-        . "AND d.idDenuncia=" . $id;
+        . "FROM ai_oficios d "
+        . "WHERE  d.idOficio=" . $id;
 
 $sql = mysql_query($sqlquery);
 $respuesta = mysql_fetch_array($sql);
 
-$codigo = $respuesta['codigo'];
-$nombre = $respuesta['nombre'] . ' ' . $respuesta['apellido'];
-$cedula = $respuesta['cedula'];
-$telefono = $respuesta['telefono_habitacion'];
-$correo_principal = $respuesta['correo_electronico'];
-$gerencia = $respuesta['gerencia'];
-$cargo = $respuesta['cargo'];
 $fecha = $respuesta['fecha'];
 $descripcion = $respuesta['descripcion'];
 $tipo = $respuesta['tipo'];
 $status = $respuesta['status'];
+$codigo = $respuesta['codigo'];
 ?>
 <div class="container">
     <div class="row"> 
@@ -111,60 +95,11 @@ $status = $respuesta['status'];
                 <div class="widget">
                     <div class="widget-header">
                         <span class="icon-layers"></span>
-                        <h3>Denuncia # <?php echo $codigo; ?></h3>
+                        <h3>Oficio # <?php echo $codigo; ?></h3>
                     </div>
                     <div class="widget-content">
                         <div class="row">
                             <div class="grid-1">
-                            </div>
-                            <div class="grid-10">
-                                <div class="field-group">
-                                    <div class="field">
-                                        <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
-                                    </div>
-                                </div> <!-- .field-group -->	
-
-                                <div class="field-group">								
-                                    <label style="color:#B22222">Cédula:</label>
-                                    <div class="field">
-                                        <span><?php echo $cedula; ?></span>
-                                    </div>
-                                </div> <!-- .field-group -->	
-
-                                <div class="field-group">
-                                    <label style="color:#B22222">Nombre y Apellido:</label>
-                                    <div class="field">
-                                        <span><?php echo $nombre . ' ' . $apellido; ?></span>			
-                                    </div>
-                                </div> <!-- .field-group -->
-
-                                <div class="field-group">
-                                    <label style="color:#B22222">Telefono:</label>
-                                    <div class="field">
-                                        <span><?php echo $telefono; ?></span>
-                                    </div>
-                                </div> <!-- .field-group -->
-
-                                <div class="field-group">
-                                    <label style="color:#B22222">Correo Personal:</label>
-                                    <div class="field">
-                                        <span><?php echo $correo_principal; ?></span>	
-                                    </div>
-                                </div> <!-- .field-group -->
-
-                                <div class="field-group">
-                                    <label style="color:#B22222">Gerencia a que Pertenece:</label>
-                                    <div class="field">
-                                        <span><?php echo $gerencia; ?></span>	
-                                    </div>		
-                                </div> <!-- .field-group -->
-
-                                <div class="field-group">
-                                    <label style="color:#B22222">Cargo:</label>
-                                    <div class="field">
-                                        <span><?php echo $cargo; ?></span>	
-                                    </div>
-                                </div> <!-- .field-group -->
                             </div>
                             <div class="grid-10">
                                 <div class="field-group">
@@ -212,7 +147,7 @@ $status = $respuesta['status'];
                                                 break;
                                             case 9: $st = "lock";
                                                 $color = "red";
-                                                $texto = 'Denuncia Archivada.';
+                                                $texto = 'Oficio Archivado.';
                                                 break;
                                         }
                                         ?>
@@ -225,7 +160,7 @@ $status = $respuesta['status'];
                                 <div class="field-group">								
                                     <div class="actions">
                                         <?php
-                                        $parametros = 'id=' . $id . '&ot=1';
+                                        $parametros = 'id=' . $id . '&ot=2';
                                         $parametros = _desordenar($parametros);
                                         if ($boton) {
                                             ?> 
@@ -248,7 +183,7 @@ $status = $respuesta['status'];
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta sección podrá visualizar la información de la Denuncia número <b><?= $codigo ?></b></p>
+                    <p>En esta sección podrá visualizar la información del Oficio número <b><?= $codigo ?></b></p>
                 </div>
             </div>
         </form>

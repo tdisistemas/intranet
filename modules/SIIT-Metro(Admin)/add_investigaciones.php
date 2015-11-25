@@ -15,13 +15,14 @@ if (isset($_POST['Submit'])) {
     $Causa = $_POST['Causa'];
     $ubicacion_laboral = $_POST['ubicacion_laboral'];
     $investigador = $_POST['investigador'];
-    $idDenuncia = $_POST['idDenuncia'];
+    $origen = $_POST['origen'];
+    $tipo_origen = $_POST['tipo_origen'];
     $remitidoS = $_POST['remitido'];
     $indice = $_POST['Index'];
     $i = $aux = 0;
 
 
-    $sql = "INSERT INTO ai_averiguaciones(denuncia,fecha,causa,sitio_suceso,investigador,remitido) VALUES(" . $idDenuncia . ",NOW(),'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
+    $sql = "INSERT INTO ai_averiguaciones(origen,tipo_origen,fecha,causa,sitio_suceso,investigador,remitido) VALUES(" . $origen . "," . $tipo_origen . ",NOW(),'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
     $result = mysql_query($sql);
     $nuevoID = mysql_insert_id();
     switch (strlen($nuevoID)) {
@@ -55,10 +56,13 @@ if (isset($_POST['Submit'])) {
         }
         $i++;
     }
+    if ($tipo_origen == '1') {
+        $sqlUpDen = "UPDATE ai_denuncias SET status = 1 WHERE idDenuncia=" . $origen;
+    } else {
+        $sqlUpDen = "UPDATE ai_oficios SET status = 1 WHERE idOficio=" . $origen;
+    }
 
-    $sqlUpDen = "UPDATE ai_denuncias SET status = 1 WHERE idDenuncia=" . $idDenuncia;
     $result3 = mysql_query($sqlUpDen);
-    $result = true;
     if ($result) {
         notificar('Averiguación creada con exito!', "dashboard.php?data=admin_ai", "notify-success");
     } else {
@@ -153,15 +157,22 @@ if (isset($_POST['Submit'])) {
     <?php
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $id = _antinyeccionSQL($_GET['id']);
-
-    $sqlquery = "SELECT "
-            . "d.codigo,"
-            . "d.descripcion "
-            . "FROM ai_denuncias d "
-            . "INNER JOIN datos_empleado_rrhh e "
-            . "WHERE d.denunciante = e.cedula "
-            . "AND d.idDenuncia=" . $id;
-
+    $tipo_origen = _antinyeccionSQL($_GET['ot']);
+    if ($tipo_origen == '1') {
+        $sqlquery = "SELECT "
+                . "d.codigo,"
+                . "d.descripcion "
+                . "FROM ai_denuncias d "
+                . "INNER JOIN datos_empleado_rrhh e "
+                . "WHERE d.denunciante = e.cedula "
+                . "AND d.idDenuncia=" . $id;
+    }else{
+        $sqlquery = "SELECT "
+                . "d.codigo,"
+                . "d.descripcion "
+                . "FROM ai_oficios d "
+                . "WHERE d.idOficio=" . $id;
+    }
     $sql = mysql_query($sqlquery);
     $respuesta = mysql_fetch_array($sql);
 
@@ -203,7 +214,7 @@ if (isset($_POST['Submit'])) {
                     <div class="widget">
                         <div class="widget-header">
                             <span class="icon-layers"></span>
-                            <h3>Denuncia # <?php echo $codigo; ?></h3>
+                            <h3><?php echo $tipo_origen == '1' ? 'Denuncia' : 'Oficio'; ?> # <?php echo $codigo; ?></h3>
                         </div>
                         <div class="widget-content">
                             <div class="row" id="Inicio">
@@ -263,15 +274,16 @@ if (isset($_POST['Submit'])) {
                                 <div class="grid-20">
                                     <div class="grid-10">
                                         <div class="field-group">
-                                            <label style="color:#B22222">Código de la Denuncia:</label>
+                                            <label style="color:#B22222">Código <?php echo $tipo_origen == '1' ? 'de la Denuncia' : 'del Oficio' ?>:</label>
                                             <div class="field">
                                                 <span><b><?php echo $codigo; ?></b></span>	
-                                                <input name="idDenuncia" id="idDenuncia" value="<?php echo $id; ?>" style="display: none"/>	
+                                                <input name="origen" id="origen" value="<?php echo $id; ?>" style="display: none"/>	
+                                                <input name="tipo_origen" id="tipo_origen" value="<?php echo $tipo_origen; ?>" style="display: none"/>	
                                             </div>
                                         </div> <!-- .field-group -->
 
                                         <div class="field-group">								
-                                            <label style="color:#B22222">Descripción de la Denuncia:</label>
+                                            <label style="color:#B22222">Descripción <?php echo $tipo_origen == '1' ? 'de la Denuncia' : 'del Oficio'; ?>:</label>
                                             <div class="field">
                                                 <span> "<i><?= $descripcion ?></i>"</span>
                                             </div>
@@ -449,7 +461,7 @@ _adios_mysql();
         if (Verificar(cedula))
         {
             NuevoCampo = '<div class="grid-24" id="implicado' + document.getElementById("Index").value + '"> \n\
-                            <i class="fa fa-close pull-right" title="Limpiar" onclick="javascript: LimpiarCampos(' + document.getElementById("Index").value + ')" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>\n\
+                            <i class="fa fa-times-circle-o pull-right" title="Limpiar" onclick="javascript: LimpiarCampos(' + document.getElementById("Index").value + ')" style="color: #B22222; cursor: pointer; margin-top: -10px; margin-right: 3px"></i>\n\
                             <div class="grid-8">\n\
                                 <div class="field-group" style="">\n\
                                     <div class="" style="margin: auto">\n\

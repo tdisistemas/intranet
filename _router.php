@@ -40,6 +40,18 @@ switch ($t) {
     case ("denuncia-ai-info"):include('modules/SIIT-Metro(Admin)/ai_denuncia_info.php');
         ?><script>activame('admin_ai');</script><?php
         break;
+    case ("oficios-ai"):include('modules/SIIT-Metro(Admin)/ai_oficios.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_oficios"):include('modules/SIIT-Metro(Admin)/add_oficios.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("oficios-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_oficios.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("oficios-ai-info"):include('modules/SIIT-Metro(Admin)/ai_oficios_info.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
     case ("investigacion-ai-info"):include('modules/SIIT-Metro(Admin)/ai_investigacion_info.php');
         ?><script>activame('admin_ai');</script><?php
         break;
@@ -50,8 +62,11 @@ switch ($t) {
     /*     * ******************************************** */
     /*     * *********** ASUNTOS INTERNOS *************** */
     /*     * ******************************************** */
-
     case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+
+    case ("averiguaciones-ai"):include('modules/SIIT-Metro/ai_investigaciones.php');
         ?><script>activame('investigacion');</script><?php
         break;
     case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');

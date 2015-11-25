@@ -75,7 +75,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <span class="icon-document-alt-stroke"></span>
                                             <a href="javascript:;">SIIT-Metro</a>				
                                             <ul class="subNav">
-                                                <li><a href="dashboard.php?data=usuario-ai">Investigaciones</a></li>
+                                                <li><a href="dashboard.php?data=averiguaciones-ai">Averiguaciones</a></li>
                                             </ul>						
                                         </li>
                                     <?php } ?>
@@ -87,6 +87,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
                                                 <li><a href="dashboard.php?data=admin_ai">Administrador</a></li>
                                                 <li><a href="dashboard.php?data=investigadores">Investigadores</a></li>
                                                 <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
+                                                <li><a href="dashboard.php?data=oficios-ai">Oficios</a></li>
                                             </ul>
                                         </li>
                                     <?php } ?>

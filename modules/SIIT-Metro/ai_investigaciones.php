@@ -48,7 +48,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 </style>
 
 <div id="contentHeader">
-    <h2>Módulo Administrativo de Asuntos Internos</h2>
+    <h2>Registro de Averiguaciones</h2>
 </div> <!-- #contentHeader -->	
 <div class="container">
     <?php
@@ -62,6 +62,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             <div class="widget-content">
 
                 <?php
+                $sqlInvestigador = "SELECT id_invest FROM ai_investigadores WHERE cedula_invest =".$usuario_datos[3] ;
+                
                 $sqlcode = "SELECT "
                         . "a.idAveriguacion,"
                         . "a.fecha,"
@@ -76,28 +78,12 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         . "LEFT JOIN ai_denuncias b ON a.origen = b.idDenuncia AND a.tipo_origen = 1 "
                         . "LEFT JOIN ai_oficios c ON a.origen = c.idOficio AND a.tipo_origen = 2 "
                         . "INNER JOIN ai_investigadores d ON a.investigador = d.id_invest "
-                        . "INNER JOIN datos_empleado_rrhh e ON d.cedula_invest = cedula";
+                        . "INNER JOIN datos_empleado_rrhh e ON d.cedula_invest = cedula "
+                        //. "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = ".$usuario_datos[3].")";
+                        . "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = 9714161)";
 
                 $sql = mysql_query($sqlcode);
                 $a = mysql_num_rows($sql);
-                
-                $sqlcodeDen = "SELECT "
-                        . "idDenuncia "
-                        . "FROM ai_denuncias "
-                        . "WHERE 1";
-
-
-
-                $sqlDen = mysql_query($sqlcodeDen);
-                $b = mysql_num_rows($sqlDen);
-                
-                $sqlcodeOfc = "SELECT "
-                        . "idOficio "
-                        . "FROM ai_oficios "
-                        . "WHERE 1";
-
-                $sqlOfc = mysql_query($sqlcodeOfc);
-                $c = mysql_num_rows($sqlOfc);
                 ?>
             </div> <!-- .widget-content -->
 
@@ -109,16 +95,6 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <div style="" class="grid-9 dashboard_report first activeState">
                     <div class="pad" align="center">
                         <span class="value"><?php echo $a; ?></span> Total de Averiguaciones
-                    </div> <!-- .pad -->
-                </div>
-                <div style="" class="grid-7 dashboard_report defaultState">
-                    <div class="pad" align="center">
-                        <span class="value"><?php echo $b; ?></span> Total de Denuncias
-                    </div> <!-- .pad -->
-                </div>
-                <div style="" class="grid-7 dashboard_report defaultState">
-                    <div class="pad" align="center">
-                        <span class="value"><?php echo $c; ?></span> Total de Oficios
                     </div> <!-- .pad -->
                 </div>
                 <div class="widget widget-table">
@@ -195,11 +171,11 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta sección podrá acceder al panel de control del módulo Asuntos Internos, así como visualizar la lista de las averiguaciones registradas.</p>
+                    <p>En esta sección podrá acceder al panel de control del módulo Asuntos Internos, así como visualizar la lista de las averiguaciones registradas a su cargo.</p>
                     <div class="box plain">
-                        <a href="dashboard.php?data=investigadores" class="btn btn-primary btn-large dashboard_add">Investigadores</a>
+                        <!--<a href="dashboard.php?data=investigadores" class="btn btn-primary btn-large dashboard_add">Investigadores</a>
                         <a href="dashboard.php?data=denuncias-ai" class="btn btn-primary btn-large dashboard_add">Denuncias</a>
-                        <a href="dashboard.php?data=oficios-ai" class="btn btn-primary btn-large dashboard_add">Oficios</a>
+                        <a href="dashboard.php?data=oficios-ai" class="btn btn-primary btn-large dashboard_add">Oficios</a>-->
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>
