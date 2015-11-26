@@ -24,7 +24,7 @@ if (isset($_GET['acc'])) {
             $mensaje = "Finalizada";
             Break;
         case 9:
-            $mensaje = "Archivadada";
+            $mensaje = "Archivada";
             break;
     }
     echo $mensaje;
