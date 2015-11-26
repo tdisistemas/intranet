@@ -65,14 +65,13 @@ switch ($t) {
     case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
         ?><script>activame('investigacion');</script><?php
         break;
-
     case ("averiguaciones-ai"):include('modules/SIIT-Metro/ai_investigaciones.php');
         ?><script>activame('investigacion');</script><?php
         break;
-    case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');
+    case ("averiguaciones-ai-info"):include('modules/SIIT-Metro/ai_investigacion_info.php');
         ?><script>activame('investigacion');</script><?php
         break;
-    case ("investigacion"):include('modules/SIIT-Metro/investigacion_ai.php');
+    case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');
         ?><script>activame('investigacion');</script><?php
         break;
     case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');

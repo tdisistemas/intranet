@@ -62,7 +62,6 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             <div class="widget-content">
 
                 <?php
-                $sqlInvestigador = "SELECT id_invest FROM ai_investigadores WHERE cedula_invest =".$usuario_datos[3] ;
                 
                 $sqlcode = "SELECT "
                         . "a.idAveriguacion,"
@@ -140,7 +139,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             break;
                                     }
                                     ?>
-                                    <tr class="gradeA">
+                                <tr class="gradeA">
                                         <td><?php echo $row['codigo_ave'] ?></td>
                                         <td><?php echo $row['tipo_origen'] == '1' ? $row['cod_den'] : $row['cod_org'] ?></td>
                                         <td><?php echo $row['fecha'] ?></td>
@@ -152,7 +151,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             $parametros = 'id=' . $row["idAveriguacion"];
                                             $parametros = _desordenar($parametros);
                                             ?>  
-                                            <a href="dashboard.php?data=investigacion-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
+                                            <a href="dashboard.php?data=averiguaciones-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
                                                 <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                             </a><!--
                                             <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >

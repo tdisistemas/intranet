@@ -8,7 +8,7 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 if (!$_GET['flag']) {
-    ir('dashboard.php?data=usuarios_ai');
+    ir('dashboard.php?data=averiguaciones-ai');
 }
 ?>
 
@@ -69,7 +69,7 @@ if (!$_GET['flag']) {
 <?php
 decode_get2($_SERVER["REQUEST_URI"], 2);
 
-$id = _antinyeccionSQL($_GET['id']);
+$ci = _antinyeccionSQL($_GET['cedula']);
 _bienvenido_mysql();
 
 $sql = "SELECT ";
@@ -92,7 +92,7 @@ $sql.="FROM ";
 $sql.="usuario_bkp ";
 $sql.="LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario ";
 $sql.="LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id ";
-$sql.="WHERE usuario_bkp.id_usuario=$id;";
+$sql.="WHERE usuario_bkp.usuario=".$ci;
 
 
 
@@ -194,7 +194,7 @@ if ($perfil_qry) {
                                 </div> <!-- .field-group --> 
 
                                 <div class="field-group">
-                                    <label style="color:#B22222">Telefono:</label>
+                                    <label style="color:#B22222">Teléfono:</label>
                                     <div class="field">
                                         <span><?php echo $telefono; ?></span>
                                     </div>
@@ -290,7 +290,7 @@ if ($perfil_qry) {
                                 </div> <!-- .field-group -->
 
                                 <div class="field-group">
-                                    <label style="color:#B22222">Extención:</label>
+                                    <label style="color:#B22222">Extensión:</label>
                                     <div class="field">
                                         <?php echo $extencion != '0' ? '<span>' . $extencion . '</span>' : '<label for="fname">*** No Posee Extención Registrada! *** </label>' ?>	
                                     </div>
