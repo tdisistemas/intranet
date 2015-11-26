@@ -120,7 +120,7 @@ $status = $respuesta['status'];
                             <div class="grid-10">
                                 <div class="field-group">
                                     <div class="field">
-                                        <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                        <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                     </div>
                                 </div> <!-- .field-group -->	
 
@@ -139,7 +139,7 @@ $status = $respuesta['status'];
                                 </div> <!-- .field-group -->
 
                                 <div class="field-group">
-                                    <label style="color:#B22222">Telefono:</label>
+                                    <label style="color:#B22222">Teléfono:</label>
                                     <div class="field">
                                         <span><?php echo $telefono; ?></span>
                                     </div>

@@ -199,7 +199,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                         <div class="grid-4">
                                             <div class="field-group">
                                                 <div class="field">
-                                                    <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                                    <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                                 </div>
                                             </div> <!-- .field-group -->
                                             <div class="field-group">
