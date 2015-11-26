@@ -194,7 +194,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                         </div>
                                         <?php
                                     }
-                                    ?>
+                                    ?> 
                                     <div class="grid-24">
                                         <div class="grid-4">
                                             <div class="field-group">
