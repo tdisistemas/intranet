@@ -10,7 +10,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 ?>
 
 <?php 
-    _bienvenido_mysql();
+include("coneccion.php");
 
     $sql = 'SELECT cedula, nombre, apellido, correo, telefono FROM t_ejemplo';
     $exce_query = mysql_query($sql);
@@ -21,41 +21,32 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     <h2>Administración del Módulo Ejemplo</h2>
 </div> <!-- #contentHeader -->	
 
-
 <div class="container">
     <div class="row">
-        <?php include('notificador.php'); ?>
-        
         <div class="grid-16">				
-            <div class="widget widget-table">			
+            <div class="widget">			
 
                 <div class="widget-header">
                     <span class="icon-layers"></span>
                     <h3>Registros de Prueba</h3>
                 </div>
-                
+
                 <div class="widget-content">
-                    
-                    
-                    <table class="table table-bordered table-striped data-table">
-                        
-                        <thead>
-                            
+                    <p>Usuarios Registrados</p>
+                    <br/>
+                    <table class="table table-striped" border="1" cellpadding="2" cellspacing="0" align="center">
+                        <tbody>
                             <tr>
-                                <th align="center"><b>Cédula</b></th>
-                                <th align="center"><b>Nombres</b></th>
-                                <th align="center"><b>Apellidos</b></th>
-                                <th align="center"><b>Correo</b></th>
-                                <th align="center"><b>Teléfono</b></th>
+                                <td align="center"><b>Cédula</b></td>
+                                <td align="center"><b>Nombres</b></td>
+                                <td align="center"><b>Apellidos</b></td>
+                                <td align="center"><b>Correo</b></td>
+                                <td align="center"><b>Teléfono</b></td>
                             </tr>
-                            
-                        </thead>
-                        
-                            <tbody>
                                  <?php while($row_cont = mysql_fetch_array($exce_query)){
                                     $numRows++; ?>
-                                    <tr>
-                                     <td align="center"><?php echo $row_cont["cedula"] ?></td>
+                                    <tr >
+                                    <td align="center"><?php echo $row_cont["cedula"] ?></td>
                                      <td align="center"><?php echo $row_cont["nombre"] ?></td>
                                      <td align="center"><?php echo $row_cont["apellido"]?></td>
                                      <td align="center"><?php echo $row_cont["correo"] ?></td>
@@ -69,13 +60,13 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         <p align="center"><b>No existen registros</b></p>
 
                     <?php }else{?> 
-                        
+                        <p>Numero de registros: <?php echo $numRows;?></p>
                    <?php }  ?>                 
                         
                         
-                </div><!-- .widget-header -->
+                </div>
 
-            </div><!-- .widget -->					
+            </div>					
         </div> <!-- .grid -->
 
         <div class="grid-8">				

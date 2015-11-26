@@ -58,7 +58,7 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
 
                                 <td class="center">
                                     <?php
-                                     $parametros = 'id=' . $row[1];
+                                    $parametros = 'id=' . $row[1];
                                     $parametros = _desordenar($parametros);
                                     $parametro = 'np=' . $row[0];
                                     $parametro = _desordenar($parametro);

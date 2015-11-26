@@ -51,7 +51,33 @@ if (isset($_POST['enviar'])) {
     $especificaciones= isset($_POST['especificaciones']) ? $_POST['especificaciones']:'0';
     $planos= isset($_POST['planos']) ? $_POST['planos']:'0';
     $anexos= isset($_POST['anexos']) ? $_POST['anexos']:'0';
+    
+    
+    $documento_anterior=$_POST["documento_anterior"];
+    $anteriores=  explode(',', $documento_anterior);
+    
+    if($anteriores[0]==1){
+        $alcance=1;
+    }
+    if($anteriores[1]==1){
+        $memoriad=1;
+    }
+    if($anteriores[2]==1){
+        $computos=1;
+    }
+    if($anteriores[3]==1){
+        $especificaciones=1;
+    }
+    if($anteriores[4]==1){
+        $planos=1;
+    }
+    if($anteriores[5]==1){
+        $anexos=1;
+    }
+    
+    
     $documentose= $alcance. "," .$memoriad. "," .$computos. "," .$especificaciones. "," .$planos. "," .$anexos; 
+ 
     
     $parametro = 'np=' . $id_2;
     $parametro = _desordenar($parametro);
@@ -143,6 +169,8 @@ if (isset($_POST['enviar'])) {
                                    <input type="checkbox" name="especificaciones" id="especificaciones" value="1" size="14" <?php echo $documentos[3]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Especificaciones Tecnicas</br>
                                    <input type="checkbox" name="planos" id="planos" value="1" size="14" <?php echo $documentos[4]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Planos</br>
                                    <input type="checkbox" name="anexos" id="anexos" value="1" size="14" <?php echo $documentos[5]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Anexos</br>
+                                   <input type="text" name="documento_anterior" id="documento_anterior" value="<?php echo $documentose ?>" style="display:none"/>
+                                    
                                     </div>
                                 </div>
                                  </div>
