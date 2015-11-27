@@ -35,6 +35,8 @@ switch ($t) {
         ?><script>activame('controlgestion');</script><?php break;
     case ("edicion_reg2"):include('modules/ControlGestion/edicion2.php');
         ?><script>activame('controlgestion');</script><?php break;
+    case ("edicion_reg4"):include('modules/ControlGestion/edicion4.php');
+        ?><script>activame('controlgestion');</script><?php break;
     case ("seg_fase"):include('modules/ControlGestion/segunda_fase.php');
         ?><script>activame('controlgestion');</script><?php break;
     case ("seg_fase1"):include('modules/ControlGestion/segunda_fase1.php');
@@ -49,7 +51,7 @@ switch ($t) {
      
 
     /*     * ** NOTIFICACION *** */
-    case ("notificar"):include('./notificar.php');
+    case ("notificar"):include('../notificar.php');
         break;
 
     /*     * ** LISTINES *** */

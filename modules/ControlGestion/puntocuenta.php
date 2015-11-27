@@ -3,7 +3,7 @@ if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
     header("Location: ../../dashboard.php");
 }
 if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
-    notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
+    //notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
@@ -43,7 +43,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         
                        
                         
-                        $sql = mysql_query("SELECT  gc_control_gestion.obra, gc_control_gestion2.n_proceso, gc_control_gestion2.servicio, gc_control_gestion2.punto_cuenta, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,gc_control_gestion2 WHERE "
+                        $sql = mysql_query("SELECT  gc_control_gestion2.id_cgestion2,gc_control_gestion2.punto_cuenta, gc_control_gestion.obra,gc_control_gestion2.id_cgestion2,gc_control_gestion2.n_proceso, gc_control_gestion2.servicio, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,gc_control_gestion2 WHERE "
                                 . "gc_control_gestion2.n_proceso=gc_control_gestion.n_proceso and validacion_pdc=1");
                         $ano = date('y');
                         $actual = (explode("20", $ano));
@@ -60,51 +60,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         
 
                                 <td class="center">
-                                    <?php
-                                    $parametros = 'id=' . $row[0];
+                                     <?php
+                                    $parametros = 'id=' . $row[1];
                                     $parametros = _desordenar($parametros);
-                                    $parametro = 'np=' . $row[2];
+                                    $parametro = 'np=' . $row[0];
                                     $parametro = _desordenar($parametro);
                                     ?>  
-                                    <!--<a href="dashboard.php?data=edicion_reg&flag=1&<?php echo $parametros; ?>" id="editar" title="Editar" >
+                                    <a href="dashboard.php?data=edicion_reg4&flag=1&<?php echo $parametro.'&'. $parametros; ?>" id="editar" title="Editar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
-                                    </a>-->
-                                    <?php
-                                    switch ($row[13]){
-                                        case 0: ?><a href="dashboard.php?data=seg_fase&flag=1&<?php echo $parametro; ?>" id="seg_fase" title="Insertar EC" >
-                                            <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-folder-stroke"></span></div>
-                                                </a>
-                                                
-                                                <?php
-                                                break;
-                                        case 1: ?><a href="dashboard.php?data=seg_fase1&flag=1&<?php echo $parametro; ?>" id="seg_fase1" title="Insertar ATE">
-                                            <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-folder-stroke"></span></div>
-                                                </a>
-                                                   
-                                                <?php
-                                                break;
-                                        
-                                        }
-                                        
-                                        if ($row[13]>=2){
-                                            ?>
-                                            <a href="dashboard.php?data=seg_fase2&flag=1&<?php echo $parametro; ?>" id="seg_fase2" title="Insertar AP">
-                                            <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-folder-stroke"></span></div>
-                                                </a>
-                                        <?php
-                                        }
-                                        
-                                        if ($row[13]>0){
-                                            ?>
-                                            <a href="dashboard.php?data=consultar&flag=1&<?php echo $parametro; ?>" id="consultar" title="Consultar">
-                                                    <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-magnifying-glass"></span></div>
-                                                    </a>
-                                        <?php
-                                        }
-                                        
-                                        ?>
-                              
-
+                                    </a>
     <!--<a href="javascript:eliminar('<?php echo $row["Nombre"] ?>','dashboard.php?data=pruebadelete&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
     </a>-->

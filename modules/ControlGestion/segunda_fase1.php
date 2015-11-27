@@ -5,7 +5,7 @@ if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
     header("Location: ../../dashboard.php");
 }
 if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
-    notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
+    //notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
@@ -86,7 +86,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
     $result = mysql_query($sql);
     
     if ($result) {
-        notificar("Segunda Fase del Proceso Ingresada con exito", "dashboard.php?data=controlg", "notify-success");
+        notificar("Análisis Técnico- Económico ingresado con exito", "dashboard.php?data=controlg", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -111,35 +111,37 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                     <div class="row">
                         <form class="form validateForm" action="#" method="post"  onsubmit="return validarForm(this)" >
                             
-                            <div class="grid-4">
-                            </div>
+                            
                             <div class="grid-8">
                                 <div class="field-group">
                                     <label>Tipo de Solicitud:<br></label>   
                                     <div class="field">
-                                    <select name="tipo_soli" id="tipo_soli" style="width:130px" >
+                                    <select name="tipo_soli" id="tipo_soli" style="width:160px" >
                                         
                                         <option value="ATE" selected>Análisis Técnico- Económico</option>
                                     
                                 </select>
                                     </div>
                                 </div>
-                                <div class="field-group">
-                                    <label for="required">Monto Oferta Comercial:</br></label>   
+                                 <div class="field-group">
+                                    <label for="required">Monto ATE:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC."/>
+                                   <input type="text" name="monto3" id="monto3" size="16" placeholder="Monto Bsf ATE." onkeypress="return isNumberKey(event)"/>
                                     </div>
                                 </div>
                               
-                                  <div class="field-group">
-                                    <label for="required">Monto ATE:</br></label>   
+                                 
+                               <div class="field-group">
+                                    <label for="required">Generar Punto de Cuenta:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto3" id="monto3" size="16" placeholder="Monto Bsf ATE."/>
+                                        <input type="checkbox" name="pdc" id="pdc" size="16" value="1" checked />
+                                       
                                     </div>
                                 </div>
                             </div>
-                   
-                            <div class="grid-12">
+                            
+                            
+                            <div class="grid-8">
                                 <div class="field-group">
                                     <label for="required">Monto Estimación de Costo:</br></label>   
                                     <div class="field">
@@ -147,22 +149,28 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                     </div>
                                 </div>
                                   <div class="field-group">
-                                    <label for="required">Deviación:</br></label>   
+                                    <label for="required">Desviación:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación."/>
+                                   <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación."  onkeypress="return valido(event)"/>
                                     </div>
                                 </div>
-                                <div class="field-group">
-                                    <label for="required">Generar Punto de Cuenta:</br></label>   
-                                    <div class="field">
-                                        SI<input type="checkbox" name="pdc" id="deviacion" size="16" value="1" />
-                                       NO <input type="checkbox" name="pdc2" id="deviacion" size="16" value="0" />
-                                    </div>
-                                </div>
-                             
                                 
                             </div>
-                          
+                            <div class="grid-8">
+                            <div class="field-group">
+                                    <label for="required">Monto Oferta Comercial:</br></label>   
+                                    <div class="field">
+                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC." onkeypress="return isNumberKey(event)"/>
+                                    </div>
+                                </div>
+                            <div class="field-group">
+                                    <label for="datepicker">Enviado a Presidencia:</br></label>   
+                                    <div class="field">
+                                        <input id="datepicker" name="enviado_presi" size="14" readonly>
+                                    </div>
+                                </div>
+                            
+                            </div>
                
                                 <div class="grid-24" align="center">
                                     <table >
@@ -200,16 +208,29 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
 <script type="text/javascript">
     function validarForm(formulario) {
 
-  if(formulario.tipo_soli.value.length==0) { //¿Tiene 0 caracteres?
-    formulario.tipo_soli.focus();    // Damos el foco al control
-    alert('Debe seleccionar el Tipo de solicitud'); //Mostramos el mensaje
+  if(formulario.monto1.value.length==0) { //¿Tiene 0 caracteres?
+    formulario.monto1.focus();    // Damos el foco al control
+    alert('Debe ingresar la Estimación de Costo'); //Mostramos el mensaje
     return false; //devolvemos el foco
   }
-   if(formulario.monto.value.length==0) { //¿Tiene 0 caracteres?
-    formulario.monto.focus();    // Damos el foco al control
-    alert('Debe ingresar un Monto'); //Mostramos el mensaje
+   if(formulario.monto2.value.length==0) { //¿Tiene 0 caracteres?
+    formulario.monto2.focus();    // Damos el foco al control
+    alert('Debe ingresar la Oferta Comercial'); //Mostramos el mensaje
     return false; //devolvemos el foco
   }
+  if(formulario.monto3.value.length==0) { //¿Tiene 0 caracteres?
+    formulario.monto3.focus();    // Damos el foco al control
+    alert('Debe ingresar el Análisis Técnio- Económico'); //Mostramos el mensaje
+    return false; //devolvemos el foco
+  }
+  if(formulario.datepicker.value.length==0) { //¿Tiene 0 caracteres?
+    formulario.datepicker.focus();    // Damos el foco al control
+    alert('Debe seleccionar la fecha de envio a presidencia '); //Mostramos el mensaje
+    return false; //devolvemos el foco
+  }
+ 
+  
+  
   
    }
   $(function () {
@@ -259,5 +280,18 @@ yearRange: "1950:2014"
 });
 function conMayusculas(field) {
 field.value = field.value.toUpperCase()
+}
+ function isNumberKey(evt)
+  {
+     var charCode = (evt.which) ? evt.which : event.keyCode
+     if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+         return true;
+  }
+  
+  function valido(e){
+  tecla = (document.all) ? e.keyCode : e.which;
+  tecla = String.fromCharCode(tecla)
+  return /^[0-9\%]+$/.test(tecla);
 }
 javascript</script>

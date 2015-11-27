@@ -3,7 +3,7 @@ if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
     header("Location: ../../dashboard.php");
 }
 if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
-    notificar("Usted no tiene permisos para esta Sección/Módulo", "dashboard.php?data=notificar", "notify-error");
+  //notificar("Usted no tiene permisos para esta Sección/Módulo", "dashboard.php?data=notificar", "notify-error");
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
@@ -21,8 +21,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $id = _antinyeccionSQL($_GET["np"]);
        _bienvenido_mysql();
-   $segunda_fase = mysql_query("SELECT tipo_solicitud, montoec, enviado_presidencia, recibido_presidencia FROM `gc_control_gestion2`
-                    WHERE  `id_cgestion2` = '$id'");
+   $segunda_fase = mysql_query("SELECT  tipo_solicitud, montoec, enviado_presidencia, recibido_presidencia FROM `gc_control_gestion2`
+                    WHERE  `id_cgestion2` = '$id' ");
  
    $editar_ec=  mysql_fetch_array($segunda_fase);
 
@@ -41,7 +41,7 @@ if (isset($_POST['enviar'])) {
   $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
   if($result){
-    notificar("Primera fase modificada con exito" ,"dashboard.php?data=controlg", "notify-success");
+    notificar("Modificación realizada con exito" ,"dashboard.php?data=controlg", "notify-success");
   }
   else { 
     die(mysql_error());

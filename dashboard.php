@@ -14,7 +14,8 @@ if (!in_array('Dashboard', $usuario_permisos)) {
     _wm($usuario_datos[9], 'Acceso Denegado en: Dashboard', 'S/I');
     ir("index.php");
 }
-_wm($usuario_datos[9], 'Acceso Autorizado en: Dashboard', 'S/I');
+
+_wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

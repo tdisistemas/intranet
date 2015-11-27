@@ -3,7 +3,7 @@ if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
     header("Location: ../../dashboard.php");
 }
 if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
-    notificar("Usted no tiene permisos para esta Sección/Módulo", "dashboard.php?data=notificar", "notify-error");
+  //notificar("Usted no tiene permisos para esta Sección/Módulo", "dashboard.php?data=notificar", "notify-error");
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
@@ -44,6 +44,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 if (isset($_POST['enviar'])) {
     
     $id = $_POST["id_cgestion2"];
+    $clase = $_POST["clase"];
     $estatus = $_POST["estatus"];
     $alcance=  isset($_POST['alcance']) ? $_POST['alcance']:'0';
     $memoriad= isset($_POST['memoriad']) ? $_POST['memoriad']:'0';
@@ -51,13 +52,39 @@ if (isset($_POST['enviar'])) {
     $especificaciones= isset($_POST['especificaciones']) ? $_POST['especificaciones']:'0';
     $planos= isset($_POST['planos']) ? $_POST['planos']:'0';
     $anexos= isset($_POST['anexos']) ? $_POST['anexos']:'0';
+    
+    
+    $documento_anterior=$_POST["documento_anterior"];
+    $anteriores=  explode(',', $documento_anterior);
+    
+    if($anteriores[0]==1){
+        $alcance=1;
+    }
+    if($anteriores[1]==1){
+        $memoriad=1;
+    }
+    if($anteriores[2]==1){
+        $computos=1;
+    }
+    if($anteriores[3]==1){
+        $especificaciones=1;
+    }
+    if($anteriores[4]==1){
+        $planos=1;
+    }
+    if($anteriores[5]==1){
+        $anexos=1;
+    }
+    
+    
     $documentose= $alcance. "," .$memoriad. "," .$computos. "," .$especificaciones. "," .$planos. "," .$anexos; 
+ 
     
     $parametro = 'np=' . $id_2;
     $parametro = _desordenar($parametro);
        
  
- $sql="UPDATE gc_control_gestion SET  ". "estatus='".$estatus."', ". "documentos_entre='".$documentose."' WHERE id_cgestion=".$id_2;
+ $sql="UPDATE gc_control_gestion SET  ". "clase='".$clase."',". "estatus='".$estatus."', ". "documentos_entre='".$documentose."' WHERE id_cgestion=".$id_2;
   
   $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
@@ -89,7 +116,15 @@ if (isset($_POST['enviar'])) {
                               <div class="field-group">
                                 <label>Clase:<br></label>   
                               <div class="field">
-                                  <input type="text" name="clase" id="clase" size="14" value="<?php echo $clase;?>" disabled/>
+                                  <select  name="clase" id="clase" >
+                                      <option value="">Seleccione..</option>
+                                      <option value="ClaseI">Clase I</option>
+                                        <option value="ClaseII">Clase II</option>
+                                        <option value="ClaseIII">Clase III</option>
+                                        <option value="ClaseIV">Clase IV</option>
+                                        <option value="ClaseV">Clase V</option>
+                                    </select>
+                                  <input id="auxiliar" style="display:none" value="<?=$clase?>" />
                                 </div>
                                 
                                 <div class="field-group">
@@ -113,6 +148,7 @@ if (isset($_POST['enviar'])) {
                                     <option value="EN ELABORACIÓN">En Elaboración</option>
                                     <option value="ENTREGADO">Entregado</option>
                                     </select>
+                                        <input id="estatusauxi" style="display:none" value="<?=$estatus?>" />
                                     </div>
                                 </div>
                             </div>
@@ -143,6 +179,8 @@ if (isset($_POST['enviar'])) {
                                    <input type="checkbox" name="especificaciones" id="especificaciones" value="1" size="14" <?php echo $documentos[3]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Especificaciones Tecnicas</br>
                                    <input type="checkbox" name="planos" id="planos" value="1" size="14" <?php echo $documentos[4]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Planos</br>
                                    <input type="checkbox" name="anexos" id="anexos" value="1" size="14" <?php echo $documentos[5]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Anexos</br>
+                                   <input type="text" name="documento_anterior" id="documento_anterior" value="<?php echo $documentose ?>" style="display:none"/>
+                                    
                                     </div>
                                 </div>
                                  </div>
@@ -197,7 +235,16 @@ if (isset($_POST['enviar'])) {
 
 
 <script type="text/javascript">
-    
+   window.onload =function (){
+       selectcombo("auxiliar", "clase");
+       selectcombo("estatusauxi", "estatus");
+       
+   }
+   function selectcombo (origen, destino){
+       $("#"+destino+"").val($("#"+origen+"").val());
+
+    }
+   
     function validarForm(formulario) {
 
   if(formulario.datepicker.value.length==0) { //¿Tiene 0 caracteres?
@@ -244,7 +291,8 @@ yearRange: "1950:2014"
 function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
-javascript</script>
+javascript
+</script>
 
 
 

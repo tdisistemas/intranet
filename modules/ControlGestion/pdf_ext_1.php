@@ -9,7 +9,7 @@ if (!isset($_SESSION[md5('usuario_datos' . $ecret)])) {
 $usuario_datos    = $_SESSION[md5('usuario_datos' . $ecret)];
 $usuario_permisos = $_SESSION[md5('usuario_permisos' . $ecret)];
 if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
-    notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
+    //notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');

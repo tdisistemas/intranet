@@ -5,7 +5,7 @@ if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
     header("Location: ../../dashboard.php");
 }
 if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
-    notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
+    //notificar("Usted no tiene permisos para esta Seccion/Modulo", "dashboard.php?data=notificar", "notify-error");
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
@@ -56,7 +56,7 @@ if (isset($_POST['enviar'])) {
             . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "', '" . $recibido_presi . "', '" . $id . "')";
     $result = mysql_query($sql);
     if ($result) {
-        notificar("Segunda Fase del Proceso Ingresada con exito", "dashboard.php?data=controlg", "notify-success");
+        notificar("Estimación de Costo ingresada con exito", "dashboard.php?data=controlg", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -83,37 +83,35 @@ if (isset($_POST['enviar'])) {
                             
                             <div class="grid-4">
                             </div>
-                            <div class="grid-8">
+                            <div class="grid-6">
                                 <div class="field-group">
                                     <label>Tipo de Solicitud:<br></label>   
                                     <div class="field">
-                                        <select name="tipo_soli" id="tipo_soli" style="width:130px" >
-                                        
-                                        <option value="EC" selected>Estimados de Costo</option>
-                                    
-                                </select>
+                                        Estimación de Costo<input style="display:none" type="text" name="tipo_soli" id="tipo_soli" size="16" value="EC" />
+                                   
                                     </div>
                                 </div>
                                  <div class="field-group">
                                     <label for="datepicker">Enviado a Presidencia:</br></label>   
                                     <div class="field">
-                                        <input id="datepicker" name="enviado_presi" size="14">
+                                        <input id="datepicker" name="enviado_presi" size="14" readonly>
                                     </div>
                                 </div>
                                 
                             </div>
-                   
-                            <div class="grid-12">
+                            <div class="grid-4">
+                            </div>
+                            <div class="grid-8">
                                 <div class="field-group">
                                     <label for="required">Monto Estimación de Costo:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto1" id="monto1" size="16" placeholder="Monto Bsf EC."/>
+                                   <input type="text" name="monto1" id="monto1" size="16" placeholder="Monto Bsf EC." onkeypress="return isNumberKey(event)"/>
                                     </div>
                                 </div>
                                   <div class="field-group">
                                     <label for="datepicker">Recibido de Presidencia:</br></label>   
                                     <div class="field">
-                                        <input id="datepicker1" name="recibido_presi" size="14">
+                                        <input id="datepicker1" name="recibido_presi" size="14" readonly>
                                     </div>
                                 </div>
                                 
@@ -158,16 +156,12 @@ if (isset($_POST['enviar'])) {
 <script type="text/javascript">
     function validarForm(formulario) {
 
-  if(formulario.tipo_soli.value.length==0) { //¿Tiene 0 caracteres?
-    formulario.tipo_soli.focus();    // Damos el foco al control
-    alert('Debe seleccionar el Tipo de solicitud'); //Mostramos el mensaje
-    return false; //devolvemos el foco
-  }
-   if(formulario.monto.value.length==0) { //¿Tiene 0 caracteres?
-    formulario.monto.focus();    // Damos el foco al control
+   if(formulario.monto1.value.length==0) { //¿Tiene 0 caracteres?
+    formulario.monto1.focus();    // Damos el foco al control
     alert('Debe ingresar un Monto'); //Mostramos el mensaje
     return false; //devolvemos el foco
   }
+ 
   
    }
   $(function () {
@@ -179,7 +173,7 @@ changeYear: true,
 yearRange: "1950:2014"
 });
 });
-$(function () {
+  $(function () {
 $.datepicker.setDefaults($.datepicker.regional["es"]);
 $("#datepicker1").datepicker({
 dateFormat: 'yy-mm-dd',
@@ -192,6 +186,25 @@ yearRange: "1950:2014"
 function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
+function validarLetras(e) { // 1
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) return true; // backspace
+        if (tecla==32) return true; // espacio
+        if (e.ctrlKey && tecla==86) { return true;} //Ctrl v
+        if (e.ctrlKey && tecla==67) { return true;} //Ctrl c
+        if (e.ctrlKey && tecla==88) { return true;} //Ctrl x
+ 
+        patron = /[a-zA-Z]/; //patron
+ 
+        te = String.fromCharCode(tecla);
+        return patron.test(te); // prueba de patron
+    }
+     function isNumberKey(evt)
+  {
+     var charCode = (evt.which) ? evt.which : event.keyCode
+     if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+         return true;
+  }
 javascript</script>
-
 
