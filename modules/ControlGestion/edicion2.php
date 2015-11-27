@@ -21,7 +21,6 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $id = _antinyeccionSQL($_GET["np"]);
        _bienvenido_mysql();
-       
    $segunda_fase = mysql_query("SELECT  tipo_solicitud, montoec, enviado_presidencia, recibido_presidencia FROM `gc_control_gestion2`
                     WHERE  `id_cgestion2` = '$id' ");
  
