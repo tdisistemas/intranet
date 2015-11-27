@@ -66,8 +66,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     <?php
                                     $parametros = 'id=' . $row["id_invest"];
                                     $parametros = _desordenar($parametros);
+                                    $parametros2 = 'cedula=' . $row["cedula_invest"];
+                                    $parametros2 = _desordenar($parametros2);
                                     ?>  
-                                    <a href="dashboard.php?data=investigador-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
+                                    <a href="dashboard.php?data=investigador-ai-info&flag=1&<?php echo $parametros2; ?>" id="editar" title="Información" >
                                         <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a>
                                     <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >

@@ -76,7 +76,7 @@ if (isset($_POST['Submit'])) {
     $result2 = mysql_query($sql);
 
     if ($result) {
-        notificar('Oficio registrado con exito', "dashboard.php?data=oficios-ai", "notify-success");
+        notificar('Oficio registrado con éxito', "dashboard.php?data=oficios-ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());

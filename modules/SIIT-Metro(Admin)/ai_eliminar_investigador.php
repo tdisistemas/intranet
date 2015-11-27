@@ -18,7 +18,7 @@ if ($_GET["flag"]) {
     $sql = "UPDATE ai_investigadores SET status = 1 WHERE id_invest = " . $idinvest;
     $result = mysql_query($sql) or die('Error Eliminando Investigador - ' . mysql_error());
     if ($result) {
-        notificar("Investigador eliminado con exito", "dashboard.php?data=investigadores", "notify-error");
+        notificar("Investigador eliminado con éxito", "dashboard.php?data=investigadores", "notify-error");
     } else {
         die(mysql_error());
     }

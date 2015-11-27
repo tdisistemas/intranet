@@ -185,6 +185,9 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                     $cargo = $Involucrado['cargo'];
                                     $gerencia = $Involucrado['gerencia'];
                                     $extension = $Involucrado['ext_telefonica'];
+
+                                    $parametros2 = 'cedula=' . $Involucrado['cedula'];
+                                    $parametros2 = _desordenar($parametros2);
                                     if ($i != 0) {
                                         ?>
                                         <div class="grid-24" style="text-align: center; margin-left: 1.5%;">
@@ -198,6 +201,11 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             <div class="field-group">
                                                 <div class="field">
                                                     <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                                </div>
+                                            </div> <!-- .field-group -->
+                                            <div class="field-group">
+                                                <div class="field" style="text-align: center">
+                                                    <input type="button" name="Mas" style="width: 80px; font-size: 12px" onclick="javascript:DatosEmpleado('<?= $parametros2 ?>')" class="btn btn-error" value="Más" />
                                                 </div>
                                             </div> <!-- .field-group -->
                                         </div>
@@ -309,13 +317,13 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             $Remitir = 'none';
                                             $editable = '';
                                             switch ($st_ave) {
-                                                case 0: $st = "clock-o";
-                                                    $color = "#8B8B8B";
-                                                    $texto = 'En progreso.';
+                                                case 0: $st = "check";
+                                                    $color = "green";
+                                                    $texto = 'Abierta.';
                                                     $Revision = '';
                                                     break;
                                                 case 1: $st = "edit";
-                                                    $color = "#1100CD";
+                                                    $color = "#2563FF";
                                                     $texto = 'En revisión.';
                                                     $Remitir = '';
                                                     break;
@@ -424,6 +432,10 @@ $sqlqueryInv = mysql_query($sqlInvol);
         espejo_gerencia();
     }
 
+    function DatosEmpleado(parametro) {
+        window.location = 'dashboard.php?data=usuario-ai-info&flag=1&' + parametro;
+    }
+
     function CambioStatus(campo, st, parametro, mensaje) {
         $.alert({
             type: 'confirm',
@@ -454,7 +466,9 @@ $sqlqueryInv = mysql_query($sqlInvol);
                         window.location = "dashboard.php?data=investigacion-ai-info&flag=1&" + parametro;
                     }
                 });
-                setTimeout(function(){window.location = "dashboard.php?data=investigacion-ai-info&flag=1&" + parametro;}, 3000);
+                setTimeout(function () {
+                    window.location = "dashboard.php?data=investigacion-ai-info&flag=1&" + parametro;
+                }, 3000);
             }
         });
     }

@@ -22,7 +22,7 @@ switch ($t) {
     case ("add_investigadores"):include('modules/SIIT-Metro(Admin)/add_investigadores.php');
         ?><script>activame('admin_ai');</script><?php
         break;
-    case ("investigador-ai-info"):include('modules/SIIT-Metro(Admin)/ai_investigadores.php');
+    case ("investigador-ai-info"):include('modules/SIIT-Metro(Admin)/ai_investigador_info.php');
         ?><script>activame('admin_ai');</script><?php
         break;
     case ("investigador-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_investigador.php');

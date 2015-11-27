@@ -64,7 +64,7 @@ if (isset($_POST['Submit'])) {
 
     $result3 = mysql_query($sqlUpDen);
     if ($result) {
-        notificar('Averiguación creada con exito!', "dashboard.php?data=admin_ai", "notify-success");
+        notificar('Averiguación creada con éxito!', "dashboard.php?data=admin_ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());

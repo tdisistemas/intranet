@@ -18,7 +18,7 @@ if ($_GET["flag"]) {
     $sql = "UPDATE ai_denuncias SET status = 9 WHERE idDenuncia = " . $iddenun;
     $result = mysql_query($sql) or die('Error Eliminando Denuncia - ' . mysql_error());
     if ($result) {
-        notificar("Denuncia eliminada con exito", "dashboard.php?data=denuncias-ai", "notify-error");
+        notificar("Denuncia descartada con éxito", "dashboard.php?data=denuncias-ai", "notify-error");
     } else {
         die(mysql_error());
     }

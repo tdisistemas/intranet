@@ -15,10 +15,10 @@ if ($_GET["flag"]) {
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $iddenun = _antinyeccionSQL($_GET["id"]);
     _bienvenido_mysql();
-    $sql = "UPDATE ai_denuncias SET status = 9 WHERE idOficio = " . $iddenun;
+    $sql = "UPDATE ai_oficios SET status = 9 WHERE idOficio = " . $iddenun;
     $result = mysql_query($sql) or die('Error Eliminando Oficio - ' . mysql_error());
     if ($result) {
-        notificar("Oficio eliminado con exito", "dashboard.php?data=oficios-ai", "notify-error");
+        notificar("Oficio descartado con éxito", "dashboard.php?data=oficios-ai", "notify-error");
     } else {
         die(mysql_error());
     }

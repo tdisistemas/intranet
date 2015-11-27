@@ -77,7 +77,7 @@ if (isset($_POST['Submit'])) {
     $result2 = mysql_query($sql);
 
     if ($result) {
-        notificar('Denuncia registrada con exito', "dashboard.php?data=denuncias-ai", "notify-success");
+        notificar('Denuncia registrada con éxito', "dashboard.php?data=denuncias-ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());

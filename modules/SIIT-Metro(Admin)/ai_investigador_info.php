@@ -64,7 +64,7 @@ if (!$_GET['flag']) {
 </style>
 
 <div id="contentHeader">
-    <h2>Ficha del Empleado</h2>
+    <h2>Ficha del Investigador</h2>
 </div> <!-- #contentHeader -->	
 <?php
 decode_get2($_SERVER["REQUEST_URI"], 2);
@@ -92,7 +92,7 @@ $sql.="FROM ";
 $sql.="usuario_bkp ";
 $sql.="LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario ";
 $sql.="LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id ";
-$sql.="WHERE usuario_bkp.usuario=".$ci;
+$sql.="WHERE usuario_bkp.usuario=" . $ci;
 
 
 
@@ -144,22 +144,16 @@ if ($perfil_qry) {
         $nombre_contacto = $row["persona_contacto"];
         $telefono_contacto = $row["telefono_contacto"];
     }
-} else {
-    if ($SQL_debug == '1') {
-        die('Error en Visualizar para Modificar Registro - Respuesta del Motor: ' . mysql_error());
-    } else {
-        die('Error en Modificar Registro');
-    }
 }
 ?>
 <div class="container">
     <div class="row"> 
-        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
+        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" >
             <div class="grid-18">
                 <div class="widget">
                     <div class="widget-header">
                         <span class="icon-layers"></span>
-                        <h3>Información del Empleado</h3>
+                        <h3>Información del Investigador</h3>
                     </div>
                     <div class="widget-content">
                         <div class="row">
@@ -171,7 +165,7 @@ if ($perfil_qry) {
                                         <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                     </div>
                                 </div> <!-- .field-group -->
-                                
+
                                 <div class="field-group">								
                                     <label style="color:#B22222">Cédula:</label>
                                     <div class="field">
@@ -196,7 +190,7 @@ if ($perfil_qry) {
                                 <div class="field-group">
                                     <label style="color:#B22222">Teléfono:</label>
                                     <div class="field">
-                                        <?php echo $telefono != '' ? '<span>' . $telefono . '</span>' : '<label for="fname">*** No Posee Teléfono Registrado! *** </label>' ?>
+                                        <span><?php echo $telefono; ?></span>
                                     </div>
                                 </div> <!-- .field-group -->
 
@@ -292,7 +286,7 @@ if ($perfil_qry) {
                                 <div class="field-group">
                                     <label style="color:#B22222">Extensión:</label>
                                     <div class="field">
-                                        <?php echo $extencion != '0' ? '<span>' . $extencion . '</span>' : '<label for="fname">*** No Posee Extensión Registrada! *** </label>' ?>	
+                                        <?php echo $extencion != '0' ? '<span>' . $extencion . '</span>' : '<label for="fname">*** No Posee Extención Registrada! *** </label>' ?>	
                                     </div>
                                 </div> <!-- .field-group -->   
 
@@ -325,16 +319,16 @@ if ($perfil_qry) {
                                 </div> <!-- .field-group -->  
 
                                 <div class="field-group">
-                                    <label style="color:#B22222">Correo Institucional:</label>
+                                    <label style="color:#B22222">Correo Corporativo:</label>
                                     <div class="field">
                                         <?php
-                                        if (_correo_existe($usuario_int . "@metrodemaracaibo.gob.ve") == 'SI') {
+                                        /* if (_correo_existe($usuario_int . "@metrodemaracaibo.gob.ve") == 'SI') {
                                           $poseecorreo = $usuario_int . "@metrodemaracaibo.gob.ve";
                                           } else {
                                           $poseecorreo = "*** No Posee Correo ***";
-                                          }
+                                          } */
                                         ?>
-                                        <span><?php echo $poseecorreo;       ?></span>	
+                                        <span><?php echo $correo_principal; //echo $poseecorreo;       ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
                                 <div class="field-group">
@@ -384,14 +378,12 @@ if ($perfil_qry) {
             <div class="grid-6">
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                    <p>En esta sección podrá visualizar la ficha de empleados de la Empresa</p>
+                    <p>En esta sección podrá visualizar la ficha de investigador</p>
                     <div class="box plain">
                         <?php
                         $parametros = 'id=' . $id_empleado;
                         $parametros = _desordenar($parametros);
-                        ?>  
-                        <a href="dashboard.php?data=historial-ai&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add" >Historial de Incidentes</a>
-                        <a href="dashboard.php?data=investigacion" class="btn btn-primary btn-large dashboard_add">Agregar Incidencia</a>
+                        ?>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>

@@ -195,28 +195,33 @@ $status = $respuesta['status'];
                                     <label style="color:#B22222">Estatus:</label>
                                     <div class="field">
                                         <?php
-                                        $boton = false;
+                                        $Info = 'none';
+                                        $Descartar = 'none';
+                                        $Nueva = 'none';
                                         switch ($status) {
-                                            case 0: $st = "hourglass-half";
-                                                $color = "green";
-                                                $boton = true;
+                                            case 0: $st = "clock-o";
+                                                $color = "#8B8B8B";
+                                                $Nueva = '';
                                                 $texto = 'En espera.';
+                                                $Descartar = '';
                                                 break;
-                                            case 1: $st = "history";
+                                            case 1: $st = "check";
                                                 $color = "green";
-                                                $texto = 'Averiguación en proceso.';
+                                                $texto = "Averiguación Abierta.";
+                                                $Info = '';
                                                 break;
                                             case 2: $st = "lock";
                                                 $color = "green";
                                                 $texto = 'Averiguación finalizada.';
+                                                $Info = '';
                                                 break;
-                                            case 9: $st = "lock";
+                                            case 9: $st = "trash";
                                                 $color = "red";
-                                                $texto = 'Denuncia Archivada.';
+                                                $texto = 'Descartada.';
                                                 break;
                                         }
                                         ?>
-                                        <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?=$texto?></span>	
+                                        <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
 
@@ -227,17 +232,11 @@ $status = $respuesta['status'];
                                         <?php
                                         $parametros = 'id=' . $id . '&ot=1';
                                         $parametros = _desordenar($parametros);
-                                        if ($boton) {
-                                            ?> 
-                                            <button onclick="javascript:NuevaAveriguacion('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error">Iniciar Averiguación</button>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <button onclick="javascript:InformacionAveriguacion('<?php echo $parametros; ?>')" name="Informacion" type="button" class="btn btn-error">Información de Averiguación</button>
-                                            <?php
-                                        }
-                                        ?>
-                                        <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
+                                        ?> 
+                                        <button onclick="javascript:NuevaAveriguacion('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error" style="display: <?php echo $Nueva?>">Iniciar Averiguación</button>
+                                        <button onclick="javascript:DescartarDenuncia('<?= $codigo ?>', '<?php echo $parametros; ?>')" name="Descartar" type="button" class="btn btn-error" style="display: <?php echo $Descartar?>">Descartar</button>
+                                        <button onclick="javascript:InformacionAveriguacion('<?php echo $parametros; ?>')" name="Informacion" type="button" class="btn btn-error" style="display: <?php echo $Info?>">Información de Averiguación</button>
+                                        <button onclick="javascript:window.history.back();" type="button" name="Atras" class="btn btn-error" >Regresar</button>
                                     </div> <!-- .actions -->
                                 </div> <!-- .field-group -->
                             </div>
@@ -260,10 +259,22 @@ $status = $respuesta['status'];
         espejo_gerencia();
     }
 
+    function DescartarDenuncia(codigo, data) {
+        $.alert({
+            type: 'confirm'
+            , title: 'Alerta'
+            , text: '<h3>¿Desea descartar la denuncia: <u>' + codigo + '</u>?</h3>'
+            , callback: function () {
+                window.location = "dashboard.php?data=denuncia-ai-eliminar&flag=1&" + data;
+            }
+        });
+
+    }
+
     function NuevaAveriguacion(data) {
         window.location = "dashboard.php?data=add_investigacion&flag=1&" + data;
     }
-    
+
     function InformacionAveriguacion(data) {
         window.location = "dashboard.php?data=investigacion-ai-info&flag=1&" + data;
     }

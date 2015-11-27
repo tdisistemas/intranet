@@ -49,7 +49,7 @@ if (isset($_POST['Submit'])) {
     $sql = "INSERT INTO ai_investigadores(cedula_invest, status) VALUES(" . $cedula . ",0)";
     $result = mysql_query($sql);
     if ($result) {
-        notificar('Invertigador registrado con exito', "dashboard.php?data=investigadores", "notify-success");
+        notificar('Invertigador registrado con éxito', "dashboard.php?data=investigadores", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -80,7 +80,7 @@ if (isset($_POST['Submit'])) {
                                         </div>
                                     </div>
                                     <div class="field-group" id="campo-tabla" style="display: none; height: 300px; overflow: scroll">
-                                        <i class="fa fa-remove pull-right" title="Cerrar Busqueda" onclick="document.getElementById('campo-tabla').style.display='none'" style="color: #B22222; cursor: pointer"></i>
+                                        <i class="fa fa-remove pull-right" title="Cerrar Busqueda" onclick="document.getElementById('campo-tabla').style.display = 'none'" style="color: #B22222; cursor: pointer"></i>
                                         <label style="color:#B22222;" id="lvlBusqueda"></label>
                                         <table class="table table-striped">
                                             <tbody id="BusquedaRes" style="display: block; height: 420px; overflow-y: auto; width: 100%"></tbody>
@@ -188,6 +188,7 @@ _adios_mysql();
                     document.getElementById("CedulaInvestigadorID").value = '';
                 },
                 data: {
+                    acc: 'Buscar',
                     Campo: campo
                 },
                 success: function (data) {
@@ -230,12 +231,31 @@ _adios_mysql();
 
     }
     function InvestigadorSeleccionado(nombre, cedula, correo, telefono, celular) {
-        document.getElementById("NombreInvestigador").innerHTML = nombre;
-        document.getElementById("CedulaInvestigador").innerHTML = cedula;
-        document.getElementById("CorreoInvestigador").innerHTML = correo;
-        document.getElementById("TelefonoInvestigador").innerHTML = telefono;
-        document.getElementById("PersonalInvestigador").innerHTML = celular;
-        document.getElementById("CedulaInvestigadorID").value = cedula;
-        document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
+        $.ajax({
+            url: 'modules/SIIT-Metro(Admin)/DatosInvestigador.php',
+            dataType: 'JSON',
+            method: 'POST',
+            data: {
+                acc: 'Verificar',
+                Campo: cedula
+            },
+            success: function (data) {
+                if (data == '1') {
+                    document.getElementById("NombreInvestigador").innerHTML = nombre;
+                    document.getElementById("CedulaInvestigador").innerHTML = cedula;
+                    document.getElementById("CorreoInvestigador").innerHTML = correo;
+                    document.getElementById("TelefonoInvestigador").innerHTML = telefono;
+                    document.getElementById("PersonalInvestigador").innerHTML = celular;
+                    document.getElementById("CedulaInvestigadorID").value = cedula;
+                    document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
+                } else {
+                    $.alert({
+                        type: 'alert'
+                        , title: 'Alerta'
+                        , text: '<h3>El investigador <u>'+nombre+'</u> ya esta registrado!</h3>',
+                    });
+                }
+            },
+        });
     }
 </script>

@@ -106,7 +106,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     <div class="row"> 
         <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
-                <div style="" class="grid-9 dashboard_report first activeState">
+                <div style="" class="grid-7 dashboard_report first activeState">
                     <div class="pad" align="center">
                         <span class="value"><?php echo $a; ?></span> Total de Averiguaciones
                     </div> <!-- .pad -->
@@ -142,7 +142,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <?php
                                 while ($row = mysql_fetch_array($sql)) {
                                     switch ($row['st_ave']) {
-                                        case 0: $st = "clock-o";
+                                        case 0: $st = "check";
                                             $color = "#8B8B8B";
                                             $titulo = "En progreso.";
                                             break;

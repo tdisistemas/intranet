@@ -8,7 +8,12 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 ?>
-
+<style>
+    .gradeA > td{
+        vertical-align:middle;
+        text-align: center;
+    }
+</style>
 <div id="contentHeader">
     <h2>Lista de Oficios</h2>
 </div> <!-- #contentHeader -->	
@@ -45,8 +50,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                     <thead>
                         <tr>
                             <th style="width:15%">Código</th>
-                            <th style="width:15%">Fecha</th>
+                            <th style="width:10%">Fecha</th>
                             <th style="width:10%">Tipo</th>
+                            <th style="width:5%">Estatus</th>
                             <th style="width:50%">Descripción</th>
                             <th style="width:10%">Opciones</th>
                         </tr>
@@ -54,14 +60,33 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                     <tbody>
                         <?php
                         while ($row = mysql_fetch_array($sql)) {
+                            switch ($row['status']) {
+                                case 0: $st = "clock-o";
+                                    $color = "#8B8B8B";
+                                    $titulo = "En espera.";
+                                    break;
+                                case 1: $st = "check";
+                                    $color = "#1100CD";
+                                    $titulo = "Averiguación Abierta.";
+                                    break;
+                                case 2: $st = "lock";
+                                    $color = "green";
+                                    $titulo = "Averiguación Finalizada.";
+                                    Break;
+                                case 9: $st = "trash";
+                                    $color = "red";
+                                    $titulo = "Descartado.";
+                                    break;
+                            }
                             ?>
                             <tr class="gradeA">
                                 <td><?php echo $row['codigo'] ?></td>
                                 <td><?php echo $row['fecha'] ?></td>
                                 <td><?php echo $row['tipo'] ?></td>
-                                <td><?php echo $row['descripcion'] ?></td>
+                                <td><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="vertical-align: central; cursor: pointer; font-size: 15px; color: <?php echo '#8B8B8B'//$color  ?>" ></i></span></td>
+                                <td style="text-align: left"><?php echo $row['descripcion'] ?></td>
 
-                                <td class="center" >
+                                <td style="text-align: left" >
                                     <?php
                                     $parametros = 'id=' . $row["idOficio"];
                                     $parametros = _desordenar($parametros);
@@ -69,12 +94,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     <a href="dashboard.php?data=oficios-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
                                         <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a>
-                                    <a href="javascript:eliminar('<?php echo $row['codigo'] ?>','dashboard.php?data=oficios-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
-                                        <i class="fa fa-trash-o" style="color: black; font-size: 15px"></i>
-                                    </a>
                                 </td>
                             </tr>									
-<?php } ?> 
+                        <?php } ?> 
                     </tbody>
                 </table>
             </div> <!-- .widget-content -->

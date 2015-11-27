@@ -185,7 +185,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                     $cargo = $Involucrado['cargo'];
                                     $gerencia = $Involucrado['gerencia'];
                                     $extension = $Involucrado['ext_telefonica'];
-                                    $parametros2 = 'cedula='.$cedula;
+                                    $parametros2 = 'cedula=' . $cedula;
                                     $parametros2 = _desordenar($parametros2);
                                     if ($i != 0) {
                                         ?>
@@ -204,7 +204,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             </div> <!-- .field-group -->
                                             <div class="field-group">
                                                 <div class="field" style="text-align: center">
-                                                    <input type="button" name="Mas" style="width: 80px; font-size: 12px" onclick="javascript:DatosEmpleado('<?=$parametros2?>')" class="btn btn-error" value="Más" />
+                                                    <input type="button" name="Mas" style="width: 80px; font-size: 12px" onclick="javascript:DatosEmpleado('<?= $parametros2 ?>')" class="btn btn-error" value="Más" />
                                                 </div>
                                             </div> <!-- .field-group -->
                                         </div>
@@ -425,9 +425,9 @@ $sqlqueryInv = mysql_query($sqlInvol);
     window.onload = function () {
         espejo_gerencia();
     }
-    
-    function DatosEmpleado(parametro){
-        window.location = 'dashboard.php?data=usuario-ai-info&flag=1&'+parametro;
+
+    function DatosEmpleado(parametro) {
+        window.location = 'dashboard.php?data=usuario-ai-info&flag=1&' + parametro;
     }
 
     function CambioStatus(campo, st, parametro, mensaje) {
