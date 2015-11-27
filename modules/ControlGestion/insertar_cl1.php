@@ -7,6 +7,7 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
+
 ?>
 
 <div id="contentHeader">

@@ -16,8 +16,6 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 <div class="container">
 <?php include('notificador.php'); ?>
 
-
-
     <div class="grid-24">	
         <div class="widget widget-table">
             <div class="widget-header">

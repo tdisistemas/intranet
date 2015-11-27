@@ -15,6 +15,7 @@ decode_get2($_SERVER["REQUEST_URI"], 2);
 $id = _antinyeccionSQL($_GET["np"]);
 decode_get2($_SERVER["REQUEST_URI"], 2);
 $id_2 = _antinyeccionSQL($_GET["np_2"]);
+
 ?>
 <div id="contentHeader">
     <h2>Registro de Procesos</h2>

@@ -22,6 +22,7 @@ $especificaciones= isset($_POST['especificaciones']) ? $_POST['especificaciones'
 $planos= isset($_POST['planos']) ? $_POST['planos']:'0';
 $anexos= isset($_POST['anexos']) ? $_POST['anexos']:'0';
 
+
 $documentose= $alcance. "," .$memoriad. "," .$computos. "," .$especificaciones. "," .$planos. "," .$anexos; 
 
   

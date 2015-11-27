@@ -11,6 +11,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
 <div id="contentHeader">
     <h2>Registro de Procesos</h2>
+    
 </div> <!-- #contentHeader -->	
 
 <div class="container">

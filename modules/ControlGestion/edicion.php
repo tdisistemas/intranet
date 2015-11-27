@@ -21,6 +21,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     decode_get2($_SERVER["REQUEST_URI"], 2);
     $id = _antinyeccionSQL($_GET["id"]);
     _bienvenido_mysql();
+    
     $result = mysql_query("SELECT * FROM gc_control_gestion WHERE id_cgestion = " . $id);
     $reg = mysql_fetch_array($result);
     $parametros = 'id=' . $id;
