@@ -111,14 +111,15 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                             <div class="grid-8">
                                 <div class="field-group">
                                     <label>Tipo de Solicitud:<br></label>   
+                                  
                                     <div class="field">
-                                    <select name="tipo_soli" id="tipo_soli" style="width:160px" >
-                                        
-                                        <option value="AP" selected>Ajuste de Precio</option>
-                                    
-                                </select>
+                                   
+                                        Ajuste de Precio<input style="display:none" name="tipo_soli" id="tipo_soli" value="AP" />
+                                     
                                     </div>
-                                </div>
+                             
+                                    </div>
+                                
                                 <div class="field-group">
                                     <label for="required">Monto ATE:</br></label>   
                                     <div class="field">
@@ -128,8 +129,8 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                 <div class="field-group">
                                     <label for="required">Generar Punto de Cuenta:</br></label>   
                                     <div class="field">
-                                        SI<input type="checkbox" name="pdc" id="deviacion" size="16" value="1" checked/>
-                                       NO <input type="checkbox" name="pdc2" id="deviacion" size="16" value="0" />
+                                        SI<input type="radio" name="pdc" id="deviacion" size="16" value="1" checked/>
+                                       NO <input type="radio" name="pdc" id="deviacion" size="16" value="0" />
                                     </div>
                                 </div>
                                 

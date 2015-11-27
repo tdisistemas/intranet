@@ -115,11 +115,9 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                 <div class="field-group">
                                     <label>Tipo de Solicitud:<br></label>   
                                     <div class="field">
-                                    <select name="tipo_soli" id="tipo_soli" style="width:160px" >
-                                        
-                                        <option value="ATE" selected>Análisis Técnico- Económico</option>
-                                    
-                                </select>
+                                   
+                                        Análisis Técnico- Económico<input style="display:none" name="tipo_soli" id="tipo_soli" value="ATE" />
+                                     
                                     </div>
                                 </div>
                                  <div class="field-group">
