@@ -78,7 +78,7 @@ $conse3=$conse2+1;
 $consecutivo=mysql_query("update gc_controlconse set conse='".$conse3."' where caracteristicas='PDC' ");
 $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
     }
-$desviacion = $monto1 - $monto2;
+
     
     $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
             . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
@@ -180,7 +180,7 @@ $desviacion = $monto1 - $monto2;
                                         </tr>
                                     </table>
                                 </div>
-
+ <input id="estatus2auxi"  value="<?php echo $editar_ec['estatus2'];?>" />
 
                         </form>
                     </div>
@@ -204,7 +204,9 @@ $desviacion = $monto1 - $monto2;
         </div>
 </div>
 </div>
+
 <script type="text/javascript">
+    
     function validarForm(formulario) {
 
  if(formulario.monto1.value.length==0) { //¿Tiene 0 caracteres?
