@@ -95,3 +95,4 @@
     *.jar
     *.war
     *.ear
+/modules/ControlGestion/

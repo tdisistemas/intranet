@@ -47,7 +47,7 @@ if (isset($_POST['enviar'])) {
   $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
   if($result){
-    notificar("Primera fase modificada con exito" ,"dashboard.php?data=puntoc", "notify-success");
+    notificar("Punto de Cuenta modificado con exito" ,"dashboard.php?data=puntoc", "notify-success");
   }
   else { 
     die(mysql_error());
@@ -79,11 +79,12 @@ if (isset($_POST['enviar'])) {
                              
                                 <div class="field-group">
                                     <label for="date">Instrucción del Presidente:</br></label>   
-                                    <select  name="instruccion" id="instruccion" value="<?php echo $editar_ec['instruccion'];?>">
+                                    <select  name="instruccion" id="instru" value="<?php echo $editar_ec['instruccion'];?>">
                                        <option value="">Seleccione</option>
                                     <option value="APROBADO">Aprobado</option>
                                     <option value="RECHAZADO">Rechazado</option>
                                     </select>
+                                <input id="instruccionauxi" style="display:none" value="<?php echo $editar_ec['instruccion'];?>" />
                                 </div>
                                
                               <div class="field-group"></br>
@@ -97,6 +98,7 @@ if (isset($_POST['enviar'])) {
                                     <option value="ENTREGADO">Entregado</option>
                                     </select>
                                     </div>
+                                    <input id="estatus2auxi" style="display:none" value="<?php echo $editar_ec['estatus2'];?>" />
                                 </div>
                                 
                             </div>
@@ -105,14 +107,14 @@ if (isset($_POST['enviar'])) {
                                  <div class="field-group">
                                     <label>Enviado a Presidencia:<br></label>   
                                     <div class="field">
-                                    <input type="date" name="enviado_presi" id="datepicker" size="14"  placeholder="Enviado a Presidencia" value="<?php echo $editar_ec['enviado_presidencia'];?>"/>
+                                    <input type="date" name="enviado_presi" id="datepicker1" size="14"  placeholder="Enviado a Presidencia" value="<?php echo $editar_ec['enviado_presidencia'];?>"/>
                                     </div>
                                 </div>
                                 
                                  <div class="field-group">
                                     <label for="required">Fecha de Egreso:</br></label>   
                                    <div class="field">
-                                    <input type="date" name="fecha_egreso" id="datepicker" size="14"  placeholder="Fecha de Egreso" value="<?php echo $editar_ec['fecha_egreso'];?>"/>
+                                    <input type="date" name="fecha_egreso" id="datepicker2" size="14"  placeholder="Fecha de Egreso" value="<?php echo $editar_ec['fecha_egreso'];?>"/>
                                     </div>
                                 </div>
                                  
@@ -124,7 +126,7 @@ if (isset($_POST['enviar'])) {
                                     
                                    <label>Recibido de Presidencia:<br></label>   
                                     <div class="field">
-                                    <input type="date" name="recibido_presi" id="datepicker" size="14"  placeholder="Recibido de Presidencia" value="<?php echo $editar_ec['recibido_presidencia'];?>"/>
+                                    <input type="date" name="recibido_presi" id="datepicker3" size="14"  placeholder="Recibido de Presidencia" value="<?php echo $editar_ec['recibido_presidencia'];?>"/>
                                     </div>
                                     </div>
                                
@@ -142,7 +144,7 @@ if (isset($_POST['enviar'])) {
                                 <div class="field-group">
                                     <label for="required">Observaciones:</br></label>   
                                     <div class="field">
-                                        <input type="text" name="observaciones" id="observaciones" cols="50" rows="5"  placeholder="Ingrese las observaciones" onChange="conMayusculas(this)" value="<?php echo $editar_ec['observaciones'];?>">
+                                        <textarea type="text" name="observaciones" id="observaciones" cols="50" rows="5"  placeholder="Ingrese las observaciones" onChange="conMayusculas(this)"><?php echo $editar_ec['observaciones'];?></textarea>
                                     </div>
                                 </div>
                             </div> 
@@ -183,6 +185,15 @@ if (isset($_POST['enviar'])) {
 </div>
 </div>
 <script type="text/javascript">
+    window.onload =function (){
+       selectcombo("instruccionauxi", "instru");
+       selectcombo("estatus2auxi", "estatus2");
+       
+   }
+   function selectcombo (origen, destino){
+       $("#"+destino+"").val($("#"+origen+"").val());
+
+    }
     function validarForm(formulario) {
 
   if(formulario.tipo_soli.value.length==0) { //¿Tiene 0 caracteres?
@@ -209,6 +220,24 @@ yearRange: "1950:2014"
 $(function () {
 $.datepicker.setDefaults($.datepicker.regional["es"]);
 $("#datepicker1").datepicker({
+dateFormat: 'yy-mm-dd',
+changeMonth: true,
+changeYear: true,
+yearRange: "1950:2014"
+});
+});
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker2").datepicker({
+dateFormat: 'yy-mm-dd',
+changeMonth: true,
+changeYear: true,
+yearRange: "1950:2014"
+});
+});
+$(function () {
+$.datepicker.setDefaults($.datepicker.regional["es"]);
+$("#datepicker3").datepicker({
 dateFormat: 'yy-mm-dd',
 changeMonth: true,
 changeYear: true,
