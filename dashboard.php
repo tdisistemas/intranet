@@ -77,19 +77,39 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <a href="dashboard.php?data=prueba">Página de Prueba</a>				
                                         </li>
                                     <?php } ?>
-                                    
-                                    
+                                    <?php if (in_array('SIIT-Metro', $usuario_permisos)) { ?>
+                                        <li id="investigacion" class="nav "> 
+                                            <span class="icon-document-alt-stroke"></span>
+                                            <a href="javascript:;">SIIT-Metro</a>				
+                                            <ul class="subNav">
+                                                <li><a href="dashboard.php?data=averiguaciones-ai">Averiguaciones</a></li>
+                                            </ul>						
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (in_array('SIIT-Metro(Admin)', $usuario_permisos)) { ?>
+                                        <li id="admin_ai" class="nav">
+                                            <span class="icon-key-stroke"></span>
+                                            <a href="javascript:;">SIIT-Metro Admin</a>	
+                                            <ul class="subNav">
+                                                <li><a href="dashboard.php?data=admin_ai">Administrador</a></li>
+                                                <li><a href="dashboard.php?data=investigadores">Investigadores</a></li>
+                                                <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
+                                                <li><a href="dashboard.php?data=oficios-ai">Oficios</a></li>
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
+
                                     <?php if (in_array('ControlGestion', $usuario_permisos)) { ?>
                                         <li id="controlgestion" class="nav "> 
                                             <span class="icon-document-alt-stroke"></span>
                                             <a href="javascript:;">Control y Gestión</a>				
                                             <ul class="subNav">
                                                 <li><a href="dashboard.php?data=controlg">Proyecto</a></li>
-                                               <li><a href="dashboard.php?data=puntoc">Punto de Cuenta</a></li>
+                                                <li><a href="dashboard.php?data=puntoc">Punto de Cuenta</a></li>
                                             </ul>						
                                         </li>
                                     <?php } ?>
-                                    
+
                                     <?php if (in_array('Listines', $usuario_permisos)) { ?>
                                         <li id="listines" class="nav">
                                             <span class="icon-layers"></span>
@@ -392,15 +412,15 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                         <script type="text/javascript" src="src/javascripts/QapTcha.jquery.js?<?php echo $anticache; ?>"></script>
 
                         <script type="text/javascript">
-                                                                    $(document).ready(function() {
-                                                                        $('.QapTcha').QapTcha({<?php echo @$js; ?>});
-                                                                    });
+                                                            $(document).ready(function () {
+                                                                $('.QapTcha').QapTcha({<?php echo @$js; ?>});
+                                                            });
                         </script>
 
                         <script>
-                            $(document).ready(function() {
+                            $(document).ready(function () {
                                 // Show or hide the sticky footer button
-                                $(window).scroll(function() {
+                                $(window).scroll(function () {
                                     if ($(this).scrollTop() > 200) {
                                         $('.go-top').fadeIn(200);
                                     } else {
@@ -409,7 +429,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                 });
 
                                 // Animate the scroll to top
-                                $('.go-top').click(function(event) {
+                                $('.go-top').click(function (event) {
                                     event.preventDefault();
 
                                     $('html, body').animate({scrollTop: 0}, 300);
@@ -417,9 +437,9 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                             });
                         </script>
                         <script>
-                            (function(i, s, o, g, r, a, m) {
+                            (function (i, s, o, g, r, a, m) {
                                 i['GoogleAnalyticsObject'] = r;
-                                i[r] = i[r] || function() {
+                                i[r] = i[r] || function () {
                                     (i[r].q = i[r].q || []).push(arguments)
                                 }, i[r].l = 1 * new Date();
                                 a = s.createElement(o),
@@ -436,12 +456,12 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
 
                         <!--Start of Zopim Live Chat Script-->
                         <script type="text/javascript">
-                            window.$zopim || (function(d, s) {
-                                var z = $zopim = function(c) {
+                            window.$zopim || (function (d, s) {
+                                var z = $zopim = function (c) {
                                     z._.push(c)
                                 }, $ = z.s =
                                         d.createElement(s), e = d.getElementsByTagName(s)[0];
-                                z.set = function(o) {
+                                z.set = function (o) {
                                     z.set.
                                             _.push(o)
                                 };
@@ -461,7 +481,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
 
 
                         <script>
-                            $zopim(function() {
+                            $zopim(function () {
                                 $zopim.livechat.setName('<?php echo $usuario_datos[1] . ' ' . $usuario_datos[2] . ' - ' . $usuario_datos[3]; ?>');
                                 $zopim.livechat.setEmail('<?php echo $usuario_datos[5]; ?>');
                             });
