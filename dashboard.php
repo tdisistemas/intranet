@@ -71,27 +71,6 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                         <span class="icon-home"></span>
                                         <a href="dashboard.php?data=inicio">Página Principal</a>				
                                     </li>
-                                    <?php if (in_array('SIIT-Metro', $usuario_permisos)) { ?>
-                                        <li id="investigacion" class="nav "> 
-                                            <span class="icon-document-alt-stroke"></span>
-                                            <a href="javascript:;">SIIT-Metro</a>				
-                                            <ul class="subNav">
-                                                <li><a href="dashboard.php?data=averiguaciones-ai">Averiguaciones</a></li>
-                                            </ul>						
-                                        </li>
-                                    <?php } ?>
-                                    <?php if (in_array('SIIT-Metro(Admin)', $usuario_permisos)) { ?>
-                                        <li id="admin_ai" class="nav">
-                                            <span class="icon-key-stroke"></span>
-                                            <a href="javascript:;">SIIT-Metro Admin</a>	
-                                            <ul class="subNav">
-                                                <li><a href="dashboard.php?data=admin_ai">Administrador</a></li>
-                                                <li><a href="dashboard.php?data=investigadores">Investigadores</a></li>
-                                                <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
-                                                <li><a href="dashboard.php?data=oficios-ai">Oficios</a></li>
-                                            </ul>
-                                        </li>
-                                    <?php } ?>
                                     <?php if (in_array('ModuloPrueba', $usuario_permisos)) { ?>
                                         <li id="prueba" class="nav">
                                             <span class="icon-key-stroke"></span>
