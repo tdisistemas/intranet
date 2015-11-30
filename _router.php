@@ -76,6 +76,75 @@ switch ($t) {
     case ("inicio"):include('modules/metroinforma/metroinforma.php');
         ?><script>activame('inicio');</script><?php
         break;
+
+    /*     * ******************************************** */
+    /*     * ******** ASUNTOS INTERNOS ADMIN ************ */
+    /*     * ******************************************** */
+    case ("admin_ai"):include('modules/SIIT-Metro(Admin)/ai_admin.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigadores"):include('modules/SIIT-Metro(Admin)/ai_investigadores.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_investigadores"):include('modules/SIIT-Metro(Admin)/add_investigadores.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigador-ai-info"):include('modules/SIIT-Metro(Admin)/ai_investigador_info.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigador-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_investigador.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("denuncias-ai"):include('modules/SIIT-Metro(Admin)/ai_denuncias.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_denuncias"):include('modules/SIIT-Metro(Admin)/add_denuncias.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("denuncia-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_denuncia.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("denuncia-ai-info"):include('modules/SIIT-Metro(Admin)/ai_denuncia_info.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("oficios-ai"):include('modules/SIIT-Metro(Admin)/ai_oficios.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_oficios"):include('modules/SIIT-Metro(Admin)/add_oficios.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("oficios-ai-eliminar"):include('modules/SIIT-Metro(Admin)/ai_eliminar_oficios.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("oficios-ai-info"):include('modules/SIIT-Metro(Admin)/ai_oficios_info.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("investigacion-ai-info"):include('modules/SIIT-Metro(Admin)/ai_investigacion_info.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+    case ("add_investigacion"):include('modules/SIIT-Metro(Admin)/add_investigaciones.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
+
+    /*     * ******************************************** */
+    /*     * *********** ASUNTOS INTERNOS *************** */
+    /*     * ******************************************** */
+    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("averiguaciones-ai"):include('modules/SIIT-Metro/ai_investigaciones.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("averiguaciones-ai-info"):include('modules/SIIT-Metro/ai_investigacion_info.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+    case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
+
     /*     * ** PRUEBA *** */
     case ("pruebainsert"):include('modules/ModuloPrueba/NuevoUsuario.php');
         ?><script>activame('prueba');</script><?php

@@ -43,6 +43,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                     <link rel="stylesheet" href="src/stylesheets/progressbar.css?<?php echo $anticache; ?>" type="text/css" />
                     <script src="src/javascripts/funciones.js?<?php echo $anticache; ?>"></script>
                     <script src="src/javascripts/all.js?<?php echo $anticache; ?>"></script>
+                    <link rel="stylesheet" href="css/font-awesome.min.css?<?php echo $anticache; ?>" type="text/css" />
 
                     <style type="text/css">
                         #topNav{
@@ -70,7 +71,27 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                         <span class="icon-home"></span>
                                         <a href="dashboard.php?data=inicio">Página Principal</a>				
                                     </li>
-
+                                    <?php if (in_array('SIIT-Metro', $usuario_permisos)) { ?>
+                                        <li id="investigacion" class="nav "> 
+                                            <span class="icon-document-alt-stroke"></span>
+                                            <a href="javascript:;">SIIT-Metro</a>				
+                                            <ul class="subNav">
+                                                <li><a href="dashboard.php?data=averiguaciones-ai">Averiguaciones</a></li>
+                                            </ul>						
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (in_array('SIIT-Metro(Admin)', $usuario_permisos)) { ?>
+                                        <li id="admin_ai" class="nav">
+                                            <span class="icon-key-stroke"></span>
+                                            <a href="javascript:;">SIIT-Metro Admin</a>	
+                                            <ul class="subNav">
+                                                <li><a href="dashboard.php?data=admin_ai">Administrador</a></li>
+                                                <li><a href="dashboard.php?data=investigadores">Investigadores</a></li>
+                                                <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
+                                                <li><a href="dashboard.php?data=oficios-ai">Oficios</a></li>
+                                            </ul>
+                                        </li>
+                                    <?php } ?>
                                     <?php if (in_array('ModuloPrueba', $usuario_permisos)) { ?>
                                         <li id="prueba" class="nav">
                                             <span class="icon-key-stroke"></span>
@@ -306,7 +327,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                 </ul>      
 
                             </div> <!-- #sidebar -->
-                            <div id="content" style="background:url('src/images/logo-t.png') #ffffff no-repeat center 200px;">
+                            <div id="content" style="background:url('src/images/logo-t.png') #ffffff no-repeat center 200px fixed;">
                                 <?php include('_router.php'); ?>
                             </div> <!-- #content -->
                             <div id="topNav">
