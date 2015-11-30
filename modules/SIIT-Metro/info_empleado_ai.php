@@ -1,4 +1,4 @@
-<?php
+<?php 
 if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
     header("Location: ../../dashboard.php");
 }
