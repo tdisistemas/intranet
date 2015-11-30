@@ -145,6 +145,7 @@ if ($perfil_qry) {
                     <div class="widget-header">
                         <span class="icon-layers"></span>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <h3>Historial del Empleado</h3>
                     </div>
                     <div class="widget-content">
@@ -431,9 +432,7 @@ if ($perfil_qry) {
                         $parametros = 'id=' . $id_empleado;
                         $parametros = _desordenar($parametros);
                         ?>  
-                        <a href="dashboard.php?data=usuario-ai-edit&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add" >Historial de Incidentes</a>
-                        <a href="dashboard.php?data=investigacion" class="btn btn-primary btn-large dashboard_add">Agregar Incidencia</a>
->>>>>>> intranet/Pedro-Alarcon
+                        <a href="dashboard.php?data=Citar" class="btn btn-primary btn-large dashboard_add">Citar</a>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>

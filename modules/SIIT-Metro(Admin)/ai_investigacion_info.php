@@ -95,7 +95,6 @@ if (!$_GET['flag']) {
 <?php
 decode_get2($_SERVER["REQUEST_URI"], 2);
 $id = _antinyeccionSQL($_GET['id']);
-<<<<<<< HEAD
 $tipo_origen = _antinyeccionSQL($_GET['ot']);
 _bienvenido_mysql();
 
@@ -137,40 +136,6 @@ $sql = mysql_query($sqlquery);
 $respuesta = mysql_fetch_array($sql);
 
 $id = $respuesta['idAveriguacion'];
-=======
-_bienvenido_mysql();
-
-$sqlquery = "SELECT "
-        . "a.codigo_ave,"
-        . "a.tipo_origen,"
-        . "a.causa,"
-        . "a.recomendacion,"
-        . "a.conclusion,"
-        . "b.codigo AS cod_den,"
-        . "e.codigo AS cod_org,"
-        . "b.status AS st_den,"
-        . "e.status AS st_org,"
-        . "a.fecha,"
-        . "b.fecha AS fecha_den,"
-        . "e.fecha AS fecha_org,"
-        . "b.descripcion AS desc_den,"
-        . "e.descripcion AS desc_org,"
-        . "b.tipo AS tipo_den,"
-        . "e.tipo AS tipo_org,"
-        . "d.nombre,"
-        . "d.apellido,"
-        . "a.status AS st_ave "
-        . "FROM ai_averiguaciones a "
-        . "LEFT JOIN ai_denuncias b ON a.origen = b.idDenuncia AND a.tipo_origen = 1 "
-        . "LEFT JOIN ai_oficios e ON a.origen = e.idOficio AND a.tipo_origen = 2 "
-        . "INNER JOIN ai_investigadores c ON a.investigador=c.id_invest "
-        . "INNER JOIN datos_empleado_rrhh d ON c.cedula_invest = d.cedula "
-        . "WHERE a.idAveriguacion=" . $id;
-
-$sql = mysql_query($sqlquery);
-$respuesta = mysql_fetch_array($sql);
-
->>>>>>> intranet/Pedro-Alarcon
 $tipo_origen = $respuesta['tipo_origen'];
 $cod_den = $respuesta['cod_den'];
 $cod_org = $respuesta['cod_org'];

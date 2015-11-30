@@ -173,11 +173,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
                                         <td class="center">
                                             <?php
-<<<<<<< HEAD
                                             $parametros = 'id=' . $row["idAveriguacion"] . '&ot=0';
-=======
-                                            $parametros = 'id=' . $row["idAveriguacion"];
->>>>>>> intranet/Pedro-Alarcon
                                             $parametros = _desordenar($parametros);
                                             ?>  
                                             <a href="dashboard.php?data=investigacion-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
