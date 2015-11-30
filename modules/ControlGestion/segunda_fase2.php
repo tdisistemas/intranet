@@ -78,6 +78,7 @@ $conse3=$conse2+1;
 $consecutivo=mysql_query("update gc_controlconse set conse='".$conse3."' where caracteristicas='PDC' ");
 $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
     }
+
     
     $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
             . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
@@ -148,7 +149,14 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                   <div class="field-group">
                                     <label for="required">Desviación:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación." onkeypress="return valido(event)"/>
+                                       <?php 
+                                        $monto1 = $_POST['monto1'];
+                                        $monto2 = $_POST['monto2'];
+                                        
+                                        $desv = $monto1 + $monto2;
+                                        
+                                        ?>
+                                   <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación." onkeypress="return valido(event)"  value="<?php echo $desv;?>"/>
                                     </div>
                                 </div>
                              
@@ -178,7 +186,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                         </tr>
                                     </table>
                                 </div>
-
+ <input id="estatus2auxi"  value="<?php echo $editar_ec['estatus2'];?>" />
 
                         </form>
                     </div>
@@ -202,7 +210,9 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
         </div>
 </div>
 </div>
+
 <script type="text/javascript">
+    
     function validarForm(formulario) {
 
  if(formulario.monto1.value.length==0) { //¿Tiene 0 caracteres?
