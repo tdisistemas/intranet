@@ -13,6 +13,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 <div id="contentHeader">
     <h2>Registro de Proyectos</h2>
 </div>
+
 <!-- #contentHeader -->
 <div class="container">
     <div class="row">
@@ -64,13 +65,30 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 </div>
 
                                 <div class="field-group">
-                                    <label for="required">Estatus del Tramite:</br></label>   
+                                    <label for="required">Estatus del Trámite:</br></label>   
                                     <div class="field">
                                         <select  name="estatus" id="estatus">
                                             <option value="">Seleccione</option>
                                             <option value="EN ELABORACIÓN">En Elaboración</option>
                                             <option value="ENTREGADO">Entregado</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="field-group">
+                                    <label for="date">Obra Extra:</br></label>   
+                                    <div class="field">
+                                        SI<input type="radio" name="obraextrasi" id="txek" value="1" onclick="Block(this,'obraextra')"/>
+                                        NO<input type="radio" name="obraextrano" value="0" onclick="Block(this,'obraextra')" checked   />
+                                        <select id="obraextra" name="obraextra"  style="width:130px" disabled>
+                                            <option value="">Seleccione</option>
+                                            <?php
+                                            _bienvenido_mysql();
+                                            $sql = mysql_query("SELECT obra FROM gc_control_gestion GROUP BY obra");
+                                            while ($row = mysql_fetch_array($sql)) {
+                                                ?>
+                                                <option value="<?php echo $row["obra"] ?>"><?php echo $row["obra"] ?></option>
+                                            <?php } _adios_mysql(); ?>
+                                        </select>	
                                     </div>
                                 </div>
                             </div>
@@ -125,8 +143,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 </tr>
                             </table>
                         </div>
-
-
+ 
                     </form>
 
                 </div>
@@ -154,7 +171,21 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 </div>
 
 
+
 <script type="text/javascript">
+    function Block(esto,id)
+   {
+    if(esto.value==1)
+     {
+		id=document.getElementById(id);
+		id.disabled=false;		
+	 }	
+	else
+	 {
+		id=document.getElementById(id);
+		id.disabled=true;				
+	 }
+   }
     function validarForm(formulario) {
         if (formulario.clase.value.length == 0) { //¿Tiene 0 caracteres?
             formulario.clase.focus();    // Damos el foco al control

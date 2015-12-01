@@ -19,11 +19,14 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 <?php
        
     decode_get2($_SERVER["REQUEST_URI"], 2);
-    $id = _antinyeccionSQL($_GET["np"]);
+    $id_np = _antinyeccionSQL($_GET["np"]);
+  
+  
+    
        _bienvenido_mysql();
    $segunda_fase = mysql_query("SELECT  tipo_solicitud, montoec, enviado_presidencia, recibido_presidencia FROM `gc_control_gestion2`
-                    WHERE  `id_cgestion2` = '$id' ");
- 
+                    WHERE  `id_cgestion2` = '$id_np'");
+   
    $editar_ec=  mysql_fetch_array($segunda_fase);
 
 
@@ -36,12 +39,12 @@ if (isset($_POST['enviar'])) {
     $parametro = _desordenar($parametro);
        
  
- $sql="UPDATE gc_control_gestion2 SET  ". "recibido_presidencia='".$recibido_presi."' WHERE id_cgestion2=".$id;
+ $sql="UPDATE gc_control_gestion2 SET  ". "recibido_presidencia='".$recibido_presi."' WHERE id_cgestion2=".$id_np;
   
   $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
   if($result){
-    notificar("Modificación realizada con exito" ,"dashboard.php?data=controlg", "notify-success");
+    notificar("Modificación realizada con exito" ,"dashboard.php?data=consultar&flag=1&$parametro", "notify-success");
   }
   else { 
     die(mysql_error());
@@ -94,7 +97,7 @@ if (isset($_POST['enviar'])) {
                                 </div>
                                 
                              
-                                
+                                <input  name="id_cgestion2" style="display:none" value="<?php echo $id_np ?>">
                             </div>
                           
                

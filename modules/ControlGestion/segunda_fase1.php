@@ -35,7 +35,7 @@ if (isset($_POST['enviar'])) {
     $monto1 = $_POST['monto1'];
     $monto2 = $_POST['monto2'];
     $monto3 = $_POST['monto3'];
-    $deviacion = $_POST['deviacion'];
+    $desviacion = $_POST['desviacion'];
     $valipdc=  isset($_POST['pdc']) ? $_POST['pdc']:'0';
     $validarpdc= $valipdc;
      $sql = mysql_query("SELECT * FROM `gc_control_gestion2`
@@ -81,7 +81,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
     }
     
     $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
-            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $deviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
+            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $desviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
     $result = mysql_query($sql);
     
     if ($result) {
@@ -108,7 +108,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
 
                 <div class="widget-content">
                     <div class="row">
-                        <form class="form validateForm" action="#" method="post"  onsubmit="return validarForm(this)" >
+                        <form class="form validateForm" action="#" method="post" id="f1" name="f1" onsubmit="return validarForm(this)" >
                             
                             
                             <div class="grid-8">
@@ -120,12 +120,14 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                      
                                     </div>
                                 </div>
-                                 <div class="field-group">
-                                    <label for="required">Monto ATE:</br></label>   
+                                <div class="field-group">
+                                    <label for="required">Desviación:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto3" id="monto3" size="16" placeholder="Monto Bsf ATE." onkeypress="return isNumberKey(event)"/>
+                                       
+                                        <input type="text" name="desviacion" id="deviacion" size="16" placeholder="% de Deviación." readonl />
                                     </div>
                                 </div>
+                                 
                               
                                  
                                <div class="field-group">
@@ -142,22 +144,22 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                 <div class="field-group">
                                     <label for="required">Monto Estimación de Costo:</br></label>   
                                     <div class="field">
-                                        <input type="text" name="monto1" id="monto1" size="16" value="<?php echo $monto['montoec'];?>" readonly/>
+                                        <input type="text" name="monto1" id="monto1" size="16" value="<?php echo $monto['montoec'];?>" readonly OnKeyUp="Sumar()"/>
                                     </div>
                                 </div>
-                                  <div class="field-group">
-                                    <label for="required">Desviación:</br></label>   
+                                 
+                                <div class="field-group">
+                                    <label for="required">Monto ATE:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="deviacion" id="deviacion" size="16" placeholder="% de Deviación."  onkeypress="return valido(event)"/>
+                                   <input type="text" name="monto3" id="monto3" size="16" placeholder="Monto Bsf ATE." onkeypress="return isNumberKey(event)" />
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="grid-8">
                             <div class="field-group">
                                     <label for="required">Monto Oferta Comercial:</br></label>   
                                     <div class="field">
-                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC." onkeypress="return isNumberKey(event)"/>
+                                   <input type="text" name="monto2" id="monto2" size="16" placeholder="Monto Bsf OC." onkeypress="return isNumberKey(event)" OnKeyUp="Sumar()"/>
                                     </div>
                                 </div>
                             <div class="field-group">
@@ -203,6 +205,13 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
 </div>
 </div>
 <script type="text/javascript">
+    function Sumar(){
+         a=document.f1.monto1.value;
+         b=document.f1.monto2.value;
+         c=(parseInt(a)-parseInt(b))/100;
+         
+         document.f1.desviacion.value=c+'%';
+     }
     function validarForm(formulario) {
 
   if(formulario.monto1.value.length==0) { //¿Tiene 0 caracteres?

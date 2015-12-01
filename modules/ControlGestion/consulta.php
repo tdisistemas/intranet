@@ -11,11 +11,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
 <?php
 include('notificador.php');
-decode_get2($_SERVER["REQUEST_URI"], 2);
-$id = _antinyeccionSQL($_GET["np"]);
-decode_get2($_SERVER["REQUEST_URI"], 2);
-$id_2 = _antinyeccionSQL($_GET["np_2"]);
-
+                        decode_get2($_SERVER["REQUEST_URI"], 2);
+                        $id_np = _antinyeccionSQL($_GET["np"]);
+                        decode_get2($_SERVER["REQUEST_URI"], 2);
+                        $id_servi = _antinyeccionSQL($_GET["servi"]);
 ?>
 <div id="contentHeader">
     <h2>Registro de Procesos</h2>
@@ -43,8 +42,10 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
                     </thead>
                     <tbody>
                         <?php
+                      
+
                         mysql_query("set names utf8");
-                        $sql = mysql_query("SELECT id_cgestion2,tipo_solicitud, n_proceso, servicio, montoec, montooc, montoate FROM gc_control_gestion2 WHERE n_proceso='" . $id . "' || n_proceso='" . $id_2 . "'");
+                        $sql = mysql_query("SELECT id_cgestion2,n_proceso, servicio, tipo_solicitud, montoec, montooc, montoate FROM gc_control_gestion2 WHERE n_proceso='" . $id_np . "' || servicio='" . $id_servi . "'");
                         $ano = date('y');
                         $actual = (explode("20", $ano));
                         while ($row = mysql_fetch_array($sql)) {
@@ -59,12 +60,14 @@ $id_2 = _antinyeccionSQL($_GET["np_2"]);
 
                                 <td class="center">
                                     <?php
-                                    $parametros = 'id=' . $row[1];
+                                    $parametros = 'id=' . $row["id_cgestion2"];
                                     $parametros = _desordenar($parametros);
-                                    $parametro = 'np=' . $row[0];
+                                    $parametro = 'np=' . $row["n_proceso"];
                                     $parametro = _desordenar($parametro);
+                                  
+                                   
                                     ?>  
-                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametro.'&'. $parametros; ?>" id="editar" title="Editar" >
+                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametro. '&'. $parametros?>" id="editar" title="Editar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
                                     </a>
                                 </td>
