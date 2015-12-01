@@ -126,7 +126,7 @@ $sqlquery = "SELECT "
         . "INNER JOIN ai_investigadores c ON a.investigador=c.id_invest "
         . "INNER JOIN datos_empleado_rrhh d ON c.cedula_invest = d.cedula ";
 
-if ($tipo_origen=='0') {
+if ($tipo_origen == '0') {
     $sqlquery .= "WHERE a.idAveriguacion=" . $id;
 } else {
     $sqlquery .= "WHERE tipo_origen = " . $tipo_origen . " AND a.origen=" . $id;
@@ -176,254 +176,250 @@ $sqlqueryInv = mysql_query($sqlInvol);
     <div class="row"> 
         <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
-                <div class="">
-                    <div class="">
-                        <div class="row">
-                            <div class="grid-24 bordeado">
-                                <div class="widget-header">
-                                    <h3>Involucrado(s) </h3>
-                                </div>
-                                <br>
-                                <br>
-                                <?php
-                                $i = 0;
-                                while ($Involucrado = mysql_fetch_array($sqlqueryInv)) {
+                <div class="row">
+                    <div class="grid-24 bordeado">
+                        <div class="widget-header">
+                            <h3>Involucrado(s) </h3>
+                        </div>
+                        <br>
+                        <br>
+                        <?php
+                        $i = 0;
+                        while ($Involucrado = mysql_fetch_array($sqlqueryInv)) {
 
-                                    $cedula = $Involucrado['cedula'];
-                                    $nombreInvo = $Involucrado['nombre'] . ' ' . $Involucrado['apellido'];
-                                    $cargo = $Involucrado['cargo'];
-                                    $gerencia = $Involucrado['gerencia'];
-                                    $extension = $Involucrado['ext_telefonica'];
+                            $cedula = $Involucrado['cedula'];
+                            $nombreInvo = $Involucrado['nombre'] . ' ' . $Involucrado['apellido'];
+                            $cargo = $Involucrado['cargo'];
+                            $gerencia = $Involucrado['gerencia'];
+                            $extension = $Involucrado['ext_telefonica'];
 
-                                    $parametros2 = 'cedula=' . $Involucrado['cedula'];
-                                    $parametros2 = _desordenar($parametros2);
-                                    if ($i != 0) {
-                                        ?>
-                                        <div class="grid-24" style="text-align: center; margin-left: 1.5%;">
-                                            <hr style="border-top: 1px dotted #000; height: 1px; width:75%;">
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
-                                    <div class="grid-24">
-                                        <div class="grid-4">
-                                            <div class="field-group">
-                                                <div class="field">
-                                                    <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <div class="field" style="text-align: center">
-                                                    <input type="button" name="Mas" style="width: 80px; font-size: 12px" onclick="javascript:DatosEmpleado('<?= $parametros2 ?>')" class="btn btn-error" value="Más" />
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                        </div>
-                                        <div class="grid-8">
-                                            <div class="field-group">								
-                                                <label style="color:#B22222">Cédula:</label>
-                                                <div class="field">
-                                                    <span><?php echo $cedula; ?></span>
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Nombre:</label>
-                                                <div class="field">
-                                                    <span><?php echo $nombreInvo; ?></span>			
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Cargo:</label>
-                                                <div class="field">
-                                                    <span><?php echo $cargo; ?></span>			
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                        </div>
-                                        <div class="grid-10">
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Gerencia:</label>
-                                                <div class="field">
-                                                    <span><?php echo $gerencia; ?></span>	
-                                                </div>		
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Extensión:</label>
-                                                <div class="field">
-                                                    <span><?php echo $extension; ?></span>	
-                                                </div>		
-                                            </div> <!-- .field-group -->
-                                        </div>
-                                    </div>
-                                    <?php
-                                    $i++;
-                                }
+                            $parametros2 = 'cedula=' . $Involucrado['cedula'];
+                            $parametros2 = _desordenar($parametros2);
+                            if ($i != 0) {
                                 ?>
-                            </div>
-                            <div class="grid-24 bordeado" >
-                                <div class="widget-header">
-                                    <h3><?= $tipo_origen == '1' ? 'Denuncia' : 'Oficio' ?></h3>
+                                <div class="grid-24" style="text-align: center; margin-left: 1.5%;">
+                                    <hr style="border-top: 1px dotted #000; height: 1px; width:75%;">
                                 </div>
-                                <br>
+                                <?php
+                            }
+                            ?>
+                            <div class="grid-24">
+                                <div class="grid-4">
+                                    <div class="field-group">
+                                        <div class="field">
+                                            <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                    <div class="field-group">
+                                        <div class="field" style="text-align: center">
+                                            <input type="button" name="Mas" style="width: 80px; font-size: 12px" onclick="javascript:DatosEmpleado('<?= $parametros2 ?>')" class="btn btn-error" value="Más" />
+                                        </div>
+                                    </div> <!-- .field-group -->
+                                </div>
                                 <div class="grid-8">
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Código:</label>
+                                    <div class="field-group">								
+                                        <label style="color:#B22222">Cédula:</label>
                                         <div class="field">
-                                            <span><b><?php echo $tipo_origen == '1' ? $cod_den : $cod_org ?></b></span>	
+                                            <span><?php echo $cedula; ?></span>
                                         </div>
                                     </div> <!-- .field-group -->
                                     <div class="field-group">
-                                        <label style="color:#B22222">Fecha:</label>
+                                        <label style="color:#B22222">Nombre:</label>
                                         <div class="field">
-                                            <span><?php echo $tipo_origen == '1' ? $fecha_den : $fecha_org; ?></span>	
+                                            <span><?php echo $nombreInvo; ?></span>			
                                         </div>
                                     </div> <!-- .field-group -->
                                     <div class="field-group">
-                                        <label style="color:#B22222">Tipo:</label>
+                                        <label style="color:#B22222">Cargo:</label>
                                         <div class="field">
-                                            <span><?php echo $tipo_origen == '1' ? $tipo_den : $tipo_org; ?></span>	
-                                        </div>
-                                    </div> <!-- .field-group -->
-                                </div>
-                                <div class="grid-14">
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Descripción:</label>
-                                        <div class="field">
-                                            <span><?php echo $tipo_origen == '1' ? $desc_den : $desc_org; ?></span>	
-                                        </div>
-                                    </div> <!-- .field-group -->
-                                </div><!-- .grid -->
-                            </div><!-- .grid -->
-                            <div class="grid-24 bordeado">
-                                <div class="widget-header">
-                                    <h3>Averiguación</h3>
-                                </div>
-                                <br>
-                                <div class="grid-8">
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Código:</label>
-                                        <div class="field">
-                                            <span><b><?php echo $codigo_ave; ?></b></span>	
-                                        </div>
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Fecha:</label>
-                                        <div class="field">
-                                            <span><?php echo $fecha; ?></span>	
-                                        </div>
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Investigador:</label>
-                                        <div class="field">
-                                            <span><?php echo $nombre; ?></span>	
-                                        </div>
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">
-                                        <label style="color:#B22222">Estatus:</label>
-                                        <div class="field">
-                                            <?php
-                                            $Archivar = '';
-                                            $Retomar = 'none';
-                                            $Revision = 'none';
-                                            $Remitir = 'none';
-                                            $editable = '';
-                                            switch ($st_ave) {
-                                                case 0: $st = "check";
-                                                    $color = "green";
-                                                    $texto = 'Abierta.';
-                                                    $Revision = '';
-                                                    break;
-                                                case 1: $st = "edit";
-                                                    $color = "#2563FF";
-                                                    $texto = 'En revisión.';
-                                                    $Remitir = '';
-                                                    break;
-                                                case 2: $st = "sign-out";
-                                                    $color = "green";
-                                                    $texto = 'Remitida.';
-                                                    $editable = 'none';
-                                                    Break;
-                                                case 3: $st = "lock";
-                                                    $color = "green";
-                                                    $texto = 'Finalizada.';
-                                                    $Archivar = 'none';
-                                                    $editable = 'none';
-                                                    Break;
-                                                case 9: $st = "lock";
-                                                    $color = "red";
-                                                    $texto = 'Archivada.';
-                                                    $Archivar = 'none';
-                                                    $Retomar = '';
-                                                    $editable = 'none';
-                                                    break;
-                                            }
-                                            ?>
-                                            <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                            <span><?php echo $cargo; ?></span>			
                                         </div>
                                     </div> <!-- .field-group -->
                                 </div>
-                                <div class="grid-14">
+                                <div class="grid-10">
                                     <div class="field-group">
-                                        <label style="color:#B22222">Causa:</label>
+                                        <label style="color:#B22222">Gerencia:</label>
                                         <div class="field">
-                                            <span><?php echo $causa; ?></span>	
-                                        </div>
+                                            <span><?php echo $gerencia; ?></span>	
+                                        </div>		
                                     </div> <!-- .field-group -->
-                                </div><!-- .grid -->
-                            </div><!-- .grid -->
-                            <div class="grid-24 bordeado">
-                                <div class="widget-header">
-                                    <h3>Conclusiones</h3>
-                                </div>
-                                <br>
-                                <div class="grid-24">
                                     <div class="field-group">
-                                        <div class="field" id="Conclu_Mostrado">
-                                            <?php echo $conclusion == '' ? '<label for="fname">** No posee Conclusiones registradas. **<label>' : '<span>' . $conclusion . '</span>'; ?>	
-                                        </div>
-                                        <div class="field" id="Conclu_Editado" style="display: none">
-                                            <textarea id="Conclu_Nueva" rows="4" cols="60"><?= $conclusion ?></textarea>	
-                                        </div>
-                                        <div style="text-align: left">
-                                            <button style="display: <?= $editable ?>" onclick="javascript:EditarCampo('Conclu_')" title="Editar" id="Conclu_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
-                                            <button style="display: none" onclick="javascript:AceptarEdit('Conclu_', 1, '<?= $id ?>')" title="Aceptar" id="Conclu_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
-                                            <button style="display: none" onclick="javascript:CancelarEdit('Conclu_')" title="Cancelar" id="Conclu_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
+                                        <label style="color:#B22222">Extensión:</label>
+                                        <div class="field">
+                                            <span><?php echo $extension; ?></span>	
+                                        </div>		
+                                    </div> <!-- .field-group -->
                                 </div>
-                            </div><!-- .grid -->
-                            <div class="grid-24 bordeado">
-                                <div class="widget-header">
-                                    <h3>Recomendaciones</h3>
-                                </div>
-                                <br>
-                                <div class="grid-24">
-                                    <div class="field-group">
-                                        <div class="field" id="Recom_Mostrado">
-                                            <?php echo $recomendacion == '' ? '<label for="fname">*** No posee Recomandaciones registradas. ***<label>' : '<span>' . $recomendacion . '</span>'; ?>	
-                                        </div>
-                                        <div class="field" id="Recom_Editado" style="display: none">
-                                            <textarea id="Recom_Nueva" rows="4" cols="60"><?= $recomendacion ?></textarea>	
-                                        </div>
-                                        <div style="text-align: left">
-                                            <button style="display: <?= $editable ?>" onclick="javascript:EditarCampo('Recom_')" title="Editar" id="Recom_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
-                                            <button style="display: none" onclick="javascript:AceptarEdit('Recom_', 2, '<?= $id ?>')" title="Aceptar" id="Recom_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
-                                            <button style="display: none" onclick="javascript:CancelarEdit('Recom_')" title="Cancelar" id="Recom_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- .grid -->
-                            <div class="grid-24" style="text-align: center">
-                                <div class="field-group">								
-                                    <div class="actions">
-                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '0', '<?= $parametros ?>', 'Retomar')" name="Retomar" type="button" class="btn btn-error" style="display: <?= $Retomar ?>">Retomar</button>
-                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '9', '<?= $parametros ?>', 'Archivar')" name="Archivar" type="button" class="btn btn-error" style="display: <?= $Archivar ?>">Archivar</button>
-                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '1', '<?= $parametros ?>', 'Enviar a Revisión')" name="Revision" type="button" class="btn btn-error" style="display: <?= $Revision ?>">Enviar a Revisión</button>
-                                        <button onclick="javascript:CambioStatus('<?= $id ?>', '2', '<?= $parametros ?>', 'Remitir a Presidencia')" name="Remitir" type="button" class="btn btn-error" style="display: <?= $Remitir ?>">Remitir</button>
-                                        <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
-                                    </div> <!-- .actions -->
-                                </div> <!-- .field-group -->
                             </div>
+                            <?php
+                            $i++;
+                        }
+                        ?>
+                    </div>
+                    <div class="grid-24 bordeado" >
+                        <div class="widget-header">
+                            <h3><?= $tipo_origen == '1' ? 'Denuncia' : 'Oficio' ?></h3>
+                        </div>
+                        <br>
+                        <div class="grid-8">
+                            <div class="field-group">
+                                <label style="color:#B22222">Código:</label>
+                                <div class="field">
+                                    <span><b><?php echo $tipo_origen == '1' ? $cod_den : $cod_org ?></b></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                            <div class="field-group">
+                                <label style="color:#B22222">Fecha:</label>
+                                <div class="field">
+                                    <span><?php echo $tipo_origen == '1' ? $fecha_den : $fecha_org; ?></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                            <div class="field-group">
+                                <label style="color:#B22222">Tipo:</label>
+                                <div class="field">
+                                    <span><?php echo $tipo_origen == '1' ? $tipo_den : $tipo_org; ?></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                        </div>
+                        <div class="grid-14">
+                            <div class="field-group">
+                                <label style="color:#B22222">Descripción:</label>
+                                <div class="field">
+                                    <span><?php echo $tipo_origen == '1' ? $desc_den : $desc_org; ?></span>	
+                                </div>
+                            </div> <!-- .field-group -->
                         </div><!-- .grid -->
                     </div><!-- .grid -->
+                    <div class="grid-24 bordeado">
+                        <div class="widget-header">
+                            <h3>Averiguación</h3>
+                        </div>
+                        <br>
+                        <div class="grid-8">
+                            <div class="field-group">
+                                <label style="color:#B22222">Código:</label>
+                                <div class="field">
+                                    <span><b><?php echo $codigo_ave; ?></b></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                            <div class="field-group">
+                                <label style="color:#B22222">Fecha:</label>
+                                <div class="field">
+                                    <span><?php echo $fecha; ?></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                            <div class="field-group">
+                                <label style="color:#B22222">Investigador:</label>
+                                <div class="field">
+                                    <span><?php echo $nombre; ?></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                            <div class="field-group">
+                                <label style="color:#B22222">Estatus:</label>
+                                <div class="field">
+                                    <?php
+                                    $Archivar = '';
+                                    $Retomar = 'none';
+                                    $Revision = 'none';
+                                    $Remitir = 'none';
+                                    $editable = '';
+                                    switch ($st_ave) {
+                                        case 0: $st = "check";
+                                            $color = "green";
+                                            $texto = 'Abierta.';
+                                            $Revision = '';
+                                            break;
+                                        case 1: $st = "edit";
+                                            $color = "#2563FF";
+                                            $texto = 'En revisión.';
+                                            $Remitir = '';
+                                            break;
+                                        case 2: $st = "sign-out";
+                                            $color = "green";
+                                            $texto = 'Remitida.';
+                                            $editable = 'none';
+                                            Break;
+                                        case 3: $st = "lock";
+                                            $color = "green";
+                                            $texto = 'Finalizada.';
+                                            $Archivar = 'none';
+                                            $editable = 'none';
+                                            Break;
+                                        case 9: $st = "lock";
+                                            $color = "red";
+                                            $texto = 'Archivada.';
+                                            $Archivar = 'none';
+                                            $Retomar = '';
+                                            $editable = 'none';
+                                            break;
+                                    }
+                                    ?>
+                                    <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                        </div>
+                        <div class="grid-14">
+                            <div class="field-group">
+                                <label style="color:#B22222">Causa:</label>
+                                <div class="field">
+                                    <span><?php echo $causa; ?></span>	
+                                </div>
+                            </div> <!-- .field-group -->
+                        </div><!-- .grid -->
+                    </div><!-- .grid -->
+                    <div class="grid-24 bordeado">
+                        <div class="widget-header">
+                            <h3>Conclusiones</h3>
+                        </div>
+                        <br>
+                        <div class="grid-24">
+                            <div class="field-group">
+                                <div class="field" id="Conclu_Mostrado">
+                                    <?php echo $conclusion == '' ? '<label for="fname">** No posee Conclusiones registradas. **<label>' : '<span>' . $conclusion . '</span>'; ?>	
+                                </div>
+                                <div class="field" id="Conclu_Editado" style="display: none">
+                                    <textarea id="Conclu_Nueva" rows="4" cols="60"><?= $conclusion ?></textarea>	
+                                </div>
+                                <div style="text-align: left">
+                                    <button style="display: <?= $editable ?>" onclick="javascript:EditarCampo('Conclu_')" title="Editar" id="Conclu_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                    <button style="display: none" onclick="javascript:AceptarEdit('Conclu_', 1, '<?= $id ?>')" title="Aceptar" id="Conclu_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                    <button style="display: none" onclick="javascript:CancelarEdit('Conclu_')" title="Cancelar" id="Conclu_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- .grid -->
+                    <div class="grid-24 bordeado">
+                        <div class="widget-header">
+                            <h3>Recomendaciones</h3>
+                        </div>
+                        <br>
+                        <div class="grid-24">
+                            <div class="field-group">
+                                <div class="field" id="Recom_Mostrado">
+                                    <?php echo $recomendacion == '' ? '<label for="fname">*** No posee Recomandaciones registradas. ***<label>' : '<span>' . $recomendacion . '</span>'; ?>	
+                                </div>
+                                <div class="field" id="Recom_Editado" style="display: none">
+                                    <textarea id="Recom_Nueva" rows="4" cols="60"><?= $recomendacion ?></textarea>	
+                                </div>
+                                <div style="text-align: left">
+                                    <button style="display: <?= $editable ?>" onclick="javascript:EditarCampo('Recom_')" title="Editar" id="Recom_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                    <button style="display: none" onclick="javascript:AceptarEdit('Recom_', 2, '<?= $id ?>')" title="Aceptar" id="Recom_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                    <button style="display: none" onclick="javascript:CancelarEdit('Recom_')" title="Cancelar" id="Recom_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- .grid -->
+                    <div class="grid-24" style="text-align: center">
+                        <div class="field-group">								
+                            <div class="actions">
+                                <button onclick="javascript:CambioStatus('<?= $id ?>', '0', '<?= $parametros ?>', 'Retomar')" name="Retomar" type="button" class="btn btn-error" style="display: <?= $Retomar ?>">Retomar</button>
+                                <button onclick="javascript:CambioStatus('<?= $id ?>', '9', '<?= $parametros ?>', 'Archivar')" name="Archivar" type="button" class="btn btn-error" style="display: <?= $Archivar ?>">Archivar</button>
+                                <button onclick="javascript:CambioStatus('<?= $id ?>', '1', '<?= $parametros ?>', 'Enviar a Revisión')" name="Revision" type="button" class="btn btn-error" style="display: <?= $Revision ?>">Enviar a Revisión</button>
+                                <button onclick="javascript:CambioStatus('<?= $id ?>', '2', '<?= $parametros ?>', 'Remitir a Presidencia')" name="Remitir" type="button" class="btn btn-error" style="display: <?= $Remitir ?>">Remitir</button>
+                                <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
+                            </div> <!-- .actions -->
+                        </div> <!-- .field-group -->
+                    </div>
                 </div><!-- .grid -->	
             </div><!-- .grid -->	
             <div class="grid-6"> 

@@ -117,7 +117,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <?php
                                 while ($row = mysql_fetch_array($sql)) {
                                     switch ($row['st_ave']) {
-                                        case 0: $st = "clock-o";
+                                        case 0: $st = "check";
                                             $color = "#8B8B8B";
                                             $titulo = "En progreso.";
                                             break;
