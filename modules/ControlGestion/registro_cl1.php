@@ -51,7 +51,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <td><?php echo $row[4] ?></td>
                                 <td><?php echo $row[5] ?></td>
                                 <td><?php echo $row[6] ?></td>
-                                <td><?php echo $row[7] ?></td>
+                                <td><?php echo $row[8] ?></td>
 
                                 <td class="center">
                                     <?php
@@ -64,7 +64,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
                                     </a>-->
                                     <?php
-                                    switch ($row[13]){
+                                    switch ($row[14]){
                                         case 0: ?><a href="dashboard.php?data=seg_fase&flag=1&<?php echo $parametro; ?>" id="seg_fase" title="Insertar EC" >
                                             <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-folder-stroke"></span></div>
                                                 </a>
@@ -80,7 +80,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         
                                         }
                                         
-                                        if ($row[13]>=2){
+                                        if ($row[14]>=2){
                                             ?>
                                             <a href="dashboard.php?data=seg_fase2&flag=1&<?php echo $parametro; ?>" id="seg_fase2" title="Insertar AP">
                                             <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-folder-stroke"></span></div>
@@ -88,7 +88,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         <?php
                                         }
                                         
-                                        if ($row[13]>0){
+                                        if ($row[14]>0){
                                             ?>
                                             <a href="dashboard.php?data=consultar&flag=1&<?php echo $parametro; ?>" id="consultar" title="Consultar">
                                                     <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-magnifying-glass"></span></div>

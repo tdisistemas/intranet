@@ -35,8 +35,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         $gerencia = $reg[4];
         $responsable = $reg[5];
         $obra = $reg[6];
-        $estatus = $reg[7];
-        $documentose = $reg[8];
+        $estatus = $reg[8];
+        $documentose = $reg[9];
         $documentos=  explode(',', $documentose);
       
     } else {
@@ -144,12 +144,12 @@ if (isset($_POST['enviar'])) {
                                 <div class="field-group">
                                     <label for="required">Estatus del Tramite:</br></label>   
                                     <div class="field">
-                                   <select  name="estatus" id="estatus" value="<?php echo $estatus;?>">
-                                       <option value="">Seleccione</option>
+                                   <select  name="estatus" id="estatus">
+                                       <option value="">Seleccione..</option>
                                     <option value="EN ELABORACIÓN">En Elaboración</option>
                                     <option value="ENTREGADO">Entregado</option>
                                     </select>
-                                        <input id="estatusauxi" style="display:none" value="<?=$estatus?>" />
+                                       <input id="estatusauxi" style="display:none" value="<?=$estatus?>" />
                                     </div>
                                 </div>
                             </div>
