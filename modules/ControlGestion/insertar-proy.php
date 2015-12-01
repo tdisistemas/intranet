@@ -43,9 +43,16 @@ $actual=(explode("20",$ano));
 $conse1=$conse+1;
 $consecutivo=mysql_query("update gc_controlconse set conse='".$conse1."' where caracteristicas='GC' ");
 
+if ($obraextra1==1){
+    $obraextra1=$conse1;
+    
+}else
+{
+    $obraextra1==0;
+}
    
   $u      = "INSERT INTO `gc_control_gestion` (clase, n_proceso,`fecha_ingreso`, `gerencia_req`, `responsable`, `obra`, `obra_extra`,  `estatus`, `documentos_entre`) VALUES"
-        . " ('" . $clase . "','".  '00'.$conse1."','" . $fecha_ing . "', '" . $gerencia . "','" . $responsable . "','" . $nombre_obra . "','" . $conse1 . "','" . $estatus . "', '" . $documentose . "')";
+        . " ('" . $clase . "','".  '00'.$conse1."','" . $fecha_ing . "', '" . $gerencia . "','" . $responsable . "','" . $nombre_obra . "','" . $obraextra1 . "','" . $estatus . "', '" . $documentose . "')";
 
 $result=  mysql_query($u);
   if (!$result) {

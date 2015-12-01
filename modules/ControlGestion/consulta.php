@@ -60,14 +60,14 @@ include('notificador.php');
 
                                 <td class="center">
                                     <?php
-                                    $parametros = 'id=' . $row["id_cgestion2"];
+                                    $parametros = 'id=' . $row[0];
                                     $parametros = _desordenar($parametros);
-                                    $parametro = 'np=' . $row["n_proceso"];
+                                    $parametro = 'np=' . $row[1];
                                     $parametro = _desordenar($parametro);
                                   
                                    
                                     ?>  
-                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametro. '&'. $parametros?>" id="editar" title="Editar" >
+                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametros. '&'. $parametro?>" id="editar" title="Editar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
                                     </a>
                                 </td>

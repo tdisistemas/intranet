@@ -18,7 +18,7 @@ decode_get2($_SERVER["REQUEST_URI"], 2);
     $id = _antinyeccionSQL($_GET["np"]);
 //decode_get2($_SERVER["REQUEST_URI"],1);  ?>
     
-    <h2>Segunda Fase del Proyecto</h2>
+    <h2>Ajuste de Precio</h2>
 </div> <!-- #contentHeader -->	
 
 <?php
@@ -102,7 +102,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
         <div class="grid-16">
             <div class="widget">
                 <div class="widget-header"  > <span class="icon-folder-fill"></span>
-                    <h3>Segunda Fase del Proyecto</h3>
+                    <h3>Ajuste de Precio</h3>
                 </div>
 
                 <div class="widget-content">
