@@ -107,6 +107,7 @@ if ($perfil_qry) {
         // SI NO ENCUENTRA REGISTROS SENCILLAMENTE ALGO PASO DEMACIADO RARO!
     }
     $sqlcode = "SELECT "
+            . "d.ext_telefonica,"
             . "d.direccion_habitacion,"
             . "d.cargo,"
             . "c.salario,"
@@ -121,6 +122,7 @@ if ($perfil_qry) {
     $sql = mysql_query($sqlcode);
     while ($row = mysql_fetch_array($sql)) {
 
+        $extension = $row["ext_telefonica"];
         $direccion = $row["direccion_habitacion"];
         $cargo = $row["cargo"];
         $salario = $row["salario"];
@@ -129,6 +131,18 @@ if ($perfil_qry) {
         $nombre_contacto = $row["persona_contacto"];
         $telefono_contacto = $row["telefono_contacto"];
     }
+
+    $sqlcode2 = "SELECT a.idAveriguacion,"
+            . "a.codigo_ave,"
+            . "a.fecha,"
+            . "a.status,"
+            . "a.conclusion,"
+            . "a.recomendacion,"
+            . "a.causa "
+            . "FROM ai_averiguaciones a "
+            . "INNER JOIN ai_autores b on b.cedula = " . $cedula . " AND a.idAveriguacion = b.idAveriguacion "
+            . "WHERE 1 ORDER BY a.fecha DESC";
+    $sql2 = mysql_query($sqlcode2);
 } else {
     if ($SQL_debug == '1') {
         die('Error en Visualizar para Modificar Registro - Respuesta del Motor: ' . mysql_error());
@@ -141,58 +155,144 @@ if ($perfil_qry) {
     <div class="row"> 
         <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
-                <div class="widget">
-                    <div class="widget-header">
-                        <span class="icon-layers"></span>
-                        <h3>Historial del Empleado</h3>
-                    </div>
-                    <div class="widget-content">
-                        <div class="row">
-                            <div class="grid-1">
+                <div class="row">
+                    <div class="grid-24">
+                        <div class="widget">
+                            <div class="widget-header">
+                                <span class="icon-layers"></span>
+                                <h3>Datos Personales</h3>
                             </div>
-                            <div class="grid-4">
-                                <div class="field-group">
-                                    <div class="field">
-                                        <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                            <div class="widget-content">
+                                <div class="row">
+                                    <div class="grid-1">
                                     </div>
-                                </div> <!-- .field-group -->	
-                            </div>
-                            <div class="grid-8">
-                                <div class="field-group">								
-                                    <label style="color:#B22222">Cédula:</label>
-                                    <div class="field">
-                                        <span><?php echo $cedula; ?></span>
+                                    <div class="grid-4">
+                                        <div class="field-group">
+                                            <div class="field">
+                                                <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                            </div>
+                                        </div> <!-- .field-group -->	
                                     </div>
-                                </div>
-                                <div class="field-group">
-                                    <label style="color:#B22222">Nombre y Apellido:</label>
-                                    <div class="field">
-                                        <span><?php echo $nombre . ' ' . $apellido; ?></span>			
+                                    <div class="grid-8">
+                                        <div class="field-group">								
+                                            <label style="color:#B22222">Cédula:</label>
+                                            <div class="field">
+                                                <span><?php echo $cedula; ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="field-group">
+                                            <label style="color:#B22222">Nombre y Apellido:</label>
+                                            <div class="field">
+                                                <span><?php echo $nombre . ' ' . $apellido; ?></span>			
+                                            </div>
+                                        </div>
+                                        <div class="field-group">
+                                            <label style="color:#B22222">Extensión:</label>
+                                            <div class="field">
+                                                <?php echo $extension != '' && $extension != '0' ? '<span>' . $extension . '</span>' : '<label for="fname">*** No Posee Extensión Registrada! *** </label>'; ?>	
+                                            </div>		
+                                        </div> 
                                     </div>
-                                </div>
-                                <div class="field-group">
-                                    <label style="color:#B22222">Extensión:</label>
-                                    <div class="field">
-                                        <span><?php echo $extension; ?></span>	
-                                    </div>		
-                                </div> 
-                            </div>
-                            <div class="grid-10">
-                                <div class="field-group">
-                                    <label style="color:#B22222">Cargo:</label>
-                                    <div class="field">
-                                        <span><?php echo $cargo; ?></span>			
+                                    <div class="grid-10">
+                                        <div class="field-group">
+                                            <label style="color:#B22222">Cargo:</label>
+                                            <div class="field">
+                                                <span><?php echo $cargo; ?></span>			
+                                            </div>
+                                        </div> 
+                                        <div class="field-group">
+                                            <label style="color:#B22222">Gerencia:</label>
+                                            <div class="field">
+                                                <span><?php echo $gerencia; ?></span>	
+                                            </div>		
+                                        </div>
                                     </div>
-                                </div> 
-                                <div class="field-group">
-                                    <label style="color:#B22222">Gerencia:</label>
-                                    <div class="field">
-                                        <span><?php echo $gerencia; ?></span>	
-                                    </div>		
-                                </div>
-                            </div>
+                                </div><!-- .grid -->
+                            </div><!-- .grid -->
                         </div><!-- .grid -->
                     </div><!-- .grid -->
+                    <div class="grid-24">
+                        <?php
+                        while ($row2 = mysql_fetch_array($sql2)) {
+
+                            switch ($row2['status']) {
+                                case 0: $st = "check";
+                                    $texto = 'Abierta.';
+                                    break;
+                                case 1: $st = "edit";
+                                    $color = "#2563FF";
+                                    $texto = 'En revisión.';
+                                    break;
+                                case 2: $st = "sign-out";
+                                    $color = "green";
+                                    $texto = 'Remitida.';
+                                    Break;
+                                case 3: $st = "lock";
+                                    $color = "green";
+                                    $texto = 'Finalizada.';
+                                    Break;
+                                case 9: $st = "lock";
+                                    $color = "red";
+                                    $texto = 'Archivada.';
+                                    break;
+                            }
+                            ?>
+                            <div class="widget">
+                                <div class="widget-header">
+                                    <span class="icon-layers"></span>
+                                    <h3>Averiguación # <?= $row2['codigo_ave']; ?></h3>
+                                </div>
+                                <div class="widget-content">
+                                    <div class="row">
+                                        <div class="grid-24" style="min-height: 30px; padding-left: 10px; padding-top: 15px">
+                                            <div class="grid-11" style="max-width: 90%;text-align: center">
+                                                <div class="field-group">								
+                                                    <label style="color:#B22222">Fecha:</label>
+                                                    <div class="field">
+                                                        <span><?php echo $row2['fecha']; ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-11">
+                                                <div class="field-group" style="max-width: 90%;text-align: center">								
+                                                    <label style="color:#B22222">Estatus:</label>
+                                                    <div class="field">
+                                                        <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-24" style="max-width: 90%;text-align: center">
+                                                <div class="field-group">
+                                                    <label style="color:#B22222">Causa:</label>
+                                                    <div class="field">
+                                                        <span><?php echo $row2['causa']; ?></span>	
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                            <div class="grid-24" style="max-width: 90%; text-align: center">
+                                                <div class="field-group">
+                                                    <label style="color:#B22222">Decisiones:</label>
+                                                    <div class="field">
+                                                        <?php echo $row2['conclusion'] != '' ? '<span>' . $row2['conclusion'] . '</span>' : '<label for="fname">*** No Posee Conclusiones Registradas! *** </label>'; ?>	
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                            <div class="grid-24" style="max-width: 90%; text-align: center">
+                                                <div class="field-group">
+                                                    <label style="color:#B22222">Sanciones:</label>
+                                                    <div class="field">
+                                                        <?php echo $row2['recomendacion'] != '' ? '<span>' . $row2['recomendacion'] . '</span>' : '<label for="fname">*** No Posee Conclusiones Registradas! *** </label>'; ?>	
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .grid -->
+                                </div><!-- .grid -->
+                            </div><!-- .grid -->
+                            <?php
+                        }
+                        ?>
+                    </div><!-- .grid -->	
                 </div><!-- .grid -->	
             </div><!-- .grid -->	
             <div class="grid-6">
@@ -204,7 +304,6 @@ if ($perfil_qry) {
                         $parametros = 'id=' . $id_empleado;
                         $parametros = _desordenar($parametros);
                         ?>  
-                        <a href="dashboard.php?data=citar" class="btn btn-primary btn-large dashboard_add">Citar</a>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>
@@ -216,5 +315,41 @@ if ($perfil_qry) {
 <script type="text/javascript">
     window.onload = function () {
         espejo_gerencia();
+        $(function () {
+            $('a[data-toggle="collapse"]').on('click', function () {
+
+                var objectID = $(this).attr('href');
+
+                if ($(objectID).hasClass('in'))
+                {
+                    $(objectID).collapse('hide');
+                }
+
+                else {
+                    $(objectID).collapse('show');
+                }
+            });
+
+
+            $('#expandAll').on('click', function () {
+
+                $('a[data-toggle="collapse"]').each(function () {
+                    var objectID = $(this).attr('href');
+                    if ($(objectID).hasClass('in') === false)
+                    {
+                        $(objectID).collapse('show');
+                    }
+                });
+            });
+
+            $('#collapseAll').on('click', function () {
+
+                $('a[data-toggle="collapse"]').each(function () {
+                    var objectID = $(this).attr('href');
+                    $(objectID).collapse('hide');
+                });
+            });
+
+        });
     }
 </script>

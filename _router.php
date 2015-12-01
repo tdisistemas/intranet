@@ -72,6 +72,9 @@ switch ($t) {
     case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');
         ?><script>activame('investigacion');</script><?php
         break;
+    case ("citar"):include('modules/SIIT-Metro/add_citas.php');
+        ?><script>activame('investigacion');</script><?php
+        break;
     /*     * ** INICIO *** */
     case ("inicio"):include('modules/metroinforma/metroinforma.php');
         ?><script>activame('inicio');</script><?php

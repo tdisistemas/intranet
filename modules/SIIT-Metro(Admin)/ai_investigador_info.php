@@ -328,7 +328,7 @@ if ($perfil_qry) {
                                           $poseecorreo = "*** No Posee Correo ***";
                                           } */
                                         ?>
-                                        <span><?php echo $correo_principal; //echo $poseecorreo;       ?></span>	
+                                        <span><?php echo $usuario_int."@metrodemaracaibo.gob.ve"; //echo $poseecorreo;       ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
                                 <div class="field-group">

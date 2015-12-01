@@ -7,27 +7,28 @@ if (isset($_GET['acc'])) {
     if ($_GET['acc'] == 'Buscar') {
         $datos = array();
         $sqlcode = "SELECT "
-                . "nombre,"
-                . "apellido,"
-                . "cargo,"
-                . "cedula,"
-                . "correo_electronico,"
-                . "celular,"
-                . "gerencia,"
-                . "telefono_habitacion "
-                . "FROM datos_empleado_rrhh ";
+                . "a.nombre,"
+                . "a.apellido,"
+                . "a.cargo,"
+                . "a.cedula,"
+                . "a.correo_electronico,"
+                . "a.celular,"
+                . "a.gerencia,"
+                . "b.usuario_int,"
+                . "a.telefono_habitacion "
+                . "FROM datos_empleado_rrhh a "
+                . "INNER JOIN usuario_bkp b ON a.cedula=b.usuario ";
 
         if (is_numeric($_GET['Campo'])) {
 
-            $sqlcode .="WHERE cedula LIKE '%" . $_GET['Campo'] . "%'";
+            $sqlcode .="WHERE a.cedula LIKE '%" . $_GET['Campo'] . "%'";
         } else {
             $cadena = explode(" ", $_GET['Campo']);
-            $sqlcode .="WHERE ((CONCAT_WS(' ',nombre,apellido) LIKE '%" . $cadena[1] . "%'"
-                    . " AND CONCAT_WS(' ',nombre,apellido) LIKE '%" . $cadena[0] . "%')"
-                    . " OR CONCAT_WS(' ',nombre,apellido) LIKE '%" . $_GET['Campo'] . "%')";
+            $sqlcode .="WHERE ((CONCAT_WS(' ',a.nombre,a.apellido) LIKE '%" . $cadena[1] . "%'"
+                    . " AND CONCAT_WS(' ',a.nombre,a.apellido) LIKE '%" . $cadena[0] . "%')"
+                    . " OR CONCAT_WS(' ',a.nombre,a.apellido) LIKE '%" . $_GET['Campo'] . "%')";
         }
         //$sqlcode.=" AND ubicacion_laboral LIKE '%asuntos internos%' ORDER BY cedula";
-
         $sql = mysql_query($sqlcode);
         $i = 0;
         while ($result = mysql_fetch_array($sql)) {
@@ -37,6 +38,7 @@ if (isset($_GET['acc'])) {
                 'cedula' => $result['cedula'] != '' ? $result['cedula'] : 'Registro en blanco!',
                 'celular' => $result['celular'] != '' ? $result['celular'] : 'Registro en blanco!',
                 'correo' => $result['correo_electronico'] != '' ? $result['correo_electronico'] : 'Registro en blanco!',
+                'usuario' => $result['usuario_int'] != '' ? $result['usuario_int'] : 'Registro en blanco!',
                 'telefono_habitacion' => $result['telefono_habitacion'] != '' ? $result['telefono_habitacion'] : 'Registro en blanco!');
             $i++;
         }

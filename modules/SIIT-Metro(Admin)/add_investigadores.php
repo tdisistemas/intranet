@@ -115,6 +115,13 @@ if (isset($_POST['Submit'])) {
                                             <span id="CorreoInvestigador"> <br></span>	
                                         </div>
                                     </div> <!-- .field-group -->
+                                    
+                                    <div class="field-group">
+                                        <label style="color:#B22222">Correo Institucional:</label>
+                                        <div class="field">
+                                            <span id="CorreoInst"> <br></span>	
+                                        </div>
+                                    </div> <!-- .field-group -->
 
                                     <div class="field-group">
                                         <label style="color:#B22222">Teléfono:</label>
@@ -183,6 +190,7 @@ _adios_mysql();
                     document.getElementById("NombreInvestigador").innerHTML = '<br>';
                     document.getElementById("CedulaInvestigador").innerHTML = '<br>';
                     document.getElementById("CorreoInvestigador").innerHTML = '<br>';
+                    document.getElementById("CorreoInst").innerHTML = '<br>';
                     document.getElementById("TelefonoInvestigador").innerHTML = '<br>';
                     document.getElementById("PersonalInvestigador").innerHTML = '<br>';
                     document.getElementById("CedulaInvestigadorID").value = '';
@@ -204,6 +212,7 @@ _adios_mysql();
                         datos.nombre = data.datos[aux].nombre + ' ' + data.datos[aux].apellido;
                         datos.cedula = data.datos[aux].cedula;
                         datos.correo = data.datos[aux].correo;
+                        datos.usuario = data.datos[aux].usuario;
                         datos.telefono = data.datos[aux].telefono_habitacion;
                         datos.celular = data.datos[aux].celular;
                         lista += '<tr>\n\
@@ -211,7 +220,7 @@ _adios_mysql();
                                 <td style="width: 60%">' + datos.nombre + '</td>\n\
                                 <td class="center" style="width: 10%">\n\
                                 <a title="Seleccionar" >\n\
-                                <i style="cursor: pointer; " onclick="javascript:InvestigadorSeleccionado(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'' + datos.correo + '\',\'' + datos.telefono + '\',\'' + datos.celular + '\')" class="fa fa-share"></i>\n\
+                                <i style="cursor: pointer; " onclick="javascript:InvestigadorSeleccionado(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'' + datos.correo + '\',\'' + datos.usuario + '\',\'' + datos.telefono + '\',\'' + datos.celular + '\')" class="fa fa-share"></i>\n\
                                 </a>\n\
                                 </td>\n\
                                 </tr>';
@@ -230,7 +239,7 @@ _adios_mysql();
         }
 
     }
-    function InvestigadorSeleccionado(nombre, cedula, correo, telefono, celular) {
+    function InvestigadorSeleccionado(nombre, cedula, correo, usuario, telefono, celular) {
         $.ajax({
             url: 'modules/SIIT-Metro(Admin)/DatosInvestigador.php',
             dataType: 'JSON',
@@ -244,6 +253,7 @@ _adios_mysql();
                     document.getElementById("NombreInvestigador").innerHTML = nombre;
                     document.getElementById("CedulaInvestigador").innerHTML = cedula;
                     document.getElementById("CorreoInvestigador").innerHTML = correo;
+                    document.getElementById("CorreoInst").innerHTML = usuario + '@metrodemaracaibo.gob.ve'
                     document.getElementById("TelefonoInvestigador").innerHTML = telefono;
                     document.getElementById("PersonalInvestigador").innerHTML = celular;
                     document.getElementById("CedulaInvestigadorID").value = cedula;

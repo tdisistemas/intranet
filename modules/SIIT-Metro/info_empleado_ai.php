@@ -153,6 +153,9 @@ if ($perfil_qry) {
 }
 ?>
 <div class="container">
+    <?php
+    include('notificador.php');
+    ?>
     <div class="row"> 
         <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
@@ -196,7 +199,7 @@ if ($perfil_qry) {
                                 <div class="field-group">
                                     <label style="color:#B22222">Teléfono:</label>
                                     <div class="field">
-                                        <?php echo $telefono != '' ? '<span>' . $telefono . '</span>' : '<label for="fname">*** No Posee Teléfono Registrado! *** </label>' ?>
+                                        <?php echo $telefono != '' ? '<span>' . $telefono . '</span>' : '<label for="fname">*** No Posee Teléfono Registrado! *** </label>'; ?>
                                     </div>
                                 </div> <!-- .field-group -->
 
@@ -210,7 +213,7 @@ if ($perfil_qry) {
                                 <div class="field-group">
                                     <label style="color:#B22222">Correo Personal:</label>
                                     <div class="field">
-                                        <span><?php echo $correo_principal; ?></span>	
+                                        <span><?php echo $correo_principal != '' ? '<span>' . $correo_principal . '</span>' : '<label for="fname">*** No Posee Correo Registrado! *** </label>'; ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
 
@@ -387,9 +390,10 @@ if ($perfil_qry) {
                     <p>En esta sección podrá visualizar la ficha de empleados de la Empresa</p>
                     <div class="box plain">
                         <?php
-                        $parametros = 'id=' . $id_empleado;
+                        $parametros = 'id=' . $id_empleado .'&cedula='. $cedula . '&nombre=' .$nombre . ' ' . $apellido; ;
                         $parametros = _desordenar($parametros);
                         ?>  
+                        <a href="dashboard.php?data=citar&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add">Citar</a>
                         <a href="dashboard.php?data=historial-ai&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add" >Historial de Incidentes</a>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
