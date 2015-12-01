@@ -78,7 +78,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     <label for="date">Obra Extra:</br></label>   
                                     <div class="field">
                                         SI<input type="radio" name="obraextrasi" id="txek" value="1" onclick="Block(this,'obraextra')"/>
-                                        NO<input type="radio" name="obraextrano" value="0" onclick="Block(this,'obraextra')" checked   />
+                                        NO<input type="radio" name="obraextrasi" value="0" onclick="Block(this,'obraextra')" checked />
                                         <select id="obraextra" name="obraextra"  style="width:130px" disabled>
                                             <option value="">Seleccione</option>
                                             <?php

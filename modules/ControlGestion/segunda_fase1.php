@@ -18,7 +18,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     $id = _antinyeccionSQL($_GET["np"]);
 //decode_get2($_SERVER["REQUEST_URI"],1);  ?>
     
-    <h2>Segunda Fase del Proyecto</h2>
+    <h2>Análisis Técnico- Económico</h2>
 </div> <!-- #contentHeader -->	
 
 <?php
@@ -33,6 +33,7 @@ if (isset($_POST['enviar'])) {
     $id_cgestion2 = $_POST['id_cgestion2'];
     $tipo_soli = $_POST['tipo_soli'];
     $monto1 = $_POST['monto1'];
+    $enviado_presi = $_POST['enviado_presi'];
     $monto2 = $_POST['monto2'];
     $monto3 = $_POST['monto3'];
     $desviacion = $_POST['desviacion'];
@@ -80,8 +81,8 @@ $consecutivo=mysql_query("update gc_controlconse set conse='".$conse3."' where c
 $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
     }
     
-    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
-            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $desviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
+    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`enviado_presidencia`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
+            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "','" . $monto2 . "', '" . $desviacion . "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
     $result = mysql_query($sql);
     
     if ($result) {
@@ -103,7 +104,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
         <div class="grid-16">
             <div class="widget">
                 <div class="widget-header"  > <span class="icon-folder-fill"></span>
-                    <h3>Segunda Fase del Proyecto</h3>
+                    <h3>Análisis Técnico- Económico</h3>
                 </div>
 
                 <div class="widget-content">
