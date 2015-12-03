@@ -256,7 +256,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                     <div class="field-group">
                                         <label style="color:#B22222">Extensión:</label>
                                         <div class="field">
-                                            <span><?php echo $extension; ?></span>	
+                                            <?php echo $extension != '0' ? '<span>' . $extension . '</span>' : '<label for="fname">*** No Posee Extensión Registrada! *** </label>' ?>
                                         </div>		
                                     </div> <!-- .field-group -->
                                 </div>
