@@ -17,7 +17,7 @@ include('notificador.php');
                         $id_servi = _antinyeccionSQL($_GET["servi"]);
 ?>
 <div id="contentHeader">
-    <h2>Registro de Procesos</h2>
+    <h2>Servicios del Proceso</h2>
 </div> <!-- #contentHeader -->	
 <div class="container">
     
@@ -48,11 +48,12 @@ include('notificador.php');
                         $sql = mysql_query("SELECT id_cgestion2,n_proceso, servicio, tipo_solicitud, montoec, montooc, montoate FROM gc_control_gestion2 WHERE n_proceso='" . $id_np . "' || servicio='" . $id_servi . "'");
                         $ano = date('y');
                         $actual = (explode("20", $ano));
+                        
                         while ($row = mysql_fetch_array($sql)) {
-                            ?>
+                            $final= $row["tipo_solicitud"] [2] =='' ? '' : $row["tipo_solicitud"] [2].'.'; ?>
                             <tr class="gradeA">
                                 <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
-                                <td><?php echo $row["tipo_solicitud"] ?></td>
+                                <td><?php echo $row["tipo_solicitud"] [0]. '.'. $row["tipo_solicitud"] [1].'.'.$final?></td>
                                 <td><?php echo $row["montoec"] ?></td>
                                 <td><?php echo $row["montooc"] ?></td>
                                 <td><?php echo $row["montoate"] ?></td>

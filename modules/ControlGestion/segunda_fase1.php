@@ -104,7 +104,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
         <div class="grid-16">
             <div class="widget">
                 <div class="widget-header"  > <span class="icon-folder-fill"></span>
-                    <h3>Análisis Técnico- Económico</h3>
+                    <h3>Análisis Técnico- Económico <?php echo 'GC-' . $id . '-' . substr(date('Y'), -2) ?></h3>
                 </div>
 
                 <div class="widget-content">
@@ -164,7 +164,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                     </div>
                                 </div>
                             <div class="field-group">
-                                    <label for="datepicker">Enviado a Presidencia:</br></label>   
+                                    <label for="datepicker">Fecha de Envio:</br></label>   
                                     <div class="field">
                                         <input id="datepicker" name="enviado_presi" size="14" readonly>
                                     </div>
@@ -197,7 +197,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
           </div>
           <div class="widget-content">
             <h3>Estimado, <?php echo $usuario_datos[1] . ' ' . $usuario_datos[2]  ; ?></h3>
-            <p>En esta sección podrá ingresar los datos de la segunda fase del proceso</p>
+            <p>En esta sección podrá ingresar el Análisis Técnico- Económico del proceso.</p>
             <!-- .pad -->
             </div>  
            
@@ -246,45 +246,11 @@ $("#datepicker").datepicker({
 dateFormat: 'yy-mm-dd',
 changeMonth: true,
 changeYear: true,
-yearRange: "1950:2014"
+yearRange: "1950:2014",
+minDate: '0'
 });
 });
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker1").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker2").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker3").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker4").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
+
 function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
