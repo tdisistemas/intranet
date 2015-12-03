@@ -183,6 +183,9 @@ $codigo = $respuesta['codigo'];
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá visualizar la información del Oficio número <b><?= $codigo ?></b></p>
+                    <div class="box plain">
+                        <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                    </div>
                 </div>
             </div>
         </form>

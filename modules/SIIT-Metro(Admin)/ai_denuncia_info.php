@@ -233,9 +233,9 @@ $status = $respuesta['status'];
                                         $parametros = 'id=' . $id . '&ot=1';
                                         $parametros = _desordenar($parametros);
                                         ?> 
-                                        <button onclick="javascript:NuevaAveriguacion('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error" style="display: <?php echo $Nueva?>">Iniciar Averiguación</button>
-                                        <button onclick="javascript:DescartarDenuncia('<?= $codigo ?>', '<?php echo $parametros; ?>')" name="Descartar" type="button" class="btn btn-error" style="display: <?php echo $Descartar?>">Descartar</button>
-                                        <button onclick="javascript:InformacionAveriguacion('<?php echo $parametros; ?>')" name="Informacion" type="button" class="btn btn-error" style="display: <?php echo $Info?>">Información de Averiguación</button>
+                                        <button onclick="javascript:NuevaAveriguacion('<?php echo $parametros; ?>')" name="Iniciar" type="button" class="btn btn-error" style="display: <?php echo $Nueva ?>">Iniciar Averiguación</button>
+                                        <button onclick="javascript:DescartarDenuncia('<?= $codigo ?>', '<?php echo $parametros; ?>')" name="Descartar" type="button" class="btn btn-error" style="display: <?php echo $Descartar ?>">Descartar</button>
+                                        <button onclick="javascript:InformacionAveriguacion('<?php echo $parametros; ?>')" name="Informacion" type="button" class="btn btn-error" style="display: <?php echo $Info ?>">Información de Averiguación</button>
                                         <button onclick="javascript:window.history.back();" type="button" name="Atras" class="btn btn-error" >Regresar</button>
                                     </div> <!-- .actions -->
                                 </div> <!-- .field-group -->
@@ -248,6 +248,9 @@ $status = $respuesta['status'];
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá visualizar la información de la Denuncia número <b><?= $codigo ?></b></p>
+                    <div class="box plain">
+                        <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                    </div>
                 </div>
             </div>
         </form>

@@ -14,10 +14,12 @@ if (isset($_GET['acc'])) {
                 . "a.correo_electronico,"
                 . "a.celular,"
                 . "a.gerencia,"
+                . "c.perfil,"
                 . "b.usuario_int,"
                 . "a.telefono_habitacion "
                 . "FROM datos_empleado_rrhh a "
-                . "INNER JOIN usuario_bkp b ON a.cedula=b.usuario ";
+                . "INNER JOIN usuario_bkp b ON a.cedula=b.usuario "
+                . "INNER JOIN autenticacion c ON a.cedula=c.cedula ";
 
         if (is_numeric($_GET['Campo'])) {
 
@@ -39,6 +41,7 @@ if (isset($_GET['acc'])) {
                 'celular' => $result['celular'] != '' ? $result['celular'] : 'Registro en blanco!',
                 'correo' => $result['correo_electronico'] != '' ? $result['correo_electronico'] : 'Registro en blanco!',
                 'usuario' => $result['usuario_int'] != '' ? $result['usuario_int'] : 'Registro en blanco!',
+                'perfil' => $result['perfil'] != '' ? $result['perfil'] : 'Registro en blanco!',
                 'telefono_habitacion' => $result['telefono_habitacion'] != '' ? $result['telefono_habitacion'] : 'Registro en blanco!');
             $i++;
         }
