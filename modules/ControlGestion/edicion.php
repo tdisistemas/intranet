@@ -221,7 +221,7 @@ if (isset($_POST['enviar'])) {
           </div>
           <div class="widget-content">
             <h3>Estimado, <?php echo $usuario_datos[1] . ' ' . $usuario_datos[2]  ; ?></h3>
-            <p>En esta sección podrá ingresar los datos de la primera fase del proceso</p>
+            <p>En esta sección podrá editar los datos de la primera fase del proceso.</p>
             <!-- .pad -->
             </div>  
             <?php

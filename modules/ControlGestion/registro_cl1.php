@@ -33,7 +33,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             <th style="width:20%">Gerencia Requiriente</th>
                             <th style="width:20%">Responsable</th>
                             <th style="width:10%">Nombre de la Obra/Actividad</th>
-                            <th style="width:15%">Estatus del Trámite</th>
+                            <th style="width:15%">Estatus</th>
                             <th style="width:15%">Opciones</th>
                         </tr>
                     </thead>

@@ -13,7 +13,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
     <?php //decode_get2($_SERVER["REQUEST_URI"],1);  ?>
 
-    <h2>Edición de la Segunda Fase</h2>
+    <h2>Edición de los Servicios</h2>
 </div> <!-- #contentHeader -->	
 
 <?php
@@ -26,7 +26,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
   
     
        _bienvenido_mysql();
-   $segunda_fase = mysql_query("SELECT  tipo_solicitud, montoec, enviado_presidencia, recibido_presidencia FROM `gc_control_gestion2`
+   $segunda_fase = mysql_query("SELECT  tipo_solicitud,servicio, montoec, enviado_presidencia, recibido_presidencia FROM `gc_control_gestion2`
                     WHERE  `id_cgestion2`= '$id'");
    
    $editar_ec=  mysql_fetch_array($segunda_fase);
@@ -36,6 +36,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 if (isset($_POST['enviar'])) {
     
     $id_2 = $_POST["id_cgestion2"];
+    
     $recibido_presi = $_POST["recibido_presi"];
    
     $parametro = 'np=' . $id_2;
@@ -59,7 +60,7 @@ if (isset($_POST['enviar'])) {
         <div class="grid-16">
             <div class="widget">
                 <div class="widget-header"  > <span class="icon-folder-fill"></span>
-                    <h3>Segunda Fase del Proyecto</h3>
+                    <h3><?php echo $editar_ec['tipo_solicitud'].'-00'.$editar_ec['servicio'].'-'.substr(date('Y'), -2) ;?></h3>
                 </div>
 
                 <div class="widget-content">
@@ -72,14 +73,14 @@ if (isset($_POST['enviar'])) {
                                 <div class="field-group">
                                     <label>Tipo de Solicitud:<br></label>   
                                     <div class="field">
-                                        <input type="text" name="enviado_presi" size="16" value="<?php echo $editar_ec['tipo_solicitud'];?>" disabled/>
+                                        <input type="text" name="tipo_soli" size="16" value="<?php echo $editar_ec['tipo_solicitud'];?>" disabled/>
                                     </div>
                                 </div>
                                 
                                  <div class="field-group">
-                                    <label for="datepicker">Enviado a Presidencia:</br></label>   
+                                    <label for="datepicker">Fecha de Envio:</br></label>   
                                     <div class="field">
-                                        <input type="text" name="enviado_presi" size="16" value="<?php echo $editar_ec['enviado_presidencia'];?>" disabled/>
+                                        <input type="text" name="enviado_presi" size="16" value="<?php echo $editar_ec['enviado_presidencia'];?>" disabled>
                                     </div>
                                 </div>
                                 
@@ -93,14 +94,15 @@ if (isset($_POST['enviar'])) {
                                     </div>
                                 </div>
                                   <div class="field-group">
-                                    <label for="datepicker">Recibido de Presidencia:</br></label>   
+                                    <label for="datepicker">Fecha de Recepción:</br></label>   
                                     <div class="field">
-                                        <input id="datepicker1" name="recibido_presi" size="14" value="<?php echo $editar_ec['recibido_presidencia'];?>">
+                                        <input id="datepicker1" name="recibido_presi" size="14"  readonly>
                                     </div>
                                 </div>
                                 
                              
                                 <input  name="id_cgestion2" style="display:none" value="<?php echo $id_np ?>">
+                                <input  name="servicio" style="display:none">
                             </div>
                           
                
@@ -129,7 +131,7 @@ if (isset($_POST['enviar'])) {
           </div>
           <div class="widget-content">
             <h3>Estimado, <?php echo $usuario_datos[1] . ' ' . $usuario_datos[2]  ; ?></h3>
-            <p>En esta sección podrá ingresar los datos de la segunda fase del proceso</p>
+            <p>En esta sección podrá editar los servicios que tienen los procesos.</p>
             <!-- .pad -->
             </div>  
            
@@ -167,7 +169,9 @@ $("#datepicker1").datepicker({
 dateFormat: 'yy-mm-dd',
 changeMonth: true,
 changeYear: true,
-yearRange: "1950:2014"
+yearRange: "1950:2014",
+minDate: '0',
+onSelect: function (fecha,event){$('#datepicker1').datepicker("option","minDate",fecha);}
 });
 });
 

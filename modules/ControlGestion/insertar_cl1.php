@@ -65,7 +65,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 </div>
 
                                 <div class="field-group">
-                                    <label for="required">Estatus del Trámite:</br></label>   
+                                    <label for="required">Estatus:</br></label>   
                                     <div class="field">
                                         <select  name="estatus" id="estatus">
                                             <option value="">Seleccione</option>

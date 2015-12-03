@@ -32,6 +32,7 @@ if (isset($_POST['enviar'])) {
     $id_cgestion2 = $_POST['id_cgestion2'];
     $tipo_soli = $_POST['tipo_soli'];
     $monto1 = $_POST['monto1'];
+    $enviado_presi = $_POST['enviado_presi'];
     $monto2 = $_POST['monto2'];
     $monto3 = $_POST['monto3'];
     $desviacion = $_POST['desviacion'];
@@ -80,8 +81,8 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
     }
 
     
-    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
-            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $monto2 . "', '" . $desviacion. "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
+    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`enviado_presidencia`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
+            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "','" . $monto2 . "', '" . $desviacion. "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
     $result = mysql_query($sql);
     if ($result) {
         notificar("Ajuste de Precio ingresado con exito", "dashboard.php?data=controlg", "notify-success");
@@ -102,7 +103,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
         <div class="grid-16">
             <div class="widget">
                 <div class="widget-header"  > <span class="icon-folder-fill"></span>
-                    <h3>Ajuste de Precio</h3>
+                    <h3>Ajuste de Precio <?php echo 'GC-' . $id . '-' . substr(date('Y'), -2) ?></h3>
                 </div>
 
                 <div class="widget-content">
@@ -165,7 +166,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
                                     </div>
                                 </div>
                               <div class="field-group">
-                                    <label for="datepicker">Enviado a Presidencia:</br></label>   
+                                    <label for="datepicker">Fecha de Envio:</br></label>   
                                     <div class="field">
                                         <input id="datepicker" name="enviado_presi" size="14" readonly>
                                     </div>
@@ -197,7 +198,7 @@ $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
           </div>
           <div class="widget-content">
             <h3>Estimado, <?php echo $usuario_datos[1] . ' ' . $usuario_datos[2]  ; ?></h3>
-            <p>En esta sección podrá ingresar los datos de la segunda fase del proceso</p>
+            <p>En esta sección podrá ingresar el Ajuste de Precio del proceso.</p>
             <!-- .pad -->
             </div>  
            
@@ -245,45 +246,11 @@ $("#datepicker").datepicker({
 dateFormat: 'yy-mm-dd',
 changeMonth: true,
 changeYear: true,
-yearRange: "1950:2014"
+yearRange: "1950:2014",
+minDate: '0'
 });
 });
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker1").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker2").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker3").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
-$(function () {
-$.datepicker.setDefaults($.datepicker.regional["es"]);
-$("#datepicker4").datepicker({
-dateFormat: 'yy-mm-dd',
-changeMonth: true,
-changeYear: true,
-yearRange: "1950:2014"
-});
-});
+
 function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
