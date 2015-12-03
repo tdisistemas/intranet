@@ -468,7 +468,7 @@ _adios_mysql();
                             <div class="grid-8">\n\
                                 <div class="field-group" style="">\n\
                                     <div class="" style="margin: auto">\n\
-                                        <img style=" border: solid 5px #ddd;width: 90px; height: 90px;" src="src/images/FOTOS/' + cedula + '.jpg"/>\n\
+                                        <img style=" border: solid 5px #ddd;max-width: 100px;max-height: 100px" src="src/images/FOTOS/' + cedula + '.jpg"/>\n\
                                     </div>\n\
                                 </div>\n\
                             </div>\n\

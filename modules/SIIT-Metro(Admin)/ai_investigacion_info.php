@@ -217,7 +217,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                 <div class="grid-4">
                                     <div class="field-group">
                                         <div class="field">
-                                            <img align="left" style=" border: solid 5px #ddd;width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                            <img align="left" style=" border: solid 5px #ddd;max-width: 100px;max-height: 100px" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                         </div>
                                     </div> <!-- .field-group -->
                                     <div class="field-group">
@@ -256,7 +256,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                     <div class="field-group">
                                         <label style="color:#B22222">Extensión:</label>
                                         <div class="field">
-                                            <span><?php echo $extension; ?></span>	
+                                            <?php echo $extension != '0' ? '<span>' . $extension . '</span>' : '<label for="fname">*** No Posee Extensión Registrada! *** </label>' ?>
                                         </div>		
                                     </div> <!-- .field-group -->
                                 </div>
