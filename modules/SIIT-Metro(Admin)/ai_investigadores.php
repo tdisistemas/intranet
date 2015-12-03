@@ -14,7 +14,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 </div> <!-- #contentHeader -->	
 
 <div class="container">
-    <?php include('notificador.php'); 
+    <?php
+    include('notificador.php');
     _bienvenido_mysql();
     mysql_query("set names utf8");
 
@@ -27,8 +28,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             . "d.gerencia "
             . "FROM ai_investigadores i "
             . "INNER JOIN datos_empleado_rrhh d "
-            . "WHERE i.cedula_invest = d.cedula "
-            . "AND i.status=0 ";
+            . "WHERE i.cedula_invest = d.cedula ";
 
     $sql = mysql_query($sqlcode);
     $a = mysql_num_rows($sql);
@@ -45,26 +45,39 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                     <thead>
                         <tr>
                             <th style="width:10%">Cédula</th>
-                            <th style="width:20%">Nombre y Apellido</th>
-                            <th style="width:25%">Cargo</th>
-                            <th style="width:35%">Gerencia</th>
-
+                            <th style="width:40%">Nombre y Apellido</th>
+                            <th style="width:5%">Estatus</th>
+                            <th style="width:35%">Cargo</th>
                             <th style="width:10%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         while ($row = mysql_fetch_array($sql)) {
+                            switch ($row['status']) {
+                                case 0: $st = "check";
+                                    $act = "ban";
+                                    $tit_act = "Desactivar";
+                                    $color = "#8B8B8B";
+                                    $titulo = 'Activo';
+                                    break;
+                                case 1: $st = "ban";
+                                    $act = "check";
+                                    $tit_act = "Activar";
+                                    $color = "#8B8B8B";
+                                    $titulo = 'Inactivo';
+                                    break;
+                            }
                             ?>
                             <tr class="gradeA">
                                 <td><?php echo $row['cedula_invest'] ?></td>
                                 <td><?php echo $row['nombre'] . " " . $row['apellido'] ?></td>
+                                <td style="text-align: center"><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="cursor: pointer; font-size: 15px; color: <?php echo $color ?>" ></i></span></td>
                                 <td><?php echo $row['cargo'] ?></td>
-                                <td><?php echo $row['gerencia'] ?></td>
-
                                 <td class="center">
                                     <?php
-                                    $parametros = 'id=' . $row["id_invest"];
+                                    $row['status']=='1' ? $acc='0' : $acc='1';
+                                    $parametros = 'id=' . $row["id_invest"].'&acc='.$acc;
                                     $parametros = _desordenar($parametros);
                                     $parametros2 = 'cedula=' . $row["cedula_invest"];
                                     $parametros2 = _desordenar($parametros2);
@@ -72,8 +85,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     <a href="dashboard.php?data=investigador-ai-info&flag=1&<?php echo $parametros2; ?>" id="editar" title="Información" >
                                         <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a>
-                                    <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
-                                        <i class="fa fa-trash-o" style="color: black; font-size: 15px"></i>
+                                    <a href="javascript:CambiarStatus_Investigador('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>','<?=$row['status']?>')" id="eliminar-us" title="<?=$tit_act?>" >
+                                        <i class="fa fa-<?= $act ?>" style="color: black; font-size: 15px"></i>
                                     </a>
                                 </td>
                             </tr>									
@@ -101,11 +114,17 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 _adios_mysql();
 ?>
 <script type="text/javascript">
-    function eliminar(perfil, param) {
+    function CambiarStatus_Investigador(perfil, param, tipo) {
+        var tipo_accion;
+        if(tipo == 1){
+            tipo_accion = "reactivar";
+        }else{
+            tipo_accion = "desactivar";
+        }
         $.alert({
             type: 'confirm'
             , title: 'Alerta'
-            , text: '<h3>¿Desea eliminar el investigador: <u>' + perfil + '</u> ?</h3>'
+            , text: '<h3>¿Desea '+tipo_accion+' al investigador: <u>' + perfil + '</u> ?</h3>'
             , callback: function () {
                 window.location = param;
             }

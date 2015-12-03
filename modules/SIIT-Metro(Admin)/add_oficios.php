@@ -41,7 +41,7 @@ _bienvenido_mysql();
 </style>
 
 <div id="contentHeader">
-    <h2>Agregar Nuevo Oficio</h2>
+    <h2>Oficios</h2>
 </div> <!-- #contentHeader -->	
 <?php
 if (isset($_POST['Submit'])) {
@@ -91,35 +91,41 @@ if (isset($_POST['Submit'])) {
             <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" onsubmit="return DenuncianteSeleccionado()">
                 <div class="grid-18">
                     <div class="widget">
-                        <div class="widget-content">
-                            <div class="row-fluid">
-                                <div class="grid-10">
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Tipo de Oficio:</label>
-                                        <div class="field">
-                                            <select id="TipoDenuncia" name="TipoOficio" class="validate[required]">
-                                                <option selected value=""> ** Seleccionar un Tipo ** </option>
-                                                <option value="Verbal">Verbal</option>
-                                                <option value="Escrito">Escrita</option>
-                                            </select>
-                                        </div>
-                                    </div> <!-- .field-group -->
-                                    <div class="field-group">								
-                                        <label style="color:#B22222">Descripción:</label>
-                                        <div class="field">
-                                            <textarea id="DescripDenuncia" name="DescripOficio" cols="8" rows="8" style="width: 300px" class="validate[required]"></textarea>
-                                        </div>
-                                    </div> <!-- .field-group -->
+                        <div class="widget">
+                            <div class="widget-header">
+                                <span class="icon-layers"></span>
+                                <h3>Agregar Oficio</h3>
+                            </div>
+                            <div class="widget-content">
+                                <div class="row-fluid">
+                                    <div class="grid-10">
+                                        <div class="field-group">								
+                                            <label style="color:#B22222">Tipo de Oficio:</label>
+                                            <div class="field">
+                                                <select id="TipoDenuncia" name="TipoOficio" class="validate[required]">
+                                                    <option selected value=""> ** Seleccionar un Tipo ** </option>
+                                                    <option value="Verbal">Verbal</option>
+                                                    <option value="Escrito">Escrita</option>
+                                                </select>
+                                            </div>
+                                        </div> <!-- .field-group -->
+                                        <div class="field-group">								
+                                            <label style="color:#B22222">Descripción:</label>
+                                            <div class="field">
+                                                <textarea id="DescripDenuncia" name="DescripOficio" cols="8" rows="8" style="width: 300px" class="validate[required]"></textarea>
+                                            </div>
+                                        </div> <!-- .field-group -->
+                                    </div> <!-- .row-fluid -->
+                                    <div class="grid-24" style="text-align: center">
+                                        <div class="field-group">								
+                                            <div class="actions" style="text-aling:left">
+                                                <button name="Submit" type="submit" class="btn btn-error">Registrar Oficio</button>
+                                                <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
+                                            </div> <!-- .actions -->
+                                        </div> <!-- .field-group -->
+                                    </div>
                                 </div> <!-- .row-fluid -->
-                                <div class="grid-24" style="text-align: center">
-                                    <div class="field-group">								
-                                        <div class="actions" style="text-aling:left">
-                                            <button name="Submit" type="submit" class="btn btn-error">Registrar Oficio</button>
-                                            <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
-                                        </div> <!-- .actions -->
-                                    </div> <!-- .field-group -->
-                                </div>
-                            </div> <!-- .row-fluid -->
+                            </div> <!-- .widget-content -->
                         </div> <!-- .widget-content -->
                     </div> <!-- .widget -->	
                 </div><!-- .grid -->	
@@ -127,6 +133,9 @@ if (isset($_POST['Submit'])) {
                     <div id="gettingStarted" class="box">
                         <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                         <p>En esta sección podrá registrar nuevos Oficios.</p>
+                        <div class="box plain">
+                            <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                        </div>
                     </div>
                 </div>
         </div> <!-- .grid -->	

@@ -106,11 +106,18 @@ $sqlquery = "SELECT "
         . "a.causa,"
         . "a.recomendacion,"
         . "a.conclusion,"
+        . "a.decision,"
+        . "a.sanciones,"
+        . "a.otros,"
         . "b.codigo AS cod_den,"
         . "e.codigo AS cod_org,"
         . "b.status AS st_den,"
         . "e.status AS st_org,"
         . "a.fecha,"
+        . "a.fecha_st_1,"
+        . "a.fecha_st_2,"
+        . "a.fecha_st_3,"
+        . "a.fecha_st_9,"
         . "b.fecha AS fecha_den,"
         . "e.fecha AS fecha_org,"
         . "b.descripcion AS desc_den,"
@@ -154,8 +161,11 @@ $tipo_org = $respuesta['tipo_org'];
 $tipo_den = $respuesta['tipo_den'];
 $recomendacion = $respuesta['recomendacion'];
 $conclusion = $respuesta['conclusion'];
+$decisiones = $respuesta['decision'];
+$sanciones = $respuesta['sanciones'];
+$otros = $respuesta['otros'];
 
-$parametros = 'id=' . $id;
+$parametros = 'id=' . $id . '&ot=0';
 $parametros = _desordenar($parametros);
 
 $sqlInvol = "SELECT "
@@ -322,39 +332,52 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                     $Retomar = 'none';
                                     $Revision = 'none';
                                     $Remitir = 'none';
+                                    $Culminar = 'none';
                                     $editable = '';
+                                    $editable2 = 'none';
+                                    $DSO = 'none';
                                     switch ($st_ave) {
                                         case 0: $st = "check";
                                             $color = "green";
-                                            $texto = 'Abierta.';
+                                            $texto = 'Abierta';
                                             $Revision = '';
+                                            $fecha_st = "fecha";
                                             break;
                                         case 1: $st = "edit";
                                             $color = "#2563FF";
-                                            $texto = 'En revisión.';
+                                            $texto = 'En revisión';
                                             $Remitir = '';
+                                            $fecha_st = "fecha_st_1";
                                             break;
                                         case 2: $st = "sign-out";
                                             $color = "green";
-                                            $texto = 'Remitida.';
+                                            $texto = 'Remitida';
                                             $editable = 'none';
+                                            $fecha_st = "fecha_st_2";
+                                            $Culminar = '';
+                                            $editable2 = '';
+                                            $DSO = '';
                                             Break;
                                         case 3: $st = "lock";
                                             $color = "green";
-                                            $texto = 'Finalizada.';
+                                            $texto = 'Finalizada';
                                             $Archivar = 'none';
                                             $editable = 'none';
+                                            $fecha_st = "fecha_st_3";
+                                            $DSO = '';
                                             Break;
                                         case 9: $st = "lock";
                                             $color = "red";
-                                            $texto = 'Archivada.';
+                                            $texto = 'Archivada';
                                             $Archivar = 'none';
                                             $Retomar = '';
                                             $editable = 'none';
+                                            $fecha_st = "fecha_st_9";
+                                            $DSO = '';
                                             break;
                                     }
                                     ?>
-                                    <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                    <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?> <span style="color: black">, desde: </span> <?= $respuesta[$fecha_st] ?></span>	
                                 </div>
                             </div> <!-- .field-group -->
                         </div>
@@ -409,6 +432,69 @@ $sqlqueryInv = mysql_query($sqlInvol);
                             </div>
                         </div>
                     </div><!-- .grid -->
+                    <div class="grid-24 bordeado" style="display: <?= $DSO ?>">
+                        <div class="widget-header">
+                            <h3>Decisiones</h3>
+                        </div>
+                        <br>
+                        <div class="grid-24">
+                            <div class="field-group">
+                                <div class="field" id="Decis_Mostrado">
+                                    <?php echo $decisiones == '' ? '<label for="fname">** No posee Desiciones registradas. **<label>' : '<span>' . $decisiones . '</span>'; ?>	
+                                </div>
+                                <div class="field" id="Decis_Editado" style="display: none">
+                                    <textarea id="Decis_Nueva" rows="4" cols="60"><?= $decisiones ?></textarea>	
+                                </div>
+                                <div style="text-align: left">
+                                    <button style="display: <?= $editable2 ?>" onclick="javascript:EditarCampo('Decis_')" title="Editar" id="Decis_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                    <button style="display: none" onclick="javascript:AceptarEdit('Decis_', 3, '<?= $id ?>')" title="Aceptar" id="Decis_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                    <button style="display: none" onclick="javascript:CancelarEdit('Decis_')" title="Cancelar" id="Decis_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- .grid -->
+                    <div class="grid-24 bordeado" style="display: <?= $DSO ?>">
+                        <div class="widget-header">
+                            <h3>Sanciones</h3>
+                        </div>
+                        <br>
+                        <div class="grid-24">
+                            <div class="field-group">
+                                <div class="field" id="Sancio_Mostrado">
+                                    <?php echo $sanciones == '' ? '<label for="fname">*** No posee Sanciones registradas. ***<label>' : '<span>' . $sanciones . '</span>'; ?>	
+                                </div>
+                                <div class="field" id="Sancio_Editado" style="display: none">
+                                    <textarea id="Sancio_Nueva" rows="4" cols="60"><?= $sanciones ?></textarea>	
+                                </div>
+                                <div style="text-align: left">
+                                    <button style="display: <?= $editable2 ?>" onclick="javascript:EditarCampo('Sancio_')" title="Editar" id="Sancio_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                    <button style="display: none" onclick="javascript:AceptarEdit('Sancio_', 4, '<?= $id ?>')" title="Aceptar" id="Sancio_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                    <button style="display: none" onclick="javascript:CancelarEdit('Sancio_')" title="Cancelar" id="Sancio_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- .grid -->
+                    <div class="grid-24 bordeado" style="display: <?= $DSO ?>">
+                        <div class="widget-header">
+                            <h3>Otros</h3>
+                        </div>
+                        <br>
+                        <div class="grid-24">
+                            <div class="field-group">
+                                <div class="field" id="Otros_Mostrado">
+                                    <?php echo $otros == '' ? '<label for="fname">*** No posee "Otros" registrados. ***<label>' : '<span>' . $otros . '</span>'; ?>	
+                                </div>
+                                <div class="field" id="Otros_Editado" style="display: none">
+                                    <textarea id="Otros_Nueva" rows="4" cols="60"><?= $otros ?></textarea>	
+                                </div>
+                                <div style="text-align: left">
+                                    <button style="display: <?= $editable2 ?>" onclick="javascript:EditarCampo('Otros_')" title="Editar" id="Otros_Editar" type="button" class="btn btn-error btn-edit"><i class="fa fa-edit"></i></button>
+                                    <button style="display: none" onclick="javascript:AceptarEdit('Otros_', 5, '<?= $id ?>')" title="Aceptar" id="Otros_Aceptar" type="button" class="btn btn-success btn-edit"><i class="fa fa-check"></i></button>
+                                    <button style="display: none" onclick="javascript:CancelarEdit('Otros_')" title="Cancelar" id="Otros_Cancelar" type="button" class="btn btn-error btn-edit"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- .grid -->
                     <div class="grid-24" style="text-align: center">
                         <div class="field-group">								
                             <div class="actions">
@@ -416,6 +502,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                 <button onclick="javascript:CambioStatus('<?= $id ?>', '9', '<?= $parametros ?>', 'Archivar')" name="Archivar" type="button" class="btn btn-error" style="display: <?= $Archivar ?>">Archivar</button>
                                 <button onclick="javascript:CambioStatus('<?= $id ?>', '1', '<?= $parametros ?>', 'Enviar a Revisión')" name="Revision" type="button" class="btn btn-error" style="display: <?= $Revision ?>">Enviar a Revisión</button>
                                 <button onclick="javascript:CambioStatus('<?= $id ?>', '2', '<?= $parametros ?>', 'Remitir a Presidencia')" name="Remitir" type="button" class="btn btn-error" style="display: <?= $Remitir ?>">Remitir</button>
+                                <button onclick="javascript:CambioStatus('<?= $id ?>', '3', '<?= $parametros ?>', 'Culminar')" name="Culminar" type="button" class="btn btn-error" style="display: <?= $Culminar ?>">Culminar</button>
                                 <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Regresar" />
                             </div> <!-- .actions -->
                         </div> <!-- .field-group -->
@@ -426,6 +513,9 @@ $sqlqueryInv = mysql_query($sqlInvol);
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá visualizar la información de la averiguación número <b><?= $codigo_ave ?></b></p>
+                    <div class="box plain">
+                        <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                    </div>
                 </div>
             </div>
         </form>
@@ -481,7 +571,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
     function AceptarEdit(id, tipo, parametro) {
         var dato = document.getElementById(id + 'Nueva').value;
         $.ajax({
-            url: 'modules/SIIT-Metro(Admin)/Conclusiones_Recomendaciones.php',
+            url: 'modules/SIIT-Metro(Admin)/Anexos.php',
             method: 'POST',
             dataType: 'TEXT',
             data: {

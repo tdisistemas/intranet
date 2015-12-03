@@ -132,6 +132,12 @@ if ($perfil_qry) {
             . "WHERE d.cedula=c.cedula_empleado "
             . "AND e.cedula=d.cedula AND e.cedula=" . $cedula;
 
+    $sqlInvest = "SELECT id_invest,status FROM ai_investigadores WHERE cedula_invest=" . $cedula;
+
+    $sqlInvestigador = mysql_query($sqlInvest);
+    $rowInvest = mysql_fetch_array($sqlInvestigador);
+
+
     $sql = mysql_query($sqlcode);
     while ($row = mysql_fetch_array($sql)) {
 
@@ -272,10 +278,29 @@ if ($perfil_qry) {
                                         </div>
                                         <?php
                                     }
+                                    switch ($rowInvest['status']) {
+
+                                        case 0: $st = "check";
+                                            $color = "green";
+                                            $texto = 'Activo';
+                                            $titulo = 'Desactivar';
+                                            break;
+                                        case 1: $st = "ban";
+                                            $color = "red";
+                                            $texto = 'Inactivo.';
+                                            $titulo = 'Activar';
+                                            break;
+                                    }
                                     ?>
                                 </div> <!-- .field-group -->
                             </div>
                             <div class="grid-10">
+                                <div class="field-group">
+                                    <label style="color:#B22222">Estatus:</label>
+                                    <div class="field">
+                                        <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>
+                                    </div>		
+                                </div> <!-- .field-group -->
                                 <div class="field-group">
                                     <label style="color:#B22222">Gerencia a que Pertenece:</label>
                                     <div class="field">
@@ -328,7 +353,7 @@ if ($perfil_qry) {
                                           $poseecorreo = "*** No Posee Correo ***";
                                           } */
                                         ?>
-                                        <span><?php echo $usuario_int."@metrodemaracaibo.gob.ve"; //echo $poseecorreo;       ?></span>	
+                                        <span><?php echo $usuario_int . "@metrodemaracaibo.gob.ve"; //echo $poseecorreo;           ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
                                 <div class="field-group">
@@ -381,9 +406,11 @@ if ($perfil_qry) {
                     <p>En esta sección podrá visualizar la ficha de investigador</p>
                     <div class="box plain">
                         <?php
-                        $parametros = 'id=' . $id_empleado;
+                        $rowInvest['status'] == '1' ? $acc = '0' : $acc = '1';
+                        $parametros = 'id=' . $rowInvest['id_invest'] . '&acc=' . $acc;
                         $parametros = _desordenar($parametros);
                         ?>
+                        <a class="btn btn-primary btn-large dashboard_add" href="javascript:CambiarStatus_Investigador('<?php echo $nombre . ' ' . $apellido ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>','<?= $rowInvest['status'] ?>')" id="eliminar-us" ><?= $titulo ?></a>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>
@@ -395,5 +422,21 @@ if ($perfil_qry) {
 <script type="text/javascript">
     window.onload = function () {
         espejo_gerencia();
+    }
+    function CambiarStatus_Investigador(perfil, param, tipo) {
+        var tipo_accion;
+        if (tipo == 1) {
+            tipo_accion = "reactivar";
+        } else {
+            tipo_accion = "desactivar";
+        }
+        $.alert({
+            type: 'confirm'
+            , title: 'Alerta'
+            , text: '<h3>¿Desea ' + tipo_accion + ' al investigador: <u>' + perfil + '</u> ?</h3>'
+            , callback: function () {
+                window.location = param;
+            }
+        });
     }
 </script>

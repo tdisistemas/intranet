@@ -5,13 +5,29 @@ _bienvenido_mysql();
 $id = _antinyeccionSQL($_GET['aver']);
 
 $sqlcode = "UPDATE ai_averiguaciones SET ";
-if ($_GET['tipo'] == 1) {
-    $tipo = 'conclusion';
-    $sqlcode .= $tipo;
-} else {
-    $tipo = 'recomendacion';
-    $sqlcode .= $tipo;
+switch ($_GET['tipo']) {
+    case 1: 
+        $tipo = 'conclusion';
+        $sqlcode .= $tipo;
+        Break;
+    case 2: 
+        $tipo = 'recomendacion';
+        $sqlcode .= $tipo;
+        Break;
+    case 3: 
+        $tipo = 'decision';
+        $sqlcode .= $tipo;
+        Break;
+    case 4: 
+        $tipo = 'sanciones';
+        $sqlcode .= $tipo;
+        Break;
+    case 5: 
+        $tipo = 'otros';
+        $sqlcode .= $tipo;
+        Break;
 }
+
 $sqlcode .="='" . $_GET['dato'] . "' WHERE idAveriguacion=" . $id;
 $sql = mysql_query($sqlcode);
 

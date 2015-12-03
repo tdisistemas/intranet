@@ -166,7 +166,7 @@ if (isset($_POST['Submit'])) {
                 . "INNER JOIN datos_empleado_rrhh e "
                 . "WHERE d.denunciante = e.cedula "
                 . "AND d.idDenuncia=" . $id;
-    }else{
+    } else {
         $sqlquery = "SELECT "
                 . "d.codigo,"
                 . "d.descripcion "
@@ -362,6 +362,9 @@ if (isset($_POST['Submit'])) {
                     <div id="gettingStarted" class="box">
                         <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                         <p>En esta sección podrá iniciar nuevas Averiguaciones.</p>
+                        <div class="box plain">
+                            <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                        </div>
                     </div>
                 </div>
             </form>

@@ -103,10 +103,17 @@ $sqlquery = "SELECT "
         . "a.causa,"
         . "a.recomendacion,"
         . "a.conclusion,"
+        . "a.decision,"
+        . "a.sanciones,"
+        . "a.otros,"
         . "b.codigo AS cod_den,"
         . "e.codigo AS cod_org,"
         . "b.status AS st_den,"
         . "e.status AS st_org,"
+        . "a.fecha_st_1,"
+        . "a.fecha_st_2,"
+        . "a.fecha_st_3,"
+        . "a.fecha_st_9,"
         . "a.fecha,"
         . "b.fecha AS fecha_den,"
         . "e.fecha AS fecha_org,"
@@ -145,6 +152,9 @@ $tipo_org = $respuesta['tipo_org'];
 $tipo_den = $respuesta['tipo_den'];
 $recomendacion = $respuesta['recomendacion'];
 $conclusion = $respuesta['conclusion'];
+$decisiones = $respuesta['decision'];
+$sanciones = $respuesta['sanciones'];
+$otros = $respuesta['otros'];
 
 $parametros = 'id=' . $id;
 $parametros = _desordenar($parametros);
@@ -315,36 +325,43 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             $Revision = 'none';
                                             $Remitir = 'none';
                                             $editable = 'none';
+                                            $finalizada = 'none';
                                             switch ($st_ave) {
-                                                case 0: $st = "clock-o";
-                                                    $color = "#8B8B8B";
-                                                    $texto = 'En progreso.';
+                                                case 0: $st = "check";
+                                                    $color = "green";
+                                                    $texto = 'Abierta';
                                                     $Revision = '';
                                                     $editable = '';
+                                                    $fecha_st = 'fecha';
                                                     break;
                                                 case 1: $st = "edit";
-                                                    $color = "#1100CD";
-                                                    $texto = 'En revisión.';
+                                                    $color = "#2563FF";
+                                                    $texto = 'En revisión';
                                                     $Remitir = '';
+                                                    $fecha_st = 'fecha_st_1';
                                                     break;
                                                 case 2: $st = "sign-out";
                                                     $color = "green";
                                                     $texto = 'Remitida.';
+                                                    $fecha_st = 'fecha_st_2';
                                                     Break;
                                                 case 3: $st = "lock";
                                                     $color = "green";
-                                                    $texto = 'Finalizada.';
+                                                    $texto = 'Finalizada';
                                                     $Archivar = 'none';
+                                                    $fecha_st = 'fecha_st_3';
+                                                    $finalizada = '';
                                                     Break;
                                                 case 9: $st = "lock";
                                                     $color = "red";
-                                                    $texto = 'Archivada.';
+                                                    $texto = 'Archivada';
                                                     $Archivar = 'none';
                                                     $Retomar = '';
+                                                    $fecha_st = 'fecha_st_9';
                                                     break;
                                             }
                                             ?>
-                                            <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                            <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?> <span style="color: black">, desde: </span> <?= $respuesta[$fecha_st] ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
                                 </div>
@@ -399,6 +416,54 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                     </div>
                                 </div>
                             </div><!-- .grid -->
+                            <div class="grid-24 bordeado" style="display: <?= $finalizada ?>">
+                                <div class="widget-header">
+                                    <h3>Decisiones</h3>
+                                </div>
+                                <br>
+                                <div class="grid-24">
+                                    <div class="field-group">
+                                        <div class="field" id="Decis_Mostrado">
+                                            <?php echo $decisiones == '' ? '<label for="fname">** No posee Desiciones registradas. **<label>' : '<span>' . $decisiones . '</span>'; ?>	
+                                        </div>
+                                        <div class="field" id="Decis_Editado" style="display: none">
+                                            <textarea id="Decis_Nueva" rows="4" cols="60"><?= $decisiones ?></textarea>	
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- .grid -->
+                            <div class="grid-24 bordeado" style="display: <?= $finalizada ?>">
+                                <div class="widget-header">
+                                    <h3>Sanciones</h3>
+                                </div>
+                                <br>
+                                <div class="grid-24">
+                                    <div class="field-group">
+                                        <div class="field" id="Sancio_Mostrado">
+                                            <?php echo $sanciones == '' ? '<label for="fname">*** No posee Sanciones registradas. ***<label>' : '<span>' . $sanciones . '</span>'; ?>	
+                                        </div>
+                                        <div class="field" id="Sancio_Editado" style="display: none">
+                                            <textarea id="Sancio_Nueva" rows="4" cols="60"><?= $sanciones ?></textarea>	
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- .grid -->
+                            <div class="grid-24 bordeado" style="display: <?= $finalizada ?>">
+                                <div class="widget-header">
+                                    <h3>Otros</h3>
+                                </div>
+                                <br>
+                                <div class="grid-24">
+                                    <div class="field-group">
+                                        <div class="field" id="Otros_Mostrado">
+                                            <?php echo $otros == '' ? '<label for="fname">*** No posee "Otros" registrados. ***<label>' : '<span>' . $otros . '</span>'; ?>	
+                                        </div>
+                                        <div class="field" id="Otros_Editado" style="display: none">
+                                            <textarea id="Otros_Nueva" rows="4" cols="60"><?= $otros ?></textarea>	
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- .grid -->
                             <div class="grid-24" style="text-align: center">
                                 <div class="field-group">								
                                     <div class="actions inline">
@@ -415,6 +480,9 @@ $sqlqueryInv = mysql_query($sqlInvol);
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá visualizar la información de la averiguación número <b><?= $codigo_ave ?></b></p>
+                    <div class="box plain">
+                        <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                    </div>
                 </div>
             </div>
         </form>

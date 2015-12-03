@@ -138,6 +138,8 @@ if ($perfil_qry) {
             . "a.status,"
             . "a.conclusion,"
             . "a.recomendacion,"
+            . "a.decision,"
+            . "a.sanciones,"
             . "a.causa "
             . "FROM ai_averiguaciones a "
             . "INNER JOIN ai_autores b on b.cedula = " . $cedula . " AND a.idAveriguacion = b.idAveriguacion "
@@ -273,7 +275,7 @@ if ($perfil_qry) {
                                                 <div class="field-group">
                                                     <label style="color:#B22222">Decisiones:</label>
                                                     <div class="field">
-                                                        <?php echo $row2['conclusion'] != '' ? '<span>' . $row2['conclusion'] . '</span>' : '<label for="fname">*** No Posee Conclusiones Registradas! *** </label>'; ?>	
+                                                        <?php echo $row2['decision'] != '' ? '<span>' . $row2['decision'] . '</span>' : '<label for="fname">*** No Posee Decisiones Registradas! *** </label>'; ?>	
                                                     </div>		
                                                 </div>
                                             </div>
@@ -281,7 +283,7 @@ if ($perfil_qry) {
                                                 <div class="field-group">
                                                     <label style="color:#B22222">Sanciones:</label>
                                                     <div class="field">
-                                                        <?php echo $row2['recomendacion'] != '' ? '<span>' . $row2['recomendacion'] . '</span>' : '<label for="fname">*** No Posee Conclusiones Registradas! *** </label>'; ?>	
+                                                        <?php echo $row2['sanciones'] != '' ? '<span>' . $row2['sanciones'] . '</span>' : '<label for="fname">*** No Posee Sanciones Registradas! *** </label>'; ?>	
                                                     </div>		
                                                 </div>
                                             </div>
@@ -315,41 +317,5 @@ if ($perfil_qry) {
 <script type="text/javascript">
     window.onload = function () {
         espejo_gerencia();
-        $(function () {
-            $('a[data-toggle="collapse"]').on('click', function () {
-
-                var objectID = $(this).attr('href');
-
-                if ($(objectID).hasClass('in'))
-                {
-                    $(objectID).collapse('hide');
-                }
-
-                else {
-                    $(objectID).collapse('show');
-                }
-            });
-
-
-            $('#expandAll').on('click', function () {
-
-                $('a[data-toggle="collapse"]').each(function () {
-                    var objectID = $(this).attr('href');
-                    if ($(objectID).hasClass('in') === false)
-                    {
-                        $(objectID).collapse('show');
-                    }
-                });
-            });
-
-            $('#collapseAll').on('click', function () {
-
-                $('a[data-toggle="collapse"]').each(function () {
-                    var objectID = $(this).attr('href');
-                    $(objectID).collapse('hide');
-                });
-            });
-
-        });
     }
 </script>
