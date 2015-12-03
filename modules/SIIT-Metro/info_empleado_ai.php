@@ -171,7 +171,7 @@ if ($perfil_qry) {
                             <div class="grid-10">
                                 <div class="field-group" style="min-height: 150px">
                                     <div class="field">
-                                        <img align="left" style=" border: solid 5px #ddd;min-width: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                        <img align="left" style=" border: solid 5px #ddd;max-width: 100px;max-height: 100px;" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                     </div>
                                 </div> <!-- .field-group -->
 
