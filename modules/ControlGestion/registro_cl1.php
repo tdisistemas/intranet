@@ -30,11 +30,11 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         <tr>
                             <th style="width:10%">N° de Proceso</th>
                             <th style="width:10%">Fecha de Ingreso</th>
-                            <th style="width:20%">Gerencia Requiriente</th>
+                            <th style="width:25%">Gerencia Requiriente</th>
                             <th style="width:20%">Responsable</th>
                             <th style="width:10%">Nombre de la Obra/Actividad</th>
-                            <th style="width:15%">Estatus</th>
-                            <th style="width:15%">Opciones</th>
+                            <th style="width:5%">Estatus</th>
+                            <th style="width:10%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,14 +44,26 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         $ano = date('y');
                         $actual = (explode("20", $ano));
                         while ($row = mysql_fetch_array($sql)) {
+                        switch ($row[8]) {
+                                            case 1: $st = "pencil-square-o";
+                                                $color = "#8B8B8B";
+                                                $titulo = "En Elaboración.";
+                                                break;
+                                            case 2: $st = "check";
+                                                $color = "#8B8B8B";
+                                                $titulo = "Entregado.";
+                                                break;
+                                            
+                                        }
                             ?>
+                        
                             <tr class="gradeA">
                                 <td><?php echo 'GC-' . $row[2] . '-' . $actual[0] ?></td>
                                 <td><?php echo $row[3] ?></td>
                                 <td><?php echo $row[4] ?></td>
                                 <td><?php echo $row[5] ?></td>
                                 <td><?php echo $row[6] ?></td>
-                                <td><?php echo $row[8] ?></td>
+                                <td style="text-align:center"><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="cursor: pointer; font-size: 15px; color: <?php echo $color ?>" ></i></span></td>
 
                                 <td class="center">
                                     <?php

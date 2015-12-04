@@ -81,6 +81,7 @@ if (isset($_POST['enviar'])) {
                                     <label for="date">Instrucción del Presidente:</br></label>   
                                     <select  name="instruccion" id="instru" value="<?php echo $editar_ec['instruccion'];?>">
                                        <option value="">Seleccione</option>
+                                    <option value="POR REVISAR">Por Revisar</option>
                                     <option value="APROBADO">Aprobado</option>
                                     <option value="RECHAZADO">Rechazado</option>
                                     </select>
@@ -92,10 +93,10 @@ if (isset($_POST['enviar'])) {
                                     <div class="field">
                                    <select  name="estatus2" id="estatus2" value="<?php echo $editar_ec['estatus2'];?>">
                                        <option value="">Seleccione</option>
-                                    <option value="REVISIÓN">Revisión</option>
-                                    <option value="EN TRAMITE">En Tramite</option>
-                                    <option value="DEVUELTO">Devuelto</option>
-                                    <option value="ENTREGADO">Entregado</option>
+                                    <option value="1">Revisión</option>
+                                    <option value="2">Devuelto</option>
+                                    <option value="3">Entregado</option>
+                                  
                                     </select>
                                     </div>
                                     <input id="estatus2auxi" style="display:none" value="<?php echo $editar_ec['estatus2'];?>" />
@@ -217,7 +218,10 @@ changeMonth: true,
 changeYear: true,
 yearRange: "1950:2014",
 minDate: '0',
-onSelect: function (fecha,event){$('#datepicker1').datepicker("option","minDate",fecha);}
+onSelect: function (fecha,event){$('#datepicker1').datepicker("option","minDate",fecha);
+$('#datepicker2').datepicker("option","minDate",fecha);
+$('#datepicker3').datepicker("option","minDate",fecha);
+}
 });
 });
 $(function () {
@@ -227,7 +231,7 @@ dateFormat: 'yy-mm-dd',
 changeMonth: true,
 changeYear: true,
 yearRange: "1950:2014",
-
+minDate: '0'
 });
 });
 $(function () {
@@ -237,8 +241,7 @@ dateFormat: 'yy-mm-dd',
 changeMonth: true,
 changeYear: true,
 yearRange: "1950:2014",
-minDate: '0',
-onSelect: function (fecha,event){$('#datepicker3').datepicker("option","minDate",fecha);}
+minDate: '0'
 });
 });
 $(function () {
@@ -247,7 +250,9 @@ $("#datepicker3").datepicker({
 dateFormat: 'yy-mm-dd',
 changeMonth: true,
 changeYear: true,
-yearRange: "1950:2014"
+yearRange: "1950:2014",
+minDate: '0'
+
 });
 });
 
