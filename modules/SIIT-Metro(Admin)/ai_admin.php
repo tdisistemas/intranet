@@ -80,7 +80,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
                 $sql = mysql_query($sqlcode);
                 $a = mysql_num_rows($sql);
-                
+
                 $sqlcodeDen = "SELECT "
                         . "idDenuncia "
                         . "FROM ai_denuncias "
@@ -90,7 +90,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
                 $sqlDen = mysql_query($sqlcodeDen);
                 $b = mysql_num_rows($sqlDen);
-                
+
                 $sqlcodeOfc = "SELECT "
                         . "idOficio "
                         . "FROM ai_oficios "
@@ -147,15 +147,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             $titulo = "En progreso.";
                                             break;
                                         case 1: $st = "edit";
-                                            $color = "#1100CD";
+                                            $color = "#8B8B8B";
                                             $titulo = "En revisión.";
                                             break;
                                         case 2: $st = "sign-out";
-                                            $color = "green";
+                                            $color = "#8B8B8B";
                                             $titulo = "Remitida.";
                                             Break;
                                         case 3: $st = "lock";
-                                            $color = "green";
+                                            $color = "#8B8B8B";
                                             $titulo = "Finalizada.";
                                             Break;
                                         case 9: $st = "lock";
@@ -168,7 +168,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         <td><?php echo $row['codigo_ave'] ?></td>
                                         <td><?php echo $row['tipo_origen'] == '1' ? $row['cod_den'] : $row['cod_org'] ?></td>
                                         <td><?php echo $row['fecha'] ?></td>
-                                        <td style="text-align: center"><span><i class="fa fa-<?= $st ?>" title="<?=$titulo?>" style="cursor: pointer; font-size: 15px; color: <?php echo '#8B8B8B'//$color ?>" ></i></span></td>
+                                        <td style="text-align: center"><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="cursor: pointer; font-size: 15px; color: <?php echo $color ?>" ></i></span></td>
                                         <td><?php echo $row['nombre'] . ' ' . $row['apellido'] ?></td>
 
                                         <td class="center">
@@ -196,6 +196,37 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <div id="gettingStarted" class="box">
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá acceder al panel de control del módulo Asuntos Internos, así como visualizar la lista de las averiguaciones registradas.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th style="font-weight:bold">Estatus de Averiguación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="fa fa-check"></i></td>
+                                <td>- Abierta.</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-edit"></i></td>
+                                <td>- En Revisión.</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-sign-out"></i></td>
+                                <td>- Remitida.</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-lock"></i></td>
+                                <td>- Finalizada.</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-lock" style="color: red"></i></td>
+                                <td>- Archivada.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
                     <div class="box plain">
                         <a href="dashboard.php?data=investigadores" class="btn btn-primary btn-large dashboard_add">Investigadores</a>
                         <a href="dashboard.php?data=denuncias-ai" class="btn btn-primary btn-large dashboard_add">Denuncias</a>
