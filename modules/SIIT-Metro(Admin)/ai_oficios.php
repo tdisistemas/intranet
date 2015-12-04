@@ -83,7 +83,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <td><?php echo $row['codigo'] ?></td>
                                 <td><?php echo $row['fecha'] ?></td>
                                 <td><?php echo $row['tipo'] ?></td>
-                                <td><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="vertical-align: central; cursor: pointer; font-size: 15px; color: <?php echo '#8B8B8B'//$color  ?>" ></i></span></td>
+                                <td><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="vertical-align: central; cursor: pointer; font-size: 15px; color: <?php echo '#8B8B8B'//$color   ?>" ></i></span></td>
                                 <td style="text-align: left"><?php echo $row['descripcion'] ?></td>
 
                                 <td style="text-align: left" >
@@ -106,6 +106,33 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         <div id="gettingStarted" class="box">
             <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
             <p>En esta sección podrá visualizar la lista de Oficios registrados.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style="font-weight:bold">Estatus de Oficios</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><i class="fa fa-clock-o"></i></td>
+                        <td>- En Espera.</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-trash"></i></td>
+                        <td>- Descartado.</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-check"></i></td>
+                        <td>- Averiguación Abierta.</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-lock"></i></td>
+                        <td>- Averiguación Finalizada.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
             <div class="box plain">
                 <a class="btn btn-primary btn-large dashboard_add" href="dashboard.php?data=add_oficios" style="color: white;text-decoration: none;">Agregar Oficio</a>
                 <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>

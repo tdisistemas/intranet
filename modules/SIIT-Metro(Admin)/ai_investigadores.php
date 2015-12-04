@@ -76,8 +76,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <td><?php echo $row['cargo'] ?></td>
                                 <td class="center">
                                     <?php
-                                    $row['status']=='1' ? $acc='0' : $acc='1';
-                                    $parametros = 'id=' . $row["id_invest"].'&acc='.$acc;
+                                    $row['status'] == '1' ? $acc = '0' : $acc = '1';
+                                    $parametros = 'id=' . $row["id_invest"] . '&acc=' . $acc;
                                     $parametros = _desordenar($parametros);
                                     $parametros2 = 'cedula=' . $row["cedula_invest"];
                                     $parametros2 = _desordenar($parametros2);
@@ -85,7 +85,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     <a href="dashboard.php?data=investigador-ai-info&flag=1&<?php echo $parametros2; ?>" id="editar" title="Información" >
                                         <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
                                     </a>
-                                    <a href="javascript:CambiarStatus_Investigador('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>','<?=$row['status']?>')" id="eliminar-us" title="<?=$tit_act?>" >
+                                    <a href="javascript:CambiarStatus_Investigador('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>','<?= $row['status'] ?>')" id="eliminar-us" title="<?= $tit_act ?>" >
                                         <i class="fa fa-<?= $act ?>" style="color: black; font-size: 15px"></i>
                                     </a>
                                 </td>
@@ -102,6 +102,25 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         <div id="gettingStarted" class="box">
             <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
             <p>En esta sección podrá la lista de los investigadores de Asuntos Internos</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style="font-weight:bold">Estatus de Investigadores</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><i class="fa fa-check"></i></td>
+                        <td>- Activo.</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-ban"></i></td>
+                        <td>- Inactivo.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
             <div class="box plain">
                 <a href="dashboard.php?data=add_investigadores" class="btn btn-primary btn-large dashboard_add">Agregar Investigador</a>
                 <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
@@ -116,15 +135,15 @@ _adios_mysql();
 <script type="text/javascript">
     function CambiarStatus_Investigador(perfil, param, tipo) {
         var tipo_accion;
-        if(tipo == 1){
+        if (tipo == 1) {
             tipo_accion = "reactivar";
-        }else{
+        } else {
             tipo_accion = "desactivar";
         }
         $.alert({
             type: 'confirm'
             , title: 'Alerta'
-            , text: '<h3>¿Desea '+tipo_accion+' al investigador: <u>' + perfil + '</u> ?</h3>'
+            , text: '<h3>¿Desea ' + tipo_accion + ' al investigador: <u>' + perfil + '</u> ?</h3>'
             , callback: function () {
                 window.location = param;
             }
