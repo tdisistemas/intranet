@@ -53,6 +53,9 @@ switch ($t) {
     case ("add_investigacion"):include('modules/SIIT-Metro(Admin)/add_investigaciones.php');
         ?><script>activame('admin_ai');</script><?php
         break;
+    case ("reportes-ai"):include('modules/SIIT-Metro(Admin)/ai_reportador.php');
+        ?><script>activame('admin_ai');</script><?php
+        break;
 
     /*     * ******************************************** */
     /*     * *********** ASUNTOS INTERNOS *************** */
