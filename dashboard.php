@@ -104,9 +104,16 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <span class="icon-document-alt-stroke"></span>
                                             <a href="javascript:;">Control y Gestión</a>				
                                             <ul class="subNav">
-                                                <li><a href="dashboard.php?data=controlg">Proyecto</a></li>
+                                                <li><a href="dashboard.php?data=controlg">Gestión de Procesos</a></li>
                                                 <li><a href="dashboard.php?data=puntoc">Punto de Cuenta</a></li>
                                             </ul>						
+                                        </li>
+                                    <?php } ?>
+                                    <?php if (in_array('ControlGestionAdmin', $usuario_permisos)) { ?>
+                                        <li id="controlgestionadmin" class="nav "> 
+                                            <span class="icon-layers"></span>
+                                           <a href="dashboard.php?data=control_gestion_reporte">Control y Gestión Admin</a>			
+                                            						
                                         </li>
                                     <?php } ?>
 

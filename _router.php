@@ -159,7 +159,7 @@ switch ($t) {
         ?><script>activame('prueba');</script><?php
         break;
 
-    /*     * ** CONTROL Y GESTIÓN CLASE I *** */
+    /*     * ** CONTROL Y GESTIÓN *** */
     case ("controlg"):include('modules/ControlGestion/registro_cl1.php');
         ?><script>activame('controlgestion');</script><?php
         break;
@@ -193,7 +193,12 @@ switch ($t) {
     case ("puntoc"):include('modules/ControlGestion/puntocuenta.php');
         ?><script>activame('controlgestion');</script><?php
         break;
-
+     
+    /*     * ** CONTROL Y GESTIÓN ADMINISTRADOR *** */
+    case ("control_gestion_reporte"):include('modules/ControlGestionAdmin/cg_reportes.php');
+        ?><script>activame('controlgestionadmin');</script><?php
+        break;
+    
 
     /*     * ** NOTIFICACION *** */
     case ("notificar"):include('../notificar.php');
