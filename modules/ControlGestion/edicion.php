@@ -142,12 +142,12 @@ if (isset($_POST['enviar'])) {
                                 </div>
                                 
                                 <div class="field-group">
-                                    <label for="required">Estatus del Tramite:</br></label>   
+                                    <label for="required">Estatus:</br></label>   
                                     <div class="field">
                                    <select  name="estatus" id="estatus">
                                        <option value="">Seleccione..</option>
-                                    <option value="EN ELABORACIÓN">En Elaboración</option>
-                                    <option value="ENTREGADO">Entregado</option>
+                                    <option value="1">En Elaboración</option>
+                                    <option value="2">Entregado</option>
                                     </select>
                                        <input id="estatusauxi" style="display:none" value="<?=$estatus?>" />
                                     </div>

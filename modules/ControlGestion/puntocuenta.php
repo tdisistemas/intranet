@@ -33,9 +33,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         <tr>
                             <th style="width:20%">Punto de Cuenta</th>
                             <th style="width:20%">N° de Proceso</th>
-                            <th style="width:20%">N° de Servicio</th>
+                            <th style="width:25%">N° de Servicio</th>
                             <th style="width:25%">Nombre de la Obra/Actividad
-                            <th style="width:15%">Opciones</th>
+                            <th style="width:5%">Estatus</th>
+                            <th style="width:5%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,19 +45,35 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         
                        
                         
-                        $sql = mysql_query("SELECT  gc_control_gestion2.id_cgestion2,gc_control_gestion2.punto_cuenta, gc_control_gestion.obra,gc_control_gestion2.id_cgestion2,gc_control_gestion2.n_proceso, gc_control_gestion2.servicio, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,gc_control_gestion2 WHERE "
+                        $sql = mysql_query("SELECT  gc_control_gestion2.id_cgestion2,gc_control_gestion2.punto_cuenta,gc_control_gestion2.estatus2, gc_control_gestion.obra,gc_control_gestion2.id_cgestion2,gc_control_gestion2.n_proceso, gc_control_gestion2.servicio, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,gc_control_gestion2 WHERE "
                                 . "gc_control_gestion2.n_proceso=gc_control_gestion.n_proceso and validacion_pdc=1");
                         $ano = date('y');
                         $actual = (explode("20", $ano));
                          
                         while ($row = mysql_fetch_array($sql)) {
+                            switch ($row["estatus2"]) {
+                                            case 1: $st = "pencil-square-o";
+                                                $color = "#8B8B8B";
+                                                $titulo = "Revisión.";
+                                                break;
+                                           
+                                            case 2: $st = "reply";
+                                                $color = "#8B8B8B";
+                                                $titulo = "Devuelto.";
+                                                break;
+                                            case 3: $st = "check";
+                                                $color = "#8B8B8B";
+                                                $titulo = "Entregado.";
+                                                break;
+                                            
+                                        }
                             ?>
                             <tr class="gradeA">
                                 <td><?php echo 'PDC-'.'00'.$row["punto_cuenta"]. '-'.$actual[0] ?></td>
                                 <td><?php echo 'GC-' . $row["n_proceso"] . '-' . $actual[0] ?></td>
                                 <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
                                 <td><?php echo $row["obra"] ?></td>
-                                
+                                <td style="text-align:center"><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="cursor: pointer; font-size: 15px; color: <?php echo $color ?>" ></i></span></td>
                                
                         
 

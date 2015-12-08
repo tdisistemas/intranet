@@ -69,8 +69,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     <div class="field">
                                         <select  name="estatus" id="estatus">
                                             <option value="">Seleccione</option>
-                                            <option value="EN ELABORACIÓN">En Elaboración</option>
-                                            <option value="ENTREGADO">Entregado</option>
+                                            <option value="1">En Elaboración</option>
+                                            <option value="2">Entregado</option>
                                         </select>
                                     </div>
                                 </div>
