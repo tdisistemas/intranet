@@ -320,6 +320,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             url: 'modules/SIIT-Metro(Admin)/Reportador.php',
             dataType: 'JSON',
             method: 'POST',
+            beforeSend: function () {
+                $('.data-table').dataTable().fnClearTable();
+            },
             data: {
                 acc: 'Aver',
                 origen: org,
@@ -333,18 +336,18 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             },
             success: function (data) {
                 var datos = {
-                    investigador:'',
-                    codigo_ave:'',
-                    origen:'',
-                    fecha:'',
-                    fecha_st_1:'',
-                    fecha_st_2:'',
-                    fecha_st_3:'',
-                    fecha_st_9:'',
-                    status:{
-                        st:'',
-                        titulo:'',
-                        color:''
+                    investigador: '',
+                    codigo_ave: '',
+                    origen: '',
+                    fecha: '',
+                    fecha_st_1: '',
+                    fecha_st_2: '',
+                    fecha_st_3: '',
+                    fecha_st_9: '',
+                    status: {
+                        st: '',
+                        titulo: '',
+                        color: ''
                     }
                 };
                 var aux = 0;
@@ -376,6 +379,11 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                     aux++;
                 }
                 document.getElementById("CuerpoReporte").innerHTML = lista;
+                $(".data-table").dataTable({
+                    "bDestroy": true,
+                    "bJQueryUI": true,
+                    "sPaginationType": "full_numbers"
+                });
             },
         });
     }
@@ -398,4 +406,5 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             yearRange: "2014:2020"
         });
     });
+
 </script>
