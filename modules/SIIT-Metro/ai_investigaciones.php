@@ -77,8 +77,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         . "LEFT JOIN ai_oficios c ON a.origen = c.idOficio AND a.tipo_origen = 2 "
                         . "INNER JOIN ai_investigadores d ON a.investigador = d.id_invest "
                         . "INNER JOIN datos_empleado_rrhh e ON d.cedula_invest = cedula "
-                        //. "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = ".$usuario_datos[3].")";
-                        . "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = 9714161)";
+                        . "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = ".$usuario_datos[3].")";
+                        //. "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = 9714161)";
 
                 $sql = mysql_query($sqlcode);
                 $a = mysql_num_rows($sql);

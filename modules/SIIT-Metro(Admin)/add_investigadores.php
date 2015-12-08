@@ -117,7 +117,7 @@ if (isset($_POST['Submit'])) {
                                             <div class="field">
                                                 <span id="CedulaInvestigador"><br></span>	
                                                 <input id="CedulaInvestigadorID" name="CedulaInvestigadorID" style="display: none" value=""/>	
-                                                <input id="PerfilInvestigador" name="PerfilInvestigador" style="display: non" value=""/>	
+                                                <input id="PerfilInvestigador" name="PerfilInvestigador" style="display: none" value=""/>	
                                             </div>
                                         </div> <!-- .field-group -->				 
 
