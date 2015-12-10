@@ -538,7 +538,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
     function AceptarEdit(id, tipo, parametro) {
         var dato = document.getElementById(id + 'Nueva').value;
         $.ajax({
-            url: 'modules/SIIT-Metro(Admin)/Conclusiones_Recomendaciones.php',
+            url: 'modules/SIIT-Metro(Admin)/Anexos.php',
             method: 'POST',
             dataType: 'TEXT',
             data: {

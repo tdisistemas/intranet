@@ -77,8 +77,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         . "LEFT JOIN ai_oficios c ON a.origen = c.idOficio AND a.tipo_origen = 2 "
                         . "INNER JOIN ai_investigadores d ON a.investigador = d.id_invest "
                         . "INNER JOIN datos_empleado_rrhh e ON d.cedula_invest = cedula "
-                        . "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = ".$usuario_datos[3].")";
-                        //. "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = 9714161)";
+                        //. "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = ".$usuario_datos[3].")";
+                        . "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = 9714161)";
 
                 $sql = mysql_query($sqlcode);
                 $a = mysql_num_rows($sql);
@@ -152,10 +152,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             ?>  
                                             <a href="dashboard.php?data=averiguaciones-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
                                                 <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
-                                            </a><!--
-                                            <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
-                                                <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
-                                            </a>-->
+                                            </a>
                                         </td>
                                     </tr>									
                                     <?php
