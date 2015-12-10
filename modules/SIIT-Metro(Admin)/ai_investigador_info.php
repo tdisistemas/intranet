@@ -154,7 +154,7 @@ if ($perfil_qry) {
 ?>
 <div class="container">
     <div class="row"> 
-        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" >
+        <form class="form   validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" >
             <div class="grid-18">
                 <div class="widget">
                     <div class="widget-header">
@@ -263,7 +263,7 @@ if ($perfil_qry) {
                                                 <?php
                                                 if ($cedula_familiar != '1' && $cedula_familiar != '2') {
                                                     ?>
-                                                    <p class="TituloTarjeta">Cedula: </p>
+                                                    <p class="TituloTarjeta">Cédula: </p>
                                                     <p ><?php echo $cedula_familiar; ?></p>
                                                     <?php
                                                 }
@@ -344,7 +344,7 @@ if ($perfil_qry) {
                                 </div> <!-- .field-group -->  
 
                                 <div class="field-group">
-                                    <label style="color:#B22222">Correo Corporativo:</label>
+                                    <label style="color:#B22222">Correo Institucional:</label>
                                     <div class="field">
                                         <?php
                                         /* if (_correo_existe($usuario_int . "@metrodemaracaibo.gob.ve") == 'SI') {

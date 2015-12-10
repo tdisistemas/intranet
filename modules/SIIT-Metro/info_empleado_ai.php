@@ -157,7 +157,7 @@ if ($perfil_qry) {
     include('notificador.php');
     ?>
     <div class="row"> 
-        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
+        <form class="form   validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
                 <div class="widget">
                     <div class="widget-header">
@@ -266,7 +266,7 @@ if ($perfil_qry) {
                                                 <?php
                                                 if ($cedula_familiar != '1' && $cedula_familiar != '2') {
                                                     ?>
-                                                    <p class="TituloTarjeta">Cedula: </p>
+                                                    <p class="TituloTarjeta">Cédula: </p>
                                                     <p ><?php echo $cedula_familiar; ?></p>
                                                     <?php
                                                 }

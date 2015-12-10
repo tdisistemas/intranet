@@ -209,7 +209,7 @@ if (isset($_POST['Submit'])) {
     ?>
     <div class="container">
         <div class="row"> 
-            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="POST" action="" onsubmit="return Seleccionado()">
+            <form class="form   validateForm" id="from_envio_pe" name="from_envio_pe" method="POST" action="" onsubmit="return Seleccionado()">
                 <div class="grid-18">
                     <div class="widget">
                         <div class="widget-header">

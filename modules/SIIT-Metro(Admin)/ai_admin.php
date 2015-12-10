@@ -104,7 +104,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         </div> <!-- .widget -->	
     </div> <!-- .grid -->
     <div class="row"> 
-        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
+        <form class="form   validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
                 <div style="" class="grid-7 dashboard_report first activeState">
                     <div class="pad" align="center">

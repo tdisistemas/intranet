@@ -88,7 +88,7 @@ if (isset($_POST['Submit'])) {
     ?>
     <div class="container">
         <div class="row">
-            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" onsubmit="return DenuncianteSeleccionado()">
+            <form class="form   validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" onsubmit="return DenuncianteSeleccionado()">
                 <div class="grid-18">
                     <div class="widget">
                         <div class="widget">
