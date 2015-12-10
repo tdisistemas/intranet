@@ -140,6 +140,7 @@ if ($perfil_qry) {
             . "a.recomendacion,"
             . "a.decision,"
             . "a.sanciones,"
+            . "a.otros,"
             . "a.causa "
             . "FROM ai_averiguaciones a "
             . "INNER JOIN ai_autores b on b.cedula = " . $cedula . " AND a.idAveriguacion = b.idAveriguacion "
@@ -284,6 +285,14 @@ if ($perfil_qry) {
                                                     <label style="color:#B22222">Sanciones:</label>
                                                     <div class="field">
                                                         <?php echo $row2['sanciones'] != '' ? '<span>' . $row2['sanciones'] . '</span>' : '<label for="fname">*** No Posee Sanciones Registradas! *** </label>'; ?>	
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                            <div class="grid-24" style="max-width: 90%; text-align: center">
+                                                <div class="field-group">
+                                                    <label style="color:#B22222">Otros:</label>
+                                                    <div class="field">
+                                                        <?php echo $row2['otros'] != '' ? '<span>' . $row2['otros'] . '</span>' : '<label for="fname">*** No Posee Otros Registradas! *** </label>'; ?>	
                                                     </div>		
                                                 </div>
                                             </div>

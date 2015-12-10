@@ -7,6 +7,8 @@ if (isset($_GET['acc'])) {
     if ($_GET['acc'] == 'Aver') {
         $datos = array();
 
+        $json = json_decode($_GET["campos"],true);
+        
         $sqlcodemain = "SELECT "
                 . "a.idAveriguacion,"
                 . "a.fecha,"
@@ -28,36 +30,35 @@ if (isset($_GET['acc'])) {
                 . "INNER JOIN datos_empleado_rrhh e ON d.cedula_invest = cedula "
                 . "WHERE 1";
 
-        if (isset($_GET['investigador']) && $_GET['investigador'] != '') {
-            $sqlcodemain .= " AND a.investigador =" . $_GET['investigador'];
+        if (isset($json['investigador']) && $json['investigador'] != '') {
+            $sqlcodemain .= " AND a.investigador =" . $json['investigador'];
         }
-        if (isset($_GET['origen']) && $_GET['origen'] != '') {
-            $sqlcodemain .= " AND a.tipo_origen =" . $_GET['origen'];
+        if (isset($json['origen']) && $json['origen'] != '') {
+            $sqlcodemain .= " AND a.tipo_origen =" . $json['origen'];
         }
-        if (isset($_GET['sitio']) && $_GET['sitio'] != '') {
-            $sqlcodemain .= " AND a.sitio_suceso ='" . $_GET['sitio'] . "'";
+        if (isset($json['sitio']) && $json['sitio'] != '') {
+            $sqlcodemain .= " AND a.sitio_suceso ='" . $json['sitio'] . "'";
         }
-        if (isset($_GET['remitido']) && $_GET['remitido'] != '') {
-            $sqlcodemain .= " AND a.remitido =" . $_GET['remitido'];
+        if (isset($json['remitido']) && $json['remitido'] != '') {
+            $sqlcodemain .= " AND a.remitido =" . $json['remitido'];
         }
-        if (isset($_GET['estatus']) && $_GET['estatus'] != '') {
-            $sqlcodemain .= " AND a.status =" . $_GET['estatus'];
+        if (isset($json['estatus']) && $json['estatus'] != '') {
+            $sqlcodemain .= " AND a.status =" . $json['estatus'];
         }
-        if (isset($_GET['Fecha']) && $_GET['Fecha'] != '') {
-            if ($_GET['Fecha'] == '0') {
+        if (isset($json['Fecha']) && $json['Fecha'] != '') {
+            if ($json['Fecha'] == '0') {
                 $varFecha = "a.fecha";
             } else {
-                $varFecha = "a.fecha_st_" . $_GET['Fecha'];
+                $varFecha = "a.fecha_st_" . $json['Fecha'];
             }
-            if (isset($_GET['FechaDesde']) && $_GET['FechaDesde'] != '') {
-                $sqlcodemain .= " AND " . $varFecha . " >= '" . $_GET['FechaDesde'] . "'";
+            if (isset($json['FechaDesde']) && $json['FechaDesde'] != '') {
+                $sqlcodemain .= " AND " . $varFecha . " >= '" . $json['FechaDesde'] . "'";
             }
-            if (isset($_GET['FechaHasta']) && $_GET['FechaHasta'] != '') {
-                $sqlcodemain .= " AND " . $varFecha . " <= '" . $_GET['FechaHasta'] . "'";
+            if (isset($json['FechaHasta']) && $json['FechaHasta'] != '') {
+                $sqlcodemain .= " AND " . $varFecha . " <= '" . $json['FechaHasta'] . "'";
             }
             $sqlcodemain .= " AND " . $varFecha . " <> '0000-00-00'";
         }
-
         $sqlMain = mysql_query($sqlcodemain);
 
         $i = 0;
@@ -90,13 +91,138 @@ if (isset($_GET['acc'])) {
                 'fecha_st_1' => $result['fecha_st_1'] == '0000-00-00' ? "-" : $result['fecha_st_1'],
                 'fecha_st_2' => $result['fecha_st_2'] == '0000-00-00' ? "-" : $result['fecha_st_2'],
                 'fecha_st_3' => $result['fecha_st_3'] == '0000-00-00' ? "-" : $result['fecha_st_3'],
-                'fecha_st_9' => $result['fecha_st_9'] == '0000-00-00' ? "-" : $result['fecha_st_9'],
-                'status' => array($st,$color,$titulo),
+                'fecha_st_9' => $result['fecha_st_9'] == '0000-00-00' || $result['st_ave'] != '9' ? "-" : $result['fecha_st_9'],
+                'status' => '<span><i class="fa fa-' . $st . '" title="' . $titulo . '" style="cursor: pointer; font-size: 15px; color: ' . $color . '" ></i></span>',
                 'investigador' => $result['nombre'] . ' ' . $result['apellido']);
             $i++;
         }
         _adios_mysql();
-        echo json_encode(array('datos' => $datos, 'campos' => $i, 'query' => $sqlcode));
+        echo json_encode(array('datos' => $datos, 'query' => $sqlcodemain));
+    }
+    if ($_GET['acc'] == 'Org') {
+        
+        $json = json_decode($_GET["campos"],true);
+        
+        if ($json['origen'] == '1') {
+            $datos = array();
+            
+            $sqlcodemain = "SELECT "
+                    . "d.fecha,"
+                    . "d.denunciante,"
+                    . "d.tipo,"
+                    . "d.status,"
+                    . "d.descripcion,"
+                    . "de.nombre,"
+                    . "de.cedula,"
+                    . "d.codigo,"
+                    . "de.apellido "
+                    . "FROM ai_denuncias d "
+                    . "INNER JOIN datos_empleado_rrhh de ON d.denunciante = de.cedula "
+                    . "WHERE 1";
+
+            if (isset($json['tipo']) && $json['tipo'] != '') {
+                $sqlcodemain .= " AND d.tipo ='" . $json['tipo'] . "'";
+            }
+            if (isset($json['estatus']) && $json['estatus'] != '') {
+                $sqlcodemain .= " AND d.status =" . $json['estatus'];
+            }
+            if (isset($json['OrigenDesde']) && $json['OrigenDesde'] != '') {
+                $sqlcodemain .= " AND d.fecha >= '" . $json['OrigenDesde'] . "'";
+            }
+            if (isset($json['OrigenHasta']) && $json['OrigenHasta'] != '') {
+                $sqlcodemain .= " AND d.fecha <= '" . $json['OrigenHasta'] . "'";
+            }
+
+            $sqlMain = mysql_query($sqlcodemain);
+
+            $i = 0;
+            while ($result = mysql_fetch_array($sqlMain)) {
+                switch ($result['status']) {
+                    case 0: $st = "clock-o";
+                        $color = "#8B8B8B";
+                        $titulo = "En espera.";
+                        break;
+                    case 1: $st = "check";
+                        $color = "#8B8B8B";
+                        $titulo = "Averiguación Abierta.";
+                        break;
+                    case 2: $st = "lock";
+                        $color = "#8B8B8B";
+                        $titulo = "Averiguación Finalizada.";
+                        Break;
+                    case 9: $st = "trash";
+                        $color = "#8B8B8B";
+                        $titulo = "Descartada.";
+                        break;
+                }
+                $datos[$i] = array('codigo' => $result['codigo'],
+                    'fecha' => $result['fecha'],
+                    'tipo' => $result['tipo'],
+                    'descripcion' => $result['descripcion'],
+                    'status' => '<span><i class="fa fa-' . $st . '" title="' . $titulo . '" style="cursor: pointer; font-size: 15px; color: ' . $color . '" ></i></span>',
+                    'denunciante' => $result['nombre'] . ' ' . $result['apellido']);
+                $i++;
+            }
+            _adios_mysql();
+            echo json_encode(array('datos' => $datos, 'query' => $sqlcodemain));
+        }
+        if ($json['origen'] == '2') {
+            $datos = array();
+            
+            $sqlcodemain = "SELECT "
+                    . "d.fecha,"
+                    . "d.tipo,"
+                    . "d.status,"
+                    . "d.descripcion,"
+                    . "d.codigo "
+                    . "FROM ai_oficios d "
+                    . "WHERE 1";
+
+            if (isset($json['tipo']) && $json['tipo'] != '') {
+                $sqlcodemain .= " AND d.tipo ='" . $json['tipo'] . "'";
+            }
+            if (isset($json['estatus']) && $json['estatus'] != '') {
+                $sqlcodemain .= " AND d.status =" . $json['estatus'];
+            }
+            if (isset($json['OrigenDesde']) && $json['OrigenDesde'] != '') {
+                $sqlcodemain .= " AND d.fecha >= '" . $json['OrigenDesde'] . "'";
+            }
+            if (isset($json['OrigenHasta']) && $json['OrigenHasta'] != '') {
+                $sqlcodemain .= " AND d.fecha <= '" . $json['OrigenHasta'] . "'";
+            }
+
+            $sqlMain = mysql_query($sqlcodemain);
+
+            $i = 0;
+            while ($result = mysql_fetch_array($sqlMain)) {
+                switch ($result['status']) {
+                    case 0: $st = "clock-o";
+                        $color = "#8B8B8B";
+                        $titulo = "En espera.";
+                        break;
+                    case 1: $st = "check";
+                        $color = "#8B8B8B";
+                        $titulo = "Averiguación Abierta.";
+                        break;
+                    case 2: $st = "lock";
+                        $color = "#8B8B8B";
+                        $titulo = "Averiguación Finalizada.";
+                        Break;
+                    case 9: $st = "trash";
+                        $color = "#8B8B8B";
+                        $titulo = "Descartada.";
+                        break;
+                }
+                $datos[$i] = array('codigo' => $result['codigo'],
+                    'fecha' => $result['fecha'],
+                    'tipo' => $result['tipo'],
+                    'descripcion' => $result['descripcion'],
+                    'status' => '<span><i class="fa fa-' . $st . '" title="' . $titulo . '" style="cursor: pointer; font-size: 15px; color: ' . $color . '" ></i></span>');
+                $i++;
+            }
+            _adios_mysql();
+            echo json_encode(array('datos' => $datos, 'query' => $sqlcodemain));
+        }
     }
 }
 ?>
