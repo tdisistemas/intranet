@@ -156,7 +156,7 @@ if ($perfil_qry) {
 ?>
 <div class="container">
     <div class="row"> 
-        <form class="form   validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
+        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
                 <div class="row">
                     <div class="grid-24">

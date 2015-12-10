@@ -154,7 +154,7 @@ if ($perfil_qry) {
 ?>
 <div class="container">
     <div class="row"> 
-        <form class="form   validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" >
+        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" >
             <div class="grid-18">
                 <div class="widget">
                     <div class="widget-header">
