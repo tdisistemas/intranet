@@ -25,6 +25,13 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     .field{
         width: 100%;
     }
+    
+    .Campo-Tarjeta{
+        border: 0.5px solid #B22222; 
+        padding: 10px 0px 0px 10px; 
+        border-radius: 5px; 
+        box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+    }
 
     .Tarjeta{
         text-align: center; 
@@ -99,31 +106,33 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         </div> <!-- .widget -->	
     </div> <!-- .grid -->
     <div class="row"> 
-        <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" >
-            <div class="grid-24">
-                <div class="grid-18">
-                    <div class="widget">
-                        <div class="widget-header">
-                            <span class="icon-layers"></span>
-                            <h3>Filtros</h3>
-                        </div>
-                        <div class="widget-content">
-                            <div class="row-fluid">
-                                <div class="grid-24">
-                                    <div class="grid-8">
-                                        <div class="field-group"> 								
-                                            <label style="color:#B22222">Tipos de Reportes:</label>
-                                            <div class="field">
-                                                <select class="form-control" id="reportes" name="reportes" onchange="javascript:TiposdeReportes(this)">
-                                                    <option selected value="1"> Averiguaciones </option>
-                                                    <option value="2"> Origenes </option>
-                                                </select>
-                                            </div>
+        <div class="grid-24">
+            <div class="grid-18">
+                <div class="widget">
+                    <div class="widget-header">
+                        <span class="icon-layers"></span>
+                        <h3>Filtros</h3>
+                    </div>
+                    <div class="widget-content">
+                        <div class="row-fluid">
+                            <div class="grid-24 form uniformForm">
+                                <div class="grid-8">
+                                    <div class="field-group Campo-Tarjeta"> 								
+                                        <label style="color:#B22222">Tipos de Reportes:</label>
+                                        <div class="field" style="text-align: center">
+                                            <select class="form-control" id="reportes" name="reportes" onchange="javascript:TiposdeReportes(this)">
+                                                <option selected value="1"> Averiguaciones </option>
+                                                <option value="2"> Origenes </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" >
                                 <div class="grid-24 Averiguacion">
-                                    <div class="grid-8">
+                                    <div class="grid-2">
+                                    </div>
+                                    <div class="grid-6">
                                         <div class="field-group">								
                                             <label style="color:#B22222">Origen:</label>
                                             <div class="field">
@@ -165,7 +174,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             </div>
                                         </div>
                                     </div> <!-- .row-fluid -->
-                                    <div class="grid-8">
+                                    <div class="grid-6">
+                                        <div class="field-group">								
+                                            <label style="color:#B22222">Fecha:</label>
+                                            <div class="field">
+                                                <select id="Fecha" name="Fecha" onchange="SeleccionarFecha(this)">
+                                                    <option selected value=""> Ninguno </option>
+                                                    <option value="0">Creación</option>
+                                                    <option value="1">Revisión</option>
+                                                    <option value="2">Remitida</option>
+                                                    <option value="3">Finalizada</option>
+                                                    <option value="9">Archivada</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="field-group">								
                                             <label style="color:#B22222">Sitio:</label>
                                             <div class="field">
@@ -198,27 +220,16 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="grid-8">
+                                    <div class="grid-5" id="zonaDesde" style="display: none">
                                         <div class="field-group">								
-                                            <label style="color:#B22222">Fecha:</label>
-                                            <div class="field">
-                                                <select id="Fecha" name="Fecha" onchange="SeleccionarFecha(this)">
-                                                    <option selected value=""> Ninguno </option>
-                                                    <option value="0">Creación</option>
-                                                    <option value="1">Revisión</option>
-                                                    <option value="2">Remitida</option>
-                                                    <option value="3">Finalizada</option>
-                                                    <option value="9">Archivada</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="field-group" id="zonaDesde" style="display: none">								
                                             <label style="color:#B22222">Desde (>):</label>
                                             <div class="field">
                                                 <input id="FechaDesde" class="datepicker" name="FechaDesde" value="" style="min-width: 20%; max-width: 80%;" readonly>
                                             </div>
                                         </div>
-                                        <div class="field-group" id="zonaHasta" style="display: none">								
+                                    </div>
+                                    <div class="grid-5" id="zonaHasta" style="display: none">
+                                        <div class="field-group">								
                                             <label style="color:#B22222">Hasta (<):</label>
                                             <div class="field">
                                                 <input id="FechaHasta" class="datepicker" name="FechaHasta" value="" style="min-width: 20%; max-width: 80%;" readonly>
@@ -227,6 +238,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     </div>
                                 </div>
                                 <div class="grid-24 Origen" style="display: none">
+                                    <div class="grid-4">
+                                    </div>
                                     <div class="grid-8">
                                         <div class="field-group">								
                                             <label style="color:#B22222">Origen:</label>
@@ -260,13 +273,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             </div>
                                         </div>
                                     </div> <!-- .row-fluid -->
-                                    <div class="grid-8">
+                                    <div class="grid-5">
                                         <div class="field-group">								
                                             <label style="color:#B22222">Desde (>):</label>
                                             <div class="field">
                                                 <input id="OrigenDesde" class="datepicker" name="OrigenDesde" value="" style="min-width: 20%; max-width: 80%;" readonly>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="grid-5">
                                         <div class="field-group">								
                                             <label style="color:#B22222">Hasta (<):</label>
                                             <div class="field">
@@ -283,93 +298,93 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         </div> <!-- .actions -->
                                     </div> <!-- .field-group -->
                                 </div>
-                            </div> <!-- .row-fluid -->
-                        </div> <!-- .widget-content -->
-                    </div> <!-- .widget -->	
-                </div> <!-- .grid -->	
-                <div class="grid-6">
-                    <div id="gettingStarted" class="box">
-                        <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
-                        <p>En esta sección podrá realizar reportes de las averiguaciones, las denuncias y/o los oficios.</p>
-                        <div class="Averiguacion">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th style="font-weight:bold">Estatus de Averiguación</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><i class="fa fa-check"></i></td>
-                                        <td>- Abierta.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-edit"></i></td>
-                                        <td>- En Revisión.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-sign-out"></i></td>
-                                        <td>- Remitida.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-lock"></i></td>
-                                        <td>- Finalizada.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-lock" style="color: red"></i></td>
-                                        <td>- Archivada.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="Origen" style="display: none">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th style="font-weight:bold">Estatus de Denuncias/Oficios</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><i class="fa fa-clock-o"></i></td>
-                                        <td>- En Espera.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-trash"></i></td>
-                                        <td>- Descartado.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-check"></i></td>
-                                        <td>- Averiguación Abierta.</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fa fa-lock"></i></td>
-                                        <td>- Averiguación Finalizada.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <br>
-                        <div class="box plain">
-                            <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- .grid -->	
-            <div class="grid-24" id="Grid-Tabla" style="display: none">
-                <div class="widget widget-table">
-                    <div class="widget-header">
-                        <span class="icon-list"></span>
-                        <h3 class="icon chart" id="Nombre-Reporte"></h3>
-                    </div>
-                    <div class="widget-content" id='ZonaTable'>
-
+                            </form>
+                        </div> <!-- .row-fluid -->
                     </div> <!-- .widget-content -->
+                </div> <!-- .widget -->	
+            </div> <!-- .grid -->	
+            <div class="grid-6">
+                <div id="gettingStarted" class="box">
+                    <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
+                    <p>En esta sección podrá realizar reportes de las averiguaciones, las denuncias y/o los oficios.</p>
+                    <div class="Averiguacion">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th style="font-weight:bold">Estatus de Averiguación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>- Abierta.</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-edit"></i></td>
+                                    <td>- En Revisión.</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-sign-out"></i></td>
+                                    <td>- Remitida.</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-lock"></i></td>
+                                    <td>- Finalizada.</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-lock" style="color: red"></i></td>
+                                    <td>- Archivada.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="Origen" style="display: none">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th style="font-weight:bold">Estatus de Denuncias/Oficios</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fa fa-clock-o"></i></td>
+                                    <td>- En Espera.</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-trash"></i></td>
+                                    <td>- Descartado.</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>- Averiguación Abierta.</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-lock"></i></td>
+                                    <td>- Averiguación Finalizada.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="box plain">
+                        <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                    </div>
                 </div>
-            </div> <!-- .grid -->
-        </form>
+            </div>
+        </div> <!-- .grid -->	
+        <div class="grid-24" id="Grid-Tabla" style="display: none">
+            <div class="widget widget-table">
+                <div class="widget-header">
+                    <span class="icon-list"></span>
+                    <h3 class="icon chart" id="Nombre-Reporte"></h3>
+                </div>
+                <div class="widget-content" id='ZonaTable'>
+
+                </div> <!-- .widget-content -->
+            </div>
+        </div> <!-- .grid -->
     </div><!-- .row -->
 </div><!-- .container-->
 
@@ -397,10 +412,14 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     }
 
     function LimpiarCampos() {
+
         $("#OrigenHasta").datepicker("option", "minDate", null);
         $("#OrigenDesde").datepicker("option", "maxDate", null);
         $("#FechaDesde").datepicker("option", "maxDate", null);
         $("#FechaHasta").datepicker("option", "minDate", null);
+        setTimeout(function () {
+            $.uniform.update();
+        }, 200);
 
     }
 
