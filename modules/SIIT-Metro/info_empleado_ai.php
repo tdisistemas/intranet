@@ -266,7 +266,7 @@ if ($perfil_qry) {
                                                 <?php
                                                 if ($cedula_familiar != '1' && $cedula_familiar != '2') {
                                                     ?>
-                                                    <p class="TituloTarjeta">Cedula: </p>
+                                                    <p class="TituloTarjeta">Cédula: </p>
                                                     <p ><?php echo $cedula_familiar; ?></p>
                                                     <?php
                                                 }

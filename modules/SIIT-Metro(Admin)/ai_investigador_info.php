@@ -263,7 +263,7 @@ if ($perfil_qry) {
                                                 <?php
                                                 if ($cedula_familiar != '1' && $cedula_familiar != '2') {
                                                     ?>
-                                                    <p class="TituloTarjeta">Cedula: </p>
+                                                    <p class="TituloTarjeta">Cédula: </p>
                                                     <p ><?php echo $cedula_familiar; ?></p>
                                                     <?php
                                                 }
@@ -344,7 +344,7 @@ if ($perfil_qry) {
                                 </div> <!-- .field-group -->  
 
                                 <div class="field-group">
-                                    <label style="color:#B22222">Correo Corporativo:</label>
+                                    <label style="color:#B22222">Correo Institucional:</label>
                                     <div class="field">
                                         <?php
                                         /* if (_correo_existe($usuario_int . "@metrodemaracaibo.gob.ve") == 'SI') {

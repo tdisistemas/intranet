@@ -144,11 +144,11 @@ if (isset($_POST['Submit'])) {
             margin-left: 10px;
         }
         #Implicados > div{
-            border: solid 1px #999; 
-            border-style: inset; 
-            border-radius: 4px 4px 4px 4px; 
+            border: 0.5px solid #B22222;
+            border-radius: 6px; 
             padding-top: 10px; 
-            max-width: 350px
+            max-width: 350px;
+            box-shadow: 5px 5px 5px rgba(0,0,0,.4);
         }
     </style>
     <div id="contentHeader">
@@ -503,9 +503,9 @@ _adios_mysql();
         document.getElementById("Existentes").value = document.getElementById("Existentes").value.replace(campo, ',');
         document.getElementById("Count").value--;
         if (document.getElementById("Count").value == 0) {
-            document.getElementById("implicadoX").style.display = '';
+            $('#implicadoX').animate({opacity: 1, height: "show"}, 500);
         }
-        document.getElementById('implicado' + index).style.display = 'none';
+        $('#implicado' + index).animate({opacity: 0, height: "hide"}, 500);
         document.getElementById('implicado' + index).innerHTML = '';
     }
 
