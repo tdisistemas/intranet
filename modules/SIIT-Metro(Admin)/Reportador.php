@@ -63,24 +63,21 @@ if (isset($_GET['acc'])) {
 
         $i = 0;
         while ($result = mysql_fetch_array($sqlMain)) {
+            $color = false;
             switch ($result['st_ave']) {
-                case 0: $st = "check";
-                    $color = "#8B8B8B";
+                case 0: $st = "Activo";
                     $titulo = "En progreso.";
                     break;
-                case 1: $st = "edit";
-                    $color = "#8B8B8B";
+                case 1: $st = "Editar";
                     $titulo = "En revisión.";
                     break;
-                case 2: $st = "sign-out";
-                    $color = "#8B8B8B";
+                case 2: $st = "Enviar";
                     $titulo = "Remitida.";
                     Break;
-                case 3: $st = "lock";
-                    $color = "#8B8B8B";
+                case 3: $st = "Cerrar";
                     $titulo = "Finalizada.";
                     Break;
-                case 9: $st = "lock";
+                case 9: $st = "Archivar";
                     $color = "red";
                     $titulo = "Archivada.";
                     break;
@@ -92,7 +89,7 @@ if (isset($_GET['acc'])) {
                 'fecha_st_2' => $result['fecha_st_2'] == '0000-00-00' ? "-" : $result['fecha_st_2'],
                 'fecha_st_3' => $result['fecha_st_3'] == '0000-00-00' ? "-" : $result['fecha_st_3'],
                 'fecha_st_9' => $result['fecha_st_9'] == '0000-00-00' || $result['st_ave'] != '9' ? "-" : $result['fecha_st_9'],
-                'status' => '<span><i class="fa fa-' . $st . '" title="' . $titulo . '" style="cursor: pointer; font-size: 15px; color: ' . $color . '" ></i></span>',
+                'status' => '<span>'.iconosIntranet($st, $titulo,false,$color,false).'</span>',
                 'investigador' => $result['nombre'] . ' ' . $result['apellido']);
             $i++;
         }
@@ -137,21 +134,19 @@ if (isset($_GET['acc'])) {
 
             $i = 0;
             while ($result = mysql_fetch_array($sqlMain)) {
+                $color = false;
                 switch ($result['status']) {
-                    case 0: $st = "clock-o";
-                        $color = "#8B8B8B";
+                    case 0: $st = "Espera";
                         $titulo = "En espera.";
                         break;
-                    case 1: $st = "check";
-                        $color = "#8B8B8B";
+                    case 1: $st = "Activo";
                         $titulo = "Averiguación Abierta.";
                         break;
-                    case 2: $st = "lock";
-                        $color = "#8B8B8B";
+                    case 2: $st = "Cerrar";
                         $titulo = "Averiguación Finalizada.";
                         Break;
-                    case 9: $st = "trash";
-                        $color = "#8B8B8B";
+                    case 9: $st = "Eliminar";
+                        $color = 'red';
                         $titulo = "Descartada.";
                         break;
                 }
@@ -159,7 +154,7 @@ if (isset($_GET['acc'])) {
                     'fecha' => $result['fecha'],
                     'tipo' => $result['tipo'],
                     'descripcion' => $result['descripcion'],
-                    'status' => '<span><i class="fa fa-' . $st . '" title="' . $titulo . '" style="cursor: pointer; font-size: 15px; color: ' . $color . '" ></i></span>',
+                    'status' => '<span>'.iconosIntranet($st, $titulo,false,$color,false).'</span>',
                     'denunciante' => $result['nombre'] . ' ' . $result['apellido']);
                 $i++;
             }
@@ -195,21 +190,19 @@ if (isset($_GET['acc'])) {
 
             $i = 0;
             while ($result = mysql_fetch_array($sqlMain)) {
+                $color = false;
                 switch ($result['status']) {
-                    case 0: $st = "clock-o";
-                        $color = "#8B8B8B";
+                    case 0: $st = "Espera";
                         $titulo = "En espera.";
                         break;
-                    case 1: $st = "check";
-                        $color = "#8B8B8B";
+                    case 1: $st = "Activo";
                         $titulo = "Averiguación Abierta.";
                         break;
-                    case 2: $st = "lock";
-                        $color = "#8B8B8B";
+                    case 2: $st = "Cerrar";
                         $titulo = "Averiguación Finalizada.";
                         Break;
-                    case 9: $st = "trash";
-                        $color = "#8B8B8B";
+                    case 9: $st = "Eliminar";
+                        $color = "red";
                         $titulo = "Descartada.";
                         break;
                 }
@@ -217,7 +210,7 @@ if (isset($_GET['acc'])) {
                     'fecha' => $result['fecha'],
                     'tipo' => $result['tipo'],
                     'descripcion' => $result['descripcion'],
-                    'status' => '<span><i class="fa fa-' . $st . '" title="' . $titulo . '" style="cursor: pointer; font-size: 15px; color: ' . $color . '" ></i></span>');
+                    'status' => '<span>'.iconosIntranet($st, $titulo,false,$color,false).'</span>');
                 $i++;
             }
             _adios_mysql();

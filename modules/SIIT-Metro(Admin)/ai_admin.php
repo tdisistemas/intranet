@@ -141,24 +141,21 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             <tbody>
                                 <?php
                                 while ($row = mysql_fetch_array($sql)) {
+                                    $color = false;
                                     switch ($row['st_ave']) {
-                                        case 0: $st = "check";
-                                            $color = "#8B8B8B";
+                                        case 0: $st = "Activo";
                                             $titulo = "En progreso.";
                                             break;
-                                        case 1: $st = "edit";
-                                            $color = "#8B8B8B";
+                                        case 1: $st = "Editar";
                                             $titulo = "En revisión.";
                                             break;
-                                        case 2: $st = "sign-out";
-                                            $color = "#8B8B8B";
+                                        case 2: $st = "Enviar";
                                             $titulo = "Remitida.";
                                             Break;
-                                        case 3: $st = "lock";
-                                            $color = "#8B8B8B";
+                                        case 3: $st = "Cerrar";
                                             $titulo = "Finalizada.";
                                             Break;
-                                        case 9: $st = "lock";
+                                        case 9: $st = "Archivar";
                                             $color = "red";
                                             $titulo = "Archivada.";
                                             break;
@@ -168,7 +165,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                         <td><?php echo $row['codigo_ave'] ?></td>
                                         <td><?php echo $row['tipo_origen'] == '1' ? $row['cod_den'] : $row['cod_org'] ?></td>
                                         <td><?php echo $row['fecha'] ?></td>
-                                        <td style="text-align: center"><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="cursor: pointer; font-size: 15px; color: <?php echo $color ?>" ></i></span></td>
+                                        <td style="text-align: center"><span><?php echo iconosIntranet($st, $titulo,false,$color,false)?></span></td>
                                         <td><?php echo $row['nombre'] . ' ' . $row['apellido'] ?></td>
 
                                         <td class="center">
@@ -177,11 +174,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                             $parametros = _desordenar($parametros);
                                             ?>  
                                             <a href="dashboard.php?data=investigacion-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
-                                                <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
-                                            </a><!--
-                                            <a href="javascript:eliminar('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>')" id="eliminar-us" title="Eliminar" >
-                                                <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-x-alt"></span></div>
-                                            </a>-->
+                                                <?php echo iconosIntranet('Informacion', 'Información',true,'black',false)?>
+                                            </a>
                                         </td>
                                     </tr>									
                                     <?php
@@ -205,23 +199,23 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         </thead>
                         <tbody>
                             <tr>
-                                <td><i class="fa fa-check"></i></td>
+                                <td><?php echo iconosIntranet('Activo', '',false,'black','12px')?></td>
                                 <td>- Abierta.</td>
                             </tr>
                             <tr>
-                                <td><i class="fa fa-edit"></i></td>
+                                <td><?php echo iconosIntranet('Editar', '',false,'black','12px')?></td>
                                 <td>- En Revisión.</td>
                             </tr>
                             <tr>
-                                <td><i class="fa fa-sign-out"></i></td>
+                                <td><?php echo iconosIntranet('Enviar', '',false,'black','12px')?></i></td>
                                 <td>- Remitida.</td>
                             </tr>
                             <tr>
-                                <td><i class="fa fa-lock"></i></td>
+                                <td><?php echo iconosIntranet('Cerrar', '',false,'black','12px')?></td>
                                 <td>- Finalizada.</td>
                             </tr>
                             <tr>
-                                <td><i class="fa fa-lock" style="color: red"></i></td>
+                                <td><?php echo iconosIntranet('Archivar', '',false,'red','12px')?></i></td>
                                 <td>- Archivada.</td>
                             </tr>
                         </tbody>

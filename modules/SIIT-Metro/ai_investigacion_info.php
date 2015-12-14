@@ -327,32 +327,32 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                             $editable = 'none';
                                             $finalizada = 'none';
                                             switch ($st_ave) {
-                                                case 0: $st = "check";
+                                                case 0: $st = "Activo";
                                                     $color = "green";
                                                     $texto = 'Abierta';
                                                     $Revision = '';
                                                     $editable = '';
                                                     $fecha_st = 'fecha';
                                                     break;
-                                                case 1: $st = "edit";
+                                                case 1: $st = "Editar";
                                                     $color = "#2563FF";
                                                     $texto = 'En revisión';
                                                     $Remitir = '';
                                                     $fecha_st = 'fecha_st_1';
                                                     break;
-                                                case 2: $st = "sign-out";
+                                                case 2: $st = "Enviar";
                                                     $color = "green";
                                                     $texto = 'Remitida.';
                                                     $fecha_st = 'fecha_st_2';
                                                     Break;
-                                                case 3: $st = "lock";
+                                                case 3: $st = "Cerrar";
                                                     $color = "green";
                                                     $texto = 'Finalizada';
                                                     $Archivar = 'none';
                                                     $fecha_st = 'fecha_st_3';
                                                     $finalizada = '';
                                                     Break;
-                                                case 9: $st = "lock";
+                                                case 9: $st = "Archivar";
                                                     $color = "red";
                                                     $texto = 'Archivada';
                                                     $Archivar = 'none';
@@ -361,7 +361,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                                     break;
                                             }
                                             ?>
-                                            <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?> <span style="color: black">, desde: </span> <?= $respuesta[$fecha_st] ?></span>	
+                                            <span><?php echo iconosIntranet($st, $titulo,false,$color,false)?></span> <span style="color: <?= $color ?>;vertical-align: middle" ><?= $texto ?> <span style="color: black">, desde: </span> <?= $respuesta[$fecha_st] ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
                                 </div>

@@ -55,16 +55,14 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         <?php
                         while ($row = mysql_fetch_array($sql)) {
                             switch ($row['status']) {
-                                case 0: $st = "check";
-                                    $act = "ban";
+                                case 0: $st = "Activo";
+                                    $act = "Inactivo";
                                     $tit_act = "Desactivar";
-                                    $color = "#8B8B8B";
                                     $titulo = 'Activo';
                                     break;
-                                case 1: $st = "ban";
-                                    $act = "check";
+                                case 1: $st = "Inactivo";
+                                    $act = "Activo";
                                     $tit_act = "Activar";
-                                    $color = "#8B8B8B";
                                     $titulo = 'Inactivo';
                                     break;
                             }
@@ -72,7 +70,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             <tr class="gradeA">
                                 <td><?php echo $row['cedula_invest'] ?></td>
                                 <td><?php echo $row['nombre'] . " " . $row['apellido'] ?></td>
-                                <td style="text-align: center"><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="cursor: pointer; font-size: 15px; color: <?php echo $color ?>" ></i></span></td>
+                                <td style="text-align: center"><span><?php echo iconosIntranet($st, $titulo,false,false,false)?></span></td>
                                 <td><?php echo $row['cargo'] ?></td>
                                 <td class="center">
                                     <?php
@@ -83,10 +81,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     $parametros2 = _desordenar($parametros2);
                                     ?>  
                                     <a href="dashboard.php?data=investigador-ai-info&flag=1&<?php echo $parametros2; ?>" id="editar" title="Información" >
-                                        <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
+                                        <?php echo iconosIntranet('Informacion', 'Información',true,'black',false)?>
                                     </a>
                                     <a href="javascript:CambiarStatus_Investigador('<?php echo $row['nombre'] . " " . $row['apellido'] ?>','dashboard.php?data=investigador-ai-eliminar&flag=1&<?php echo $parametros; ?>','<?= $row['status'] ?>')" id="eliminar-us" title="<?= $tit_act ?>" >
-                                        <i class="fa fa-<?= $act ?>" style="color: black; font-size: 15px"></i>
+                                        <?php echo iconosIntranet($act, $tit_act,true,'black',false)?>
                                     </a>
                                 </td>
                             </tr>									
@@ -111,11 +109,11 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 </thead>
                 <tbody>
                     <tr>
-                        <td><i class="fa fa-check"></i></td>
+                        <td><?php echo iconosIntranet('Activo', '',false,'black','12px')?></td>
                         <td>- Activo.</td>
                     </tr>
                     <tr>
-                        <td><i class="fa fa-ban"></i></td>
+                        <td><?php echo iconosIntranet('Inactivo', '',false,'black','12px')?></td>
                         <td>- Inactivo.</td>
                     </tr>
                 </tbody>

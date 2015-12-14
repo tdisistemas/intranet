@@ -134,29 +134,29 @@ $codigo = $respuesta['codigo'];
                                         $Descartar = 'none';
                                         $Nueva = 'none';
                                         switch ($status) {
-                                            case 0: $st = "clock-o";
+                                            case 0: $st = "Espera";
                                                 $color = "#8B8B8B";
                                                 $Nueva = '';
                                                 $texto = 'En espera.';
                                                 $Descartar = '';
                                                 break;
-                                            case 1: $st = "check";
+                                            case 1: $st = "Activo";
                                                 $color = "green";
                                                 $texto = "Averiguación Abierta.";
                                                 $Info = '';
                                                 break;
-                                            case 2: $st = "lock";
+                                            case 2: $st = "Cerrar";
                                                 $color = "green";
                                                 $texto = 'Averiguación finalizada.';
                                                 $Info = '';
                                                 break;
-                                            case 9: $st = "trash";
+                                            case 9: $st = "Eliminar";
                                                 $color = "red";
                                                 $texto = 'Descartado.';
                                                 break;
                                         }
                                         ?>
-                                        <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                        <span><?php echo iconosIntranet($st, $titulo,false,$color,false)?></span> <span style="color: <?= $color ?>;vertical-align: middle" ><?= $texto ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
 

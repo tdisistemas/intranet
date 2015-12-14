@@ -280,12 +280,12 @@ if ($perfil_qry) {
                                     }
                                     switch ($rowInvest['status']) {
 
-                                        case 0: $st = "check";
+                                        case 0: $st = "Activo";
                                             $color = "green";
-                                            $texto = 'Activo';
+                                            $texto = 'Activo.';
                                             $titulo = 'Desactivar';
                                             break;
-                                        case 1: $st = "ban";
+                                        case 1: $st = "Inactivo";
                                             $color = "red";
                                             $texto = 'Inactivo.';
                                             $titulo = 'Activar';
@@ -298,7 +298,7 @@ if ($perfil_qry) {
                                 <div class="field-group">
                                     <label style="color:#B22222">Estatus:</label>
                                     <div class="field">
-                                        <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>
+                                        <span><?php echo iconosIntranet($st, $titulo,false,$color,false)?></span> <span style="color: <?= $color ?>;vertical-align: middle" ><?= $texto ?></span>
                                     </div>		
                                 </div> <!-- .field-group -->
                                 <div class="field-group">
