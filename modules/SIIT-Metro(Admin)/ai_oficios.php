@@ -60,22 +60,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                     <tbody>
                         <?php
                         while ($row = mysql_fetch_array($sql)) {
+                            $color = false;
                             switch ($row['status']) {
-                                case 0: $st = "clock-o";
-                                    $color = "#8B8B8B";
+                                case 0: $st = "Espera";
                                     $titulo = "En espera.";
                                     break;
-                                case 1: $st = "check";
-                                    $color = "#1100CD";
+                                case 1: $st = "Activo";
                                     $titulo = "Averiguación Abierta.";
                                     break;
-                                case 2: $st = "lock";
-                                    $color = "green";
+                                case 2: $st = "Cerrar";
                                     $titulo = "Averiguación Finalizada.";
                                     Break;
-                                case 9: $st = "trash";
-                                    $color = "red";
+                                case 9: $st = "Eliminar";
                                     $titulo = "Descartado.";
+                                    $color = 'red';
                                     break;
                             }
                             ?>
@@ -83,7 +81,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <td><?php echo $row['codigo'] ?></td>
                                 <td><?php echo $row['fecha'] ?></td>
                                 <td><?php echo $row['tipo'] ?></td>
-                                <td><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="vertical-align: central; cursor: pointer; font-size: 15px; color: <?php echo '#8B8B8B'//$color   ?>" ></i></span></td>
+                                <td><span><?php echo iconosIntranet($st, $titulo,false,$color,false)?></span></td>
                                 <td style="text-align: left"><?php echo $row['descripcion'] ?></td>
 
                                 <td style="text-align: left" >
@@ -91,8 +89,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     $parametros = 'id=' . $row["idOficio"];
                                     $parametros = _desordenar($parametros);
                                     ?>  
-                                    <a href="dashboard.php?data=oficios-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
-                                        <i class="fa fa-info-circle" style="color: black; font-size: 15px"></i>
+                                    <a href="dashboard.php?data=oficios-ai-info&flag=1&<?php echo $parametros; ?>" id="info" title="Información" >
+                                        <?php echo iconosIntranet('Informacion', 'Información.', true, 'black', false)?>
                                     </a>
                                 </td>
                             </tr>									
@@ -115,20 +113,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 </thead>
                 <tbody>
                     <tr>
-                        <td><i class="fa fa-clock-o"></i></td>
+                        <td><?php echo iconosIntranet('Espera', '',false,'black','12px')?></td>
                         <td>- En Espera.</td>
                     </tr>
                     <tr>
-                        <td><i class="fa fa-trash"></i></td>
-                        <td>- Descartado.</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa fa-check"></i></td>
+                        <td><?php echo iconosIntranet('Activo', '',false,'black','12px')?></td>
                         <td>- Averiguación Abierta.</td>
                     </tr>
                     <tr>
-                        <td><i class="fa fa-lock"></i></td>
+                        <td><?php echo iconosIntranet('Cerrar', '',false,'black','12px')?></td>
                         <td>- Averiguación Finalizada.</td>
+                    </tr>
+                    <tr>
+                        <td><?php echo iconosIntranet('Eliminar', '',false,'red','12px')?></td>
+                        <td>- Descartado.</td>
                     </tr>
                 </tbody>
             </table>

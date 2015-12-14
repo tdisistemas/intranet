@@ -25,7 +25,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     .field{
         width: 100%;
     }
-    
+
     .Campo-Tarjeta{
         border: 0.5px solid #B22222; 
         padding: 10px 0px 0px 10px; 
@@ -317,23 +317,23 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><i class="fa fa-check"></i></td>
+                                    <td><?php echo iconosIntranet('Activo', '', false, 'black', '12px') ?></td>
                                     <td>- Abierta.</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fa fa-edit"></i></td>
+                                    <td><?php echo iconosIntranet('Editar', '', false, 'black', '12px') ?></td>
                                     <td>- En Revisión.</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fa fa-sign-out"></i></td>
+                                    <td><?php echo iconosIntranet('Enviar', '', false, 'black', '12px') ?></i></td>
                                     <td>- Remitida.</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fa fa-lock"></i></td>
+                                    <td><?php echo iconosIntranet('Cerrar', '', false, 'black', '12px') ?></td>
                                     <td>- Finalizada.</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fa fa-lock" style="color: red"></i></td>
+                                    <td><?php echo iconosIntranet('Archivar', '', false, 'red', '12px') ?></i></td>
                                     <td>- Archivada.</td>
                                 </tr>
                             </tbody>
@@ -349,20 +349,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><i class="fa fa-clock-o"></i></td>
+                                    <td><?php echo iconosIntranet('Espera', '', false, 'black', '12px') ?></td>
                                     <td>- En Espera.</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fa fa-trash"></i></td>
-                                    <td>- Descartado.</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-check"></i></td>
+                                    <td><?php echo iconosIntranet('Activo', '', false, 'black', '12px') ?></td>
                                     <td>- Averiguación Abierta.</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fa fa-lock"></i></td>
+                                    <td><?php echo iconosIntranet('Cerrar', '', false, 'black', '12px') ?></td>
                                     <td>- Averiguación Finalizada.</td>
+                                </tr>
+                                <tr>
+                                    <td><?php echo iconosIntranet('Eliminar', '', false, 'red', '12px') ?></td>
+                                    <td>- Descartado.</td>
                                 </tr>
                             </tbody>
                         </table>

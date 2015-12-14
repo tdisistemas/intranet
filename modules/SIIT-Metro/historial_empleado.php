@@ -219,22 +219,22 @@ if ($perfil_qry) {
                         while ($row2 = mysql_fetch_array($sql2)) {
 
                             switch ($row2['status']) {
-                                case 0: $st = "check";
+                                case 0: $st = "Activo";
                                     $texto = 'Abierta.';
                                     break;
-                                case 1: $st = "edit";
+                                case 1: $st = "Editar";
                                     $color = "#2563FF";
                                     $texto = 'En revisión.';
                                     break;
-                                case 2: $st = "sign-out";
+                                case 2: $st = "Enviar";
                                     $color = "green";
                                     $texto = 'Remitida.';
                                     Break;
-                                case 3: $st = "lock";
+                                case 3: $st = "Cerrar";
                                     $color = "green";
                                     $texto = 'Finalizada.';
                                     Break;
-                                case 9: $st = "lock";
+                                case 9: $st = "Archivar";
                                     $color = "red";
                                     $texto = 'Archivada.';
                                     break;
@@ -260,7 +260,7 @@ if ($perfil_qry) {
                                                 <div class="field-group" style="max-width: 90%;text-align: center">								
                                                     <label style="color:#B22222">Estatus:</label>
                                                     <div class="field">
-                                                        <span><i class="fa fa-<?= $st ?>" style="color: <?= $color ?>" ></i></span> <span style="color: <?= $color ?>" ><?= $texto ?></span>	
+                                                        <span><?php echo iconosIntranet($st, '',false,$color,false)?></span> <span style="color: <?= $color ?>;vertical-align: middle" ><?= $texto ?></span>	
                                                     </div>
                                                 </div>
                                             </div>
