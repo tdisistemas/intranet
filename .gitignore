@@ -67,7 +67,6 @@
     *.swp
     *.out
     variables_config.php
-    conexiones_config.php
     initrd.img
     module_security.class.php
     prestaciones.tar.gz

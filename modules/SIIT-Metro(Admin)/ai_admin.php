@@ -231,6 +231,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         <a href="dashboard.php?data=investigadores" class="btn btn-primary btn-large dashboard_add">Investigadores</a>
                         <a href="dashboard.php?data=denuncias-ai" class="btn btn-primary btn-large dashboard_add">Denuncias</a>
                         <a href="dashboard.php?data=oficios-ai" class="btn btn-primary btn-large dashboard_add">Oficios</a>
+                        <a href="dashboard.php?data=reportes-ai" class="btn btn-primary btn-large dashboard_add">Reportes</a>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>
