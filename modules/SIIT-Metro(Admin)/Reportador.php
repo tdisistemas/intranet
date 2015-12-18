@@ -94,7 +94,7 @@ if (isset($_GET['acc'])) {
             $i++;
         }
         _adios_mysql();
-        echo json_encode(array('datos' => $datos, 'query' => $sqlcodemain));
+        echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($sqlcodemain, '../../src/images/cabecera.png','../../src/images/piepagina.png')));
     }
     if ($_GET['acc'] == 'Org') {
         
@@ -159,7 +159,7 @@ if (isset($_GET['acc'])) {
                 $i++;
             }
             _adios_mysql();
-            echo json_encode(array('datos' => $datos, 'query' => $sqlcodemain));
+            echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($sqlcodemain, '../../src/images/cabecera.png','../../src/images/piepagina.png')));
         }
         if ($json['origen'] == '2') {
             $datos = array();
@@ -214,7 +214,7 @@ if (isset($_GET['acc'])) {
                 $i++;
             }
             _adios_mysql();
-            echo json_encode(array('datos' => $datos, 'query' => $sqlcodemain));
+            echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($sqlcodemain, '../../src/images/cabecera.png','../../src/images/piepagina.png')));
         }
     }
 }

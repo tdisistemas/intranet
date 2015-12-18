@@ -384,6 +384,16 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
                 </div> <!-- .widget-content -->
             </div>
+            <div id="Grid-Importar box plain">
+                <form id="Reportador" action="gen_report/reportes.php" method="post" target="_blank">
+                    <input id="array" name="array" type="hidden" value="" >
+                    <input id="jasper" name="jasper" type="hidden" value="" >
+                    <input id="nombresalida" name="nombresalida" type="hidden" value="Averiguaciones" >
+                    <input id="formato" name="formato" type="hidden" value="" >
+                </form>
+                <button type="text" onclick="javascript: ActionReportador('pdf')" title="Exportar a PDF" class="btn btn-error" href="#"><i style="color: white; font-weight: 500; font-size: 25px" class="fa fa-file-pdf-o"></i></button>
+                <button type="text" onclick="javascript: ActionReportador('xlsx')" title="Exportar a EXCEL" class="btn btn-error" href="#"><i style="color: white; font-weight: 500; font-size: 25px" class="fa fa-file-excel-o"></i></button>
+            </div>
         </div> <!-- .grid -->
     </div><!-- .row -->
 </div><!-- .container-->
@@ -391,6 +401,11 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 <script type="text/javascript">
     window.onload = function () {
         espejo_gerencia();
+    }
+
+    function ActionReportador(formato) {
+        document.getElementById('formato').value = formato;
+        document.getElementById('Reportador').submit();
     }
 
     function TiposdeReportes(obj) {
@@ -420,7 +435,6 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         setTimeout(function () {
             $.uniform.update();
         }, 200);
-
     }
 
     function SeleccionarFecha(objeto) {
@@ -459,6 +473,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 {"sTitle": "Estatus", "sWidth": "6%", "mDataProp": "status", "sClass": "centrado"},
                 {"sTitle": "Investigador", "sWidth": "24%", "mDataProp": "investigador"}];
             titulo = 'Reporte de Averiguaciones';
+            document.getElementById('jasper').value = '/Asuntos_Internos/Averiguaciones.jasper';
+            document.getElementById('nombresalida').value = 'Averiguaciones';
             accion = 'Aver';
 
         } else if (reporte == '2') {
@@ -474,6 +490,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 {"sTitle": "Estatus", "sWidth": "10%", "mDataProp": "status", "sClass": "centrado"},
                 {"sTitle": "Descripción", "mDataProp": "descripcion"}];
 
+            document.getElementById('jasper').value = '/Asuntos_Internos/Origenes.jasper';
+            document.getElementById('nombresalida').value = 'Origenes';
             accion = 'Org';
             if (document.getElementById('tipoorigen').value == '1') {
                 titulo = 'Reporte de Denuncias';
@@ -488,7 +506,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             dataType: 'JSON',
             method: 'POST',
             beforeSend: function () {
-                $('#Grid-Tabla').css({'display': ''});
+                $('#Grid-Tabla,#Grid-Importar').css({'display': ''});
                 $('#ZonaTable').empty();
                 $('#ZonaTable').html('<table class="table table-bordered table-striped data-table"></table>');
             },
@@ -499,7 +517,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             success: function (data) {
                 $('#Nombre-Reporte').empty();
                 $('#Nombre-Reporte').html(titulo);
-
+                $('#array').val(data.query);
                 $(".data-table").dataTable({
                     "aoColumns": columnas,
                     "aaData": data.datos,
