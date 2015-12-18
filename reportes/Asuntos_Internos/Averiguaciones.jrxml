@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcd802cc-c05c-4567-90d7-007bb9b08e35">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="Query" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="img2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{Query}]]>
+	</queryString>
+	<field name="idAveriguacion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_origen" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="st_ave" class="java.lang.Integer"/>
+	<field name="cod_den" class="java.lang.String"/>
+	<field name="cod_org" class="java.lang.String"/>
+	<field name="codigo_ave" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_st_3" class="java.lang.String"/>
+	<field name="fecha_st_1" class="java.lang.String"/>
+	<field name="fecha_st_2" class="java.lang.String"/>
+	<field name="fecha_st_9" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="752" height="79" uuid="e932d357-50d1-4be2-acd6-e4d74ee112d3"/>
+				<imageExpression><![CDATA[$P{img1}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="74" height="20" uuid="104dfee6-e30e-4e2f-9cdc-3d3b6889f9e5"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="0" width="65" height="20" uuid="c788818d-4874-4b38-b5cb-9abbcf34eaf2"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="0" width="219" height="20" uuid="1c8d63f7-601e-431d-96c8-58895cc450fa"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Investigador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="0" width="74" height="20" uuid="6d45daa2-37bd-4f8f-98cb-720ec21ee4b0"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="0" width="49" height="20" uuid="dbc0f8f2-5d7e-4bb5-90ae-91061bcb6a9e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="74" height="20" uuid="701fc65e-98ff-443a-90d4-eac6d502afa9"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_ave}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="74" y="0" width="74" height="20" uuid="e04d77b4-f4a9-475b-9cdc-700b10ac7159"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_org} == null ?  $F{cod_den} : $F{cod_org}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="148" y="0" width="49" height="20" uuid="c829f15f-cdee-4f63-b702-753015e683bc"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="1" width="65" height="19" uuid="acaf20c1-7f90-4842-ae19-7a4ff2eb6d09"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{st_ave} == 0 ? "Abierta" : $F{st_ave} == 1 ? "En Revisión" : $F{st_ave} == 2 ? "Remitida" : $F{st_ave} == 3 ? "Finalizada" : $F{st_ave} == 9 ? "Archivada" : $F{st_ave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="0" width="219" height="20" uuid="caad0fdd-06de-46fd-b958-bda8104ee6a6"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre} +" "+ $F{apellido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="19" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="69" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="752" height="47" uuid="f542fe4a-2034-4e5c-8c38-31b7f2616bff"/>
+				<imageExpression><![CDATA[$P{img2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="629" y="47" width="80" height="20" uuid="e29d9832-08d5-4bd2-802b-6866470c6064"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="709" y="47" width="40" height="20" uuid="af9e36ca-66be-4345-8d9f-5156b3ef39fa"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

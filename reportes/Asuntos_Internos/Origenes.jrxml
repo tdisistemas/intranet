@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ad0c291-65f7-4ef9-91c0-c6393afa8be0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="img2" class="java.lang.String"/>
+	<parameter name="Query" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{Query}]]>
+	</queryString>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="113" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="752" height="57" uuid="95c94f79-0371-466d-abc4-c46e2b12cb6d"/>
+				<imageExpression><![CDATA[$P{img1}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="193" y="74" width="367" height="20" uuid="1ef869a2-7df8-4d18-bd31-67b8b6234744"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} == 1  ? $F{codigo}.substring(0,3)=="DEN" ? "Reporte de Denuncias" : "Reporte de Oficios" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="37" y="0" width="108" height="20" uuid="d1e7db24-388c-472f-a8db-94a6b13e6887"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="0" width="100" height="20" uuid="132544e2-f8e7-4161-9567-d3dbf75c0e53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="466" y="0" width="234" height="20" uuid="55e0c276-3fb0-4ddd-81d4-7a90e52bb189"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="0" width="115" height="20" uuid="4ce771c1-1157-4d9e-a5bf-6303820c9ffc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="0" width="74" height="20" uuid="43f37c31-c321-41a0-af1e-0f7d5b350727"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="37" y="0" width="108" height="20" uuid="21120cb8-fe6d-4846-af6c-5e5f6ae1569f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="0" width="100" height="20" uuid="d3539b9b-ad44-465d-bf01-ee96ef9fded7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="0" width="115" height="20" uuid="d006f908-fbe1-43d9-b020-f30c03d26b23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{status} == 0 ? "En Espera" : $F{status} == 1 ? "Ave. Abierta" : $F{status} == 2 ? "Ave. Finalizada" : $F{status} == 9 ? "Descartada" : $F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="74" height="20" uuid="70b76b19-b35a-47de-92e5-3a8e5b113d25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="444" y="0" width="234" height="20" isPrintInFirstWholeBand="true" uuid="786b8c1b-e019-4939-b4fe-39dc925df8e9"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="96" splitType="Stretch">
+			<textField>
+				<reportElement x="648" y="76" width="80" height="20" uuid="780219be-6369-4b20-b919-bd3e3c3cba2a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="728" y="76" width="40" height="20" uuid="5b16567d-8dff-451b-b6b3-51d8626b9994"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="29" width="752" height="47" uuid="9eccf5a4-d956-4fe9-b804-754becadeb6e"/>
+				<imageExpression><![CDATA[$P{img2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="13" y="29" width="367" height="20" uuid="8a7d0949-9409-4057-8e5c-1175fbda853a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} != 1  ? $F{codigo}.substring(0,3)=="DEN" ? "Reporte de Denuncias" : "Reporte de Oficios" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="17" splitType="Stretch"/>
+	</summary>
+</jasperReport>
