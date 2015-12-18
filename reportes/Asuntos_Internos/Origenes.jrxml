@@ -91,7 +91,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="yyyy/MM/dd">
 				<reportElement x="217" y="0" width="100" height="20" uuid="d3539b9b-ad44-465d-bf01-ee96ef9fded7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
