@@ -2,6 +2,7 @@
     *.class
 
     #netbeans ignore personal stuff
+    gen_report/    
     nbproject/
     3rd-party/
     canvas/

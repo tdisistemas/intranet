@@ -390,7 +390,7 @@ if ($perfil_qry) {
                     <p>En esta sección podrá visualizar la ficha de empleados de la Empresa</p>
                     <div class="box plain">
                         <?php
-                        $parametros = 'id=' . $id_empleado .'&cedula='. $cedula . '&nombre=' .$nombre . ' ' . $apellido; ;
+                        $parametros = 'id=' . $id_empleado .'&cedula='. $cedula . '&nombre=' .$nombre . ' ' . $apellido.'&correo='.$usuario_int . "@metrodemaracaibo.gob.ve";
                         $parametros = _desordenar($parametros);
                         ?>  
                         <a href="dashboard.php?data=citar&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add">Citar</a>
