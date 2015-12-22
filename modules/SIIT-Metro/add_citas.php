@@ -46,6 +46,7 @@ _bienvenido_mysql();
     <h2>Citas</h2>
 </div> <!-- #contentHeader -->	
 <?php
+$correo = _antinyeccionSQL($_GET['correo']);
 $cedula = _antinyeccionSQL($_GET['cedula']);
 $nombre = _antinyeccionSQL($_GET['nombre']);
 
@@ -57,19 +58,20 @@ if (isset($_POST['Submit'])) {
     $motivo = $_POST['MotivoCita'];
     $cedula = $_POST['CedulaCita'];
     $nombre = $_POST['NombreCita'];
+    $correo = $_POST['CorreoCita'];
     $investigador = $usuario_datos[3];
 
     $nombres = $usuario_datos['nombre'] . " " . $usuario_datos['apellido'];
     $mensajedelcorreo = "<img src='http://intranet.metrodemaracaibo.gob.ve/iconos/encamail.jpg' /><br><br>"
             . "<h3>Estimado, " . $nombre . "</h3>" . "<br /><h4> La presente es para informarle que es requerida su presencia "
-            . "en las oficinas de Seguridad Integral el dia " . $fecha . " a la(s) ".$hora.", por motivo: " . $motivo . ".</h4>"
-            . "<br /><br /><p>Agradeciendo su presencia y puntual asistencia, la Gerencia de Seguridad Integral";
-    _enviarmail($mensajedelcorreo, $nombre . ' ' . $apellido, trim('lorenis.pardo@metrodemaracaibo.gob.ve'), 'Cita');
+            . "en las oficinas de Seguridad Integral el día " . $fecha[8].$fecha[9] ."/".$fecha[5].$fecha[6]. " a la(s) ".$hora.", por motivo: " . $motivo . ".</h4>"
+            . "<br /><br /><p>Agradeciendo su presencia y puntual asistencia, <br> <b>Gerencia de Seguridad Integral</b>";
+    _enviarmail($mensajedelcorreo, $nombre . ' ' . $apellido, trim($correo), 'Cita');
 
     $sql = "INSERT INTO ai_citas(fecha,hora,motivo,empleado,fecha_creada,investigador) VALUES('" . $fecha . "','" . $hora . "','" . $motivo . "'," . $cedula . ",NOW()," . $investigador . ")";
     $result = mysql_query($sql);
     if ($result) {
-        notificar('Cita registrada con éxito', "javascript:window.history.go(-2)", "notify-success");
+        notificar($mensajedelcorreo, "javascript:window.history.go(-2)", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
@@ -105,6 +107,7 @@ if (isset($_POST['Submit'])) {
                                                 <span><?php echo $cedula; ?></span>
                                                 <input id="CedulaCita" name="CedulaCita" value="<?= $cedula ?>" style="display: none" />
                                                 <input id="NombreCita" name="NombreCita" value="<?= $nombre ?>" style="display: none" />
+                                                <input id="CorreoCita" name="CorreoCita" value="<?= $correo ?>" style="display: none" />
                                             </div>
                                         </div> <!-- .field-group -->
                                     </div>
