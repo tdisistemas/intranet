@@ -45,7 +45,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         
                        
                         
-                        $sql = mysql_query("SELECT  gc_control_gestion2.id_cgestion2,gc_control_gestion2.punto_cuenta,gc_control_gestion2.estatus2, gc_control_gestion.obra,gc_control_gestion2.id_cgestion2,gc_control_gestion2.n_proceso, gc_control_gestion2.servicio, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,gc_control_gestion2 WHERE "
+                        $sql = mysql_query("SELECT  gc_control_gestion2.id_cgestion2,gc_control_gestion2.punto_cuenta,gc_control_gestion2.estatus2,gc_control_gestion.n_proceso_completo, gc_control_gestion.obra,gc_control_gestion2.id_cgestion2,gc_control_gestion2.n_proceso, gc_control_gestion2.servicio, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,gc_control_gestion2 WHERE "
                                 . "gc_control_gestion2.n_proceso=gc_control_gestion.n_proceso and validacion_pdc=1");
                         $ano = date('y');
                         $actual = (explode("20", $ano));
@@ -70,7 +70,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             ?>
                             <tr class="gradeA">
                                 <td><?php echo 'PDC-'.'00'.$row["punto_cuenta"]. '-'.$actual[0] ?></td>
-                                <td><?php echo 'GC-' . $row["n_proceso"] . '-' . $actual[0] ?></td>
+                                <td><?php echo $row["n_proceso_completo"] ?></td>
                                 <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
                                 <td><?php echo $row["obra"] ?></td>
                                 <td style="text-align:center"><span><i class="fa fa-<?= $st ?>" title="<?= $titulo ?>" style="cursor: pointer; font-size: 15px; color: <?php echo $color ?>" ></i></span></td>

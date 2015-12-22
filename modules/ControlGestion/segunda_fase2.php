@@ -78,11 +78,12 @@ $actual=(explode("20",$ano));
 $conse3=$conse2+1;
 $consecutivo=mysql_query("update gc_controlconse set conse='".$conse3."' where caracteristicas='PDC' ");
 $punto_cuenta = $caracteristica . '-00'.$conse2.'-' . $actual[1] ;
-    }
 
+    }
+$servicio_completo = $tipo_soli. '-'. $id. '-00'. $conse1. '-'. $actual[1];
     
-    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`enviado_presidencia`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc) VALUES"
-            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "','" . $monto2 . "', '" . $desviacion. "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "')";
+    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,`montoec`,`enviado_presidencia`,`montooc`, `deviacion`, `montoate`, punto_cuenta, n_proceso, validacion_pdc,servicio_completo) VALUES"
+            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "','" . $monto2 . "', '" . $desviacion. "','" . $monto3 . "','" . $conse3 . "', '" . $id . "', '" . $validarpdc . "','" . $servicio_completo . "')";
     $result = mysql_query($sql);
     if ($result) {
         notificar("Ajuste de Precio ingresado con exito", "dashboard.php?data=controlg", "notify-success");

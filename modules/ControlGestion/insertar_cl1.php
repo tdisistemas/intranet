@@ -226,7 +226,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-            yearRange: "1950:2014"
+            yearRange: "2000:2016"
         });
     });
     function conMayusculas(field) {
