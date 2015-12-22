@@ -53,6 +53,7 @@ $nombre = _antinyeccionSQL($_GET['nombre']);
 if (isset($_POST['Submit'])) {
 
     $fecha = $_POST['FechaCita'];
+    $hora = $_POST['HoraCita'];
     $motivo = $_POST['MotivoCita'];
     $cedula = $_POST['CedulaCita'];
     $nombre = $_POST['NombreCita'];
@@ -60,13 +61,12 @@ if (isset($_POST['Submit'])) {
 
     $nombres = $usuario_datos['nombre'] . " " . $usuario_datos['apellido'];
     $mensajedelcorreo = "<img src='http://intranet.metrodemaracaibo.gob.ve/iconos/encamail.jpg' /><br><br>"
-            . "<h3>Estimado, " . $nombre . "</h3>" . "<br /><h4> La presente es para informarle que el señor " . $nombres . ", "
-            . "una solicitud de permiso para ausentarse del area de trabajo,  se requiere que  evalúe si éste "
-            . "le será concedido o negado. </h4>" . "<br /><br /><p>Para ello haga click en el siguiente enlace."
-            . "</p><br /><img src='http://intranet.metrodemaracaibo.gob.ve/src/images/metropie.jpg'  style='width: 600px;' />";
-    //_enviarmail($mensajedelcorreo, $nombre . ' ' . $apellido, trim('pedro.alarcon@metrodemaracaibo.gob.ve'), 'Permiso pendiente de: ' . $nombres . ' ');
+            . "<h3>Estimado, " . $nombre . "</h3>" . "<br /><h4> La presente es para informarle que es requerida su presencia "
+            . "en las oficinas de Seguridad Integral el dia " . $fecha . " a la(s) ".$hora.", por motivo: " . $motivo . ".</h4>"
+            . "<br /><br /><p>Agradeciendo su presencia y puntual asistencia, la Gerencia de Seguridad Integral";
+    _enviarmail($mensajedelcorreo, $nombre . ' ' . $apellido, trim('lorenis.pardo@metrodemaracaibo.gob.ve'), 'Cita');
 
-    $sql = "INSERT INTO ai_citas(fecha,motivo,empleado,fecha_creada,investigador) VALUES('" . $fecha . "','" . $motivo . "'," . $cedula . ",NOW()," . $investigador . ")";
+    $sql = "INSERT INTO ai_citas(fecha,hora,motivo,empleado,fecha_creada,investigador) VALUES('" . $fecha . "','" . $hora . "','" . $motivo . "'," . $cedula . ",NOW()," . $investigador . ")";
     $result = mysql_query($sql);
     if ($result) {
         notificar('Cita registrada con éxito', "javascript:window.history.go(-2)", "notify-success");
@@ -126,6 +126,14 @@ if (isset($_POST['Submit'])) {
                                     </div> <!-- .row-fluid -->
                                     <div class="grid-24">
                                         <div class="field-group">								
+                                            <label style="color:#B22222">Hora:</label>
+                                            <div class="field">
+                                                <input id="HoraCita" class="timepicker validate[required]" name="HoraCita" size="14" value="" style="min-width: 20%; max-width: 80%" readonly>
+                                            </div>
+                                        </div> <!-- .field-group -->
+                                    </div> <!-- .row-fluid -->
+                                    <div class="grid-24">
+                                        <div class="field-group">								
                                             <label style="color:#B22222">Motivo:</label>
                                             <div class="field">
                                                 <textarea id="MotivoCita" name="MotivoCita" cols="8" rows="8" style="min-width: 40%; max-width: 80%" class="validate[required]"></textarea>
@@ -168,6 +176,7 @@ _adios_mysql();
         espejo_gerencia();
     }
     $(function () {
+
         $.datepicker.setDefaults($.datepicker.regional["es"]);
         $(".datepicker").datepicker({
             dateFormat: 'yy-mm-dd',
@@ -177,5 +186,16 @@ _adios_mysql();
             minDate: '0'
         });
         $('.datepicker').datepicker('setDate', '0');
+
+        $(".timepicker").timepicker({
+            timeFormat: 'hh:mm',
+            showPeriod: true,
+            showCloseButton: true,
+            rows: 2,
+            hours: {
+                starts: 8, // First displayed hour
+                ends: 16                  // Last displayed hour
+            }
+        });
     });
 </script>

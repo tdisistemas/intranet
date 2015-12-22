@@ -491,13 +491,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 {"sTitle": "Descripción", "mDataProp": "descripcion"}];
 
             document.getElementById('jasper').value = '/Asuntos_Internos/Origenes.jasper';
-            document.getElementById('nombresalida').value = 'Origenes';
+            
             accion = 'Org';
             if (document.getElementById('tipoorigen').value == '1') {
                 titulo = 'Reporte de Denuncias';
+                document.getElementById('nombresalida').value = 'Denuncias';
                 columnas.push({"sTitle": "Denunciante", "sWidth": "25%", "mDataProp": "denunciante"});
             } else {
                 titulo = 'Reporte de Oficios';
+                document.getElementById('nombresalida').value = 'Oficios';
             }
 
         }

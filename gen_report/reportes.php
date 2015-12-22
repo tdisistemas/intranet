@@ -11,7 +11,7 @@ use net\sf\jasperreports\export\SimpleOutputStreamExporterOutput as Soseo;
 //=======POST=============================
 $directorio = dirname(__FILE__);
 	$formato = $_POST['formato'];//Extencion archivo pdf o xlsx
-	$name = $_POST['nombresalida'].".".$formato;//   NOMBRE DEL ARCHIVO + la extencion
+	$name = $_POST['nombresalida']."_".date("YmdHis").".".$formato;//   NOMBRE DEL ARCHIVO + la extencion
 	$Parametros = $_POST['array'];// Parametros recibidos como areglo bidimencional
 	$report_jasper = $directorio."/../reportes/".$_POST['jasper'];//direccion del archivo.jasper --> platilla generada en iReport
 
