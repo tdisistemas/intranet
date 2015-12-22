@@ -8,6 +8,12 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 ?>
+<?php
+ $nombreImg1 = "..\\..\\src\\images\\cabecera.png";
+ $nombreImg2 = "..\\..\\src\\images\\piepagina.png";
+
+    
+?>
 
 <div id="contentHeader">
     <h2>Registro de Procesos</h2>
@@ -24,7 +30,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <h3>Consulta de los Procesos</h3>
             </div> <!-- .widget-header -->
             <div class="widget-content">
-                <form onsubmit="javascript:return validacion();" class="form validateForm" action="dashboard.php?data=control_gestion_reporte" method="POST" name="form">
+                <form onsubmit="javascript:return validacion();" class="form validateForm" action="" method="post">
                     <div class="grid-6"> 
                         <label>Por Fecha:</label>
                         <div class="field-group">
@@ -122,7 +128,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         </div> <!-- .widget -->
     </div> <!-- .grid -->
     
-
+   
     <?php
     if (isset($_POST['tabla']) && $_POST['tabla'] == "1") {
         ?>
@@ -149,29 +155,39 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         </thead>
                         <tbody>
                             <?php
-                            $sql_query = "SELECT  gc_control_gestion.id_cgestion,gc_control_gestion.n_proceso,gc_control_gestion.fecha_ingreso,
+                            $sql_query = "SELECT  gc_control_gestion.id_cgestion,gc_control_gestion.n_proceso_completo,gc_control_gestion.fecha_ingreso,
                               gc_control_gestion.gerencia_req,gc_control_gestion.responsable,gc_control_gestion.obra, 
-                              gc_control_gestion.estatus, gc_control_gestion2.tipo_solicitud FROM gc_control_gestion,
+                              gc_control_gestion.estatus, gc_control_gestion2.tipo_solicitud,gc_control_gestion2.n_proceso, gc_control_gestion2.servicio_completo, gc_control_gestion2.montoec, 
+                              gc_control_gestion2.montooc, gc_control_gestion2.montoate FROM gc_control_gestion,
                               gc_control_gestion2 WHERE gc_control_gestion2.n_proceso=gc_control_gestion.n_proceso and 1";
+                            
+                               
                             if (isset($_POST['desde']) && $_POST['desde'] != '') {
                                 $sql_query.= " AND fecha_ingreso>='" . $_POST['desde'] . "'";
+                               
                             }
                             if (isset($_POST['hasta']) && $_POST['hasta'] != '') {
                                 $sql_query.= " AND fecha_ingreso<='" . $_POST['hasta'] . "'";
+                               
                             }
                             if (isset($_POST['gerencia']) && $_POST['gerencia'] != '') {
                                 $sql_query.= " AND gerencia_req='" . $_POST['gerencia'] . "'";
+                                
                             }
                             if (isset($_POST['responsable']) && $_POST['responsable'] != '') {
                                 $sql_query.= " AND responsable='" . $_POST['responsable'] . "'";
+                               
                             }
                             if (isset($_POST['estatus']) && $_POST['estatus'] != '') {
                                 $sql_query.= " AND estatus='" . $_POST['estatus'] . "'";
+                                
                             }
                             if (isset($_POST['tipo_solicitud']) && $_POST['tipo_solicitud'] != '') {
                                 $sql_query.= " AND tipo_solicitud='" . $_POST['tipo_solicitud'] . "'";
+                               
                             }
-                            alertadev($sql_query);
+                            
+                            
                             $sql = mysql_query($sql_query);
                             $ano = date('y');
                             $actual = (explode("20", $ano));
@@ -192,7 +208,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 ?>
 
                                 <tr class="gradeA">
-                                    <td><?php echo 'GC-' . $row["n_proceso"] . '-' . $actual[0] ?></td>
+                                    <td><?php echo $row["n_proceso_completo"] ?></td>
                                     <td><?php echo $row["fecha_ingreso"] ?></td>
                                     <td><?php echo $row["gerencia_req"] ?></td>
                                     <td><?php echo $row["responsable"] ?></td>
@@ -204,7 +220,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     <?php } ?>
 
                         </tbody>
+                        
                     </table>
+                    <div id="Grid-Importar box plain"> 
+                        <form id="Reportador" action="/intranet/gen_report/reportes.php" method="post" target ="_blank">
+                            <input id="array" name="array" type="hidden" value="<?php echo parametrosReporte($sql_query, $nombreImg1, $nombreImg2)?>" >
+                            <input id="jasper" name="jasper" type="hidden" value="/ControlGestionAdmin/reportecg.jasper" >
+                            <input id="nombresalida" name="nombresalida" type="hidden" value="Procesos Incluidos" >
+                            <input type="hidden" name="formato" id="formato" value="" >
+                        </form>
+                           <button type="text" onclick="javascript: ActionReportador('pdf')" title="Exportar a PDF" class="btn btn-error" href="#"><i style="color: white; font-weight: 500; font-size: 25px" class="fa fa-file-pdf-o"></i></button>
+                           <button type="text" onclick="javascript: ActionReportador('xlsx')" title="Exportar a EXCEL" class="btn btn-error" href="#"><i style="color: white; font-weight: 500; font-size: 25px" class="fa fa-file-excel-o"></i></button>   
+                    </div>
+           
+            </div>
 
                 </div> <!-- .widget-content -->
 
@@ -235,7 +264,11 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         </thead>
                         <tbody>
     <?php
-    $sql_query = "SELECT id_cgestion2,n_proceso, servicio, tipo_solicitud, montoec, montooc, montoate, enviado_presidencia FROM gc_control_gestion2 WHERE 1";
+    $sql_query = "SELECT  gc_control_gestion.id_cgestion,gc_control_gestion.n_proceso_completo,gc_control_gestion.fecha_ingreso,
+                              gc_control_gestion.gerencia_req,gc_control_gestion.responsable,gc_control_gestion.obra, 
+                              gc_control_gestion.estatus, gc_control_gestion2.tipo_solicitud,gc_control_gestion2.n_proceso, gc_control_gestion2.servicio_completo, gc_control_gestion2.montoec, 
+                              gc_control_gestion2.montooc, gc_control_gestion2.montoate FROM gc_control_gestion,
+                              gc_control_gestion2 WHERE gc_control_gestion2.n_proceso=gc_control_gestion.n_proceso and 1";
     if (isset($_POST['desde']) && $_POST['desde'] != '') {
         $sql_query.= " AND enviado_presidencia>='" . $_POST['desde'] . "'";
     }
@@ -261,13 +294,26 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     <td><?php echo $row["montooc"] ?></td>
                                     <td><?php echo $row["montoate"] ?></td> 
                                 </tr>
+                         
 
     <?php } ?>
-
+             
+             
+             
 
                         </tbody>
 
                     </table>
+                    <div id="Grid-Importar box plain"> 
+                        <form id="Reportador" action="/intranet/gen_report/reportes.php" method="post" target ="_blank">
+                            <input id="array" name="array" type="hidden" value="<?php echo parametrosReporte($sql_query, $nombreImg1, $nombreImg2)?>" >
+                            <input id="jasper" name="jasper" type="hidden" value="/ControlGestionAdmin/servicio.jasper" >
+                            <input id="nombresalida" name="nombresalida" type="hidden" value="Servicio" >	
+                            <input type="hidden" name="formato" id="formato" value="" >
+                        </form>
+                           <button type="text" onclick="javascript: ActionReportador('pdf')" title="Exportar a PDF" class="btn btn-error" href="#"><i style="color: white; font-weight: 500; font-size: 25px" class="fa fa-file-pdf-o"></i></button>
+                           <button type="text" onclick="javascript: ActionReportador('xlsx')" title="Exportar a EXCEL" class="btn btn-error" href="#"><i style="color: white; font-weight: 500; font-size: 25px" class="fa fa-file-excel-o"></i></button>   
+                    </div>
                 </div> <!-- .widget-content -->
             </div>
         </div> <!-- .grid -->
@@ -278,8 +324,13 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
     </div> <!-- .grid -->
 
-    <script>
-        function Block(esto)
+    <script type="text/javascript">
+     function ActionReportador(formato) {
+        document.getElementById('formato').value = formato;
+        document.getElementById('Reportador').submit();
+    }    
+    
+    function Block(esto)
         {
             if (esto.value == 2)
             {

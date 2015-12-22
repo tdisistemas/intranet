@@ -50,10 +50,11 @@ if (isset($_POST['enviar'])) {
     $ano = date('Y');
     $actual = (explode("20", $ano));
     $conse1 = $conse + 1;
+    $servicio_completo = $tipo_soli. '-'. $id. '-00'. $conse1. '-'. $actual[1];
 
     $status = mysql_query("update gc_control_gestion set estatus_servi=1 where n_proceso='$id' ");
-    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,montoec,`enviado_presidencia`, `recibido_presidencia`, n_proceso) VALUES"
-            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "', '" . $recibido_presi . "', '" . $id . "')";
+    $sql = "INSERT INTO `gc_control_gestion2` (servicio,`tipo_solicitud`,montoec,`enviado_presidencia`, `recibido_presidencia`, n_proceso, servicio_completo) VALUES"
+            . " ('" . $conse1 . "','" . $tipo_soli . "','" . $monto1 . "','" . $enviado_presi . "', '" . $recibido_presi . "', '" . $id . "', '" . $servicio_completo . "')";
     $result = mysql_query($sql);
     if ($result) {
         notificar("Estimación de Costo ingresada con exito", "dashboard.php?data=controlg", "notify-success");
@@ -185,7 +186,7 @@ if (isset($_POST['enviar'])) {
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-            yearRange: "2000:215"
+            yearRange: "2000:2015"
         });
     });
 

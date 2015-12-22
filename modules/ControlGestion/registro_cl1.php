@@ -31,18 +31,17 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             <th style="width:10%">N° de Proceso</th>
                             <th style="width:10%">Fecha de Ingreso</th>
                             <th style="width:25%">Gerencia Requiriente</th>
-                            <th style="width:20%">Responsable</th>
-                            <th style="width:10%">Nombre de la Obra/Actividad</th>
+                            <th style="width:15%">Responsable</th>
+                            <th style="width:20%">Nombre de la Obra/Actividad</th>
                             <th style="width:5%">Estatus</th>
-                            <th style="width:10%">Opciones</th>
+                            <th style="width:15%">Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         mysql_query("set names utf8");
                         $sql = mysql_query("SELECT * FROM gc_control_gestion");
-                        $ano = date('y');
-                        $actual = (explode("20", $ano));
+                       
                         while ($row = mysql_fetch_array($sql)) {
                         switch ($row[8]) {
                                             case 1: $st = "pencil-square-o";
@@ -58,7 +57,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                             ?>
                         
                             <tr class="gradeA">
-                                <td><?php echo 'GC-' . $row[2] . '-' . $actual[0] ?></td>
+                                <td><?php echo $row["n_proceso_completo"] ?></td>
                                 <td><?php echo $row[3] ?></td>
                                 <td><?php echo $row[4] ?></td>
                                 <td><?php echo $row[5] ?></td>
