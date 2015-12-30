@@ -349,7 +349,7 @@ if (isset($_POST['Submit'])) {
                                 <div class="grid-24" style="text-align: center">
                                     <div class="field-group">								
                                         <div class="actions">
-                                            <button name="Submit" type="submit" class="btn btn-error">Registrar Investigación</button>
+                                            <button name="Submit" type="submit" class="btn btn-error">Registrar Averiguación</button>
                                             <input type="button" name="Atras" onclick="javascript:window.history.back();" class="btn btn-error" value="Cancelar" />
                                         </div> <!-- .actions -->
                                     </div> <!-- .field-group -->
