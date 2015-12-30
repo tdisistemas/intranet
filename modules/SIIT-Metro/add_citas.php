@@ -71,7 +71,7 @@ if (isset($_POST['Submit'])) {
     $sql = "INSERT INTO ai_citas(fecha,hora,motivo,empleado,fecha_creada,investigador) VALUES('" . $fecha . "','" . $hora . "','" . $motivo . "'," . $cedula . ",NOW()," . $investigador . ")";
     $result = mysql_query($sql);
     if ($result) {
-        notificar($mensajedelcorreo, "javascript:window.history.go(-2)", "notify-success");
+        notificar("Cita registrada con éxito", "javascript:window.history.go(-2)", "notify-success");
     } else {
         if ($SQL_debug == '1') {
             die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
