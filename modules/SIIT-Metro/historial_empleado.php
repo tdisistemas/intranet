@@ -57,6 +57,7 @@ if (!$_GET['flag']) {
 decode_get2($_SERVER["REQUEST_URI"], 2);
 
 $id = _antinyeccionSQL($_GET['id']);
+$origen = _antinyeccionSQL($_GET['Origen']);
 _bienvenido_mysql();
 
 $sql = "SELECT ";
@@ -311,10 +312,6 @@ if ($perfil_qry) {
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá visualizar el historial de incidencias del empleado <i><?= $nombre . ' ' . $apellido ?></i></p>
                     <div class="box plain">
-                        <?php
-                        $parametros = 'id=' . $id_empleado;
-                        $parametros = _desordenar($parametros);
-                        ?>  
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>
@@ -327,4 +324,9 @@ if ($perfil_qry) {
     window.onload = function () {
         espejo_gerencia();
     }
+    $(document).ready(function(){
+        activame('<?=$origen?>');
+        $('#'+'<?=$origen?>').addClass('opened');
+        $('#'+'<?=$origen?> ul').css({'display':'block'});
+    });
 </script>

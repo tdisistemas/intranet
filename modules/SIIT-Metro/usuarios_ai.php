@@ -15,29 +15,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
 <div class="container">
     <?php include('notificador.php'); ?>
-
-
-
     <div class="grid-24">	
         <div class="widget widget-plain">
-
             <div class="widget-content">
-
                 <?php
                 _bienvenido_mysql();
-
                 ?>
             </div> <!-- .widget-content -->
-
         </div> <!-- .widget -->	
     </div> <!-- .grid -->
-
-    <div class="grid-24">	
+    <div class="grid-18">	
         <div class="widget widget-table">
             <div class="widget-header">
                 <span class="icon-list"></span>
-                <h3 class="icon chart">Registro de Usuarios/Empleados</h3>		
-                <span class="icon-user"></span>
+                <h3 class="icon chart">Registro de Usuarios/Empleados</h3>
             </div>
             <div class="widget-content">
                 <table class="table table-bordered table-striped data-table">
@@ -55,9 +46,6 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         usuario_bkp.correo_corporativo,usuario_bkp.correo_principal,
                         usuario_bkp.telefono,usuario_bkp.habilitado,usuario_bkp.usuario_int,'disponible',autenticacion.perfil,perfiles.perfil AS perfil_nom,perfiles.role AS role,usuario_bkp.ubicacion_laboral
                         FROM usuario_bkp LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id WHERE usuario_bkp.habilitado =1 ";
-
-
-
                         $sql = mysql_query($sqlcode);
                         while ($row = mysql_fetch_array($sql)) {
                             ?>
@@ -65,10 +53,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <td><?php echo $row[3] ?></td>
                                 <td><?php echo $row[1] . " " . $row[2] ?></td>
                                 <td><?php echo $row[14] ?></td>
-
                                 <td class="center">
                                     <?php
-                                    $parametros = 'id=' . $row["id_usuario"];
+                                    $parametros = 'cedula=' . $row[3];
+                                    $parametros .= '&Origen=admin_ai';
                                     $parametros = _desordenar($parametros);
                                     ?>  
                                     <a href="dashboard.php?data=usuario-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
@@ -82,6 +70,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             </div> <!-- .widget-content -->
         </div>
     </div> <!-- .grid -->
+    <div class="grid-6">
+        <div id="gettingStarted" class="box">
+            <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
+            <p>En esta sección podrá visualizar la lista de los Empleados de la Empresa.</p>
+            <div class="box plain">
+                
+            </div>
+        </div>
+    </div>
 </div> <!-- .container -->
 <script type="text/javascript">
     function eliminar(perfil, param) {

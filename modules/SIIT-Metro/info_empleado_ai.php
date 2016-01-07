@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (array_pop(explode('/', $_SERVER['PHP_SELF'])) != 'dashboard.php') {
     header("Location: ../../dashboard.php");
 }
@@ -70,6 +70,8 @@ if (!$_GET['flag']) {
 decode_get2($_SERVER["REQUEST_URI"], 2);
 
 $ci = _antinyeccionSQL($_GET['cedula']);
+$origen = _antinyeccionSQL($_GET['Origen']);
+
 _bienvenido_mysql();
 
 $sql = "SELECT ";
@@ -93,7 +95,6 @@ $sql.="usuario_bkp ";
 $sql.="LEFT JOIN autenticacion ON autenticacion.cedula = usuario_bkp.usuario ";
 $sql.="LEFT JOIN perfiles ON autenticacion.perfil = perfiles.id ";
 $sql.="WHERE usuario_bkp.usuario=" . $ci;
-
 
 
 $perfil_qry = mysql_query($sql);
@@ -331,13 +332,13 @@ if ($perfil_qry) {
                                     <label style="color:#B22222">Correo Institucional:</label>
                                     <div class="field">
                                         <?php
-                                       /* if (_correo_existe($usuario_int . "@metrodemaracaibo.gob.ve") == 'SI') {
-                                            $poseecorreo = $usuario_int . "@metrodemaracaibo.gob.ve";
-                                        } else {
-                                            $poseecorreo = "*** No Posee Correo ***";
-                                        }*/
+                                        /* if (_correo_existe($usuario_int . "@metrodemaracaibo.gob.ve") == 'SI') {
+                                          $poseecorreo = $usuario_int . "@metrodemaracaibo.gob.ve";
+                                          } else {
+                                          $poseecorreo = "*** No Posee Correo ***";
+                                          } */
                                         ?>
-                                        <span><?php echo $usuario_int . "@metrodemaracaibo.gob.ve"; //$poseecorreo; ?></span>	
+                                        <span><?php echo $usuario_int . "@metrodemaracaibo.gob.ve"; //$poseecorreo;  ?></span>	
                                     </div>
                                 </div> <!-- .field-group -->
                                 <div class="field-group">
@@ -390,10 +391,15 @@ if ($perfil_qry) {
                     <p>En esta sección podrá visualizar la ficha de empleados de la Empresa</p>
                     <div class="box plain">
                         <?php
-                        $parametros = 'id=' . $id_empleado .'&cedula='. $cedula . '&nombre=' .$nombre . ' ' . $apellido.'&correo='.$usuario_int . "@metrodemaracaibo.gob.ve";
+                        $parametros = 'id=' . $id_empleado . '&cedula=' . $cedula . '&nombre=' . $nombre . ' ' . $apellido . '&correo=' . $usuario_int . "@metrodemaracaibo.gob.ve". '&Origen=' . $origen;
                         $parametros = _desordenar($parametros);
                         ?>  
-                        <a href="dashboard.php?data=citar&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add">Citar</a>
+                        <a href="dashboard.php?data=citar_ai&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add">Citar</a>
+                        <?php
+                        if ($usuario_datos[11] == 39 || $usuario_datos[11] == 21 || $usuario_datos[11] == 18) {
+                            ?>
+                            <a href="dashboard.php?data=sanciones_ai&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add" >Sanciones</a>
+                        <?php } ?>
                         <a href="dashboard.php?data=historial-ai&flag=1&<?php echo $parametros; ?>" class="btn btn-primary btn-large dashboard_add" >Historial de Incidentes</a>
                         <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
@@ -407,4 +413,9 @@ if ($perfil_qry) {
     window.onload = function () {
         espejo_gerencia();
     }
+    $(document).ready(function(){
+        activame('<?=$origen?>');
+        $('#'+'<?=$origen?>').addClass('opened');
+        $('#'+'<?=$origen?> ul').css({'display':'block'});
+    });
 </script>

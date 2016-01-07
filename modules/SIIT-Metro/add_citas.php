@@ -49,6 +49,7 @@ _bienvenido_mysql();
 $correo = _antinyeccionSQL($_GET['correo']);
 $cedula = _antinyeccionSQL($_GET['cedula']);
 $nombre = _antinyeccionSQL($_GET['nombre']);
+$origen = _antinyeccionSQL($_GET['Origen']);
 
 
 if (isset($_POST['Submit'])) {
@@ -64,7 +65,7 @@ if (isset($_POST['Submit'])) {
     $nombres = $usuario_datos['nombre'] . " " . $usuario_datos['apellido'];
     $mensajedelcorreo = "<img src='http://intranet.metrodemaracaibo.gob.ve/iconos/encamail.jpg' /><br><br>"
             . "<h3>Estimado, " . $nombre . "</h3>" . "<br /><h4> La presente es para informarle que es requerida su presencia "
-            . "en las oficinas de Seguridad Integral el día " . $fecha[8].$fecha[9] ."/".$fecha[5].$fecha[6]. " a la(s) ".$hora.", por motivo: " . $motivo . ".</h4>"
+            . "en las oficinas de Seguridad Integral el día " . $fecha[8] . $fecha[9] . "/" . $fecha[5] . $fecha[6] . " a la(s) " . $hora . ", por motivo: " . $motivo . ".</h4>"
             . "<br /><br /><p>Agradeciendo su presencia y puntual asistencia, <br> <b>Gerencia de Seguridad Integral</b>";
     _enviarmail($mensajedelcorreo, $nombre . ' ' . $apellido, trim($correo), 'Cita');
 
@@ -196,9 +197,13 @@ _adios_mysql();
             showCloseButton: true,
             rows: 2,
             hours: {
-                starts: 8, // First displayed hour
-                ends: 16                  // Last displayed hour
+                starts: 8,
+                ends: 16
             }
         });
+
+        activame('<?= $origen ?>');
+        $('#' + '<?= $origen ?>').addClass('opened');
+        $('#' + '<?= $origen ?> ul').css({'display': 'block'});
     });
 </script>
