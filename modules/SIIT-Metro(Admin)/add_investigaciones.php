@@ -249,7 +249,7 @@ if (isset($_POST['Submit'])) {
                                             <div class="grid-8">
                                                 <div class="field-group" style="">
                                                     <div class="" style="margin: auto">
-                                                        <img id="retrato" style=" border: solid 5px #ddd;width: 90px; height: 90px;" src="src/images/FOTOS/No-User.jpg"/>
+                                                        <img id="retrato" style=" border: solid 5px #ddd;width: 90px; height: 90px;" src="src/images/FOTOS/No-User.png"/>
                                                     </div>
                                                 </div> <!-- .field-group -->
                                             </div> <!-- .field-group -->

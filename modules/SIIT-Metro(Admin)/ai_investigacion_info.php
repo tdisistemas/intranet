@@ -204,6 +204,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                             $extension = $Involucrado['ext_telefonica'];
 
                             $parametros2 = 'cedula=' . $Involucrado['cedula'];
+                            $parametros2 .= '&Origen=admin_ai';
                             $parametros2 = _desordenar($parametros2);
                             if ($i != 0) {
                                 ?>

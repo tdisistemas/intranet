@@ -101,7 +101,7 @@ if (isset($_POST['Submit'])) {
                                     <div class="grid-12">
                                         <div class="field-group">
                                             <div class="" style="text-align: center">
-                                                <img id="retrato" style=" border: solid 5px #ddd;max-width: 100px;max-height: 100px;" src="src/images/FOTOS/No-User.jpg"/>
+                                                <img id="retrato" style=" border: solid 5px #ddd;max-width: 100px;max-height: 100px;" src="src/images/FOTOS/No-User.png"/>
                                             </div>
                                             </br>
                                         </div> <!-- .field-group -->
@@ -202,7 +202,7 @@ _adios_mysql();
                 dataType: 'JSON',
                 method: 'POST',
                 beforeSend: function () {
-                    document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.jpg');
+                    document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.png');
                     document.getElementById("NombreInvestigador").innerHTML = '<br>';
                     document.getElementById("CedulaInvestigador").innerHTML = '<br>';
                     document.getElementById("CorreoInvestigador").innerHTML = '<br>';

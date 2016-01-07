@@ -96,6 +96,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                                 <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
                                                 <li><a href="dashboard.php?data=oficios-ai">Oficios</a></li>
                                                 <li><a href="dashboard.php?data=reportes-ai">Reportes</a></li>
+                                                <li><a href="dashboard.php?data=usuario-ai">Usuarios</a></li>
                                             </ul>
                                         </li>
                                     <?php } ?>
