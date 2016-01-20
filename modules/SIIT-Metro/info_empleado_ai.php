@@ -248,7 +248,7 @@ if ($perfil_qry) {
                                             . "nombres, parentesco "
                                             . "FROM datos_familiares_rrhh "
                                             . "WHERE cedula_empleado =" . $cedula . " "
-                                            . "AND cedula_familiar > 0 "
+                                           // . "AND cedula_familiar > 0 "
                                             . "ORDER BY cedula_familiar ASC";
 
                                     $sql = mysql_query($sqlcode);
@@ -265,7 +265,7 @@ if ($perfil_qry) {
                                                 <p ><?php echo $nombres_familiar; ?></p>
                                                 <p style="font-weight: bold"><?php echo $parentesco; ?></p>
                                                 <?php
-                                                if ($cedula_familiar != '1' && $cedula_familiar != '2') {
+                                                if ($cedula_familiar != '1' && $cedula_familiar != '2' && $cedula_familiar != '0') {
                                                     ?>
                                                     <p class="TituloTarjeta">Cédula: </p>
                                                     <p ><?php echo $cedula_familiar; ?></p>

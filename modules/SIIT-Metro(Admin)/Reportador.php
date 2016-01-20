@@ -7,8 +7,8 @@ if (isset($_GET['acc'])) {
     if ($_GET['acc'] == 'Aver') {
         $datos = array();
 
-        $json = json_decode($_GET["campos"],true);
-        
+        $json = json_decode($_GET["campos"], true);
+
         $sqlcodemain = "SELECT "
                 . "a.idAveriguacion,"
                 . "a.fecha,"
@@ -89,20 +89,25 @@ if (isset($_GET['acc'])) {
                 'fecha_st_2' => $result['fecha_st_2'] == '0000-00-00' ? "-" : $result['fecha_st_2'],
                 'fecha_st_3' => $result['fecha_st_3'] == '0000-00-00' ? "-" : $result['fecha_st_3'],
                 'fecha_st_9' => $result['fecha_st_9'] == '0000-00-00' || $result['st_ave'] != '9' ? "-" : $result['fecha_st_9'],
-                'status' => '<span>'.iconosIntranet($st, $titulo,false,$color,false).'</span>',
+                'status' => '<span>' . iconosIntranet($st, $titulo, false, $color, false) . '</span>',
                 'investigador' => $result['nombre'] . ' ' . $result['apellido']);
             $i++;
         }
+        $reporte = array(
+            array("Query", $sqlcodemain),
+            array("img1", '../../src/images/cabecera.png'),
+            array("img2", '../../src/images/piepagina.png')
+        );
         _adios_mysql();
-        echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($sqlcodemain, '../../src/images/cabecera.png','../../src/images/piepagina.png')));
+        echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($reporte)));
     }
     if ($_GET['acc'] == 'Org') {
-        
-        $json = json_decode($_GET["campos"],true);
-        
+
+        $json = json_decode($_GET["campos"], true);
+
         if ($json['origen'] == '1') {
             $datos = array();
-            
+
             $sqlcodemain = "SELECT "
                     . "d.fecha,"
                     . "d.denunciante,"
@@ -154,16 +159,21 @@ if (isset($_GET['acc'])) {
                     'fecha' => $result['fecha'],
                     'tipo' => $result['tipo'],
                     'descripcion' => $result['descripcion'],
-                    'status' => '<span>'.iconosIntranet($st, $titulo,false,$color,false).'</span>',
+                    'status' => '<span>' . iconosIntranet($st, $titulo, false, $color, false) . '</span>',
                     'denunciante' => $result['nombre'] . ' ' . $result['apellido']);
                 $i++;
             }
+            $reporte = array(
+                array("Query", $sqlcodemain),
+                array("img1", '../../src/images/cabecera.png'),
+                array("img2", '../../src/images/piepagina.png')
+            );
             _adios_mysql();
-            echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($sqlcodemain, '../../src/images/cabecera.png','../../src/images/piepagina.png')));
+            echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($reporte)));
         }
         if ($json['origen'] == '2') {
             $datos = array();
-            
+
             $sqlcodemain = "SELECT "
                     . "d.fecha,"
                     . "d.tipo,"
@@ -210,11 +220,16 @@ if (isset($_GET['acc'])) {
                     'fecha' => $result['fecha'],
                     'tipo' => $result['tipo'],
                     'descripcion' => $result['descripcion'],
-                    'status' => '<span>'.iconosIntranet($st, $titulo,false,$color,false).'</span>');
+                    'status' => '<span>' . iconosIntranet($st, $titulo, false, $color, false) . '</span>');
                 $i++;
             }
+            $reporte = array(
+                array("Query", $sqlcodemain),
+                array("img1", '../../src/images/cabecera.png'),
+                array("img2", '../../src/images/piepagina.png')
+            );
             _adios_mysql();
-            echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($sqlcodemain, '../../src/images/cabecera.png','../../src/images/piepagina.png')));
+            echo json_encode(array('datos' => $datos, 'query' => parametrosReporte($reporte)));
         }
     }
 }

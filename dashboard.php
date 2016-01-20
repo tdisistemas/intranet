@@ -71,6 +71,12 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                         <span class="icon-home"></span>
                                         <a href="dashboard.php?data=inicio">Página Principal</a>				
                                     </li>
+                                    <?php if (in_array('ARI', $usuario_permisos)) { ?>
+                                        <li id="ARI" class="nav">
+                                            <span class="icon-key-stroke"></span>
+                                            <a href="dashboard.php?data=AR-I">Declaración AR-I</a>				
+                                        </li>
+                                    <?php } ?>
                                     <?php if (in_array('ModuloPrueba', $usuario_permisos)) { ?>
                                         <li id="prueba" class="nav">
                                             <span class="icon-key-stroke"></span>

@@ -21,33 +21,9 @@ if (isset($_POST['Submit'])) {
     $indice = $_POST['Index'];
     $i = $aux = 0;
 
-
-    $sql = "INSERT INTO ai_averiguaciones(origen,tipo_origen,fecha,causa,sitio_suceso,investigador,remitido) VALUES(" . $origen . "," . $tipo_origen . ",NOW(),'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
+    $codigoNuevo = mysql_fetch_array(mysql_query('SELECT consecutivo("PRES","AIM",' . date('Y') . ')'));
+    $sql = "INSERT INTO ai_averiguaciones(codigo_ave,origen,tipo_origen,fecha,causa,sitio_suceso,investigador,remitido) VALUES('" . $codigoNuevo[0] . "'," . $origen . "," . $tipo_origen . ",NOW(),'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
     $result = mysql_query($sql);
-    $nuevoID = mysql_insert_id();
-    switch (strlen($nuevoID)) {
-        case 1:
-            $cod_completo = '00000' . $nuevoID;
-            break;
-        case 2:
-            $cod_completo = '0000' . $nuevoID;
-            break;
-        case 3:
-            $cod_completo = '000' . $nuevoID;
-            break;
-        case 4:
-            $cod_completo = '00' . $nuevoID;
-            break;
-        case 5:
-            $cod_completo = '0' . $nuevoID;
-            break;
-        case 6:
-            $cod_completo = $nuevoID;
-            break;
-    }
-    $codigoNuevo = 'AIM-' . $cod_completo . '-' . substr(date('Y'), -2);
-    $sqlUp = "UPDATE ai_averiguaciones SET codigo_ave ='" . $codigoNuevo . "' WHERE idAveriguacion=" . $nuevoID;
-    $result2 = mysql_query($sqlUp);
 
     while ($i <= $indice) {
         if (isset($_POST['CedulaID' . $i])) {

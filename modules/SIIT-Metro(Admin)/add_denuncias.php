@@ -52,27 +52,9 @@ if (isset($_POST['Submit'])) {
     $sql = "INSERT INTO ai_denuncias(fecha,denunciante,tipo,descripcion) VALUES(NOW()," . $cedula . ",'" . $tipo . "','" . $descrip . "')";
     $result = mysql_query($sql);
     $nuevoID = mysql_insert_id();
-    switch (strlen($nuevoID)) {
-        case 1:
-            $cod_completo = '00000' . $nuevoID;
-            break;
-        case 2:
-            $cod_completo = '0000' . $nuevoID;
-            break;
-        case 3:
-            $cod_completo = '000' . $nuevoID;
-            break;
-        case 4:
-            $cod_completo = '00' . $nuevoID;
-            break;
-        case 5:
-            $cod_completo = '0' . $nuevoID;
-            break;
-        case 6:
-            $cod_completo = $nuevoID;
-            break;
-    }
-    $codigoNuevo = 'DEN-' . $cod_completo . '-' . substr(date('Y'), -2);
+    $cod_completo = str_pad($nuevoID,  6, "0", STR_PAD_LEFT);
+    $codigoNuevo = 'DEN-' . $cod_completo . '-' . date('y');
+    //$codigoNuevo = _consecutivo('DEN', $nuevoID);
     $sql = "UPDATE ai_denuncias SET codigo='" . $codigoNuevo . "' WHERE idDenuncia=" . $nuevoID;
     $result2 = mysql_query($sql);
 

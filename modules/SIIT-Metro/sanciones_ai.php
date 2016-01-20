@@ -155,7 +155,7 @@ $parametros = _desordenar($parametros);
                                 <br>
                                 <div class="grid-24" id="SeccionSanciones">
                                     <div class="grid-6"> 
-                                        <img align="left" style=" border: solid 5px #ddd;max-width: 100px; max-height: 100px" src="../intranet/src/images/FOTOS/No-User.png"/>
+                                        <img align="left" style=" border: solid 5px #ddd;max-width: 100px; max-height: 100px" src="../src/images/FOTOS/<?=$cedula?>.jpg" onerror="src='../intranet/src/images/FOTOS/No-User.png'"/>
                                     </div>
                                     <div class="grid-5">
                                         <div class="field-group">								
@@ -163,7 +163,7 @@ $parametros = _desordenar($parametros);
                                             <div class="field">
                                                 <span><?php echo $cedula; ?></span>
                                             </div>
-                                        </div> <!-- .field-group -->
+                                        </div>
                                     </div>
                                     <div class="grid-12">
                                         <div class="field-group">
