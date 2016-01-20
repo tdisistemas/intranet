@@ -34,119 +34,180 @@
 	<field name="fecha_st_2" class="java.lang.String"/>
 	<field name="fecha_st_9" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<title>
-		<band height="83" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="752" height="79" uuid="e932d357-50d1-4be2-acd6-e4d74ee112d3"/>
-				<imageExpression><![CDATA[$P{img1}]]></imageExpression>
-			</image>
-		</band>
+		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="105">
+			<image>
+				<reportElement x="0" y="0" width="752" height="58" uuid="e932d357-50d1-4be2-acd6-e4d74ee112d3"/>
+				<imageExpression><![CDATA[$P{img1}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="195" y="70" width="367" height="20" uuid="35fc743a-68c9-4305-bab7-ef4dd3ca8c04"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} == 1  ? "Reporte de Averiguaciones" : ""]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="27" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="74" height="20" uuid="104dfee6-e30e-4e2f-9cdc-3d3b6889f9e5"/>
 				<textElement textAlignment="Center">
-					<font size="10" isBold="true" isItalic="true"/>
+					<font size="10" isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Codigo]]></text>
+				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="197" y="0" width="65" height="20" uuid="c788818d-4874-4b38-b5cb-9abbcf34eaf2"/>
+				<reportElement x="473" y="0" width="65" height="20" uuid="c788818d-4874-4b38-b5cb-9abbcf34eaf2"/>
 				<textElement textAlignment="Center">
-					<font isBold="true" isItalic="true"/>
+					<font isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Estatus]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="262" y="0" width="219" height="20" uuid="1c8d63f7-601e-431d-96c8-58895cc450fa"/>
+				<reportElement x="538" y="0" width="209" height="20" uuid="1c8d63f7-601e-431d-96c8-58895cc450fa"/>
 				<textElement textAlignment="Center">
-					<font isBold="true" isItalic="true"/>
+					<font isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Investigador]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="74" y="0" width="74" height="20" uuid="6d45daa2-37bd-4f8f-98cb-720ec21ee4b0"/>
 				<textElement textAlignment="Center">
-					<font isBold="true" isItalic="true"/>
+					<font isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Origen]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="148" y="0" width="49" height="20" uuid="dbc0f8f2-5d7e-4bb5-90ae-91061bcb6a9e"/>
+				<reportElement x="148" y="0" width="65" height="20" uuid="dbc0f8f2-5d7e-4bb5-90ae-91061bcb6a9e"/>
 				<textElement textAlignment="Center">
-					<font isBold="true" isItalic="true"/>
+					<font isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Fecha]]></text>
+				<text><![CDATA[Abierta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="0" width="65" height="20" uuid="11c3af0e-f868-41fd-8a4c-b69ecce6cc68"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Revisión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="65" height="20" uuid="775c202c-f948-4cf7-a382-d68d1c9de79c"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Remitida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="0" width="65" height="20" uuid="2274307a-e05a-4abc-8d87-8c5547452bcf"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Finalizada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="0" width="65" height="20" uuid="09b2c5d8-16d1-406d-ba1f-288f99918fa9"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Archivada]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="74" height="20" uuid="701fc65e-98ff-443a-90d4-eac6d502afa9"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigo_ave}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="74" y="0" width="74" height="20" uuid="e04d77b4-f4a9-475b-9cdc-700b10ac7159"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cod_org} == null ?  $F{cod_den} : $F{cod_org}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="148" y="0" width="49" height="20" uuid="c829f15f-cdee-4f63-b702-753015e683bc"/>
-				<textElement textAlignment="Center">
+				<reportElement x="148" y="1" width="65" height="20" uuid="c829f15f-cdee-4f63-b702-753015e683bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha} == null ? " - " : $F{fecha} ]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="197" y="1" width="65" height="19" uuid="acaf20c1-7f90-4842-ae19-7a4ff2eb6d09"/>
-				<textElement textAlignment="Center">
+				<reportElement x="473" y="1" width="65" height="19" uuid="acaf20c1-7f90-4842-ae19-7a4ff2eb6d09"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{st_ave} == 0 ? "Abierta" : $F{st_ave} == 1 ? "En Revisión" : $F{st_ave} == 2 ? "Remitida" : $F{st_ave} == 3 ? "Finalizada" : $F{st_ave} == 9 ? "Archivada" : $F{st_ave}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="262" y="0" width="219" height="20" uuid="caad0fdd-06de-46fd-b958-bda8104ee6a6"/>
-				<textElement textAlignment="Center">
+				<reportElement x="538" y="2" width="214" height="20" uuid="caad0fdd-06de-46fd-b958-bda8104ee6a6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre} +" "+ $F{apellido}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="213" y="0" width="65" height="20" uuid="653c3ff8-1070-41e6-a0dd-61a1e2f33a01"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_st_1} == null ? " - " : $F{fecha_st_1} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="65" height="20" uuid="57219892-e55b-41c0-9139-f36d085a1440"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_st_2} == null ? " - " : $F{fecha_st_2} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="65" height="20" uuid="1bdf9e5f-03dd-4439-8c0e-9844da174d31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_st_3} == null ? " - " : $F{fecha_st_3} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="0" width="65" height="20" uuid="4c2d558b-5e62-4ba5-bb70-ebe41d64afd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_st_9} == null ? " - " : $F{st_ave} != 9 ? " - " : $F{fecha_st_9} ]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="19" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="69" splitType="Stretch">
+		<band height="95" splitType="Stretch">
+			<textField>
+				<reportElement x="645" y="73" width="80" height="20" uuid="e29d9832-08d5-4bd2-802b-6866470c6064"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="725" y="73" width="40" height="20" uuid="af9e36ca-66be-4345-8d9f-5156b3ef39fa"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
 			<image>
-				<reportElement x="0" y="0" width="752" height="47" uuid="f542fe4a-2034-4e5c-8c38-31b7f2616bff"/>
+				<reportElement x="0" y="26" width="752" height="47" uuid="f542fe4a-2034-4e5c-8c38-31b7f2616bff"/>
 				<imageExpression><![CDATA[$P{img2}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="629" y="47" width="80" height="20" uuid="e29d9832-08d5-4bd2-802b-6866470c6064"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="709" y="47" width="40" height="20" uuid="af9e36ca-66be-4345-8d9f-5156b3ef39fa"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<reportElement x="11" y="26" width="366" height="20" uuid="b1bd9cd3-4bd0-4f89-a72f-ff39821383e0"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} != 1  ? "Reporte de Averiguaciones" : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>

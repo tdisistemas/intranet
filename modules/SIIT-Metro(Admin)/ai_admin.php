@@ -130,9 +130,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         <table class="table table-bordered table-striped data-table">
                             <thead>
                                 <tr>
-                                    <th style="width:15%">Código</th>
-                                    <th style="width:15%">Origen</th>
-                                    <th style="width:15%">Fecha</th>
+                                    <th style="width:25%">Código</th>
+                                    <th style="width:10%">Origen</th>
+                                    <th style="width:10%">Fecha</th>
                                     <th style="width:5%">Estatus</th>
                                     <th style="width:40%">Investigador</th>
                                     <th style="width:10%">Opciones</th>
@@ -162,7 +162,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     }
                                     ?>
                                     <tr class="gradeA">
-                                        <td><?php echo $row['codigo_ave'] ?></td>
+                                        <td style="text-align: center; vertical-align: middle"><?php echo $row['codigo_ave'] ?></td>
                                         <td><?php echo $row['tipo_origen'] == '1' ? $row['cod_den'] : $row['cod_org'] ?></td>
                                         <td><?php echo $row['fecha'] ?></td>
                                         <td style="text-align: center"><span><?php echo iconosIntranet($st, $titulo,false,$color,false)?></span></td>

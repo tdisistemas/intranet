@@ -5,6 +5,13 @@ if (isset($_GET["data"])) {
     $t = 'inicio';
 }
 switch ($t) {
+
+    /*     * ******************************************** */
+    /*     * *********** Declaraciones AR-I*************** */
+    /*     * ******************************************** */
+    case ("AR-I"):include('modules/ARI/declaraciones_ARI.php');
+        ?><script>activame('ARI');</script><?php
+        break;
     /*     * ******************************************** */
     /*     * ******** ASUNTOS INTERNOS ADMIN ************ */
     /*     * ******************************************** */
@@ -69,8 +76,8 @@ switch ($t) {
     case ("averiguaciones-ai-info"):include('modules/SIIT-Metro/ai_investigacion_info.php');
         ?><script>activame('investigacion');</script><?php
         break;
-    
-    
+
+
     /*     * ******************************************** */
     /*     * *********** ASUNTOS INTERNOS (Generales)*************** */
     /*     * ******************************************** */
@@ -82,8 +89,8 @@ switch ($t) {
         break;
     case ("sanciones_ai"):include('modules/SIIT-Metro/sanciones_ai.php');
         break;
-    
-    
+
+
     /*     * ** INICIO *** */
     case ("inicio"):include('modules/metroinforma/metroinforma.php');
         ?><script>activame('inicio');</script><?php
@@ -137,12 +144,12 @@ switch ($t) {
     case ("puntoc"):include('modules/ControlGestion/puntocuenta.php');
         ?><script>activame('controlgestion');</script><?php
         break;
-     
+
     /*     * ** CONTROL Y GESTIÓN ADMINISTRADOR *** */
     case ("control_gestion_reporte"):include('modules/ControlGestionAdmin/cg_reportes.php');
         ?><script>activame('controlgestionadmin');</script><?php
         break;
-    
+
 
     /*     * ** NOTIFICACION *** */
     case ("notificar"):include('../notificar.php');
