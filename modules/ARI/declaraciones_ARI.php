@@ -222,12 +222,12 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                             <label style="color:#B22222">Ingreso estimado:</label>
                                             <div class="field" style="margin-bottom: 2px">
                                                 <label>Mensual:</label>    
-                                                <input name="IngresoMensual" id="IngresoMensual" title="Ingreso Mensual" readonly style="max-width: 250px" class="validate[numeric]" value="<?= $salario ?>"/>
+                                                <input name="IngresoMensual" id="IngresoMensual" title="Ingreso Mensual" readonly style="max-width: 250px" class="" value="<?= $salario ?>"/>
                                             </div>
                                             <br>
                                             <div class="field">
                                                 <label>Estimación Anual:</label>
-                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px" class="validate[numeric]" value="<?= $salario * 12 ?>"/>
+                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px" class="" onkeypress="return soloNumeros(event)" value="<?= $salario * 12 ?>"/>
                                             </div>
                                         </div> <!-- .field-group -->
                                         <div class="field-group">								
@@ -247,24 +247,19 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                     <div class="grid-24" style="width: 100%; text-align: center; font-size: 14px;margin-bottom: -15px">
                                         <table class="table table-striped table-bordered">
                                             <thead>
-                                            <th style="width: 75px; text-align: center; color:#B22222; ">Generado</th>
-                                            <th class="escondido" style="width: 75px; text-align: center; color:#B22222">Confirmado</th>
-                                            <th style="width: 35px; text-align: center; color:#B22222">Carga</th>
-                                            <th style="width: 80px; text-align: center; color:#B22222">Ingreso</th>
-                                            <th style="width: 45px; text-align: center; color:#B22222">Estatus</th>
-                                            <th style="width: 35px; text-align: center; color:#B22222"> % </th>
-                                            <th class="periodo" style="text-align: center; color:#B22222; display: inicial">Periodo</th>
-                                            <th class="codigo" style="text-align: center; color:#B22222; display: none">Código</th>
-                                            <th style="width: 100px;text-align: center;vertical-align: middle"></th>
+                                            <th style="width: 10%; text-align: center; color:#B22222; ">Generado</th>
+                                            <th style="width: 10%; text-align: center; color:#B22222">Confirmado</th>
+                                            <th style="width: 5%; text-align: center; color:#B22222">Carga</th>
+                                            <th style="width: 15%; text-align: center; color:#B22222">Ingreso</th>
+                                            <th style="width: 5%; text-align: center; color:#B22222">Estatus</th>
+                                            <th style="width: 10%; text-align: center; color:#B22222"> % </th>
+                                            <th style="width: 30%; text-align: center; color:#B22222">Código</th>
+                                            <th style="width: 15%;text-align: center;vertical-align: middle"></th>
                                             </thead>
-                                        </table>
-                                    </div>
-                                    <div class="grid-24" id="Mostrado" style="width: 100%; text-align: center; font-size: 14px; overflow-y: auto; max-height: 450px;">
-                                        <table class="table table-striped table-bordered">
                                             <tbody id="Tabla-Sanciones">
 
                                             </tbody>
-                                        </table>	
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -293,6 +288,10 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
 </div><!-- .row -->
 
 <script type="text/javascript">
+    function soloNumeros(e) {
+        var key = window.Event ? e.which : e.keyCode;
+        return ((key >= 48 && key <= 57) || key == 8 || key == 0);
+    }
 
     function VerDeclaracion(reporte) {
         $('#array').val(reporte);
@@ -325,15 +324,14 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
 
                 }
                 lista += '<tr>\n\
-                                <td style="width: 75px;text-align: center;vertical-align: middle">' + data.datos[aux].generado + '</td>\n\
-                                <td class="escondido" style="width: 75px;text-align: center;vertical-align: middle">' + data.datos[aux].confirmado + '</td>\n\
-                                <td style="width: 35px;text-align: center;vertical-align: middle">' + data.datos[aux].carga + '</td>\n\
-                                <td style="width: 80px;text-align: center;vertical-align: middle">' + data.datos[aux].estimado + '</td>\n\
-                                <td style="width: 45px;text-align: center;vertical-align: middle">' + data.datos[aux].status + '</td>\n\
-                                <td style="width: 35px;text-align: center;vertical-align: middle">' + data.datos[aux].retencion + '</td>\n\
-                                <td style="text-align: center;vertical-align: middle; ' + botones + '">' + '<?= $periodotitle ?>' + '</td>\n\
-                                <td style="text-align: center;vertical-align: middle; ' + periodo + '">' + data.datos[aux].codigo + '</td>\n\
-                                <td style="width: 100px;text-align: center;vertical-align: middle">\n\
+                                <td style="text-align: center;vertical-align: middle">' + data.datos[aux].generado + '</td>\n\
+                                <td class="escondido" style="text-align: center;vertical-align: middle">' + data.datos[aux].confirmado + '</td>\n\
+                                <td style="text-align: center;vertical-align: middle">' + data.datos[aux].carga + '</td>\n\
+                                <td style="text-align: center;vertical-align: middle">' + data.datos[aux].estimado + '</td>\n\
+                                <td style="text-align: center;vertical-align: middle">' + data.datos[aux].status + '</td>\n\
+                                <td style="text-align: center;vertical-align: middle">' + data.datos[aux].retencion + '</td>\n\
+                                <td style="text-align: center;vertical-align: middle">' + data.datos[aux].codigo + '</td>\n\
+                                <td style="text-align: center;vertical-align: middle">\n\
                                 <a style="' + botones + '" title="Confirmar" class="btn btn-error" type="text" onclick="javascript:Confirmar(\'' + data.datos[aux].declaracion + '\')">\n\
                                 <i style="font-size: 10px" class="fa fa-check"></i>\n\
                                 </a>\n\                                \n\
@@ -350,7 +348,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
         document.getElementById('Tabla-Sanciones').innerHTML = lista;
     }
 
-    function VerificarSanciones(parametro) {
+    function VerificarDeclaraciones(parametro) {
         $.ajax({
             url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
             method: 'POST',
@@ -435,7 +433,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
     }
 
     $(document).ready(function () {
-        VerificarSanciones('<?= $parametros ?>');
+        VerificarDeclaraciones('<?= $parametros ?>');
     });
 
 </script>

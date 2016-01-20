@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="39" rightMargin="39" topMargin="20" bottomMargin="20" uuid="44038827-0ffc-4df4-a808-a3e016920e50">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="632"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="APyNOM" class="java.lang.String"/>
 	<parameter name="cedula" class="java.lang.String"/>
 	<parameter name="rif" class="java.lang.String"/>
@@ -25,23 +25,26 @@
 	<parameter name="aux" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="G" class="java.lang.Double" isForPrompting="false">
 		<defaultValueExpression><![CDATA[( $P{F} <= new Double("1000") ) ?  ( ((new Double("0.06") * $P{F} ) - new Double("0")) ) : 
-( $P{F}>(new Double("1000")) && ($P{F}<=( new Double("1500"))) ) ? ( $P{F}*(new Double("0.09"))-(new Double("30")) ):
-( $P{F}>(new Double("1500")) && ($P{F}<=( new Double("2000"))) ) ? ( $P{F}*(new Double("0.12"))-(new Double("75")) ):
-( $P{F}>(new Double("2000")) && ($P{F}<=( new Double("2500"))) ) ? ( $P{F}*(new Double("0.16"))-(new Double("155")) ):
-( $P{F}>(new Double("2500")) && ($P{F}<=( new Double("3000"))) ) ? ( $P{F}*(new Double("0.20"))-(new Double("255")) ):
-( $P{F}>(new Double("3000")) && ($P{F}<=( new Double("4000"))) ) ? ( $P{F}*(new Double("0.24"))-(new Double("375")) ):
-( $P{F}>(new Double("4000")) && ($P{F}<=( new Double("6000"))) ) ? ( $P{F}*(new Double("0.29"))-(new Double("575")) ):
-( $P{F}>(new Double("6000")) ) ? ($P{F}*( new Double("0.34") )-( new Double("875")) ):""]]></defaultValueExpression>
+                ( $P{F}>(new Double("1000")) && ($P{F}<=( new Double("1500"))) ) ? ( $P{F}*(new Double("0.09"))-(new Double("30")) ):
+                ( $P{F}>(new Double("1500")) && ($P{F}<=( new Double("2000"))) ) ? ( $P{F}*(new Double("0.12"))-(new Double("75")) ):
+                ( $P{F}>(new Double("2000")) && ($P{F}<=( new Double("2500"))) ) ? ( $P{F}*(new Double("0.16"))-(new Double("155")) ):
+                ( $P{F}>(new Double("2500")) && ($P{F}<=( new Double("3000"))) ) ? ( $P{F}*(new Double("0.20"))-(new Double("255")) ):
+                ( $P{F}>(new Double("3000")) && ($P{F}<=( new Double("4000"))) ) ? ( $P{F}*(new Double("0.24"))-(new Double("375")) ):
+                ( $P{F}>(new Double("4000")) && ($P{F}<=( new Double("6000"))) ) ? ( $P{F}*(new Double("0.29"))-(new Double("575")) ):
+                ( $P{F}>(new Double("6000")) ) ? ($P{F}*( new Double("0.34") )-( new Double("875")) ):""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="J" class="java.lang.Double" isForPrompting="false">
-		<defaultValueExpression><![CDATA[(($P{G} - $P{H}) / $P{B}) * new Double("100")]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[(($P{G} - $P{H}) / $P{B}) * new Double("100") < 0 ? 0 : (($P{G} - $P{H}) / $P{B}) * new Double("100")]]></defaultValueExpression>
 	</parameter>
 	<parameter name="I" class="java.lang.Double" isForPrompting="false">
 		<defaultValueExpression><![CDATA[$P{G} - $P{H}]]></defaultValueExpression>
 	</parameter>
 	<parameter name="K" class="java.lang.Double" isForPrompting="false">
-		<defaultValueExpression><![CDATA[(($P{I} * new Double($P{ut}) * new Double("100")) / (new Double($P{bs1}) - new Double("0")) )]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[(($P{I} * new Double($P{ut}) * new Double("100")) / (new Double($P{bs1}) - new Double("0")) ) < 0 ? 0 : (($P{I} * new Double($P{ut}) * new Double("100")) / (new Double($P{bs1}) - new Double("0")) )]]></defaultValueExpression>
 	</parameter>
+	<parameter name="bs2" class="java.lang.String"/>
+	<parameter name="bs3" class="java.lang.String"/>
+	<parameter name="bs4" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -434,7 +437,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new Double("0")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Double($P{bs3}.equals( "" )? "0":$P{bs3})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="-1" y="119" width="268" height="11" uuid="f2af39fa-65a3-480c-bd51-b9fae265f65a"/>
@@ -468,7 +471,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new Double("0")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Double($P{bs2}.equals( "" )? "0":$P{bs2})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement mode="Opaque" x="473" y="130" width="62" height="13" backcolor="#E5E5E5" uuid="b60fa523-780d-4c96-ae0c-2815d3eafbb7"/>
@@ -478,7 +481,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
 					<font size="6" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new Double("0")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Double($P{bs4}.equals( "" )? "0":$P{bs4})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="-1" y="130" width="209" height="13" uuid="438ab71a-7247-4c32-90f3-62e673d894c8"/>

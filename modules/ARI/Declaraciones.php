@@ -68,6 +68,7 @@ if (isset($_GET['acc'])) {
     $nombre = _antinyeccionSQL($_GET['Nombre']);
     $codigo = _antinyeccionSQL($_GET['codigo']);
     $estimado_a = _antinyeccionSQL($_GET['ingreso']);
+    $estimado_a = $estimado_a < 0 ? -1*$estimado_a : $estimado_a;
     $estimado_b = 0;
     $estimado_c = 0;
     $estimado_d = 0;
@@ -111,6 +112,9 @@ if (isset($_GET['acc'])) {
             . "a.fecha_conf,"
             . "a.periodo,"
             . "a.estimado_a,"
+            . "a.estimado_b,"
+            . "a.estimado_c,"
+            . "a.estimado_d,"
             . "a.carga,"
             . "a.status,"
             . "a.retencion,"
@@ -136,6 +140,9 @@ if (isset($_GET['acc'])) {
                 . "a.fecha_conf,"
                 . "a.periodo,"
                 . "a.estimado_a,"
+                . "a.estimado_b,"
+                . "a.estimado_c,"
+                . "a.estimado_d,"
                 . "a.carga,"
                 . "a.status,"
                 . "a.retencion,"
@@ -191,12 +198,15 @@ if (isset($_GET['acc'])) {
             'carga' => $result['carga'],
             'periodo' => $result['periodo'],
             'status' => '<span>' . iconosIntranet($st, $titulo, false, $color, false) . '</span>',
-            'codigo' => $result['codigo'],
+            'codigo' => $result['codigo']=='' ? '--' : $result['codigo'],
             'retencion' => $result['retencion'],
             'declaracion' => $parametro,
         );
         $reporte = array(
             array("bs1", $result['estimado_a']),
+            array("bs2", $result['estimado_b']),
+            array("bs3", $result['estimado_c']),
+            array("bs4", $result['estimado_d']),
             array("ano", $result['año']),
             array("ut", $result['unidad_tributaria']),
             array("codigo", $result['codigo']),
