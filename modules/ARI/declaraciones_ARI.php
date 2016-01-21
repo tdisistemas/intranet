@@ -254,7 +254,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                             <th style="width: 5%; text-align: center; color:#B22222">Estatus</th>
                                             <th style="width: 10%; text-align: center; color:#B22222"> % </th>
                                             <th style="width: 30%; text-align: center; color:#B22222">Código</th>
-                                            <th style="width: 15%;text-align: center;vertical-align: middle"></th>
+                                            <th colspan="8" style="width: 15%;text-align: center;vertical-align: middle"></th>
                                             </thead>
                                             <tbody id="Tabla-Sanciones">
 
@@ -343,7 +343,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                 aux++;
             }
         } else {
-            lista = '<tr><td  class="SinRegistro">*** No posee Declaraciones registradas para este periodo. ***</td></tr>'
+            lista = '<tr><td colspan="8" class="SinRegistro">*** No posee Declaraciones registradas para este periodo. ***</td></tr>'
         }
         document.getElementById('Tabla-Sanciones').innerHTML = lista;
     }
@@ -351,7 +351,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
     function VerificarDeclaraciones(parametro) {
         $.ajax({
             url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
-            method: 'POST',
+            method: 'GET',
             dataType: 'JSON',
             data: {
                 acc: 'verificar'
@@ -367,7 +367,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
         var ingreso = $('#IngresoAnual').val();
         $.ajax({
             url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
-            method: 'POST',
+            method: 'GET',
             dataType: 'JSON',
             data: {
                 acc: 'modificar',
@@ -409,7 +409,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
         if (carga != '' && ingreso != '') {
             $.ajax({
                 url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
-                method: 'POST',
+                method: 'GET',
                 dataType: 'JSON',
                 data: {
                     acc: 'declaraciones',

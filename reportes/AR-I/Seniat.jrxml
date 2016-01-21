@@ -89,12 +89,6 @@
 	</pageHeader>
 	<columnHeader>
 		<band height="684" splitType="Stretch">
-			<rectangle>
-				<reportElement mode="Transparent" x="-1" y="0" width="536" height="684" uuid="d5d8bcb5-5669-4188-8abb-85a2ab2d15f5"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
 				<reportElement mode="Opaque" x="-1" y="0" width="536" height="10" backcolor="#CCCCCC" uuid="f3a71425-4742-4122-9503-45a8da9932da"/>
 				<box leftPadding="4">
@@ -1690,6 +1684,12 @@ TOTAL "A" - TOTAL "2"]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{confirmado}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="-1" y="0" width="536" height="684" uuid="d5d8bcb5-5669-4188-8abb-85a2ab2d15f5"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
 		</band>
 	</columnHeader>
 	<detail>
