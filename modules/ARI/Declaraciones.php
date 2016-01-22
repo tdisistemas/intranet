@@ -67,11 +67,15 @@ if (isset($_GET['acc'])) {
     $rif = _antinyeccionSQL($_GET['Rif']);
     $nombre = _antinyeccionSQL($_GET['Nombre']);
     $codigo = _antinyeccionSQL($_GET['codigo']);
-    $estimado_a = _antinyeccionSQL($_GET['ingreso']);
-    $estimado_a = $estimado_a < 0 ? -1*$estimado_a : $estimado_a;
-    $estimado_b = 0;
-    $estimado_c = 0;
-    $estimado_d = 0;
+
+    if (isset($_GET['ingreso']) && $_GET['ingreso'] != '') {
+        $estimado_a = str_replace(".", "", _antinyeccionSQL($_GET['ingreso']));
+        $estimado_a = str_replace(",", ".", $estimado_a);
+        $estimado_a = $estimado_a < 0 ? -1 * $estimado_a : $estimado_a;
+        $estimado_b = 0;
+        $estimado_c = 0;
+        $estimado_d = 0;
+    }
 
 
     if ($_GET['acc'] == 'declaraciones') {
@@ -198,7 +202,7 @@ if (isset($_GET['acc'])) {
             'carga' => $result['carga'],
             'periodo' => $result['periodo'],
             'status' => '<span>' . iconosIntranet($st, $titulo, false, $color, false) . '</span>',
-            'codigo' => $result['codigo']=='' ? '--' : $result['codigo'],
+            'codigo' => $result['codigo'] == '' ? '--' : $result['codigo'],
             'retencion' => $result['retencion'],
             'declaracion' => $parametro,
         );

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="39" rightMargin="39" topMargin="20" bottomMargin="20" uuid="44038827-0ffc-4df4-a808-a3e016920e50">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="480"/>
 	<parameter name="APyNOM" class="java.lang.String"/>
 	<parameter name="cedula" class="java.lang.String"/>
 	<parameter name="rif" class="java.lang.String"/>
@@ -69,7 +69,7 @@
 				<textElement textAlignment="Justified">
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[APLICABLE SOBRE SUELDOS, SALARIOS Y DEMAS REMUNERACIONES CUANDO EL ENRIQUECIMIENTO ANUAL EXEDA DE 1.000 UNIDADES TRIBUTARIAS A PERCIBIR POR LAS PERSONAS NATURALES RESIDENCIADAS EN EL PAÍS.]]></text>
+				<text><![CDATA[APLICABLE SOBRE SUELDOS, SALARIOS Y DEMAS REMUNERACIONES CUANDO EL ENRIQUECIMIENTO ANUAL EXCEDA DE 1.000 UNIDADES TRIBUTARIAS A PERCIBIR POR LAS PERSONAS NATURALES RESIDENCIADAS EN EL PAÍS.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="404" y="7" width="100" height="15" uuid="e893636a-3a9a-4420-b7cb-c063fd4255f2"/>
@@ -618,7 +618,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[1. INSTITUTOS DOCENTES POR LA EDUCACIÓN DEL CONTRIBUYENTE Y DECENDIENTES NO MAYORES DE 25 AÑOS]]></text>
+				<text><![CDATA[1. INSTITUTOS DOCENTES POR LA EDUCACIÓN DEL CONTRIBUYENTE Y DESCENDIENTES NO MAYORES DE 25 AÑOS]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
 				<reportElement mode="Opaque" x="473" y="217" width="62" height="11" backcolor="#E5E5E5" uuid="b1338741-f41c-47dd-a3cd-6474796fe0e0"/>
@@ -672,7 +672,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[3. SERVICION MÉDICOS ODONTOLÓGICOS Y DE HOSPITALIZACIÓN (INCLUYE CARGA FAMILIAR)]]></text>
+				<text><![CDATA[3. SERVICIOS MÉDICOS ODONTOLÓGICOS Y DE HOSPITALIZACIÓN (INCLUYE CARGA FAMILIAR)]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
 				<reportElement mode="Opaque" x="473" y="250" width="62" height="11" backcolor="#E5E5E5" uuid="5a923726-b514-46cd-8566-4e457b783af9"/>
@@ -693,7 +693,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[4. INTERECES POR LA ADQUISICIÓN DE LA VIVIENDA PRINCIPAL O DE LO PAGADO POR ALQUILER DE LA VIVIENDA QUE LE SIRVE DE ASIENTO PERMANENTE]]></text>
+				<text><![CDATA[4. INTERESES POR LA ADQUISICIÓN DE LA VIVIENDA PRINCIPAL O DE LO PAGADO POR ALQUILER DE LA VIVIENDA QUE LE SIRVE DE ASIENTO PERMANENTE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="-1" y="186" width="536" height="20" backcolor="#CCCCCC" uuid="da0f878b-0845-45fd-91b6-bc783c127e7b"/>
@@ -811,7 +811,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="7"/>
 				</textElement>
-				<text><![CDATA[E.- DESGRÁVAMEN ÚNICO (NO CONSIDERE OTRO DEAGRÁVAMEN)]]></text>
+				<text><![CDATA[E.- DESGRAVAMEN ÚNICO (NO CONSIDERE OTRO DESGRAVAMEN)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="-1" y="312" width="161" height="10" uuid="6a8d661d-2b8d-4efa-b798-82358e6b883d"/>
@@ -819,7 +819,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[1. MONTO FIJO DEL DESGRÁVAMEN (ART. 62 - LEY)]]></text>
+				<text><![CDATA[1. MONTO FIJO DEL DESGRAVAMEN (ART. 62 - LEY)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="422" y="312" width="52" height="10" uuid="d9b568bc-b5fb-4ec5-bbb7-77ba38cc7444"/>
@@ -980,7 +980,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[NOTA: PARA ESTE FIN, BUSQUE EN LA TABLA DE FRACCIÓN DE ENRIQUESIMIENTO DONDE SE UBIQUE EL MONTO DE LA CASILLA "F", MULTIPLIQUE POR EL PORCENTAJE QUE CORRESPONDA Y RESTE EL SUSTRAENDO RESPECTIVO Y ESCRIBA DE SEGUIDA EL RESULTADO.]]></text>
+				<text><![CDATA[NOTA: PARA ESTE FIN, BUSQUE EN LA TABLA DE FRACCIÓN DE ENRIQUECIMIENTO DONDE SE UBIQUE EL MONTO DE LA CASILLA "F", MULTIPLIQUE POR EL PORCENTAJE QUE CORRESPONDA Y RESTE EL SUSTRAENDO RESPECTIVO Y ESCRIBA SEGUIDAMENTE EL RESULTADO.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="-1" y="352" width="536" height="10" backcolor="#CCCCCC" uuid="d7115f91-5153-4ed1-b9fe-725a46fd46d1"/>
@@ -1089,7 +1089,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[3.- IMPUESTOS RETENEIDOS DEMAS, EN AÑOS ANTERIORES]]></text>
+				<text><![CDATA[3.- IMPUESTOS RETENIDOS DEMAS, EN AÑOS ANTERIORES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="59" y="439" width="49" height="10" uuid="0fd6931b-1284-4ffe-90b7-dbf0f5e876f9"/>
