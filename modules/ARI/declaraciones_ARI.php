@@ -153,8 +153,9 @@ $sqlquery = "SELECT "
 
 $sqlsalario = mysql_query($sqlquery);
 $result = mysql_fetch_array($sqlsalario);
-$salario = $result['salario'];
 
+$mensual = number_format($result['salario'], 2, ',', '.');
+$anual = number_format(($result['salario'] * 12), 2, ',', '.');
 $sqlrif = "SELECT "
         . "rif "
         . "FROM datos_empleado_rrhh "
@@ -222,18 +223,21 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                             <label style="color:#B22222">Ingreso estimado:</label>
                                             <div class="field" style="margin-bottom: 2px">
                                                 <label>Mensual:</label>    
-                                                <input name="IngresoMensual" id="IngresoMensual" title="Ingreso Mensual" readonly style="max-width: 250px" class="" value="<?= $salario ?>"/>
+                                                <input name="IngresoMensual" id="IngresoMensual" title="Ingreso Mensual" readonly style="max-width: 250px; text-align: right" class="" value="<?= $mensual ?>"/>
+                                                <label style="color: #B22222; font-style: italic"> * Ingreso mensual según Nómina, utilizado como referencia. </label>
+
                                             </div>
                                             <br>
                                             <div class="field">
-                                                <label>Estimación Anual:</label>
-                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px" class="" onkeypress="return soloNumeros(event)" value="<?= $salario * 12 ?>"/>
+                                                <label >Ingreso Anual Estimado:</label>
+                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="<?= $anual ?>"/>
+                                                <label style="color: #B22222; font-style: italic"> * En caso de ser requerido, puede incluir ingresos adicionales (vacaciones, aguinaldos, etc). Totalice el monto anual.</label>
                                             </div>
                                         </div> <!-- .field-group -->
                                         <div class="field-group">								
                                             <label style="color:#B22222">Carga Familiar(Cantidad):</label>
                                             <div class="field">
-                                                <input name="CargaFamiliar" id="CargaFamiliar" title="Carga Familiar" path="note" type="number" min="0" max="10" style="width: 50px" value="<?= $sqlCargaCount ?>"/>
+                                                <input name="CargaFamiliar" id="CargaFamiliar" title="Carga Familiar" path="note" type="number" min="0" max="10" style="width: 50px;" value="<?= $sqlCargaCount ?>"/>
                                                 <span style="color: #888; opacity: 0.8; font-size: 12px; font-weight: bold"> Solo Hijo(s) </span>    
                                             </div>
                                         </div>
@@ -254,7 +258,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                             <th style="width: 5%; text-align: center; color:#B22222">Estatus</th>
                                             <th style="width: 10%; text-align: center; color:#B22222"> % </th>
                                             <th style="width: 30%; text-align: center; color:#B22222">Código</th>
-                                            <th style="width: 15%;text-align: center;vertical-align: middle"></th>
+                                            <th colspan="8" style="width: 15%;text-align: center;vertical-align: middle"></th>
                                             </thead>
                                             <tbody id="Tabla-Sanciones">
 
@@ -288,6 +292,238 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
 </div><!-- .row -->
 
 <script type="text/javascript">
+
+//-----------------------------------------------------------------
+//   Máscara de Decimales para montos Gracias Banco del Tesoro
+//-----------------------------------------------------------------
+    var amountformat = true;
+    function enterDecimal(elEvento) {
+        var event = elEvento || window.event;
+
+        var elem = event.currentTarget || event.srcElement;
+        var kcode = event.which || event.keyCode;
+        //alert(kcode);
+        var val;
+        var newVal = "";
+        if (amountformat)
+            elem.value = replaceAll(elem.value, ",");
+        switch (kcode) {
+            case 66:
+            case 98:
+            {
+                /*event.returnValue = false;
+                 if(elem.value.indexOf(',')==-1) {
+                 if (elem.value.length > 0) {
+                 if (parseInt(elem.value)==0)  elem.value = "1000000000,00";
+                 else if (elem.maxLength - elem.value.length > 12) elem.value = elem.value + "000000000,00";
+                 }else elem.value = "1000000000,00";
+                 } else {
+                 val = parseFloat(elem.value) * 1000000000,00;
+                 newVal = "" + val;
+                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
+                 else {
+                 val = newVal.length - newVal.indexOf(',');
+                 if(val == 2) newVal = newVal+"0";
+                 }
+                 if (newVal=="0,00") elem.value = "1000000000,00";
+                 else if (elem.maxLength > newVal.length) elem.value = newVal;                                     
+                 }*/
+
+                if (amountformat)
+                    formatValor(elem, true);
+
+                //break;
+                return false;
+            }
+            case 72:
+            case 104:
+            {
+                /*//event.returnValue = false;
+                 if(elem.value.indexOf(',')==-1) {
+                 if (elem.value.length > 0) {
+                 if (parseInt(elem.value)==0)  elem.value = "100,00";
+                 else if (elem.maxLength - elem.value.length > 5) elem.value = elem.value + "00,00";
+                 }else elem.value = "100,00";
+                 } else {
+                 val = parseFloat(elem.value) * 100.00;
+                 newVal = "" + val;
+                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
+                 else {
+                 val = newVal.length - newVal.indexOf(',');
+                 if(val == 2) newVal = newVal+"0";
+                 }
+                 if (newVal=="0,00") elem.value = "100,00";
+                 else if (elem.maxLength > newVal.length) elem.value = newVal;                         
+                 }*/
+                if (amountformat)
+                    formatValor(elem, true);
+                //break;
+                return false;
+            }
+            case 77:
+            case 109:
+            {
+                /*//event.returnValue = false;
+                 if(elem.value.indexOf(',')==-1) {
+                 if (elem.value.length > 0) {
+                 if (parseInt(elem.value)==0)  elem.value = "1000000,00";
+                 else if (elem.maxLength - elem.value.length > 9) elem.value = elem.value + "000000,00";
+                 }else elem.value = "1000000,00";
+                 } else {
+                 val = parseFloat(elem.value) * 1000000.00;
+                 newVal = "" + val;
+                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
+                 else {
+                 val = newVal.length - newVal.indexOf(',');
+                 if(val == 2) newVal = newVal+"0";
+                 }
+                 if (newVal=="0,00") elem.value = "1000000,00";
+                 else if (elem.maxLength > newVal.length) elem.value = newVal;                         
+                 }*/
+                if (amountformat)
+                    formatValor(elem, true);
+                //break;
+                return false;
+            }
+            case 84:
+            case 116:
+            {
+                /*//event.returnValue = false;
+                 if(elem.value.indexOf(',')==-1) {
+                 if (elem.value.length > 0) {
+                 if (parseInt(elem.value)==0)  elem.value = "1000,00";
+                 else if (elem.maxLength - elem.value.length > 6) elem.value = elem.value + "000,00";
+                 }else elem.value = "1000,00";
+                 } else {
+                 val = parseFloat(elem.value) * 1000.00;
+                 newVal = "" + val;
+                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
+                 else {
+                 val = newVal.length - newVal.indexOf('.');
+                 if(val == 2) newVal = newVal+"0";
+                 }
+                 if (newVal=="0,00") elem.value = "1000,00";
+                 else if (elem.maxLength > newVal.length) elem.value = newVal;                         
+                 }*/
+                if (amountformat)
+                    formatValor(elem, true);
+                //break;
+                return false;
+            }
+            default:
+            {
+                if (amountformat) {
+                    if ((kcode < 48 || kcode > 57) && kcode != 13) {
+
+                        if (kcode == 37 || kcode == 39) {
+                            //event.returnValue = true;
+                            //formatValor(elem,true);
+                            return true;
+                        } else if (kcode == 8) {
+                            //event.returnValue = true;
+                            //formatValor(elem,true);
+                            if (elem.value == "0" || elem.value == "00" || elem.value == "0,00" || elem.value == "0,0" || elem.value == "") {
+                                elem.value = "0,00";
+                            }
+                            return true;
+                        } else {
+                            //event.returnValue = false;
+                            formatValor(elem, true);
+                            return false;
+                        }
+                        //break;
+                    } else if (kcode != 13) {
+                        formatValor(elem, false);
+                        //break;
+                        return true;
+                    } else {
+                        formatValor(elem, true);
+                        if (elem.value == "0" || elem.value == "00" || elem.value == "0,00" || elem.value == "0,0" || elem.value == "") {
+                            elem.value = "0,00";
+                        }
+
+                        //break;
+                        return true;
+                    }
+                } else {
+                    if ((kcode < 48 || kcode > 57) && kcode != 13) {
+                        //event.returnValue = false;
+                        return false;
+                    } else if (kcode == 46 && elem.value.indexOf(',') !== -1) {
+                        //event.returnValue = false;
+                        return false;
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    function replaceAll(value, charte) {
+
+        var result = value;
+        var posi = value.indexOf(charte);
+        if (posi > -1) {
+            while (posi > -1) {
+                result = value.substring(0, posi);
+                result = result + value.substring(posi + 1);
+                posi = result.indexOf(charte);
+                value = result;
+            }
+        }
+
+        return(result);
+
+    }
+
+
+    function formatValor(campo, preformat) {
+
+        var vr = campo.value;
+        //vr = vr.replace( ".", "" );
+        vr = replaceAll(vr, ".");
+        vr = replaceAll(vr, ",");
+        campo.value = "";
+        var sign = "";
+        if (vr.indexOf('-') != -1) {
+            vr = replaceAll(vr, "-");
+            sign = "-";
+        }
+        var tam = (preformat) ? vr.length : vr.length + 1;
+
+        campo.maxLength = 15;
+        if (tam <= 2) {
+            campo.value = "0," + vr;
+        }
+        if ((tam > 2) && (tam <= 5)) {
+            campo.maxLength = 16;
+            campo.value = vr.substr(0, tam - 2) + ',' + vr.substr(tam - 2, tam);
+        }
+        if ((tam >= 6) && (tam <= 8)) {
+            campo.maxLength = 17;
+            campo.value = vr.substr(0, tam - 5) + '.' + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+        }
+        if ((tam >= 9) && (tam <= 11)) {
+            campo.maxLength = 18;
+            campo.value = vr.substr(0, tam - 8) + '.' + vr.substr(tam - 8, 3) + '.' + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+        }
+        if ((tam >= 12) && (tam <= 14)) {
+            campo.maxLength = 19;
+            campo.value = vr.substr(0, tam - 11) + '.' + vr.substr(tam - 11, 3) + '.' + vr.substr(tam - 8, 3) + '.' + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+        }
+        if ((tam >= 15) && (tam <= 17)) {
+            campo.maxLength = 20;
+            campo.value = vr.substr(0, tam - 14) + '.' + vr.substr(tam - 14, 3) + '.' + vr.substr(tam - 11, 3) + '.' + vr.substr(tam - 8, 3) + '.' + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+        }
+        var pos = campo.value.indexOf(',');
+        if (pos != -1) {
+            vr = campo.value.substr(0, pos);
+            if (vr == "00" || (vr.length == 2 && vr.substr(0, 1) == "0"))
+                campo.value = campo.value.substr(1, tam);
+        }
+        campo.value = sign + campo.value;
+    }
     function soloNumeros(e) {
         var key = window.Event ? e.which : e.keyCode;
         return ((key >= 48 && key <= 57) || key == 8 || key == 0);
@@ -301,7 +537,6 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
     function AsignarResultado(data) {
         var lista = '';
         var botones = '';
-        var periodo = 'display: none';
         if (data.campos > 0) {
             var aux = 0;
             var i;
@@ -312,10 +547,10 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                         $('#Generar').html('Actualizar');
                         $('#Generar').attr("onclick", "javascript:Modificar('" + data.datos[aux].declaracion + "')");
                         $('#CargaFamiliar').val(data.datos[aux].carga);
-                        $('#IngresoAnual').val(data.datos[aux].monto);
+                        $('#IngresoAnual').val(data.datos[aux].estimado);
+                        $('#IngresoAnual').focus();
                     } else {
                         botones = 'display: none';
-                        periodo = '';
                         $('.DatosDeclaraciones').css({'display': 'none'});
                         $('.periodo').css({'display': 'none'});
                         $('.codigo').css({'display': ''});
@@ -332,10 +567,10 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                 <td style="text-align: center;vertical-align: middle">' + data.datos[aux].retencion + '</td>\n\
                                 <td style="text-align: center;vertical-align: middle">' + data.datos[aux].codigo + '</td>\n\
                                 <td style="text-align: center;vertical-align: middle">\n\
-                                <a style="' + botones + '" title="Confirmar" class="btn btn-error" type="text" onclick="javascript:Confirmar(\'' + data.datos[aux].declaracion + '\')">\n\
+                                <a style="' + botones + '" title="Confirmar Declaración" class="btn btn-error" type="text" onclick="javascript:Confirmar(\'' + data.datos[aux].declaracion + '\')">\n\
                                 <i style="font-size: 10px" class="fa fa-check"></i>\n\
                                 </a>\n\                                \n\
-                                <a title="Ver" class="btn btn-error" type="text" onclick="javascript:VerDeclaracion(\'' + data.reporte + '\')">\n\
+                                <a title="Ver Planilla" class="btn btn-error" type="text" onclick="javascript:VerDeclaracion(\'' + data.reporte + '\')">\n\
                                     <i style="font-size: 10px" class="fa fa-search-plus"></i>\n\
                                 </a>\n\
                                 </td>\n\
@@ -343,7 +578,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                 aux++;
             }
         } else {
-            lista = '<tr><td  class="SinRegistro">*** No posee Declaraciones registradas para este periodo. ***</td></tr>'
+            lista = '<tr><td colspan="8" class="SinRegistro">*** No posee Declaraciones registradas para este periodo. ***</td></tr>'
         }
         document.getElementById('Tabla-Sanciones').innerHTML = lista;
     }
@@ -351,7 +586,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
     function VerificarDeclaraciones(parametro) {
         $.ajax({
             url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
-            method: 'POST',
+            method: 'GET',
             dataType: 'JSON',
             data: {
                 acc: 'verificar'
@@ -367,7 +602,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
         var ingreso = $('#IngresoAnual').val();
         $.ajax({
             url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
-            method: 'POST',
+            method: 'GET',
             dataType: 'JSON',
             data: {
                 acc: 'modificar',
@@ -385,7 +620,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
         $.alert({
             type: 'confirm'
             , title: 'Alerta'
-            , text: '<h3>Desea confirmar esta Declaración?</h3><h5><i>Solo se podra confirmar una declaración AR-I por Trimestre</i></h5><br>'
+            , text: '<h3>Desea confirmar esta Declaración?</h3><h5><i>Solo se podrá confirmar una declaración AR-I por Periodo (trimestre)</i></h5><br>'
             , callback: function () {
                 $.ajax({
                     url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
@@ -409,8 +644,11 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
         if (carga != '' && ingreso != '') {
             $.ajax({
                 url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
-                method: 'POST',
+                method: 'GET',
                 dataType: 'JSON',
+                beforeSend: function () {
+                    $('#Generar').attr('disabled', true);
+                },
                 data: {
                     acc: 'declaraciones',
                     carga: carga,
@@ -419,6 +657,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                 },
                 success: function (data) {
                     AsignarResultado(data);
+                    $('#Generar').removeAttr('disabled');
                 }
             });
         } else {
@@ -434,6 +673,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
 
     $(document).ready(function () {
         VerificarDeclaraciones('<?= $parametros ?>');
+        $("#IngresoAnual").focus();
     });
 
 </script>
