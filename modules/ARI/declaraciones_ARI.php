@@ -84,6 +84,10 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
         height: 450px; 
         overflow: auto;
     }
+    .bsf{
+        font-size: 12px;
+        font-weight: bold;
+    }
 
     @media (max-width: 1175px){
         #Editado > div{
@@ -120,19 +124,19 @@ $periodo = '';
 $mes = date('m');
 $año = date('Y');
 switch ($mes) {
-    case 1: case 2: $periodotitle = 'Primer Trimestre';
+    case 1: case 2: $periodotitle = 'Primer Periodo';
         $periodo = 1;
         break;
-    case 3: case 4: case 5: $periodotitle = 'Segundo Trimestre';
+    case 3: case 4: case 5: $periodotitle = 'Segundo Periodo';
         $periodo = 2;
         break;
-    case 6: case 7: case 8: $periodotitle = 'Tercer Trimestre';
+    case 6: case 7: case 8: $periodotitle = 'Tercer Periodo';
         $periodo = 3;
         break;
-    case 9: case 10: case 11: $periodotitle = 'Cuarto Trimestre';
+    case 9: case 10: case 11: $periodotitle = 'Cuarto Periodo';
         $periodo = 4;
         break;
-    case 12: $periodotitle = 'Quinto Trimestre';
+    case 12: $periodotitle = 'Quinto Periodo';
         $periodo = 5;
         break;
 }
@@ -217,37 +221,91 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                             </div>
                                         </div> <!-- .field-group -->	
                                     </div>
-                                    <div class="grid-8 DatosDeclaraciones" style="display: inicial"></div>
                                     <div class="grid-8 DatosDeclaraciones" style="margin-top: 0px; display: initial">
                                         <div class="field-group">
                                             <label style="color:#B22222">Ingreso estimado:</label>
                                             <div class="field" style="margin-bottom: 2px">
                                                 <label>Mensual:</label>    
-                                                <input name="IngresoMensual" id="IngresoMensual" title="Ingreso Mensual" readonly style="max-width: 250px; text-align: right" class="" value="<?= $mensual ?>"/>
+                                                <input name="IngresoMensual" id="IngresoMensual" title="Ingreso Mensual" readonly style="max-width: 250px; text-align: right" class="" value="<?= $mensual ?>"/><span class="bsf"> Bs.f</span>
                                                 <label style="color: #B22222; font-style: italic"> * Ingreso mensual según Nómina, utilizado como referencia. </label>
-
                                             </div>
                                             <br>
-                                            <div class="field">
+                                            <div class="field" style="margin-bottom: 2px">
                                                 <label >Ingreso Anual Estimado:</label>
-                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="<?= $anual ?>"/>
+                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="<?= $anual ?>"/><span class="bsf"> Bs.f</span>
+                                                <label style="color: #B22222; font-style: italic"> * En caso de ser requerido, puede incluir ingresos adicionales (vacaciones, aguinaldos, etc). Totalice el monto anual.</label>
+                                            </div>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label >Ingreso Anual Estimado:</label>
+                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="0,00"/><span class="bsf"> Bs.f</span>
+                                                <label style="color: #B22222; font-style: italic"> * En caso de ser requerido, puede incluir ingresos adicionales (vacaciones, aguinaldos, etc). Totalice el monto anual.</label>
+                                            </div>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label >Ingreso Anual Estimado:</label>
+                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="0,00"/><span class="bsf"> Bs.f</span>
+                                                <label style="color: #B22222; font-style: italic"> * En caso de ser requerido, puede incluir ingresos adicionales (vacaciones, aguinaldos, etc). Totalice el monto anual.</label>
+                                            </div>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label >Ingreso Anual Estimado:</label>
+                                                <input name="IngresoAnual" id="IngresoAnual" title="Ingreso Anual Estimado" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="0,00"/><span class="bsf"> Bs.f</span>
                                                 <label style="color: #B22222; font-style: italic"> * En caso de ser requerido, puede incluir ingresos adicionales (vacaciones, aguinaldos, etc). Totalice el monto anual.</label>
                                             </div>
                                         </div> <!-- .field-group -->
                                         <div class="field-group">								
-                                            <label style="color:#B22222">Carga Familiar(Cantidad):</label>
-                                            <div class="field">
+                                            <label style="color:#B22222">Carga Familiar:</label>
+                                            <div class="field" style="margin-bottom: 2px">
                                                 <input name="CargaFamiliar" id="CargaFamiliar" title="Carga Familiar" path="note" type="number" min="0" max="10" style="width: 50px;" value="<?= $sqlCargaCount ?>"/>
-                                                <span style="color: #888; opacity: 0.8; font-size: 12px; font-weight: bold"> Solo Hijo(s) </span>    
+                                                <span style="color: #888; opacity: 0.8; font-size: 12px; font-weight: bold"> Cantidad </span>    
                                             </div>
                                         </div>
-                                        <div class="field-group" style="text-align: center; width: 70%">
+                                    </div>
+                                    <div class="grid-8 DatosDeclaraciones Desgravamenes Variable" style="margin-top: 0px; display: initial">
+                                        <div class="field-group">
+                                            <input type="checkbox" id="Unico" class="Desg" value="1"/>
+                                            <span style="color:#B22222; font-weight: bold">Desgravamen Único:</span>
+                                            <br><br>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label>Desgravamen Único:</label>    
+                                                <input name="DesgravameUnico" id="DesgravameUnico" readonly title="Desgravamen Único" readonly style="max-width: 250px; text-align: right" class="" value="774"/><span class="bsf"> U.T.</span>
+                                                <label style="color: #B22222; font-style: italic"> * Monto fijo del Desgravamen (Art. 62 - Ley). </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-8 DatosDeclaraciones Desgravamenes Unico" style="margin-top: 0px; display: initial">
+                                        <div class="field-group">
+                                            <input type="checkbox" id="Variable" class="Desg" value="2"/>
+                                            <span style="color:#B22222; font-weight: bold">Desgravamen Variable:</span>
+                                            <br><br>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label >Institutos Docentes:</label>
+                                                <input name="Institutos" id="Institutos" title="Institutos Docentes" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="0.00"/><span class="bsf"> Bs.f</span>
+                                                <label style="color: #B22222; font-style: italic"> * Por la educación del contribuyente y descendientes no mayores a 25 años.</label>
+                                            </div>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label >Primas:</label>
+                                                <input name="Primas" id="Primas" title="Primas" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="0.00"/><span class="bsf"> Bs.f</span>
+                                                <label style="color: #B22222; font-style: italic"> * Primas de Seguro, Hospitalización, Cirugia y Maternidad.</label>
+                                            </div>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label >Servicios Médicos:</label>
+                                                <input name="ServiciosMedicos" id="ServiciosMedicos" title="Servicios Medicos" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="0.00"/><span class="bsf"> Bs.f</span>
+                                                <label style="color: #B22222; font-style: italic"> * Servicios Médicos odontológicos y de Hospitalización (incluye carga familiar).</label>
+                                            </div>
+                                            <div class="field" style="margin-bottom: 2px">
+                                                <label >Intereses:</label>
+                                                <input name="Intereses" id="Intereses" title="Intereses" style="max-width: 250px; text-align: right" class="" onkeypress="return enterDecimal(event)" value="0.00"/><span class="bsf"> Bs.f</span>
+                                                <label style="color: #B22222; font-style: italic"> * Intereses por la adquisición de la vivienda principal o de lo pagado por alquiler de la vivienda que le sirve de asiento permanente.</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-24" style="margin-top: 0px; display: initial; text-align: center">
+                                        <div class="field-group" style="text-align: center; width: 95%">
                                             <input name="Periodo" id="Periodo" value="<?= $periodo ?>" style="display: none"/>
                                             <button type="button" id="Generar" class="btn btn-error" onclick="javascript:AceptarEdit('<?= $parametros ?>')">Generar</button>
                                         </div> <!-- .field-group -->
                                     </div>
                                 </div>
-                                <div class="grid-24" style="text-align: center; width: 90%">
+                                <div class="grid-24" style="text-align: left; width: 90%">
                                     <div class="grid-24" style="width: 100%; text-align: center; font-size: 14px;margin-bottom: -15px">
                                         <table class="table table-striped table-bordered">
                                             <thead>
@@ -265,6 +323,9 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="grid-24 DatosDeclaraciones" style="display: inicial">
+                                    <label style="color: #B22222; font-style: italic; text-align: left; width: 70%"> <b>IMPORTANTE:</b><br> Esta declaración solo considera el Desgravámen Único (Art. 62), si desea declarar otros desgravámenes realice la declaración con la planilla física.</label>
                                 </div>
                             </div>
                         </div>
@@ -284,6 +345,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
             <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
             <p>En esta sección podrá hacer la declaracion de AR-I <b></b></p>
             <div class="box plain">
+                <a class="btn btn-primary btn-large dashboard_add"  href="dashboard.php?data=Historial_AR-I&'<?= $parametros ?>'">Historial</a>
                 <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
             </div>
         </div>
@@ -292,7 +354,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
 </div><!-- .row -->
 
 <script type="text/javascript">
-
+    var desgravamen;
 //-----------------------------------------------------------------
 //   Máscara de Decimales para montos Gracias Banco del Tesoro
 //-----------------------------------------------------------------
@@ -302,7 +364,6 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
 
         var elem = event.currentTarget || event.srcElement;
         var kcode = event.which || event.keyCode;
-        //alert(kcode);
         var val;
         var newVal = "";
         if (amountformat)
@@ -311,103 +372,29 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
             case 66:
             case 98:
             {
-                /*event.returnValue = false;
-                 if(elem.value.indexOf(',')==-1) {
-                 if (elem.value.length > 0) {
-                 if (parseInt(elem.value)==0)  elem.value = "1000000000,00";
-                 else if (elem.maxLength - elem.value.length > 12) elem.value = elem.value + "000000000,00";
-                 }else elem.value = "1000000000,00";
-                 } else {
-                 val = parseFloat(elem.value) * 1000000000,00;
-                 newVal = "" + val;
-                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
-                 else {
-                 val = newVal.length - newVal.indexOf(',');
-                 if(val == 2) newVal = newVal+"0";
-                 }
-                 if (newVal=="0,00") elem.value = "1000000000,00";
-                 else if (elem.maxLength > newVal.length) elem.value = newVal;                                     
-                 }*/
-
                 if (amountformat)
                     formatValor(elem, true);
-
-                //break;
                 return false;
             }
             case 72:
             case 104:
             {
-                /*//event.returnValue = false;
-                 if(elem.value.indexOf(',')==-1) {
-                 if (elem.value.length > 0) {
-                 if (parseInt(elem.value)==0)  elem.value = "100,00";
-                 else if (elem.maxLength - elem.value.length > 5) elem.value = elem.value + "00,00";
-                 }else elem.value = "100,00";
-                 } else {
-                 val = parseFloat(elem.value) * 100.00;
-                 newVal = "" + val;
-                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
-                 else {
-                 val = newVal.length - newVal.indexOf(',');
-                 if(val == 2) newVal = newVal+"0";
-                 }
-                 if (newVal=="0,00") elem.value = "100,00";
-                 else if (elem.maxLength > newVal.length) elem.value = newVal;                         
-                 }*/
                 if (amountformat)
                     formatValor(elem, true);
-                //break;
                 return false;
             }
             case 77:
             case 109:
             {
-                /*//event.returnValue = false;
-                 if(elem.value.indexOf(',')==-1) {
-                 if (elem.value.length > 0) {
-                 if (parseInt(elem.value)==0)  elem.value = "1000000,00";
-                 else if (elem.maxLength - elem.value.length > 9) elem.value = elem.value + "000000,00";
-                 }else elem.value = "1000000,00";
-                 } else {
-                 val = parseFloat(elem.value) * 1000000.00;
-                 newVal = "" + val;
-                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
-                 else {
-                 val = newVal.length - newVal.indexOf(',');
-                 if(val == 2) newVal = newVal+"0";
-                 }
-                 if (newVal=="0,00") elem.value = "1000000,00";
-                 else if (elem.maxLength > newVal.length) elem.value = newVal;                         
-                 }*/
                 if (amountformat)
                     formatValor(elem, true);
-                //break;
                 return false;
             }
             case 84:
             case 116:
             {
-                /*//event.returnValue = false;
-                 if(elem.value.indexOf(',')==-1) {
-                 if (elem.value.length > 0) {
-                 if (parseInt(elem.value)==0)  elem.value = "1000,00";
-                 else if (elem.maxLength - elem.value.length > 6) elem.value = elem.value + "000,00";
-                 }else elem.value = "1000,00";
-                 } else {
-                 val = parseFloat(elem.value) * 1000.00;
-                 newVal = "" + val;
-                 if(newVal.indexOf(',')==-1) newVal=newVal+",00";
-                 else {
-                 val = newVal.length - newVal.indexOf('.');
-                 if(val == 2) newVal = newVal+"0";
-                 }
-                 if (newVal=="0,00") elem.value = "1000,00";
-                 else if (elem.maxLength > newVal.length) elem.value = newVal;                         
-                 }*/
                 if (amountformat)
                     formatValor(elem, true);
-                //break;
                 return false;
             }
             default:
@@ -570,7 +557,7 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                                 <a style="' + botones + '" title="Confirmar Declaración" class="btn btn-error" type="text" onclick="javascript:Confirmar(\'' + data.datos[aux].declaracion + '\')">\n\
                                 <i style="font-size: 10px" class="fa fa-check"></i>\n\
                                 </a>\n\                                \n\
-                                <a title="Ver Planilla" class="btn btn-error" type="text" onclick="javascript:VerDeclaracion(\'' + data.reporte + '\')">\n\
+                                <a title="Ver Planilla" class="btn btn-error" type="text" onclick="javascript:VerDeclaracion(\'' + data.datos[aux].reporte + '\')">\n\
                                     <i style="font-size: 10px" class="fa fa-search-plus"></i>\n\
                                 </a>\n\
                                 </td>\n\
@@ -600,6 +587,12 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
     function Modificar(parametro) {
         var carga = $('#CargaFamiliar').val();
         var ingreso = $('#IngresoAnual').val();
+        var unico = $('#DesgravameUnico').val();
+        var institutos = $('#Institutos').val();
+        var primas = $('#Primas').val();
+        var serviciosM = $('#ServiciosMedicos').val();
+        var intereses = $('#Intereses').val();
+
         $.ajax({
             url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
             method: 'GET',
@@ -607,6 +600,12 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
             data: {
                 acc: 'modificar',
                 carga: carga,
+                unico: unico,
+                desgravamen: desgravamen,
+                institutos: institutos,
+                primas: primas,
+                serviciosM: serviciosM,
+                intereses: intereses,
                 ingreso: ingreso
             },
             success: function (data) {
@@ -638,9 +637,15 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
     }
 
     function AceptarEdit(parametro) {
-        var carga = document.getElementById('CargaFamiliar').value;
-        var ingreso = document.getElementById('IngresoAnual').value;
-        var periodo = document.getElementById('Periodo').value;
+        var carga = $('#CargaFamiliar').val();
+        var ingreso = $('#IngresoAnual').val();
+        var periodo = $('#Periodo').val();
+        var unico = $('#DesgravameUnico').val();
+        var institutos = $('#Institutos').val();
+        var primas = $('#Primas').val();
+        var serviciosM = $('#ServiciosMedicos').val();
+        var intereses = $('#Intereses').val();
+
         if (carga != '' && ingreso != '') {
             $.ajax({
                 url: 'modules/ARI/Declaraciones.php?flag=1&' + parametro,
@@ -653,6 +658,12 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
                     acc: 'declaraciones',
                     carga: carga,
                     periodo: periodo,
+                    desgravamen: desgravamen,
+                    unico: unico,
+                    institutos: institutos,
+                    primas: primas,
+                    serviciosM: serviciosM,
+                    intereses: intereses,
                     ingreso: ingreso
                 },
                 success: function (data) {
@@ -674,6 +685,24 @@ $sqlCargaCount = mysql_num_rows($sqlcarga);
     $(document).ready(function () {
         VerificarDeclaraciones('<?= $parametros ?>');
         $("#IngresoAnual").focus();
+        $(".Desg").click(function () {
+            $(".Desg").attr('checked', false);
+            $(this).attr('checked', true);
+
+            desgravamen = $(this).val();
+
+            $('.Desgravamenes > div > div > input').removeAttr('disabled');
+            $('.' + $(this).attr('id') + ' > div > div > input').attr('disabled', true);
+
+            setTimeout(function () {
+                $.uniform.update();
+            }, 100);
+        });
+        $("#Unico").trigger('click');
+        $("#Unico").attr('checked', true);
+        setTimeout(function () {
+            $.uniform.update();
+        }, 100);
     });
 
 </script>

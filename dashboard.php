@@ -3,16 +3,16 @@ require("conexiones_config.php");
 session_start();
 session_regenerate_id(true);
 if (!isset($_SESSION[md5('usuario_datos' . $ecret)])) {
-    ir("index.php");
+ir("index.php");
 }
 $usuario_datos = $_SESSION[md5('usuario_datos' . $ecret)];
 $usuario_permisos = $_SESSION[md5('usuario_permisos' . $ecret)];
 if (!in_array('Dashboard', $usuario_permisos)) {
-    alerta("No tiene permisos - Comuníquese con la División de Sistemas de la Gerencia de Tecnología de Información");
-    session_unset();
-    session_destroy();
-    _wm($usuario_datos[9], 'Acceso Denegado en: Dashboard', 'S/I');
-    ir("index.php");
+alerta("No tiene permisos - Comuníquese con la División de Sistemas de la Gerencia de Tecnología de Información");
+session_unset();
+session_destroy();
+_wm($usuario_datos[9], 'Acceso Denegado en: Dashboard', 'S/I');
+ir("index.php");
 }
 
 _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
@@ -72,9 +72,29 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                         <a href="dashboard.php?data=inicio">Página Principal</a>				
                                     </li>
                                     <?php if (in_array('ARI', $usuario_permisos)) { ?>
-                                        <li id="ARI" class="nav">
-                                            <span class="icon-key-stroke"></span>
-                                            <a href="dashboard.php?data=AR-I">Declaración AR-I</a>				
+                                    <li id="ARI" class="nav">
+                                        <span class="icon-key-stroke"></span>
+                                        <a href="dashboard.php?data=AR-I">Declaración AR-I</a>				
+                                    </li>
+                                    <?php } ?>
+
+                                    <?php if (in_array('Fas', $usuario_permisos)) { ?>
+                                        <li id="fas" class="nav "> 
+                                            <span class="icon-document-alt-stroke"></span>
+                                            <a href="javascript:;">FAS METRO</a>				
+                                            <ul class="subNav">
+                                                <li><a href="dashboard.php?data=Fas">Inscripción</a></li>               
+                                            </ul>						
+                                        </li>
+                                    <?php } ?>
+
+                                    <?php if (in_array('Fas_admin', $usuario_permisos)) { ?>
+                                        <li id="fas_admin" class="nav "> 
+                                            <span class="icon-document-alt-stroke"></span>
+                                            <a href="javascript:;">FAS METRO-Admin</a>				
+                                            <ul class="subNav">
+                                                <li><a href="dashboard.php?data=fas_admin">Consulta de Empleados</a></li>
+                                            </ul>						
                                         </li>
                                     <?php } ?>
                                     <?php if (in_array('ModuloPrueba', $usuario_permisos)) { ?>
@@ -120,8 +140,8 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                     <?php if (in_array('ControlGestionAdmin', $usuario_permisos)) { ?>
                                         <li id="controlgestionadmin" class="nav "> 
                                             <span class="icon-layers"></span>
-                                           <a href="dashboard.php?data=control_gestion_reporte">Control y Gestión Admin</a>			
-                                            						
+                                            <a href="dashboard.php?data=control_gestion_reporte">Control y Gestión Admin</a>			
+
                                         </li>
                                     <?php } ?>
 
@@ -427,9 +447,9 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                         <script type="text/javascript" src="src/javascripts/QapTcha.jquery.js?<?php echo $anticache; ?>"></script>
 
                         <script type="text/javascript">
-                                                            $(document).ready(function () {
-                                                                $('.QapTcha').QapTcha({<?php echo @$js; ?>});
-                                                            });
+                                                                    $(document).ready(function () {
+                                                                        $('.QapTcha').QapTcha({<?php echo @$js; ?>});
+                                                                    });
                         </script>
 
                         <script>

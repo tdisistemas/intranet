@@ -6,10 +6,28 @@ if (isset($_GET["data"])) {
 }
 switch ($t) {
 
+
+    /*     * **FAS *** */
+    case ("Fas"):include('modules/fas/fas.php');
+        ?><script>activame('fas');</script><?php
+        break;
+    case ("Fas-planilla"):include('modules/fas/pdf.php');
+        ?><script>activame('fas');</script><?php
+        break;
+
+    /*     * **FAS *** */
+    case ("fas_admin"):include('modules/fas_admin/fas.php');
+        ?><script>activame('fas_admin');</script><?php
+        break;
+
+
     /*     * ******************************************** */
     /*     * *********** Declaraciones AR-I*************** */
     /*     * ******************************************** */
     case ("AR-I"):include('modules/ARI/declaraciones_ARI.php');
+        ?><script>activame('ARI');</script><?php
+        break;
+    case ("Historial_AR-I"):include('modules/ARI/historial_ARI.php');
         ?><script>activame('ARI');</script><?php
         break;
     /*     * ******************************************** */

@@ -2,10 +2,10 @@
 
 include('../../conexiones_config.php');
 
-function retenciones_ARI($A, $UT, $carga) {
+function retenciones_ARI($A, $UT, $carga, $desgravamen) {
     $K = $B = $E = $F = $G = $H = $I = $J = 0;
     $B = $A / $UT;
-    $E = 774;
+    $E = $desgravamen;
     $F = $B - $E;
     switch ($F) {
         case ($F <= 1000):
@@ -67,6 +67,8 @@ if (isset($_GET['acc'])) {
     $rif = _antinyeccionSQL($_GET['Rif']);
     $nombre = _antinyeccionSQL($_GET['Nombre']);
     $codigo = _antinyeccionSQL($_GET['codigo']);
+    $unico = _antinyeccionSQL($_GET['unico']);
+    $desg = _antinyeccionSQL($_GET['desgravamen']);
 
     if (isset($_GET['ingreso']) && $_GET['ingreso'] != '') {
         $estimado_a = str_replace(".", "", _antinyeccionSQL($_GET['ingreso']));
@@ -75,27 +77,44 @@ if (isset($_GET['acc'])) {
         $estimado_b = 0;
         $estimado_c = 0;
         $estimado_d = 0;
+
+        if ($desg == 1) {
+            $desgravamen = $unico;
+        } else {
+            $desgravamen_a = str_replace(".", "", _antinyeccionSQL($_GET['institutos']));
+            $desgravamen_a = str_replace(",", ".", $desgravamen_a);
+            $desgravamen_b = str_replace(".", "", _antinyeccionSQL($_GET['primas']));
+            $desgravamen_b = str_replace(",", ".", $desgravamen_b);
+            $desgravamen_c = str_replace(".", "", _antinyeccionSQL($_GET['serviciosM']));
+            $desgravamen_c = str_replace(",", ".", $desgravamen_c);
+            $desgravamen_d = str_replace(".", "", _antinyeccionSQL($_GET['intereses']));
+            $desgravamen_d = str_replace(",", ".", $desgravamen_d);
+
+            $desgravamen = ($desgravamen_a + $desgravamen_b + $desgravamen_c + $desgravamen_d) / $UT;
+        }
+
+        $A = $estimado_a + $estimado_b + $estimado_c + $estimado_d;
+        $K = retenciones_ARI($A, $UT, $carga, $desgravamen);
+        $monto = $K < 0 ? 0 : $K;
     }
 
 
     if ($_GET['acc'] == 'declaraciones') {
-        $A = $estimado_a + $estimado_b + $estimado_c + $estimado_d;
-        $K = retenciones_ARI($A, $UT, $carga);
-        $monto = $K < 0 ? 0 : $K;
         $sqlcode = "INSERT INTO declaraciones_ARI(empleado,fecha_gen,periodo,status,carga,estimado_a,estimado_b,estimado_c,estimado_d,estimado_total,año,retencion) VALUES($cedula,NOW(),$periodo,0,$carga,$estimado_a,$estimado_b,$estimado_c,$estimado_d,$A,'$año',$monto)";
         $sql = mysql_query($sqlcode);
     }
     if ($_GET['acc'] == 'confirmar') {
 
         $codigo = mysql_fetch_array(mysql_query('SELECT consecutivo("RRHH","ARI",' . $año . ')'));
-        $sqlcode = "UPDATE declaraciones_ARI SET status = 1, fecha_conf = NOW(), codigo = '$codigo[0]' WHERE idARI = $id";
-        $sql = mysql_query($sqlcode);
+        if($codigo[0] != '') {
+            $sqlcode = "UPDATE declaraciones_ARI SET status = 1, fecha_conf = NOW(), codigo = '$codigo[0]' WHERE idARI = $id";
+            $sql = mysql_query($sqlcode);
+        }else {
+            $resultado = "Error en confirmación, por favor intente más tarde";
+        }
     }
     if ($_GET['acc'] == 'modificar') {
 
-        $A = $estimado_a + $estimado_b + $estimado_c + $estimado_d;
-        $K = retenciones_ARI($A, $UT, $carga);
-        $monto = $K < 0 ? 0 : $K;
         $sqlcode = "UPDATE declaraciones_ARI "
                 . "SET carga = $carga, "
                 . "estimado_a = $estimado_a, "
@@ -109,7 +128,7 @@ if (isset($_GET['acc'])) {
         $sql = mysql_query($sqlcode);
     }
 
-    /*  Verificacion */
+    /*  Query de Verificacion general  */
     $sqlSelect = "Select idARI,"
             . "a.retencion,"
             . "a.fecha_gen,"
@@ -162,9 +181,33 @@ if (isset($_GET['acc'])) {
                 . "AND a.periodo=$periodo "
                 . "AND a.año=$año "
                 . "ORDER BY fecha_gen";
-
-        $sqlConsulta = mysql_query($sqlSelect);
     }
+    if ($_GET['acc'] == 'historial') {
+        /*  Query de Verificacion Historial  */
+        $sqlSelect = "Select idARI,"
+                . "a.retencion,"
+                . "a.fecha_gen,"
+                . "a.fecha_conf,"
+                . "a.periodo,"
+                . "a.estimado_a,"
+                . "a.estimado_b,"
+                . "a.estimado_c,"
+                . "a.estimado_d,"
+                . "a.carga,"
+                . "a.status,"
+                . "a.retencion,"
+                . "a.año,"
+                . "b.unidad_tributaria,"
+                . "a.codigo "
+                . "FROM declaraciones_ARI a "
+                . "INNER JOIN variables_fiscales b "
+                . "ON a.periodo = b.periodo "
+                . "AND a.año = b.año "
+                . "WHERE a.status=1 "
+                . "AND a.empleado=$cedula "
+                . "ORDER BY a.año DESC, a.periodo DESC";
+    }
+    $sqlConsulta = mysql_query($sqlSelect);
     $i = 0;
     $confir = 0;
     $reporte = array();
@@ -194,18 +237,6 @@ if (isset($_GET['acc'])) {
         if ($result['status'] == '1') {
             $confir = 2;
         }
-
-        $datos[$i] = array('generado' => date("d-m-Y", strtotime($result['fecha_gen'])),
-            'confirmado' => $result['fecha_conf'] == '0000-00-00' ? '--' : date("d-m-Y", strtotime($result['fecha_conf'])),
-            'estimado' => number_format($result['estimado_a'], 2, ',', '.'),
-            'monto' => $result['estimado_a'],
-            'carga' => $result['carga'],
-            'periodo' => $result['periodo'],
-            'status' => '<span>' . iconosIntranet($st, $titulo, false, $color, false) . '</span>',
-            'codigo' => $result['codigo'] == '' ? '--' : $result['codigo'],
-            'retencion' => $result['retencion'],
-            'declaracion' => $parametro,
-        );
         $reporte = array(
             array("bs1", $result['estimado_a']),
             array("bs2", $result['estimado_b']),
@@ -221,9 +252,23 @@ if (isset($_GET['acc'])) {
             array("confirmado", $result['fecha_conf'] == '0000-00-00' ? '--' : date("d-m-Y", strtotime($result['fecha_conf']))),
             array("APyNOM", $nombre)
         );
+
+        $datos[$i] = array('generado' => date("d-m-Y", strtotime($result['fecha_gen'])),
+            'confirmado' => $result['fecha_conf'] == '0000-00-00' ? '--' : date("d-m-Y", strtotime($result['fecha_conf'])),
+            'estimado' => number_format($result['estimado_a'], 2, ',', '.'),
+            'monto' => $result['estimado_a'],
+            'carga' => $result['carga'],
+            'periodo' => ($result['periodo'] == 1 ? '1er' : ($result['periodo'] == 2 ? '2do' : ($result['periodo'] == 3 ? '3er' : ($result['periodo'] == 4 ? '4to' : ($result['periodo'] == 5 ? '5to' : 'error'))))),
+            'status' => '<span>' . iconosIntranet($st, $titulo, false, $color, false) . '</span>',
+            'codigo' => $result['codigo'] == '' ? '--' : $result['codigo'],
+            'retencion' => $result['retencion'],
+            'año' => $result['año'],
+            'declaracion' => $parametro,
+            'reporte' => parametrosReporte($reporte)
+        );
         $i++;
     }
     _adios_mysql();
-    echo json_encode(array('datos' => $datos, 'campos' => $i, 'confirmado' => $confir, 'reporte' => parametrosReporte($reporte), 'resultado' => $K));
+    echo json_encode(array('datos' => $datos, 'campos' => $i, 'confirmado' => $confir, 'resultado' => $K));
 }
 ?>

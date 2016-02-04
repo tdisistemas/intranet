@@ -60,6 +60,8 @@
     webmail/
     inventario/
     inventariojsASD/
+    fas/
+    fas_admin/
 
     ## generic files to ignore
     *~
