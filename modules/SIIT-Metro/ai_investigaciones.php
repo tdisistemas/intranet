@@ -77,8 +77,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         . "LEFT JOIN ai_oficios c ON a.origen = c.idOficio AND a.tipo_origen = 2 "
                         . "INNER JOIN ai_investigadores d ON a.investigador = d.id_invest "
                         . "INNER JOIN datos_empleado_rrhh e ON d.cedula_invest = cedula "
-                        //. "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = ".$usuario_datos[3].")";
-                        . "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = 9714161)";
+                        . "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = ".$usuario_datos[3].")";
+                        //. "WHERE a.investigador = (SELECT id_invest FROM ai_investigadores WHERE cedula_invest = 9714161)";
 
                 $sql = mysql_query($sqlcode);
                 $a = mysql_num_rows($sql);
@@ -90,11 +90,6 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     <div class="row"> 
         <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="dashboard.php?data=asuntoi" >
             <div class="grid-18">
-                <div style="" class="grid-9 dashboard_report first activeState">
-                    <div class="pad" align="center">
-                        <span class="value"><?php echo $a; ?></span> Total de Averiguaciones
-                    </div> <!-- .pad -->
-                </div>
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <span class="icon-list"></span>

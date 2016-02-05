@@ -24,6 +24,7 @@ if (isset($_POST['Submit'])) {
     $codigoNuevo = mysql_fetch_array(mysql_query('SELECT consecutivo("PRES","AIM",' . date('Y') . ')'));
     $sql = "INSERT INTO ai_averiguaciones(codigo_ave,origen,tipo_origen,fecha,causa,sitio_suceso,investigador,remitido) VALUES('" . $codigoNuevo[0] . "'," . $origen . "," . $tipo_origen . ",NOW(),'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
     $result = mysql_query($sql);
+    $nuevoID = mysql_insert_id();
 
     while ($i <= $indice) {
         if (isset($_POST['CedulaID' . $i])) {

@@ -63,7 +63,7 @@ if (isset($_POST['Submit'])) {
     $investigador = $usuario_datos[3];
 
     $nombres = $usuario_datos['nombre'] . " " . $usuario_datos['apellido'];
-    $mensajedelcorreo = "<img src='http://intranet.metrodemaracaibo.gob.ve/iconos/encamail.jpg' /><br><br>"
+    $mensajedelcorreo = "<img src='http://192.168.0.5/iconos/encamail.jpg' /><br><br>"
             . "<h3>Estimado, " . $nombre . "</h3>" . "<br /><h4> La presente es para informarle que es requerida su presencia "
             . "en las oficinas de Seguridad Integral el día " . $fecha[8] . $fecha[9] . "/" . $fecha[5] . $fecha[6] . " a la(s) " . $hora . ", por motivo: " . $motivo . ".</h4>"
             . "<br /><br /><p>Agradeciendo su presencia y puntual asistencia, <br> <b>Gerencia de Seguridad Integral</b>";
@@ -97,7 +97,7 @@ if (isset($_POST['Submit'])) {
                                     <div class="grid-24">
                                         <div class="field-group">
                                             <div class="field">
-                                                <img align="left" style=" border: solid 5px #ddd;max-width: 100px; max-height: 100px" src="../intranet/src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
+                                                <img align="left" style=" border: solid 5px #ddd;max-width: 100px; max-height: 100px" src="../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
                                             </div>
                                         </div> <!-- .field-group -->
                                     </div>

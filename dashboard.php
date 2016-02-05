@@ -77,30 +77,26 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                         <a href="dashboard.php?data=AR-I">Declaración AR-I</a>				
                                     </li>
                                     <?php } ?>
-
                                     <?php if (in_array('Fas', $usuario_permisos)) { ?>
                                         <li id="fas" class="nav "> 
                                             <span class="icon-document-alt-stroke"></span>
                                             <a href="javascript:;">FAS METRO</a>				
                                             <ul class="subNav">
-                                                <li><a href="dashboard.php?data=Fas">Inscripción</a></li>               
+
+                                                <li><a href="dashboard.php?data=Fas">Registro y Consulta</a></li>
+
                                             </ul>						
                                         </li>
                                     <?php } ?>
-
                                     <?php if (in_array('Fas_admin', $usuario_permisos)) { ?>
                                         <li id="fas_admin" class="nav "> 
                                             <span class="icon-document-alt-stroke"></span>
                                             <a href="javascript:;">FAS METRO-Admin</a>				
                                             <ul class="subNav">
+
                                                 <li><a href="dashboard.php?data=fas_admin">Consulta de Empleados</a></li>
+
                                             </ul>						
-                                        </li>
-                                    <?php } ?>
-                                    <?php if (in_array('ModuloPrueba', $usuario_permisos)) { ?>
-                                        <li id="prueba" class="nav">
-                                            <span class="icon-key-stroke"></span>
-                                            <a href="dashboard.php?data=prueba">Página de Prueba</a>				
                                         </li>
                                     <?php } ?>
                                     <?php if (in_array('SIIT-Metro', $usuario_permisos)) { ?>
@@ -447,9 +443,9 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                         <script type="text/javascript" src="src/javascripts/QapTcha.jquery.js?<?php echo $anticache; ?>"></script>
 
                         <script type="text/javascript">
-                                                                    $(document).ready(function () {
-                                                                        $('.QapTcha').QapTcha({<?php echo @$js; ?>});
-                                                                    });
+                                                            $(document).ready(function () {
+                                                                $('.QapTcha').QapTcha({<?php echo @$js; ?>});
+                                                            });
                         </script>
 
                         <script>
