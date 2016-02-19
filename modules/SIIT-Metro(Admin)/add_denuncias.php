@@ -53,8 +53,7 @@ if (isset($_POST['Submit'])) {
     $result = mysql_query($sql);
     $nuevoID = mysql_insert_id();
     $cod_completo = str_pad($nuevoID,  6, "0", STR_PAD_LEFT);
-    $codigoNuevo = 'DEN-' . $cod_completo . '-' . date('y');
-    //$codigoNuevo = _consecutivo('DEN', $nuevoID);
+    $codigoNuevo = 'AIM-DEN-' . $cod_completo . '-' . date('y');
     $sql = "UPDATE ai_denuncias SET codigo='" . $codigoNuevo . "' WHERE idDenuncia=" . $nuevoID;
     $result2 = mysql_query($sql);
 

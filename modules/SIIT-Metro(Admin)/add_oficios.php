@@ -71,7 +71,7 @@ if (isset($_POST['Submit'])) {
             $cod_completo = $nuevoID;
             break;
     }
-    $codigoNuevo = 'OFC-' . $cod_completo . '-' . substr(date('Y'), -2);
+    $codigoNuevo = 'AIM-OFC-' . $cod_completo . '-' . substr(date('Y'), -2);
     $sql = "UPDATE ai_oficios SET codigo='" . $codigoNuevo . "' WHERE idOficio=" . $nuevoID;
     $result2 = mysql_query($sql);
 

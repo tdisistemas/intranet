@@ -84,6 +84,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <ul class="subNav">
 
                                                 <li><a href="dashboard.php?data=Fas">Registro y Consulta</a></li>
+                                                <li><a href="dashboard.php?data=Fas-In-Out">Inclusión y Exclusión</a></li>
 
                                             </ul>						
                                         </li>
@@ -105,6 +106,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <a href="javascript:;">SIIT-Metro</a>				
                                             <ul class="subNav">
                                                 <li><a href="dashboard.php?data=averiguaciones-ai">Averiguaciones</a></li>
+                                                <li><a href="dashboard.php?data=usuario-ai&Origen=investigacion">Usuarios</a></li>
                                             </ul>						
                                         </li>
                                     <?php } ?>
@@ -118,7 +120,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                                 <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
                                                 <li><a href="dashboard.php?data=oficios-ai">Oficios</a></li>
                                                 <li><a href="dashboard.php?data=reportes-ai">Reportes</a></li>
-                                                <li><a href="dashboard.php?data=usuario-ai">Usuarios</a></li>
+                                                <li><a href="dashboard.php?data=usuario-ai&Origen=admin_ai">Usuarios</a></li>
                                             </ul>
                                         </li>
                                     <?php } ?>

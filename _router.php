@@ -64,9 +64,6 @@ switch ($t) {
     /*     * ******************************************** */
     /*     * *********** ASUNTOS INTERNOS *************** */
     /*     * ******************************************** */
-    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
-        ?><script>activame('admin_ai');</script><?php
-        break;
     case ("averiguaciones-ai"):include('modules/SIIT-Metro/ai_investigaciones.php');
         ?><script>activame('investigacion');</script><?php
         break;
@@ -85,6 +82,8 @@ switch ($t) {
     case ("citar_ai"):include('modules/SIIT-Metro/add_citas.php');
         break;
     case ("sanciones_ai"):include('modules/SIIT-Metro/sanciones_ai.php');
+        break;
+    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
         break;
 
 
@@ -138,39 +137,6 @@ switch ($t) {
         ?><script>activame('admin_ai');</script><?php
         break;
 
-    /*     * ******************************************** */
-    /*     * *********** ASUNTOS INTERNOS *************** */
-    /*     * ******************************************** */
-    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("averiguaciones-ai"):include('modules/SIIT-Metro/ai_investigaciones.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("averiguaciones-ai-info"):include('modules/SIIT-Metro/ai_investigacion_info.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-
-    /*     * ** PRUEBA *** */
-    case ("pruebainsert"):include('modules/ModuloPrueba/NuevoUsuario.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-    case ("pruebadelete"):include('modules/ModuloPrueba/Eliminar_Usuario.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-    case ("pruebaupdate"):include('modules/ModuloPrueba/Editar_Usuario.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-    case ("prueba"):include('modules/ModuloPrueba/Ver_Usuarios.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-
     /*     * ** CONTROL Y GESTIÓN *** */
     case ("controlg"):include('modules/ControlGestion/registro_cl1.php');
         ?><script>activame('controlgestion');</script><?php
@@ -205,7 +171,7 @@ switch ($t) {
     case ("puntoc"):include('modules/ControlGestion/puntocuenta.php');
         ?><script>activame('controlgestion');</script><?php
         break;
-     
+
     /*     * ** CONTROL Y GESTIÓN ADMINISTRADOR *** */
     case ("control_gestion_reporte"):include('modules/ControlGestionAdmin/cg_reportes.php');
         ?><script>activame('controlgestionadmin');</script><?php
@@ -640,7 +606,7 @@ switch ($t) {
     case ("me10"):include('modules/metroexpres/me100.php');
         ?><script>activame('metroexpres');</script><?php
         break;
-     case ("me11"):include('modules/metroexpres/me11.php');
+    case ("me11"):include('modules/metroexpres/me11.php');
         ?><script>activame('metroexpres');</script><?php
         break;
     /*     * **  PERFILES DE USUARIOS *** */
@@ -822,42 +788,44 @@ switch ($t) {
     case ("solicitud"):include('modules/prestaciones/prestaciones.php');
         ?><script>activame('prestaciones');</script><?php
         break;
-    
-     /****HCM *** */
+
+    /*     * **HCM *** */
     case ("hcm"):include('modules/hcm/familiares.php');
         ?><script>activame('hcm');</script><?php
         break;
-     case ("hcm-form"):include('modules/hcm/hcm.php');
+    case ("hcm-form"):include('modules/hcm/hcm.php');
         ?><script>activame('hcm');</script><?php
         break;
-     /****HCM Admin *** */
+    /*     * **HCM Admin *** */
     case ("hcm_admin"):include('modules/hcm_admin/admin_hcm.php');
         ?><script>activame('hcm_admin');</script><?php
         break;
-      case ("admin-hcm"):include('modules/hcm_admin/hcm_administrador.php');
+    case ("admin-hcm"):include('modules/hcm_admin/hcm_administrador.php');
         ?><script>activame('hcm_admin');</script><?php
         break;
-                
-                
-                /****FAS *** */
+
+
+    /*     * **FAS *** */
     case ("Fas"):include('modules/fas/fas.php');
         ?><script>activame('fas');</script><?php
-        break;  
-      case ("Fas-planilla"):include('modules/fas/pdf.php');
+        break;
+    case ("Fas-planilla"):include('modules/fas/pdf.php');
         ?><script>activame('fas');</script><?php
-        break; 
-    
-       /****FAS *** */
+        break;
+    case ("Fas-In-Out"):include('modules/fas/fas_incl_exc.php');
+        ?><script>activame('fas');</script><?php
+        break;
+
+    /*     * **FAS Admin*** */
     case ("fas_admin"):include('modules/fas_admin/fas.php');
         ?><script>activame('fas_admin');</script><?php
-        break;  
-       /*     * *********** Declaraciones AR-I*************** */
+        break;
+
+    /*     * *********** Declaraciones AR-I*************** */
     /*     * ******************************************** */
     case ("AR-I"):include('modules/ARI/declaraciones_ARI.php');
         ?><script>activame('ARI');</script><?php
         break;
- 
 }
-
 ?> 
-  
+

@@ -65,7 +65,7 @@ if (isset($_POST['Submit'])) {
     $nombres = $usuario_datos['nombre'] . " " . $usuario_datos['apellido'];
     $mensajedelcorreo = "<img src='http://192.168.0.5/iconos/encamail.jpg' /><br><br>"
             . "<h3>Estimado, " . $nombre . "</h3>" . "<br /><h4> La presente es para informarle que es requerida su presencia "
-            . "en las oficinas de Seguridad Integral el día " . $fecha[8] . $fecha[9] . "/" . $fecha[5] . $fecha[6] . " a la(s) " . $hora . ", por motivo: " . $motivo . ".</h4>"
+            . "en las oficinas de Asuntos Internos, el día " . $fecha[8] . $fecha[9] . "/" . $fecha[5] . $fecha[6] . " a la(s) " . $hora . ", por motivo: " . $motivo . ".</h4>"
             . "<br /><br /><p>Agradeciendo su presencia y puntual asistencia, <br> <b>Gerencia de Seguridad Integral</b>";
     _enviarmail($mensajedelcorreo, $nombre . ' ' . $apellido, trim($correo), 'Cita');
 

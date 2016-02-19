@@ -130,8 +130,8 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         <table class="table table-bordered table-striped data-table">
                             <thead>
                                 <tr>
-                                    <th style="width:25%">Código</th>
-                                    <th style="width:10%">Origen</th>
+                                    <th style="width:20%">Código</th>
+                                    <th style="width:15%">Origen</th>
                                     <th style="width:10%">Fecha</th>
                                     <th style="width:5%">Estatus</th>
                                     <th style="width:40%">Investigador</th>

@@ -20,33 +20,51 @@ if (isset($_POST['Submit'])) {
     $remitidoS = $_POST['remitido'];
     $indice = $_POST['Index'];
     $i = $aux = 0;
-
+    $bandera = true;
+    mysql_query('START TRANSACTION');
     $codigoNuevo = mysql_fetch_array(mysql_query('SELECT consecutivo("PRES","AIM",' . date('Y') . ')'));
     $sql = "INSERT INTO ai_averiguaciones(codigo_ave,origen,tipo_origen,fecha,causa,sitio_suceso,investigador,remitido) VALUES('" . $codigoNuevo[0] . "'," . $origen . "," . $tipo_origen . ",NOW(),'" . $Causa . "','" . $ubicacion_laboral . "'," . $investigador . "," . $remitidoS . ")";
     $result = mysql_query($sql);
-    $nuevoID = mysql_insert_id();
-
-    while ($i <= $indice) {
-        if (isset($_POST['CedulaID' . $i])) {
-            $sqlAutores = "INSERT INTO ai_autores(idAveriguacion,cedula) VALUES(" . $nuevoID . "," . $_POST['CedulaID' . $i] . ")";
-            $resultAutores = mysql_query($sqlAutores);
-        }
-        $i++;
-    }
-    if ($tipo_origen == '1') {
-        $sqlUpDen = "UPDATE ai_denuncias SET status = 1 WHERE idDenuncia=" . $origen;
-    } else {
-        $sqlUpDen = "UPDATE ai_oficios SET status = 1 WHERE idOficio=" . $origen;
-    }
-
-    $result3 = mysql_query($sqlUpDen);
     if ($result) {
+        $nuevoID = mysql_insert_id();
+
+        while ($i <= $indice) {
+            if (isset($_POST['CedulaID' . $i])) {
+                $sqlAutores = "INSERT INTO ai_autores(idAveriguacion,cedula) VALUES(" . $nuevoID . "," . $_POST['CedulaID' . $i] . ")";
+                $resultAutores = mysql_query($sqlAutores);
+                if (!$resultAutores) {
+                    $bandera = false;
+                    break;
+                }
+            }
+            $i++;
+        }
+        if ($tipo_origen == '1') {
+            $sqlUpDen = "UPDATE ai_denuncias SET status = 1 WHERE idDenuncia=" . $origen;
+        } else {
+            $sqlUpDen = "UPDATE ai_oficios SET status = 1 WHERE idOficio=" . $origen;
+        }
+        $result3 = mysql_query($sqlUpDen);
+        if(!$result3){
+            $bandera = false;
+        }
+    }else{
+        $bandera = false;
+    }
+    
+    if($bandera){
+        mysql_query('COMMIT');
+    }else{
+        mysql_query('ROLLBACK');
+    }
+
+    if ($bandera) {
         notificar('Averiguación creada con éxito!', "dashboard.php?data=admin_ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
-            die('Error en Agregar Registro - 02 - Respuesta del Motor: ' . mysql_error());
+            notificar('Error en Agregar Registro', "dashboard.php?data=admin_ai", "notify-error");
         } else {
-            die('Error en Agregar Registro');
+            notificar('Error en Agregar Registro', "dashboard.php?data=admin_ai", "notify-error");
         }
     }
 } else {
@@ -307,7 +325,7 @@ if (isset($_POST['Submit'])) {
                                             </div>
                                         </div> <!-- .field-group -->
                                         <div class="field-group">
-                                            <label style="color:#B22222">Remitido a:</label>
+                                            <label style="color:#B22222">En Conocimiento de:</label>
                                             <div class="field">
                                                 <select id="remitido" name="remitido" class="">
                                                     <option selected value="0"> No remitido. </option>

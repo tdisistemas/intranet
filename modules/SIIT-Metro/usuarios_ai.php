@@ -7,6 +7,8 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
     _wm($usuario_datos[9], 'Acceso Denegado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 }
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
+
+$origen = _antinyeccionSQL($_GET['Origen']);
 ?>
 
 <div id="contentHeader">
@@ -56,7 +58,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 <td class="center">
                                     <?php
                                     $parametros = 'cedula=' . $row[3];
-                                    $parametros .= '&Origen=admin_ai';
+                                    $parametros .= '&Origen='.$origen;
                                     $parametros = _desordenar($parametros);
                                     ?>  
                                     <a href="dashboard.php?data=usuario-ai-info&flag=1&<?php echo $parametros; ?>" id="editar" title="Información" >
@@ -75,7 +77,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
             <p>En esta sección podrá visualizar la lista de los Empleados de la Empresa.</p>
             <div class="box plain">
-                
+
             </div>
         </div>
     </div>
@@ -91,4 +93,9 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             }
         });
     }
+    $(document).ready(function () {
+        activame('<?= $origen ?>');
+        $('#' + '<?= $origen ?>').addClass('opened');
+        $('#' + '<?= $origen ?> ul').css({'display': 'block'});
+    });
 </script>
