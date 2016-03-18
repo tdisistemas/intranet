@@ -10,7 +10,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 ?>
 
 <div id="contentHeader">
+    <style>
+        .titulo {
 
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 13px;
+        color: #b22222;
+    }
+    </style>
     <?php //decode_get2($_SERVER["REQUEST_URI"],1);  ?>
 
     <h2>Edición de los Servicios</h2>
@@ -21,34 +29,28 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
     decode_get2($_SERVER["REQUEST_URI"], 2);
      $id = _antinyeccionSQL($_GET["id"]);
     $id_np = _antinyeccionSQL($_GET["np"]);
+   _bienvenido_mysql();
   
-  
-  
-    
-       _bienvenido_mysql();
-   $segunda_fase = mysql_query("SELECT  tipo_solicitud,servicio, montoec, enviado_presidencia, recibido_presidencia FROM `gc_control_gestion2`
-                    WHERE  `id_cgestion2`= '$id'");
+   $segunda_fase = mysql_query("SELECT  tipo_solicitud,servicio, montoec, enviado_presidencia, recibido_presidencia, recibido_por FROM `gc_control_gestion2` WHERE  `id_cgestion2`= $id");
    
    $editar_ec=  mysql_fetch_array($segunda_fase);
-     
-
-
 if (isset($_POST['enviar'])) {
     
     $id_2 = $_POST["id_cgestion2"];
     
     $recibido_presi = $_POST["recibido_presi"];
-   
+    $recibido_por = $_POST["recibido_por"];
+    
     $parametro = 'np=' . $id_2;
     $parametro = _desordenar($parametro);
-       
- 
- $sql="UPDATE gc_control_gestion2 SET  ". "recibido_presidencia='".$recibido_presi."' WHERE id_cgestion2=".$id_np;
-  
-  $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
+
+$sql="UPDATE gc_control_gestion2 SET  ". "recibido_presidencia='".$recibido_presi."', recibido_por='".$recibido_por."' WHERE id_cgestion2=".$id;
+
+
+ $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
   if($result){
-    notificar("Modificación realizada con exito" ,"dashboard.php?data=consultar&flag=1&$parametro", "notify-success");
+    notificar("Modificación realizada con exito","dashboard.php?data=consultar&flag=1&$parametro", "notify-success");
   }
   else { 
     die(mysql_error());
@@ -71,32 +73,39 @@ if (isset($_POST['enviar'])) {
                             </div>
                             <div class="grid-8">
                                 <div class="field-group">
-                                    <label>Tipo de Solicitud:<br></label>   
+                                    <div class="titulo" >Tipo de Solicitud:</div>   
                                     <div class="field">
                                         <input type="text" name="tipo_soli" size="16" value="<?php echo $editar_ec['tipo_solicitud'];?>" disabled/>
                                     </div>
                                 </div>
                                 
                                  <div class="field-group">
-                                    <label for="datepicker">Fecha de Envio:</br></label>   
+                                     <div class="titulo">Fecha de Envio:</div>   
                                     <div class="field">
                                         <input type="text" name="enviado_presi" size="16" value="<?php echo $editar_ec['enviado_presidencia'];?>" disabled>
                                     </div>
                                 </div>
-                                
+                               
+                                <div class="field-group">
+                                    <div class="titulo">Recibido por:</div>   
+                                    <div class="field">
+                                        <input id="recibidopor" name="recibido_por" size="14" value="<?php echo $editar_ec ['recibido_por'];?> " onChange="conMayusculas(this)"> 
+                                          
+                                    </div>
+                                </div>
                             </div>
                    
                             <div class="grid-12">
                                 <div class="field-group">
-                                    <label for="required">Monto Estimación de Costo:</br></label>   
+                                    <div class="titulo" >Monto Estimación de Costo:</div>   
                                     <div class="field">
-                                        <input type="text" name="monto1" id="monto1" size="16" value="<?php echo $editar_ec['montoec'];?>" disabled/>
+                                        <input type="text" name="monto1" id="monto1" size="16" value="<?php echo number_format($editar_ec['montoec'], 2, ',', '.');?>" disabled/><span style="font-size: 13px; font-weight: bold;"> Bs.f</span>
                                     </div>
                                 </div>
                                   <div class="field-group">
-                                    <label for="datepicker">Fecha de Recepción:</br></label>   
+                                      <div class="titulo">Fecha de Recepción:</div>   
                                     <div class="field">
-                                        <input id="datepicker1" name="recibido_presi" size="14"  readonly>
+                                        <input id="datepicker1" name="recibido_presi" size="14" value="<?php echo $editar_ec['recibido_presidencia'];?>"  readonly/>
                                     </div>
                                 </div>
                                 
@@ -178,6 +187,6 @@ onSelect: function (fecha,event){$('#datepicker1').datepicker("option","minDate"
 function conMayusculas(field) {
 field.value = field.value.toUpperCase()
 }
-javascript</script>
+</script>
 
 

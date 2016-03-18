@@ -45,27 +45,25 @@ $encuesta=mysql_num_rows($sql);
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head> 
 <title>Intranet Metromara v3.0..</title>
-<meta charset="utf-8" />
-<meta name="description" content="" />
-<meta name="author" content="Division de Sistemas" />	
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" type="text/css" href="src/iconos/css/font-awesome.min.css">
-<link rel="shortcut icon" href="src/images/favicon.ico">
-<link rel="stylesheet" href="src/stylesheets/reset.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
-<link rel="stylesheet" href="src/stylesheets/text.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
-<link rel="stylesheet" href="src/stylesheets/buttons.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
-<link rel="stylesheet" href="src/stylesheets/theme-default.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
-<link rel="stylesheet" href="src/stylesheets/login.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
-<link rel="stylesheet" href="src/stylesheets/all.css?<?php echo $anticache; ?>" type="text/css" />
-<!--[if gte IE 9]><link rel="stylesheet" href="src/stylesheets/ie9.css?<?php echo $anticache; ?>" type="text/css" /><![endif]-->
-<!--[if gte IE 8]><link rel="stylesheet" href="src/stylesheets/ie8.css?<?php echo $anticache; ?>" type="text/css" /><![endif]-->
-<link rel="stylesheet" href="src/stylesheets/progressbar.css?<?php echo $anticache; ?>" type="text/css" />
-<link rel="stylesheet" href="src/stylesheets/QapTcha.jquery.css?<?php echo $anticache; ?>" type="text/css" />
-  <link rel="stylesheet" href="css/font-awesome.min.css?<?php echo $anticache; ?>" type="text/css" />
-
-        <script src="src/javascripts/funciones.js?<?php echo $anticache; ?>"></script>
-<script src="src/javascripts/all.js?<?php echo $anticache; ?>"></script>
+	<meta charset="utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="Division de Sistemas" />		
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="src/images/favicon.ico">
+	<link rel="stylesheet" href="src/stylesheets/reset.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
+	<link rel="stylesheet" href="src/stylesheets/text.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
+	<link rel="stylesheet" href="src/stylesheets/buttons.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
+	<link rel="stylesheet" href="src/stylesheets/theme-default.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
+	<link rel="stylesheet" href="src/stylesheets/login.css?<?php echo $anticache; ?>" type="text/css" media="screen" title="no title" />
+	<link rel="stylesheet" href="src/stylesheets/all.css?<?php echo $anticache; ?>" type="text/css" />
+	<!--[if gte IE 9]><link rel="stylesheet" href="src/stylesheets/ie9.css?<?php echo $anticache; ?>" type="text/css" /><![endif]-->
+	<!--[if gte IE 8]><link rel="stylesheet" href="src/stylesheets/ie8.css?<?php echo $anticache; ?>" type="text/css" /><![endif]-->
+	<link rel="stylesheet" href="src/stylesheets/QapTcha.jquery.css?<?php echo $anticache; ?>" type="text/css" />
+	<link rel="stylesheet" href="src/stylesheets/progressbar.css?<?php echo $anticache; ?>" type="text/css" />
+	<script src="src/javascripts/funciones.js?<?php echo $anticache; ?>"></script>
+	<script src="src/javascripts/all.js?<?php echo $anticache; ?>"></script>
+<link rel="stylesheet" href="css/font-awesome.min.css?<?php echo $anticache; ?>" type="text/css" />
 
   <style type="text/css">
 body {
@@ -101,11 +99,7 @@ overflow-x: hidden !important;
                                             <a href="dashboard.php?data=AR-I">Declaración AR-I</a>				
                                         </li>
                                     <?php } ?>
-      <?php if (in_array ('Hcm', $usuario_permisos)) { ?>
-	<li id="hcm" class="nav">
-		<span class="icon-layers"></span>
-		<a href="dashboard.php?data=hcm">PÓLIZA H.C.M. 2016</a>	
-	</li><?php } ?> 
+      
     
                   <?php if (in_array ('Hcm_admin', $usuario_permisos)) { ?>
 <li id="hcm_admin" class="nav "> 
@@ -321,6 +315,7 @@ function envi()
                                             <a href="javascript:;">SIIT-Metro</a>				
                                             <ul class="subNav">
                                                 <li><a href="dashboard.php?data=averiguaciones-ai">Averiguaciones</a></li>
+                                                <li><a href="dashboard.php?data=usuario-ai&Origen=investigacion">Usuarios</a></li>
                                             </ul>						
                                         </li>
                                     <?php } ?>
@@ -334,6 +329,7 @@ function envi()
                                                 <li><a href="dashboard.php?data=denuncias-ai">Denuncias</a></li>
                                                 <li><a href="dashboard.php?data=oficios-ai">Oficios</a></li>
                                                 <li><a href="dashboard.php?data=reportes-ai">Reportes</a></li>
+                                                <li><a href="dashboard.php?data=usuario-ai&Origen=admin_ai">Usuarios</a></li>
                                             </ul>
                                         </li>
                                     <?php } ?>
@@ -755,7 +751,7 @@ División de Sistemas - Gerencia de Tecnología para la Información - Empresa S
 				$('.go-top').fadeIn(200);
 			} else {
 				$('.go-top').fadeOut(200);
-			}
+		 	}
 		});
 		// Animate the scroll to top
 		$('.go-top').click(function(event) {
@@ -765,15 +761,8 @@ División de Sistemas - Gerencia de Tecnología para la Información - Empresa S
 		})
 	});
 </script> 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-52631632-1', 'auto');
-  ga('send', 'pageview');
-</script> 
-<?php //if ($usuario_datos[3]=='15750647' or $usuario_datos[3]=='15625966' or $usuario_datos[3]=='11285054' or $usuario_datos[3]=='$usuario_datos[3]' or $usuario_datos[3]=='19838349') { ?>
+
+<?php //if ($usuario_datos[3]=='15750647' or $usuario_datos[3]=='15625966' or $usuario_datos[3]=='11285054' or $usuario_datos[3]=='17071066' or $usuario_datos[3]=='19838349') { ?>
 
 <script type="text/javascript">
   //  var $_Tawk_API={},$_Tawk_LoadStart=new Date();

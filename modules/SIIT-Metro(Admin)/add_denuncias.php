@@ -38,6 +38,17 @@ _bienvenido_mysql();
         width:100%;
     }
 
+    .Nombres{
+        width: 100%;
+        position: absolute;
+    }
+
+    @media (min-width: 918px){
+        .Nombres{
+            width: 25%;
+            position: absolute;
+        }
+    }
 </style>
 
 <div id="contentHeader">
@@ -49,15 +60,38 @@ if (isset($_POST['Submit'])) {
     $cedula = $_POST["CedulaDenuncianteID"];
     $tipo = $_POST["TipoDenuncia"];
     $descrip = $_POST["DescripDenuncia"];
-    $sql = "INSERT INTO ai_denuncias(fecha,denunciante,tipo,descripcion) VALUES(NOW()," . $cedula . ",'" . $tipo . "','" . $descrip . "')";
+    $victima = $_POST["victima"];
+    $sql = "INSERT INTO ai_denuncias(fecha,denunciante,tipo,descripcion,victima) VALUES(NOW()," . $cedula . ",'" . $tipo . "','" . $descrip . "',$victima)";
+
+    $bandera = true;
+    mysql_query('START TRANSACTION');
+
     $result = mysql_query($sql);
     $nuevoID = mysql_insert_id();
-    $cod_completo = str_pad($nuevoID,  6, "0", STR_PAD_LEFT);
-    $codigoNuevo = 'AIM-DEN-' . $cod_completo . '-' . date('y');
-    $sql = "UPDATE ai_denuncias SET codigo='" . $codigoNuevo . "' WHERE idDenuncia=" . $nuevoID;
-    $result2 = mysql_query($sql);
+    if ($result && $nuevoID) {
 
-    if ($result) {
+        $cod_completo = str_pad($nuevoID, 6, "0", STR_PAD_LEFT);
+        $codigoNuevo = 'AIM-DEN-' . $cod_completo . '-' . date('y');
+        $sql = "UPDATE ai_denuncias SET codigo='" . $codigoNuevo . "' WHERE idDenuncia=" . $nuevoID;
+        $result2 = mysql_query($sql);
+
+        if (mysql_num_rows($result2) > 0) {
+            $bandera = true;
+        } else {
+            $bandera = true;
+        }
+    } else {
+        $bandera = false;
+    }
+
+    if ($bandera) {
+        mysql_query('COMMIT');
+    } else {
+        mysql_query('ROLLBACK');
+    }
+
+
+    if ($bandera) {
         notificar('Denuncia registrada con éxito', "dashboard.php?data=denuncias-ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
@@ -80,9 +114,9 @@ if (isset($_POST['Submit'])) {
                             </div>
                             <div class="widget-content">
                                 <div class="row-fluid">
-                                    <div class="grid-12">
+                                    <div class="grid-24">
                                         <div class="field-group">
-                                            <label style="color:#B22222">Buscar Denunciante:</label>
+                                            <label style="color:#B22222">Buscar Denunciante / Victima :</label>
                                             <div class="field">
                                                 <div class="form-inline">
                                                     <input id="BuscadorDenunciante" type="text" class="form-control"/>
@@ -90,55 +124,99 @@ if (isset($_POST['Submit'])) {
                                                 </div><!-- /input-group -->
                                             </div>
                                         </div>
-                                        <div class="field-group" id="campo-tabla" style="display: none; height: 300px; overflow: scroll">
+                                    </div>
+                                    <div class="grid-12" id="campo-tabla" style="display: none">
+                                        <div class="field-group">
                                             <i class="fa fa-remove pull-right" title="Cerrar Busqueda" onclick="document.getElementById('campo-tabla').style.display = 'none'" style="color: #B22222; cursor: pointer"></i>
                                             <label style="color:#B22222;" id="lvlBusqueda"></label>
                                             <table class="table table-striped">
-                                                <tbody id="BusquedaRes" style="display: block; height: 420px; overflow-y: auto; width: 100%"></tbody>
+                                                <tbody id="BusquedaRes" style="display: block; height: 450px; overflow-y: auto; width: 100%"></tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="grid-10">
-
-                                        <div class="field-group">
-                                            <div class="" style="text-align: center">
-                                                <img id="retrato" style=" border: solid 5px #ddd;max-width: 100px;max-height: 100px;" src="src/images/FOTOS/No-User.png"/>
+                                    <div class="grid-12">
+                                        <div class="grid-24" style="margin-bottom: 0px">
+                                            <label style="color:#B22222"><b>Denunciante:</b></label><br><br>
+                                            <div class="grid-8"  style="margin-bottom: 5px">
+                                                <div class="field-group">
+                                                    <div class="" style="text-align: center">
+                                                        <img id="retratoDenunciante" style=" border: solid 5px #ddd;width: 80px;height: 100px;" src="../src/images/FOTOS/No-User.png"/>
+                                                    </div>
+                                                    </br>
+                                                </div> <!-- .field-group -->
                                             </div>
-                                            </br>
-                                        </div> <!-- .field-group -->
-
-                                        <div class="field-group">								
-                                            <label style="color:#B22222">Cédula:</label>
-                                            <div class="field">
-                                                <span id="CedulaDenunciante"><br></span>
-                                                <input name="CedulaDenuncianteID" id="CedulaDenuncianteID" title="ASD" style="display: none" class="validate[required]" />
+                                            <div class="grid-16">
+                                                <div class="field-group">
+                                                    <div class="field">
+                                                        <label style="color:#B22222">Cédula:</label>
+                                                        <span id="CedulaDenunciante" style="position: absolute"></span>
+                                                        <input name="CedulaDenuncianteID" id="CedulaDenuncianteID" style="display: none"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <label style="color:#B22222">Nombre:</label>
+                                                        <span id="NombreDenunciante" class="Nombres" style=""></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div> <!-- .field-group -->
-
-                                        <div class="field-group">
-                                            <label style="color:#B22222">Nombre y Apellido:</label>
-                                            <div class="field">
-                                                <span id="NombreDenunciante" ><br></span>			
+                                        </div>
+                                        <div class="grid-24" style="margin-bottom: 0px">
+                                            <label style="color:#B22222"><b>Victima:</b></label><br>
+                                            <div class="grid-24" style="margin-bottom: 5px">
+                                                <div class="field-group">
+                                                    <div class="field" style="margin-bottom: 5px">
+                                                        <input class="VictimaCheack" id="empresa" type="checkbox" name="victima" value="200088419" /> Empresa (Metro de Maracaibo).<br>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div> <!-- .field-group -->
-
-                                        <div class="field-group">								
-                                            <label style="color:#B22222">Tipo de Denuncia:</label>
-                                            <div class="field">
-                                                <select id="TipoDenuncia" name="TipoDenuncia" class="validate[required]">
-                                                    <option selected value=""> ** Seleccionar un Tipo ** </option>
-                                                    <option value="Verbal">Verbal</option>
-                                                    <option value="Escrita">Escrita</option>
-                                                </select>
+                                            <div class="grid-24" >
+                                                <div class="field-group">
+                                                    <div class="field" style="margin-bottom: 5px">
+                                                        <input class="VictimaCheack" type="checkbox" name="victima" value="" id="persona" /> Persona:<br>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div> <!-- .field-group -->
-                                        <div class="field-group">								
-                                            <label style="color:#B22222">Descripción:</label>
-                                            <div class="field">
-                                                <textarea id="DescripDenuncia" name="DescripDenuncia" cols="8" rows="8" style="width: 300px" class="validate[required]"></textarea>
+                                            <div class="grid-24" id="PersonaVic" style="display: none">
+                                                <div class="grid-8">
+                                                    <div class="field-group">
+                                                        <div class="" style="text-align: center">
+                                                            <img id="retratoVictima" style=" border: solid 5px #ddd;width: 80px;height: 100px;" src="src/images/FOTOS/No-User.png"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="grid-16">
+                                                    <div class="field-group">
+                                                        <div class="field">
+                                                            <label style="color:#B22222">Cédula:</label>
+                                                            <span id="CedulaVictima" style="position: absolute"></span>
+                                                            <input name="CedulaVictimaID" id="CedulaVictimaID" style="display: none"/>
+                                                        </div>
+                                                        <div class="field">
+                                                            <label style="color:#B22222">Nombre:</label>
+                                                            <span id="NombreVictima" class="Nombres" style=""></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div> <!-- .field-group -->
-                                    </div> <!-- .row-fluid -->
+                                        </div>
+                                        <div class="grid-14">
+                                            <div class="field-group" style="width: 300px">								
+                                                <label style="color:#B22222">Tipo de Denuncia:</label>
+                                                <div class="field">
+                                                    <select id="TipoDenuncia" name="TipoDenuncia" class="validate[required]">
+                                                        <option selected value=""> ** Seleccionar un Tipo ** </option>
+                                                        <option value="Verbal">Verbal</option>
+                                                        <option value="Escrita">Escrita</option>
+                                                    </select>
+                                                </div>
+                                            </div> <!-- .field-group -->
+                                            <div class="field-group">								
+                                                <label style="color:#B22222">Descripción:</label>
+                                                <div class="field">
+                                                    <textarea id="DescripDenuncia" name="DescripDenuncia" cols="8" rows="8" style="width: 300px" class="validate[required]"></textarea>
+                                                </div>
+                                            </div> <!-- .field-group -->
+                                        </div>
+                                    </div>
                                     <div class="grid-24" style="text-align: center">
                                         <div class="field-group">								
                                             <div class="actions" style="text-aling:left">
@@ -147,10 +225,10 @@ if (isset($_POST['Submit'])) {
                                             </div> <!-- .actions -->
                                         </div> <!-- .field-group -->
                                     </div>
-                                </div> <!-- .row-fluid -->
+                                </div> <!-- .widget-content -->
                             </div> <!-- .widget-content -->
-                        </div> <!-- .widget-content -->
-                    </div> <!-- .widget -->	
+                        </div> <!-- .widget -->	
+                    </div><!-- .grid -->	
                 </div><!-- .grid -->	
                 <div class="grid-6">
                     <div id="gettingStarted" class="box">
@@ -161,33 +239,57 @@ if (isset($_POST['Submit'])) {
                         </div>
                     </div>
                 </div>
-        </div> <!-- .grid -->	
-    </form>
+            </form>
+        </div><!-- .row -->
     </div><!-- .row -->
-    </div> <!-- .container -->
     <?php
 }
 _adios_mysql();
 ?>
 
 <script type="text/javascript">
-    window.onload = function () {
-        espejo_gerencia();
-    }
+
+    $(document).ready(function () {
+        $('.VictimaCheack').click(function () {
+
+            $(".VictimaCheack").attr('checked', false);
+            $(this).attr('checked', true);
+            if ($('#empresa').attr('checked')) {
+                $('#PersonaVic').animate({opacity: 0, height: "hide"}, 500);
+            } else {
+                $('#PersonaVic').animate({opacity: 1, height: "show"}, 500);
+            }
+
+            setTimeout(function () {
+                $.uniform.update();
+            }, 100);
+        });
+
+        $("#empresa").trigger('click');
+        $("#empresa").attr('checked', true);
+        setTimeout(function () {
+            $.uniform.update();
+        }, 100);
+    });
 
     function DenuncianteSeleccionado() {
-        if (document.getElementById("CedulaDenuncianteID").value == '') {
+        var mensaje = '';
+        if ($("#CedulaDenuncianteID").val() === '' || ($('#CedulaVictimaID').val() === '' && $('#persona').attr('checked'))) {
+            if ($("#CedulaDenuncianteID").val() === '') {
+                mensaje = "Debe seleccionar un Denunciante!";
+            } else if ($('#CedulaVictimaID').val() === '' && $('#persona').attr('checked')) {
+                mensaje = "Debe seleccionar una Victima!";
+            }
             $.alert({
                 type: 'alert'
                 , title: 'Alerta'
-                , text: '<h3>Debe seleccionar a un denunciante!</h3>',
+                , text: '<h3>' + mensaje + '</h3>',
             });
             return false;
         } else {
             return true;
         }
     }
-
     function SeleccionarEmpleado(Selected) {
         var campo = Selected.val();
         if (campo) {
@@ -196,10 +298,6 @@ _adios_mysql();
                 dataType: 'JSON',
                 method: 'POST',
                 beforeSend: function () {
-                    document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/No-User.png');
-                    document.getElementById("NombreDenunciante").innerHTML = '<br>';
-                    document.getElementById("CedulaDenunciante").innerHTML = '<br>';
-                    document.getElementById("CedulaDenuncianteID").value = '';
                 },
                 data: {
                     Campo: campo
@@ -217,14 +315,17 @@ _adios_mysql();
                         datos.nombre = data.datos[aux].nombre + ' ' + data.datos[aux].apellido;
                         datos.cedula = data.datos[aux].cedula;
                         lista += '<tr>\n\
-                                <td style="width: 30%">' + datos.cedula + '</td>\n\
-                                <td style="width: 60%">' + datos.nombre + '</td>\n\
-                                <td class="center" style="width: 10%">\n\
-                                <a title="Seleccionar" >\n\
-                                <i style="cursor: pointer; " onclick="javascript:SeleccionarDenunciante(\'' + datos.nombre + '\',\'' + datos.cedula + '\')" class="fa fa-share"></i>\n\
-                                </a>\n\
-                                </td>\n\
-                                </tr>';
+                                <td rowspan="2" style="width: 20%"><img style=" border: solid 5px #ddd;width: 60px;max-height: 80px;" src="src/images/FOTOS/' + datos.cedula + '.jpg"/></td>\n\
+                                    <td style="width: 70%; vertical-align: middle">' + datos.nombre + '</td>\n\
+                                <tr>\n\
+                                    <td class="center" style="width: 70%;vertical-align: middle; text-align: center">\n\
+                                        <button style="font-size: 11px;padding: 4px 12px" title="Denunciante" class="btn btn-error" type="button" onclick="javascript:Seleccionar(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'Denunciante\')">\n\
+                                            <i style="cursor: pointer;  display: " class="fa fa-user"></i>\n\
+                                        Denunciante</button>\n\
+                                        <button style="font-size: 11px;padding: 4px 12px" title="Victima" class="btn btn-error" type="button" onclick="javascript:Seleccionar(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'Victima\')">\n\                                             <i style="cursor: pointer;  display: " class="fa fa-user"></i>\n\
+                                        Victima</button>\n\
+                                    </td>\n\
+                        </tr>';
                         aux++;
                     }
                     document.getElementById("BusquedaRes").innerHTML = lista;
@@ -240,11 +341,15 @@ _adios_mysql();
         }
 
     }
-    function SeleccionarDenunciante(nombre, cedula) {
+    function Seleccionar(nombre, cedula, tipo) {
 
-        document.getElementById("NombreDenunciante").innerHTML = nombre;
-        document.getElementById("CedulaDenunciante").innerHTML = cedula;
-        document.getElementById("CedulaDenuncianteID").value = cedula;
-        document.getElementById("retrato").setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
+        if (tipo === 'Victima') {
+            $('#persona').val(cedula);
+        }
+
+        document.getElementById("Nombre" + tipo).innerHTML = nombre;
+        document.getElementById("Cedula" + tipo).innerHTML = cedula;
+        document.getElementById("Cedula" + tipo + "ID").value = cedula;
+        document.getElementById("retrato" + tipo).setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
     }
 </script>

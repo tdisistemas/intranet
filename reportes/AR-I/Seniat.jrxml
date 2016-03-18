@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="534" leftMargin="39" rightMargin="39" topMargin="20" bottomMargin="20" uuid="44038827-0ffc-4df4-a808-a3e016920e50">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="480"/>
+	<property name="ireport.y" value="1878"/>
 	<parameter name="APyNOM" class="java.lang.String"/>
 	<parameter name="cedula" class="java.lang.String"/>
 	<parameter name="rif" class="java.lang.String"/>
@@ -46,7 +46,26 @@
 	<parameter name="bs3" class="java.lang.String"/>
 	<parameter name="bs4" class="java.lang.String"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="752" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="-1" y="0" width="535" height="752" forecolor="#E8E8E8" backcolor="#FFFFFF" uuid="1445d6ac-3c2e-4e42-8dce-87d86270d204"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="48" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR
+NO IMPRIMIR]]></text>
+			</staticText>
+		</band>
 	</background>
 	<title>
 		<band height="14" splitType="Stretch"/>

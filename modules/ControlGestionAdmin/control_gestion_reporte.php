@@ -36,11 +36,11 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                 <div class="field-group">
                   <div class="field">
                     <label for="date">Desde</label>	
-                    <input type="text" name="desde" id="desde" size="15" class="fecha"  />
+                    <input type="text" name="desde" id="datepicker" size="15" class="fecha"  />
                   </div>
                    <div class="field">
                     <label for="date">Hasta:</label>	
-                    <input type="text" name="hasta" id="hasta" size="15" class="fecha" />
+                    <input type="text" name="hasta" id="datepicker1" size="15" class="fecha" />
                   </div>
                 </div> <!-- .field-group -->
                 <div class="field-group">
@@ -108,14 +108,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
   </div> <!-- .container -->
  
 <script>
-$(function () { 
-	$( ".fecha" ).datepicker({
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear: false,
-    yearRange: "2015:2015"
-  });
-});
+ $(function () {
+        $.datepicker.setDefaults($.datepicker.regional["es"]);
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "2015:2020"
+        });
+    });
 </script>
 <script>
 function validacion() {

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec4b7fbd-9818-4089-8b29-1e7bcbb407e2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Query" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="img2" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{Query}]]>
+	</queryString>
+	<field name="id_cgestion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="n_proceso_completo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_ingreso" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gerencia_req" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="obra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estatus" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_solicitud" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="n_proceso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="servicio_completo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="montoec" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="montooc" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="montoate" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<pageHeader>
+		<band height="142">
+			<image>
+				<reportElement x="0" y="0" width="802" height="72" uuid="38cd4b87-0ff3-467c-9ebc-79d7357649c0"/>
+				<imageExpression><![CDATA[$P{img1}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="222" y="92" width="343" height="20" uuid="5f095ed2-f17b-4776-add7-2438896f3ac9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="true" isUnderline="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}== 1 ? "Reporte de Servicios" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement x="172" y="1" width="100" height="20" uuid="5f90120f-e1e7-45d0-9ea5-c4ad07b1c077"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Tipo de Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="1" width="133" height="20" uuid="cda7545c-2742-4aac-ba14-f8499bd8cb67"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Monto Estimado de Costo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="1" width="128" height="20" uuid="d583f074-9d28-42a3-be7f-58354e2ca22c"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Monto Oferta Comercial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="533" y="0" width="196" height="20" uuid="998c0a59-406f-466a-9218-c5b3a69a91c8"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Monto Análisis Técnico-Económico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="1" width="116" height="20" uuid="9702498d-18cc-4f1b-8b71-da8671c4deca"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[N° de Servicio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="53">
+			<textField>
+				<reportElement x="272" y="0" width="133" height="20" uuid="7e461217-dc8b-4487-891c-cb210a8f0843"/>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="0" width="100" height="20" uuid="ad8972f2-dc4c-450a-ba48-eb03e333c014"/>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_solicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="0" width="116" height="20" uuid="5ee63195-39af-403e-ace2-524eb5205418"/>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servicio_completo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="0" width="128" height="20" uuid="bb8c2e21-7f2b-451a-9566-64466a7f2cf7"/>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montooc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="0" width="196" height="20" uuid="26146064-9967-4771-b711-396aacae2195"/>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{montoate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="71">
+			<image>
+				<reportElement x="0" y="0" width="802" height="54" uuid="bd9c5724-722d-4f1a-bf1c-f1e0e4b8bcc2"/>
+				<imageExpression><![CDATA[$P{img2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="722" y="51" width="43" height="20" uuid="94eccbbb-3403-46e7-a619-536f2c91a68b"/>
+				<textElement textAlignment="Right">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="765" y="51" width="37" height="20" uuid="ee918b0e-5121-4faf-ba27-b3cab24a6936"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de"+" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="322" height="20" uuid="30203202-c281-4833-aeba-c923595c5eb9"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} != 1 ? "Reporte de Servicios" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="45"/>
+	</summary>
+</jasperReport>

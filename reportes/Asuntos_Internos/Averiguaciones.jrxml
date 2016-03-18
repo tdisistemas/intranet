@@ -120,7 +120,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="74" height="20" uuid="701fc65e-98ff-443a-90d4-eac6d502afa9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -136,11 +136,11 @@
 				<textFieldExpression><![CDATA[$F{cod_org} == null ?  $F{cod_den} : $F{cod_org}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="148" y="1" width="65" height="20" uuid="c829f15f-cdee-4f63-b702-753015e683bc"/>
+				<reportElement x="148" y="0" width="65" height="20" uuid="c829f15f-cdee-4f63-b702-753015e683bc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha} == null ? " - " : $F{fecha} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha} == null ? " - " : $F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="473" y="1" width="65" height="19" uuid="acaf20c1-7f90-4842-ae19-7a4ff2eb6d09"/>
@@ -150,7 +150,7 @@
 				<textFieldExpression><![CDATA[$F{st_ave} == 0 ? "Abierta" : $F{st_ave} == 1 ? "En Revisión" : $F{st_ave} == 2 ? "Remitida" : $F{st_ave} == 3 ? "Finalizada" : $F{st_ave} == 9 ? "Archivada" : $F{st_ave}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="538" y="2" width="214" height="20" uuid="caad0fdd-06de-46fd-b958-bda8104ee6a6"/>
+				<reportElement x="538" y="0" width="214" height="20" uuid="caad0fdd-06de-46fd-b958-bda8104ee6a6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -161,28 +161,28 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha_st_1} == null ? " - " : $F{fecha_st_1} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha_st_1} == null ? " - " : $F{fecha_st_1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="278" y="0" width="65" height="20" uuid="57219892-e55b-41c0-9139-f36d085a1440"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha_st_2} == null ? " - " : $F{fecha_st_2} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha_st_2} == null ? " - " : $F{fecha_st_2}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="343" y="0" width="65" height="20" uuid="1bdf9e5f-03dd-4439-8c0e-9844da174d31"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha_st_3} == null ? " - " : $F{fecha_st_3} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha_st_3} == null ? " - " : $F{fecha_st_3}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="408" y="0" width="65" height="20" uuid="4c2d558b-5e62-4ba5-bb70-ebe41d64afd4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{fecha_st_9} == null ? " - " : $F{st_ave} != 9 ? " - " : $F{fecha_st_9} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha_st_9} == null ? " - " : $F{st_ave} != 9 ? " - " : $F{fecha_st_9}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -338,7 +338,7 @@ _adios_mysql();
                                         <select id="Motivo_exclu_' + (aux + 1) + '" class"Requerido" style="max-width: 300px;">\n\
                                             <option value=""> ** Seleccionar ** </option>\n\
 <?php while ($excl = mysql_fetch_array($query_exc)) { ?>\n\
-                                                                            <option value="<?php echo $excl['id_motivo'] ?>"> <?php echo $excl['descripcion'] ?> </option>\n\
+                                                                                <option value="<?php echo $excl['id_motivo'] ?>"> <?php echo $excl['descripcion'] ?> </option>\n\
 <?php } ?>\n\
                                         </select>\n\
                             <td style="text-align: center;vertical-align: middle">';
@@ -373,11 +373,11 @@ _adios_mysql();
                     if (data.datos[aux].status == 0) {
                         lista += '<input type="checkbox" class="inclu_" id="inclu_' + (aux + 1) + '" value="' + data.datos[aux].cedula_familiar + '" />\n\
                         </td>\n\
-                </tr>'
+                </tr>';
                     } else {
                         lista += '<i class="fa fa-history" title="En espera."> </i>\n\
                         </td>\n\
-                </tr>'
+                </tr>';
                     }
                     aux++;
                 }

@@ -156,7 +156,8 @@ $decisiones = $respuesta['decision'];
 $sanciones = $respuesta['sanciones'];
 $otros = $respuesta['otros'];
 
-$parametros = 'id=' . $id;
+$parametros = 'id=' . $id . '&ot=1';
+$parametros .= '&Origen=investigacion';
 $parametros = _desordenar($parametros);
 
 $sqlInvol = "SELECT "
@@ -187,77 +188,62 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                 <br>
                                 <br>
                                 <?php
-                                $i = 0;
-                                while ($Involucrado = mysql_fetch_array($sqlqueryInv)) {
-
-                                    $cedula = $Involucrado['cedula'];
-                                    $nombreInvo = $Involucrado['nombre'] . ' ' . $Involucrado['apellido'];
-                                    $cargo = $Involucrado['cargo'];
-                                    $gerencia = $Involucrado['gerencia'];
-                                    $extension = $Involucrado['ext_telefonica'];
-                                    $parametros2 = 'cedula=' . $cedula;
-                                    $parametros2 .= '&Origen=investigacion';
-                                    $parametros2 = _desordenar($parametros2);
-                                    if ($i != 0) {
-                                        ?>
+                                if ($st_ave < 1) {
+                                    ?>
+                                    <div class="grid-24" style="margin-bottom: 0px">
+                                        <div class="grid-24" style="margin-bottom: 0px">
+                                            <div class="grid-24">
+                                                <div class="field-group">
+                                                    <label style="color:#B22222">Buscar Involucrado:</label>
+                                                    <div class="field">
+                                                        <input id="BuscadorAutores" style="min-width: 350px"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid-24" style="margin-bottom: 0px">
+                                            <div class="grid-6">
+                                            </div>
+                                            <div class="grid-4">
+                                                <div class="field-group">
+                                                    <div class="field">
+                                                        <img id="FotoInvo" align="left" style=" border: solid 5px #ddd; width: 80px;height: 100px" src="../src/images/FOTOS/No-User.png"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-12">
+                                                <div class="field-group">
+                                                    <label style="color:#B22222">Información:</label>
+                                                    <div class="field">
+                                                        <label style="color:#B22222">Cédula:</label>
+                                                        <span id="CedulaInvo" style="position: absolute"></span>
+                                                        <input id="Involucrado" style="display: none"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <label style="color:#B22222">Nombre:</label>
+                                                        <span id="NombreInvo" style="position: absolute"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid-22">
+                                            <div class="field-group">
+                                                <div style="text-align: center">
+                                                    <button onclick="javascript:NuevoAutor('<?= $parametros ?>')" title="Registrar" type="button" class="btn btn-error"><i class="fa fa-user"></i> Registrar</button>
+                                                    <button onclick="javascript:CancelarAutor()" title="Cancelar" type="button" class="btn btn-error"><i class="fa fa-times"></i> Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="grid-24" style="text-align: center; margin-left: 1.5%;">
                                             <hr style="border-top: 1px dotted #000; height: 1px; width:75%;">
                                         </div>
-                                        <?php
-                                    }
-                                    ?> 
-                                    <div class="grid-24">
-                                        <div class="grid-4">
-                                            <div class="field-group">
-                                                <div class="field">
-                                                    <img align="left" style=" border: solid 5px #ddd;max-width: 100px;max-height: 100px" src="../src/images/FOTOS/<?php echo $cedula; ?>.jpg"/>
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <div class="field" style="text-align: center">
-                                                    <input type="button" name="Mas" style="width: 80px; font-size: 12px" onclick="javascript:DatosEmpleado('<?= $parametros2 ?>')" class="btn btn-error" value="Más" />
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                        </div>
-                                        <div class="grid-8">
-                                            <div class="field-group">								
-                                                <label style="color:#B22222">Cédula:</label>
-                                                <div class="field">
-                                                    <span><?php echo $cedula; ?></span>
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Nombre:</label>
-                                                <div class="field">
-                                                    <span><?php echo $nombreInvo; ?></span>			
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Cargo:</label>
-                                                <div class="field">
-                                                    <span><?php echo $cargo; ?></span>			
-                                                </div>
-                                            </div> <!-- .field-group -->
-                                        </div>
-                                        <div class="grid-10">
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Gerencia:</label>
-                                                <div class="field">
-                                                    <span><?php echo $gerencia; ?></span>	
-                                                </div>		
-                                            </div> <!-- .field-group -->
-                                            <div class="field-group">
-                                                <label style="color:#B22222">Extensión:</label>
-                                                <div class="field">
-                                                    <?php echo $extension != '0' ? '<span>' . $extension . '</span>' : '<label for="fname">*** No Posee Extensión Registrada! *** </label>' ?>
-                                                </div>		
-                                            </div> <!-- .field-group -->
-                                        </div>
                                     </div>
                                     <?php
-                                    $i++;
                                 }
                                 ?>
+                                <div class = "grid-24" id="Involucrados">
+
+                                </div>
                             </div>
                             <div class="grid-24 bordeado" >
                                 <div class="widget-header">
@@ -362,7 +348,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                                                     break;
                                             }
                                             ?>
-                                            <span><?php echo iconosIntranet($st, $titulo,false,$color,false)?></span> <span style="color: <?= $color ?>;vertical-align: middle" ><?= $texto ?> <span style="color: black">, desde: </span> <?= $respuesta[$fecha_st] ?></span>	
+                                            <span><?php echo iconosIntranet($st, $titulo, false, $color, false) ?></span> <span style="color: <?= $color ?>;vertical-align: middle" ><?= $texto ?> <span style="color: black">, desde: </span> <?= $respuesta[$fecha_st] ?></span>	
                                         </div>
                                     </div> <!-- .field-group -->
                                 </div>
@@ -482,7 +468,7 @@ $sqlqueryInv = mysql_query($sqlInvol);
                     <h3>Estimado, <?php echo $usuario_datos['nombre'] . " " . $usuario_datos['apellido']; ?></h3>
                     <p>En esta sección podrá visualizar la información de la averiguación número <b><?= $codigo_ave ?></b></p>
                     <div class="box plain">
-                        <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
+                <a class="btn btn-primary btn-large dashboard_add" onclick="javascript:window.history.back();">Regresar</a>
                     </div>
                 </div>
             </div>
@@ -491,75 +477,263 @@ $sqlqueryInv = mysql_query($sqlInvol);
 </div><!-- .container-->
 
 <script type="text/javascript">
-    window.onload = function () {
-        espejo_gerencia();
-    }
 
-    function DatosEmpleado(parametro) {
-        window.location = 'dashboard.php?data=usuario-ai-info&flag=1&' + parametro;
-    }
+                    $(document).ready(function () {
+        var options = {
+            url: function (phrase) {
 
-    function CambioStatus(campo, st, parametro, mensaje) {
-        $.alert({
-            type: 'confirm',
-            title: 'Alerta',
-            text: '<h3>¿Esta seguro que desea <u>' + mensaje + '</u> esta Averiguación ?</h3>',
-            callback: function () {
-                Cambio(campo, st, parametro);
+                    return "modules/SIIT-Metro(Admin)/Autores.php";
+            },
+            getValue: function (element) {
+                    return element.nombre + " (" + element.cedula + ")";
+            },
+            list: {
+                    match: {
+                    enabled: false
+                },
+                onSelectItemEvent: function () {
+
+                },
+                onChooseEvent: function () {
+            $("#NombreInvo").html($("#BuscadorAutores").getSelectedItemData().nombre).trigger("change");
+                    $("#CedulaInvo").html($("#BuscadorAutores").getSelectedItemData().cedula).trigger("change");
+                $("#Involucrado").val($("#BuscadorAutores").getSelectedItemData().cedula).trigger("change");
+        $("#FotoInvo").attr('src', '../intranet/src/images/FOTOS/' + $("#BuscadorAutores").getSelectedItemData().cedula + '.jpg').trigger("change");                 },
+                onHideListEvent: function () {
+
+        }
+            },
+    ajaxSettings: {
+    dataType: "json",
+            method: "GET",
+                data: {
+                    dataType: "json"
+            }
+            },             preparePostData: function (data) {
+            data.buscar = $("#BuscadorAutores").val();
+                data.acc = 'BuscadorAutores';
+
+                return data;
+            },
+    requestDelay: 400
+        };
+
+        $("#BuscadorAutores").easyAutocomplete(options);
+
+        MostrarAutores('<?= $parametros ?>');
+    });
+                
+                    function MostrarAutores(parametros) {
+        $.ajax({
+            url: 'modules/SIIT-Metro(Admin)/Autores.php?flag=1&' + parametros,
+            method: 'GET',
+            dataType: 'JSON',
+            data: {
+                acc: 'Verificar'
+            },
+            success: function (data) {
+                MostrarResultado(data);
             }
         });
+
+    }
+     function MostrarResultado(resultado) {
+        var aux = 0;
+        var lista = '';
+        while (aux < resultado.datos.length)
+        {
+            lista += '<div class=grid-24>\n\
+                        <div class = "grid-4">\n\
+                            <div class = "field-group">\n\
+                                <div class = "field">\n\
+                                    <img align = "left" style = " border: solid 5px #ddd;width: 80px;height: 100px" src = "../intranet/src/images/FOTOS/' + resultado.datos[aux].cedula + '.jpg"/>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="field-group">\n\
+                                <div class="field" style="text-align: left">\n\
+                                    <a name="Mas" onclick="javascript:DatosEmpleado(\'' + resultado.datos[aux].parametros + '\')" class="btn btn-error" ><i style="font-size: 14px" class="fa fa-search-plus"></i></a>\n\
+                                    <a name="Borrar" onclick="javascript:BorrarAutor(\'' + resultado.datos[aux].parametros + '\')" class="btn btn-error" ><i style="font-size: 14px" class="fa fa-trash"></i></a>\n\
+                                </div>\n\
+                            </div>\n\
+                        </div>\n\
+                        <div class = "grid-8">\n\
+                            <div class = "field-group">\n\
+                                <label style = "color:#B22222">Cédula:</label>\n\
+                                <div class = "field">\n\
+                                    <span>' + resultado.datos[aux].cedula + '</span>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="field-group">\n\
+                                <label style="color:#B22222">Nombre:</label>\n\
+                                <div class="field">\n\
+                                    <span>' + resultado.datos[aux].nombre + '</span>\n\
+                                </div>\n\
+                            </div>\n\
+                            <div class="field-group">\n\
+                                <label style="color:#B22222">Cargo:</label>\n\
+                                <div class="field">\n\
+                                    <span>' + resultado.datos[aux].cargo + '</span>\n\
+                                </div>\n\
+                            </div>\n\
+                        </div>\n\
+                        <div class="grid-10">\n\
+                            <div class="field-group">\n\
+                                <label style="color:#B22222">Gerencia:</label>\n\
+                                <div class="field">\n\
+                <span>' + resultado.datos[aux].gerencia + '</span>\n\
+                </div>\n\
+                    </div>\n\
+                            <div class="field-group">\n\
+                                <label style="color:#B22222">Extensión:</label>\n\
+                                <div class="field">\n\
+                                    ' + resultado.datos[aux].extencion + '\
+                                </div>\n\
+                            </div>\n\
+                        </div>\n\
+                    </div>';
+
+            aux++;
+        }
+        if (lista === '') {
+            lista = '<div class=grid-24>\n\
+                        <div class = "grid-4">\n\
+                            <div class = "field-group">\n\
+                                <div class = "field">\n\
+                <img align = "left" style = " border: solid 5px #ddd;width: 80px;height: 100px" src = "../intranet/src/images/FOTOS/No-User.png"/>\n\
+            </div>\n\
+                </div>\n\
+                </div>\n\
+            <div class = "grid-16" style="text-align: center; vertical-align: middle; font-size: 15px;color: #888; margin-top: 45px">\n\
+                    <label>*** No existen Autores/Involucrados registrados para esta Averiguación ***</label>\n\
+                        </div>\n\
+                    </div>';
+                            }         document.getElementById('Involucrados').innerHTML = lista;
     }
 
-    function Cambio(campo, st, parametro) {
+
+    function CancelarAutor() {
+                            $("#NombreInvo").html('');
+                            $("#CedulaInvo").html('');
+                            $("#Involucrado").val('');
+                            $("#FotoInvo").attr('src', '../intranet/src/images/FOTOS/No-User.png');
+                            }
+
+    function BorrarAutor(parametro) {
+                                $.alert({
+                                    type: 'confirm',
+            title: 'Alerta',
+                                    text: '<h3>¿Esta seguro que desea eliminar a este autor?</h3>',
+            callback: function () {
+                                $.ajax({
+                        url: 'modules/SIIT-Metro(Admin)/Autores.php?flag=1&' + parametro,
+                method: 'POST',
+            dataType: 'TEXT',
+                data: {
+                    acc: 'BorrarAutor'                     },
+                        success: function (data) {
+
+                        $.alert({
+                        type: 'alert'
+                        , title: 'Alerta'
+                            , text: '<h3>' + data + '!</h3>',
+                        });
+                        MostrarAutores(parametro);
+                            }
+                            });
+            }
+        });
+                                }
+
+                                function NuevoAutor(parametro) {
+                                var dato = $('#Involucrado').val();
+        if (dato != '') {
+            $.ajax({
+                        url: 'modules/SIIT-Metro(Admin)/Autores.php?flag=1&' + parametro,
+                method: 'POST',
+                    dataType: 'TEXT',
+                        data: {                     Involucrado: dato,
+                        acc: 'NuevoAutor'
+                },
+                success: function (data) {
+            CancelarAutor();
+                $.alert({
+                        type: 'alert'
+            , title: 'Alerta'
+                        , text: '<h3>' + data + '!</h3>',
+                    });
+                    MostrarAutores(parametro);
+                    }
+            });
+        } else {
+            $.alert({
+                    type: 'alert'
+                , title: 'Alerta'
+            , text: '<h3>Debe seleccionar un empleado para agregar!</h3>',
+            });
+        }
+    }
+
+                    function DatosEmpleado(parametro) {
+                    window.location = 'dashboard.php?data=usuario-ai-info&flag=1&' + parametro;
+    }
+
+                        function CambioStatus(campo, st, parametro, mensaje) {
+                        $.alert({
+                    type: 'confirm',
+                    title: 'Alerta',
+                            text: '<h3>¿Esta seguro que desea <u>' + mensaje + '</u> esta Averiguación ?</h3>',
+                            callback: function () {
+                Cambio(campo, st, parametro);
+            }
+                            });
+    }
+
+                                function Cambio(campo, st, parametro) {
 
         $.ajax({
             url: 'modules/SIIT-Metro(Admin)/CambioStatus.php',
-            method: 'POST',
-            dataType: 'TEXT',
+                            method: 'POST',
+                        dataType: 'TEXT',
             data: {
-                aver: campo,
+                            aver: campo,
                 acc: st
             },
             success: function (data) {
-                $.alert({
-                    type: 'alert',
-                    title: 'Alerta',
-                    text: '<h3>La investigación ha sido <u>' + data + '</u>.</h3>',
+                        $.alert({
+            type: 'alert',
+            title: 'Alerta',
+                text: '<h3>La investigación ha sido <u>' + data + '</u>.</h3>',
                     callback: function () {
                         window.location = "dashboard.php?data=averiguaciones-ai-info&flag=1&" + parametro;
                     }
-                });
-                setTimeout(function () {
-                    window.location = "dashboard.php?data=averiguaciones-ai-info&flag=1&" + parametro;
-                }, 3000);
-            }
-        });
-    }
+                        });
+                        setTimeout(function () {
+                        window.location = "dashboard.php?data=averiguaciones-ai-info&flag=1&" + parametro;                 }, 3000);
+            }         });
+                        }
 
-    function AceptarEdit(id, tipo, parametro) {
-        var dato = document.getElementById(id + 'Nueva').value;
-        $.ajax({
-            url: 'modules/SIIT-Metro(Admin)/Anexos.php',
+                function AceptarEdit(id, tipo, parametro) {
+                var dato = document.getElementById(id + 'Nueva').value;
+                $.ajax({             url: 'modules/SIIT-Metro(Admin)/Anexos.php',
             method: 'POST',
-            dataType: 'TEXT',
+                dataType: 'TEXT',
             data: {
                 aver: parametro,
                 dato: dato,
                 tipo: tipo
             },
-            success: function (data) {
-                document.getElementById(id + 'Mostrado').innerHTML = '<span>' + data + '</span>';
+                success: function (data) {
+            document.getElementById(id + 'Mostrado').innerHTML = '<span>' + data + '</span>';
                 CancelarEdit(id);
             }
         });
     }
-
-    function EditarCampo(id) {
-        document.getElementById(id + 'Mostrado').style.display = 'none';
-        document.getElementById(id + 'Editado').style.display = '';
-        document.getElementById(id + 'Editar').style.display = 'none';
-        document.getElementById(id + 'Aceptar').style.display = '';
-        document.getElementById(id + 'Cancelar').style.display = '';
+     function EditarCampo(id) {
+                document.getElementById(id + 'Mostrado').style.display = 'none';
+                document.getElementById(id + 'Editado').style.display = '';
+                document.getElementById(id + 'Editar').style.display = 'none';
+                document.getElementById(id + 'Aceptar').style.display = '';
+            document.getElementById(id + 'Cancelar').style.display = '';
         document.getElementById(id + 'Nueva').focus();
 
     }

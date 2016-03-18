@@ -9,6 +9,15 @@ if (!in_array(ucwords(array_pop(explode('/', __dir__))), $usuario_permisos)) {
 _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/', __dir__))), 'S/I');
 
 ?>
+<style>
+    .titulo {
+
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 13px;
+        color: #b22222;
+    }
+</style>
 
 <div id="contentHeader">
     <h2>Registro de Proyectos</h2>
@@ -30,7 +39,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         </div>
                         <div class="grid-10">
                             <div class="field-group">
-                                <label>Clase:<br></label>   
+                                <div class="titulo" >Clase:</div>   
                                 <div class="field">
                                     <select  name="clase" id="clase">
                                         <option value="">Seleccione</option>
@@ -43,7 +52,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                 </div>
 
                                 <div class="field-group">
-                                    <label for="date">Gerencia Requiriente:</br></label>   
+                                    <div class="titulo" >Gerencia Requiriente:</div>  
                                     <div class="field">
                                         <select id="gerencia" name="gerencia"  style="width:110px">
                                             <option value=""></option>
@@ -58,14 +67,14 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     </div>
                                 </div>
                                 <div class="field-group">
-                                    <label for="required">Nombre de la Obra/Actividad:</br></label>   
+                                    <div class="titulo" >Nombre de la Obra/Actividad:</div>   
                                     <div class="field">
                                         <input type="text" name="nombre_obra" id="nombre_obra" size="24" placeholder="Nombre de la Obra/Actividad" onChange="conMayusculas(this)" />	
                                     </div>
                                 </div>
 
                                 <div class="field-group">
-                                    <label for="required">Estatus:</br></label>   
+                                    <div class="titulo">Estatus:</div>   
                                     <div class="field">
                                         <select  name="estatus" id="estatus">
                                             <option value="">Seleccione</option>
@@ -75,7 +84,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                                     </div>
                                 </div>
                                 <div class="field-group">
-                                    <label for="date">Obra Extra:</br></label>   
+                                    <div class="titulo">Obra Extra:</div>   
                                     <div class="field">
                                         SI<input type="radio" name="obraextrasi" id="txek" value="1" onclick="Block(this,'obraextra')"/>
                                         NO<input type="radio" name="obraextrasi" value="0" onclick="Block(this,'obraextra')" checked />
@@ -98,20 +107,20 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
                         </div>
                         <div class="grid-10">
                             <div class="field-group">
-                                <label for="datepicker">Fecha de Ingreso:<br></label>   
+                                <div class="titulo">Fecha de Ingreso:</div>   
                                 <div class="field">
                                     <input type="date" name="fecha_ing" id="datepicker" size="14"  placeholder="Fecha de Ingreso" readonly/>
                                 </div>
                             </div>
                             <div class="field-group">
-                                <label for="required">Responsable del Requerimiento:</br></label>   
+                                <div class="titulo">Responsable del Requerimiento:</div>   
                                 <div class="field">
                                     <input type="text" name="responsable_req" id="responsable_req" size="22" placeholder="Responsable del Requerimiento" onChange="conMayusculas(this)" onkeypress="return validarLetras(event)"/>
                                 </div>
                             </div>
 
                             <div class="field-group">
-                                <label for="required">Documentos Entregados:</br></label>   
+                                <div class="titulo">Documentos Entregados:</div>  
                                 <div class="field">
                                     <input type="checkbox" name="alcance" id="alcance" value="1" size="14" />&nbsp;&nbsp;Alcance del Proyecto</br>
                                     <input type="checkbox" name="memoriad" id="memoriad" value="1" size="14" />&nbsp;&nbsp;Memoría Descriptiva</br>
@@ -186,6 +195,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 		id.disabled=true;				
 	 }
    }
+
     function validarForm(formulario) {
         if (formulario.clase.value.length == 0) { //¿Tiene 0 caracteres?
             formulario.clase.focus();    // Damos el foco al control
@@ -220,13 +230,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
             return false; //devolvemos el foco
         }
     }
-    $(function () {
+   $(function () {
         $.datepicker.setDefaults($.datepicker.regional["es"]);
         $("#datepicker").datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-            yearRange: "1950:2014"
+            yearRange: "2000:2015",
+            minDate: '0',
+            onSelect: function (fecha,event){$('#datepicker').datepicker("option","minDate",fecha);}
         });
     });
     function conMayusculas(field) {

@@ -30,8 +30,7 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
      $id = _antinyeccionSQL($_GET["id"]);
     $id_np = _antinyeccionSQL($_GET["np"]);
    _bienvenido_mysql();
-
-
+  
        
        $tipo_soli =['tipo_solicitud'];
    $segunda_fase = mysql_query("SELECT  tipo_solicitud,servicio, montoec, enviado_presidencia, recibido_presidencia, recibido_por FROM `gc_control_gestion2` WHERE  `id_cgestion2`= $id");
@@ -47,8 +46,8 @@ if (isset($_POST['enviar'])) {
     $parametro = 'np=' . $id_2;
     $parametro = _desordenar($parametro);
 
-$sql="UPDATE gc_control_gestion2 SET  ". "recibido_presidencia='".$recibido_presi."' WHERE id_cgestion2=".$id;
 
+$sql="UPDATE gc_control_gestion2 SET  ". "recibido_presidencia='".$recibido_presi."' WHERE id_cgestion2=".$id;
 
  $result = mysql_query($sql) or die('Error al Modificar Registro ' . mysql_error());
   
@@ -76,7 +75,7 @@ $sql="UPDATE gc_control_gestion2 SET  ". "recibido_presidencia='".$recibido_pres
                             </div>
                             <div class="grid-8">
                                 <div class="field-group">
-                                    <div class="titulo">Tipo de Solicitud:</div> 
+                                    <div class="titulo">Tipo de Solicitud:</div>   
                                     <div class="field">
                                         <input type="text" name="tipo_soli" size="16" value="<?php echo $editar_ec['tipo_solicitud'];?>" disabled/>
                                     </div>

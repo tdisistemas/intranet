@@ -815,9 +815,18 @@ switch ($t) {
     case ("Fas-In-Out"):include('modules/fas/fas_incl_exc.php');
         ?><script>activame('fas');</script><?php
         break;
+    case ("Fas-Servicios"):include('modules/fas/fas_servicios.php');
+        ?><script>activame('fas');</script><?php
+        break;
 
     /*     * **FAS Admin*** */
     case ("fas_admin"):include('modules/fas_admin/fas.php');
+        ?><script>activame('fas_admin');</script><?php
+        break;
+    case ("Fas-Servicios-Admin"):include('modules/fas_admin/fas_servicios_admin.php');
+        ?><script>activame('fas_admin');</script><?php
+        break;
+    case ("Fas-CartaAval-info"):include('modules/fas_admin/fas_cartaaval.php');
         ?><script>activame('fas_admin');</script><?php
         break;
 

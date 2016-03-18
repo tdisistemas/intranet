@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (isset($_GET["data"])) {
     $t = strip_tags($_GET["data"]);
 } else {
@@ -9,7 +9,7 @@ switch ($t) {
     case ("inicio"):include('modules/metroinforma/metroinforma.php');
         ?><script>activame('inicio');</script><?php
         break;
-       /*     * ******************************************** */
+     /*     * ******************************************** */
     /*     * ******** ASUNTOS INTERNOS ADMIN ************ */
     /*     * ******************************************** */
     case ("admin_ai"):include('modules/SIIT-Metro(Admin)/ai_admin.php');
@@ -64,24 +64,28 @@ switch ($t) {
     /*     * ******************************************** */
     /*     * *********** ASUNTOS INTERNOS *************** */
     /*     * ******************************************** */
-    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
     case ("averiguaciones-ai"):include('modules/SIIT-Metro/ai_investigaciones.php');
         ?><script>activame('investigacion');</script><?php
         break;
     case ("averiguaciones-ai-info"):include('modules/SIIT-Metro/ai_investigacion_info.php');
         ?><script>activame('investigacion');</script><?php
         break;
+
+
+    /*     * ******************************************** */
+    /*     * **** ASUNTOS INTERNOS (Generales)*********** */
+    /*     * ******************************************** */
     case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');
-        ?><script>activame('investigacion');</script><?php
         break;
     case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');
-        ?><script>activame('investigacion');</script><?php
         break;
-    case ("citar"):include('modules/SIIT-Metro/add_citas.php');
-        ?><script>activame('investigacion');</script><?php
+    case ("citar_ai"):include('modules/SIIT-Metro/add_citas.php');
         break;
+    case ("sanciones_ai"):include('modules/SIIT-Metro/sanciones_ai.php');
+        break;
+    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
+        break;
+
     /*     * ** INICIO *** */
     case ("inicio"):include('modules/metroinforma/metroinforma.php');
         ?><script>activame('inicio');</script><?php
@@ -132,39 +136,6 @@ switch ($t) {
         ?><script>activame('admin_ai');</script><?php
         break;
 
-    /*     * ******************************************** */
-    /*     * *********** ASUNTOS INTERNOS *************** */
-    /*     * ******************************************** */
-    case ("usuario-ai"):include('modules/SIIT-Metro/usuarios_ai.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("averiguaciones-ai"):include('modules/SIIT-Metro/ai_investigaciones.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("averiguaciones-ai-info"):include('modules/SIIT-Metro/ai_investigacion_info.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("usuario-ai-info"):include('modules/SIIT-Metro/info_empleado_ai.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-    case ("historial-ai"):include('modules/SIIT-Metro/historial_empleado.php');
-        ?><script>activame('investigacion');</script><?php
-        break;
-
-    /*     * ** PRUEBA *** */
-    case ("pruebainsert"):include('modules/ModuloPrueba/NuevoUsuario.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-    case ("pruebadelete"):include('modules/ModuloPrueba/Eliminar_Usuario.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-    case ("pruebaupdate"):include('modules/ModuloPrueba/Editar_Usuario.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-    case ("prueba"):include('modules/ModuloPrueba/Ver_Usuarios.php');
-        ?><script>activame('prueba');</script><?php
-        break;
-
     /*     * ** CONTROL Y GESTIÓN *** */
     case ("controlg"):include('modules/ControlGestion/registro_cl1.php');
         ?><script>activame('controlgestion');</script><?php
@@ -181,7 +152,13 @@ switch ($t) {
     case ("edicion_reg2"):include('modules/ControlGestion/edicion2.php');
         ?><script>activame('controlgestion');</script><?php
         break;
+     case ("edicion_reg3"):include('modules/ControlGestion/edicion3.php');
+        ?><script>activame('controlgestion');</script><?php
+        break;
     case ("edicion_reg4"):include('modules/ControlGestion/edicion4.php');
+        ?><script>activame('controlgestion');</script><?php
+        break;
+    case ("edicion_reg5"):include('modules/ControlGestion/edicion5.php');
         ?><script>activame('controlgestion');</script><?php
         break;
     case ("seg_fase"):include('modules/ControlGestion/segunda_fase.php');

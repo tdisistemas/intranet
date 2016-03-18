@@ -3,16 +3,16 @@ require("conexiones_config.php");
 session_start();
 session_regenerate_id(true);
 if (!isset($_SESSION[md5('usuario_datos' . $ecret)])) {
-ir("index.php");
+    ir("index.php");
 }
 $usuario_datos = $_SESSION[md5('usuario_datos' . $ecret)];
 $usuario_permisos = $_SESSION[md5('usuario_permisos' . $ecret)];
 if (!in_array('Dashboard', $usuario_permisos)) {
-alerta("No tiene permisos - Comuníquese con la División de Sistemas de la Gerencia de Tecnología de Información");
-session_unset();
-session_destroy();
-_wm($usuario_datos[9], 'Acceso Denegado en: Dashboard', 'S/I');
-ir("index.php");
+    alerta("No tiene permisos - Comuníquese con la División de Sistemas de la Gerencia de Tecnología de Información");
+    session_unset();
+    session_destroy();
+    _wm($usuario_datos[9], 'Acceso Denegado en: Dashboard', 'S/I');
+    ir("index.php");
 }
 
 _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
@@ -44,6 +44,8 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                     <script src="src/javascripts/funciones.js?<?php echo $anticache; ?>"></script>
                     <script src="src/javascripts/all.js?<?php echo $anticache; ?>"></script>
                     <link rel="stylesheet" href="css/font-awesome.min.css?<?php echo $anticache; ?>" type="text/css" />
+                    <link rel="stylesheet" href="css/easy-autocomplete.css?<?php echo $anticache; ?>" type="text/css" />
+                    <link rel="stylesheet" href="css/easy-autocomplete.themes.css?<?php echo $anticache; ?>" type="text/css" />
 
                     <style type="text/css">
                         #topNav{
@@ -72,10 +74,10 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                         <a href="dashboard.php?data=inicio">Página Principal</a>				
                                     </li>
                                     <?php if (in_array('ARI', $usuario_permisos)) { ?>
-                                    <li id="ARI" class="nav">
-                                        <span class="icon-key-stroke"></span>
-                                        <a href="dashboard.php?data=AR-I">Declaración AR-I</a>				
-                                    </li>
+                                        <li id="ARI" class="nav">
+                                            <span class="icon-key-stroke"></span>
+                                            <a href="dashboard.php?data=AR-I">Declaración AR-I</a>				
+                                        </li>
                                     <?php } ?>
                                     <?php if (in_array('Fas', $usuario_permisos)) { ?>
                                         <li id="fas" class="nav "> 
@@ -85,6 +87,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
 
                                                 <li><a href="dashboard.php?data=Fas">Registro y Consulta</a></li>
                                                 <li><a href="dashboard.php?data=Fas-In-Out">Inclusión y Exclusión</a></li>
+                                                <li><a href="dashboard.php?data=Fas-Servicios">Servicios</a></li>
 
                                             </ul>						
                                         </li>
@@ -96,6 +99,7 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                             <ul class="subNav">
 
                                                 <li><a href="dashboard.php?data=fas_admin">Consulta de Empleados</a></li>
+                                                <li><a href="dashboard.php?data=Fas-Servicios-Admin">Servicios</a></li>
 
                                             </ul>						
                                         </li>
@@ -443,11 +447,12 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                         </div>
 
                         <script type="text/javascript" src="src/javascripts/QapTcha.jquery.js?<?php echo $anticache; ?>"></script>
+                        <script type="text/javascript" src="src/javascripts/jquery.easy-autocomplete.js?<?php echo $anticache; ?>"></script>
 
                         <script type="text/javascript">
-                                                            $(document).ready(function () {
-                                                                $('.QapTcha').QapTcha({<?php echo @$js; ?>});
-                                                            });
+                                                                    $(document).ready(function () {
+                                                                        $('.QapTcha').QapTcha({<?php echo @$js; ?>});
+                                                                    });
                         </script>
 
                         <script>
@@ -469,58 +474,5 @@ _wm($usuario_permisos, 'Acceso Autorizado en: Dashboard', 'S/I');
                                 })
                             });
                         </script>
-                        <script>
-                            (function (i, s, o, g, r, a, m) {
-                                i['GoogleAnalyticsObject'] = r;
-                                i[r] = i[r] || function () {
-                                    (i[r].q = i[r].q || []).push(arguments)
-                                }, i[r].l = 1 * new Date();
-                                a = s.createElement(o),
-                                        m = s.getElementsByTagName(o)[0];
-                                a.async = 1;
-                                a.src = g;
-                                m.parentNode.insertBefore(a, m)
-                            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-                            ga('create', 'UA-52631632-1', 'auto');
-                            ga('send', 'pageview');
-
-                        </script> 
-
-                        <!--Start of Zopim Live Chat Script-->
-                        <script type="text/javascript">
-                            window.$zopim || (function (d, s) {
-                                var z = $zopim = function (c) {
-                                    z._.push(c)
-                                }, $ = z.s =
-                                        d.createElement(s), e = d.getElementsByTagName(s)[0];
-                                z.set = function (o) {
-                                    z.set.
-                                            _.push(o)
-                                };
-                                z._ = [];
-                                z.set._ = [];
-                                $.async = !0;
-                                $.setAttribute('charset', 'utf-8');
-                                $.src = '//v2.zopim.com/?2OtCrfS6vZOqmmzZU0e9cXQEC6Guw9cp';
-                                z.t = +new Date;
-                                $.
-                                        type = 'text/javascript';
-                                e.parentNode.insertBefore($, e)
-                            })(document, 'script');
-                        </script>
-                        <!--End of Zopim Live Chat Script-->
-
-
-
-                        <script>
-                            $zopim(function () {
-                                $zopim.livechat.setName('<?php echo $usuario_datos[1] . ' ' . $usuario_datos[2] . ' - ' . $usuario_datos[3]; ?>');
-                                $zopim.livechat.setEmail('<?php echo $usuario_datos[5]; ?>');
-                            });
-                        </script>
-
-
-
                     </body>
                     </html>

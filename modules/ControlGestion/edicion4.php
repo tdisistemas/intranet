@@ -10,7 +10,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 ?>
 
 <div id="contentHeader">
+<style>
+        .titulo {
 
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 13px;
+        color: #b22222;
+    }
+    </style>
     <?php //decode_get2($_SERVER["REQUEST_URI"],1);  ?>
 
     <h2>Edición de Puntos de Cuenta</h2>
@@ -70,7 +78,7 @@ if (isset($_POST['enviar'])) {
                             </div>
                             <div class="grid-8">
                               <div class="field-group">
-                                    <label>Fecha de Aprobación:<br></label>   
+                                  <div class="titulo">Fecha de Aprobación:</div>   
                                     <div class="field">
                                     <input type="date" name="fecha_aprobado" id="datepicker" size="14"  placeholder="Fecha de Aprobación" value="<?php echo $editar_ec['fecha_aprobado'];?>"/>
                                     </div>
@@ -78,7 +86,7 @@ if (isset($_POST['enviar'])) {
                                 
                              
                                 <div class="field-group">
-                                    <label for="date">Instrucción del Presidente:</br></label>   
+                                    <div class="titulo">Instrucción del Presidente:</div>   
                                     <select  name="instruccion" id="instru" value="<?php echo $editar_ec['instruccion'];?>">
                                        <option value="">Seleccione</option>
                                     <option value="POR REVISAR">Por Revisar</option>
@@ -89,7 +97,7 @@ if (isset($_POST['enviar'])) {
                                 </div>
                                
                               <div class="field-group"></br>
-                                    <label for="required">Estatus:</br></label>   
+                                  <div class="titulo">Estatus:</div>   
                                     <div class="field">
                                    <select  name="estatus2" id="estatus2" value="<?php echo $editar_ec['estatus2'];?>">
                                        <option value="">Seleccione</option>
@@ -106,14 +114,14 @@ if (isset($_POST['enviar'])) {
                             <div class="grid-6">
                                 
                                  <div class="field-group">
-                                    <label>Fecha de Envio:<br></label>   
+                                     <div class="titulo">Fecha de Envio:</div>
                                     <div class="field">
                                     <input type="date" name="enviado_pdc" id="datepicker1" size="14"  placeholder="Enviado a Presidencia" value="<?php echo $editar_ec['envio_pdc'];?>"/>
                                     </div>
                                 </div>
                                 
                                  <div class="field-group">
-                                    <label for="required">Fecha de Egreso:</br></label>   
+                                     <div class="titulo">Fecha de Egreso:</div>   
                                    <div class="field">
                                     <input type="date" name="fecha_egreso" id="datepicker3" size="14"  placeholder="Fecha de Egreso" value="<?php echo $editar_ec['fecha_egreso'];?>"/>
                                     </div>
@@ -125,7 +133,7 @@ if (isset($_POST['enviar'])) {
                             <div class="grid-6">
                                 <div class="field-group">
                                     
-                                   <label>Fecha de Recepción:<br></label>   
+                                    <div class="titulo">Fecha de Recepción:</div>  
                                     <div class="field">
                                     <input type="date" name="recibido_pdc" id="datepicker2" size="14"  placeholder="Recibido de Presidencia" value="<?php echo $editar_ec['recibido_pdc'];?>"/>
                                     </div>
@@ -133,7 +141,7 @@ if (isset($_POST['enviar'])) {
                                
                        
                                  <div class="field-group">
-                                    <label for="required">Entregado a:</br></label>   
+                                     <div class="titulo">Entregado a:</div>   
                                     <div class="field">
                                    <input type="text" name="entregado" id="responsable_req" size="14" placeholder="Entregado a"onChange="conMayusculas(this)" value="<?php echo $editar_ec['entregado'];?>"/>
                                     </div>
@@ -143,7 +151,7 @@ if (isset($_POST['enviar'])) {
                             </div>
                           <div class="grid-24" align="center" >
                                 <div class="field-group">
-                                    <label for="required">Observaciones:</br></label>   
+                                    <div class="titulo">Observaciones:</div>
                                     <div class="field">
                                         <textarea type="text" name="observaciones" id="observaciones" cols="50" rows="5"  placeholder="Ingrese las observaciones" onChange="conMayusculas(this)"><?php echo $editar_ec['observaciones'];?></textarea>
                                     </div>

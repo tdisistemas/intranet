@@ -26,19 +26,21 @@ $anexos= isset($_POST['anexos']) ? $_POST['anexos']:'0';
 
 $documentose= $alcance. "," .$memoriad. "," .$computos. "," .$especificaciones. "," .$planos. "," .$anexos; 
 
-  
-$sql = mysql_query("SELECT caracteristicas, conse 
+$codigo= mysql_fetch_array(mysql_query("SELECT consecutivo('PRES', 'GC', '".date('Y')."')")); 
+
+
+$sql = mysql_query("SELECT caracteristicas, conse
 FROM `gc_controlconse`
 WHERE `caracteristicas` = 'GC'");
 
 while ($row = mysql_fetch_array($sql)) {
     
-    $caracteristica = $row['caracteristicas'];
+   $caracteristica = $row['caracteristicas'];
     $conse  = $row['conse'];
 
 }
 
-$ano = date('Y');
+$ano= date('Y');
 $actual=(explode("20",$ano));
 $conse1=$conse+1;
 $consecutivo=mysql_query("update gc_controlconse set conse='".$conse1."' where caracteristicas='GC' ");
@@ -50,20 +52,21 @@ if ($obraextra1==1){
 {
     $obraextra1==0;
 }
-   
-  $u      = "INSERT INTO `gc_control_gestion` (clase, n_proceso,`fecha_ingreso`, `gerencia_req`, `responsable`, `obra`, `obra_extra`,  `estatus`, `documentos_entre`) VALUES"
-        . " ('" . $clase . "','".  '00'.$conse1."','" . $fecha_ing . "', '" . $gerencia . "','" . $responsable . "','" . $nombre_obra . "','" . $obraextra1 . "','" . $estatus . "', '" . $documentose . "')";
+  
 
-$result=  mysql_query($u);
+  $u      = "INSERT INTO `gc_control_gestion` (clase, n_proceso,`fecha_ingreso`, `gerencia_req`, `responsable`, `obra`, `obra_extra`,  `estatus`, `documentos_entre`,`n_proceso_completo` ) VALUES"
+        . " ('" . $clase . "','".'00'.$conse1."','" . $fecha_ing . "', '" . $gerencia . "','" . $responsable . "','" . $nombre_obra . "','" . $obraextra1 . "','" . $estatus . "', '" . $documentose . "', '".$codigo[0]."')";
+
+  $result=  mysql_query($u);
   if (!$result) {
     if ($SQL_debug == '1') {
-        die('Error Auditando - Respuesta del Motor: ' . mysql_error());
+        die('Error - Respuesta del Motor: ' . mysql_error());
     } else {
-        die('Error Auditando');
+        die('Error');
     }
 }
  else {
-  notificar("Primera Fase del Proyeto Ingresada con Exito", "dashboard.php?data=controlg", "notify-success");
+ notificar("Primera Fase del Proyeto Ingresada con Exito", "dashboard.php?data=controlg", "notify-success");
 }
 
 

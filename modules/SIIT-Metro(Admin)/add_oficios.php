@@ -48,34 +48,39 @@ if (isset($_POST['Submit'])) {
 
     $tipo = $_POST["TipoOficio"];
     $descrip = $_POST["DescripOficio"];
-    $sql = "INSERT INTO ai_oficios(fecha,tipo,descripcion) VALUES(NOW(),'" . $tipo . "','" . $descrip . "')";
+    $victima = $_POST["victima"];
+    $sql = "INSERT INTO ai_oficios(fecha,tipo,descripcion,victima) VALUES(NOW(),'$tipo','$descrip',$victima)";
+
+    $bandera = true;
+    mysql_query('START TRANSACTION');
+
     $result = mysql_query($sql);
     $nuevoID = mysql_insert_id();
-    switch (strlen($nuevoID)) {
-        case 1:
-            $cod_completo = '00000' . $nuevoID;
-            break;
-        case 2:
-            $cod_completo = '0000' . $nuevoID;
-            break;
-        case 3:
-            $cod_completo = '000' . $nuevoID;
-            break;
-        case 4:
-            $cod_completo = '00' . $nuevoID;
-            break;
-        case 5:
-            $cod_completo = '0' . $nuevoID;
-            break;
-        case 6:
-            $cod_completo = $nuevoID;
-            break;
-    }
-    $codigoNuevo = 'AIM-OFC-' . $cod_completo . '-' . substr(date('Y'), -2);
-    $sql = "UPDATE ai_oficios SET codigo='" . $codigoNuevo . "' WHERE idOficio=" . $nuevoID;
-    $result2 = mysql_query($sql);
+    if ($result && $nuevoID) {
 
-    if ($result) {
+        $cod_completo = str_pad($nuevoID, 6, "0", STR_PAD_LEFT);
+        $codigoNuevo = 'AIM-OFC-' . $cod_completo . '-' . substr(date('Y'), -2);
+        $sql = "UPDATE ai_oficios SET codigo='" . $codigoNuevo . "' WHERE idOficio=" . $nuevoID;
+        $result2 = mysql_query($sql);
+
+        if (mysql_num_rows($result2) > 0) {
+            $bandera = true;
+        } else {
+            $bandera = true;
+        }
+    } else {
+        $bandera = false;
+    }
+
+
+    if ($bandera) {
+        mysql_query('COMMIT');
+    } else {
+        mysql_query('ROLLBACK');
+    }
+
+
+    if ($bandera) {
         notificar('Oficio registrado con éxito', "dashboard.php?data=oficios-ai", "notify-success");
     } else {
         if ($SQL_debug == '1') {
@@ -88,7 +93,7 @@ if (isset($_POST['Submit'])) {
     ?>
     <div class="container">
         <div class="row">
-            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" onsubmit="return DenuncianteSeleccionado()">
+            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="post" action="" onsubmit="return VictimaSeleccionado()">
                 <div class="grid-18">
                     <div class="widget">
                         <div class="widget">
@@ -98,7 +103,68 @@ if (isset($_POST['Submit'])) {
                             </div>
                             <div class="widget-content">
                                 <div class="row-fluid">
-                                    <div class="grid-10">
+                                    <div class="grid-24">
+                                        <div class="field-group">
+                                            <label style="color:#B22222">Buscar Denunciante / Victima :</label>
+                                            <div class="field">
+                                                <div class="form-inline">
+                                                    <input id="BuscadorDenunciante" type="text" class="form-control"/>
+                                                    <input type="button" name="Buscar" onclick="javascript:SeleccionarEmpleado($('#BuscadorDenunciante'));" class="btn btn-error" value="Buscar" />
+                                                </div><!-- /input-group -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-10" id="campo-tabla" style="display: none">
+                                        <div class="field-group">
+                                            <i class="fa fa-remove pull-right" title="Cerrar Busqueda" onclick="document.getElementById('campo-tabla').style.display = 'none'" style="color: #B22222; cursor: pointer"></i>
+                                            <label style="color:#B22222;" id="lvlBusqueda"></label>
+                                            <table class="table table-striped">
+                                                <tbody id="BusquedaRes" style="display: block; height: 450px; overflow-y: auto; width: 100%"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="grid-14"  style="margin-bottom: 0px">
+                                        <div class="grid-24" style="margin-bottom: 0px">
+                                            <label style="color:#B22222"><b>Victima:</b></label><br>
+                                            <div class="grid-24" style="margin-bottom: 5px">
+                                                <div class="field-group">
+                                                    <div class="field" style="margin-bottom: 5px">
+                                                        <input class="VictimaCheack" id="empresa" type="checkbox" name="victima" value="200088419" /> Empresa (Metro de Maracaibo).<br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-24" >
+                                                <div class="field-group">
+                                                    <div class="field" style="margin-bottom: 5px">
+                                                        <input class="VictimaCheack" type="checkbox" name="victima" value="" id="persona" /> Persona:<br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-24" id="PersonaVic" style="display: none; margin-bottom: 0px">
+                                                <div class="grid-8">
+                                                    <div class="field-group">
+                                                        <div class="" style="text-align: center">
+                                                            <img id="retratoVictima" style=" border: solid 5px #ddd;width: 80px;height: 100px;" src="../src/images/FOTOS/No-User.png"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="grid-16">
+                                                    <div class="field-group">
+                                                        <div class="field">
+                                                            <label style="color:#B22222">Cédula:</label>
+                                                            <span id="CedulaVictima" style="position: absolute"></span>
+                                                            <input name="CedulaVictimaID" id="CedulaVictimaID" style="display: none"/>
+                                                        </div>
+                                                        <div class="field">
+                                                            <label style="color:#B22222">Nombre:</label>
+                                                            <span id="NombreVictima" class="Nombres" style=""></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-12">
                                         <div class="field-group">								
                                             <label style="color:#B22222">Tipo de Oficio:</label>
                                             <div class="field">
@@ -148,7 +214,103 @@ _adios_mysql();
 ?>
 
 <script type="text/javascript">
-    window.onload = function () {
-        espejo_gerencia();
+
+    $(document).ready(function () {
+        $('.VictimaCheack').click(function () {
+
+            $(".VictimaCheack").attr('checked', false);
+            $(this).attr('checked', true);
+            if ($('#empresa').attr('checked')) {
+                $('#PersonaVic').animate({opacity: 0, height: "hide"}, 500);
+            } else {
+                $('#PersonaVic').animate({opacity: 1, height: "show"}, 500);
+            }
+
+            setTimeout(function () {
+                $.uniform.update();
+            }, 100);
+        });
+
+        $("#empresa").trigger('click');
+        $("#empresa").attr('checked', true);
+        setTimeout(function () {
+            $.uniform.update();
+        }, 100);
+    });
+
+    function SeleccionarEmpleado(Selected) {
+        var campo = Selected.val();
+        if (campo) {
+            $.ajax({
+                url: 'modules/SIIT-Metro(Admin)/DatosPersonales.php',
+                dataType: 'JSON',
+                method: 'POST',
+                beforeSend: function () {
+                },
+                data: {
+                    Campo: campo
+                },
+                success: function (data) {
+                    document.getElementById("lvlBusqueda").innerHTML = 'Resultados(' + data.campos + ')';
+                    var datos = {
+                        nombre: '',
+                        cedula: '',
+                    };
+                    var aux = 0;
+                    var lista = '';
+                    while (aux < data.campos)
+                    {
+                        datos.nombre = data.datos[aux].nombre + ' ' + data.datos[aux].apellido;
+                        datos.cedula = data.datos[aux].cedula;
+                        lista += '<tr>\n\
+                                <td rowspan="2" style="width: 20%"><img style=" border: solid 5px #ddd;width: 60px;max-height: 80px;" src="src/images/FOTOS/' + datos.cedula + '.jpg"/></td>\n\
+                                    <td style="width: 70%; vertical-align: middle">' + datos.nombre + '</td>\n\
+                                <tr>\n\
+                                    <td class="center" style="width: 70%;vertical-align: middle; text-align: center">\n\
+                                        <button style="font-size: 11px;padding: 4px 12px" title="Victima" class="btn btn-error" type="button" onclick="javascript:Seleccionar(\'' + datos.nombre + '\',\'' + datos.cedula + '\',\'Victima\')">\n\                                             <i style="cursor: pointer;  display: " class="fa fa-user"></i>\n\
+                                        Victima</button>\n\
+                                    </td>\n\
+                        </tr>';
+                        aux++;
+                    }
+                    document.getElementById("BusquedaRes").innerHTML = lista;
+                    document.getElementById("campo-tabla").style.display = 'initial';
+                },
+            });
+        } else {
+            $.alert({
+                type: 'alert'
+                , title: 'Alerta'
+                , text: '<h3>Debe agregar un elemento a la busqueda!</h3>',
+            });
+        }
+
+    }
+    function Seleccionar(nombre, cedula, tipo) {
+
+        if (tipo === 'Victima') {
+            $('#persona').val(cedula);
+        }
+
+        document.getElementById("Nombre" + tipo).innerHTML = nombre;
+        document.getElementById("Cedula" + tipo).innerHTML = cedula;
+        document.getElementById("Cedula" + tipo + "ID").value = cedula;
+        document.getElementById("retrato" + tipo).setAttribute('src', 'src/images/FOTOS/' + cedula + '.jpg');
+    }
+
+
+    function VictimaSeleccionado() {
+        var mensaje = '';
+        if ($('#CedulaVictimaID').val() === '' && $('#persona').attr('checked')) {
+            mensaje = "Debe seleccionar una Victima!";
+            $.alert({
+                type: 'alert'
+                , title: 'Alerta'
+                , text: '<h3>' + mensaje + '</h3>',
+            });
+            return false;
+        } else {
+            return true;
+        }
     }
 </script>

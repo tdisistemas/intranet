@@ -45,16 +45,16 @@ if (isset($_POST['Submit'])) {
             $sqlUpDen = "UPDATE ai_oficios SET status = 1 WHERE idOficio=" . $origen;
         }
         $result3 = mysql_query($sqlUpDen);
-        if(!$result3){
+        if (!$result3) {
             $bandera = false;
         }
-    }else{
+    } else {
         $bandera = false;
     }
-    
-    if($bandera){
+
+    if ($bandera) {
         mysql_query('COMMIT');
-    }else{
+    } else {
         mysql_query('ROLLBACK');
     }
 
@@ -204,7 +204,7 @@ if (isset($_POST['Submit'])) {
     ?>
     <div class="container">
         <div class="row"> 
-            <form class="form uniformForm validateForm" id="from_envio_pe" name="from_envio_pe" method="POST" action="" onsubmit="return Seleccionado()">
+            <form class="form uniformForm validateForm" id="AperturaAveriguacion" name="AperturaAveriguacion" method="POST" action="" onsubmit="">
                 <div class="grid-18">
                     <div class="widget">
                         <div class="widget-header">
@@ -244,7 +244,7 @@ if (isset($_POST['Submit'])) {
                                             <div class="grid-8">
                                                 <div class="field-group" style="">
                                                     <div class="" style="margin: auto">
-                                                        <img id="retrato" style=" border: solid 5px #ddd;width: 90px; height: 90px;" src="src/images/FOTOS/No-User.png"/>
+                                                        <img id="retrato" style=" border: solid 5px #ddd;width: 90px; height: 90px;" src="../src/images/FOTOS/No-User.png"/>
                                                     </div>
                                                 </div> <!-- .field-group -->
                                             </div> <!-- .field-group -->
@@ -390,19 +390,6 @@ _adios_mysql();
         return true;
     }
 
-
-    function Seleccionado() {
-        if (document.getElementById("Count").value <= 0) {
-            $.alert({
-                type: 'alert'
-                , title: 'Alerta'
-                , text: '<h3>Debe seleccionar a un involucrado!</h3>',
-            });
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     function SeleccionarEmpleado(Selected) {
         var campo = Selected.val();

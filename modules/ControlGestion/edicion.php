@@ -15,7 +15,15 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 
     <h2>Edición de la Primera Fase</h2>
 </div> <!-- #contentHeader -->	
+<style>
+     .titulo {
 
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 13px;
+        color: #b22222;
+    }
+</style>
 <?php
         
     decode_get2($_SERVER["REQUEST_URI"], 2);
@@ -115,7 +123,7 @@ if (isset($_POST['enviar'])) {
                               </div>
                               <div class="grid-10">
                               <div class="field-group">
-                                <label>Clase:<br></label>   
+                                  <div class="titulo">Clase:</div>   
                               <div class="field">
                                   <select  name="clase" id="clase" >
                                       <option value="">Seleccione..</option>
@@ -129,20 +137,20 @@ if (isset($_POST['enviar'])) {
                                 </div>
                                 
                                 <div class="field-group">
-                                    <label for="date">Gerencia Requiriente:</br></label>   
+                                    <div class="titulo">Gerencia Requiriente:</div>   
                                     <div class="field">
                                    <input type="text" name="gerencia" id="gerencia" size="22" value="<?php echo $gerencia;?>" disabled/>
                                     </div>
                                 </div>
                                 <div class="field-group">
-                                    <label for="required">Nombre de la Obra/Actividad:</br></label>   
+                                    <div class="titulo">Nombre de la Obra/Actividad:</div>   
                                     <div class="field">
                                    <input type="text" name="nombre_obra" id="nombre_obra" size="24" value="<?php echo $obra;?>" disabled/>	
                                     </div>
                                 </div>
                                 
                                 <div class="field-group">
-                                    <label for="required">Estatus:</br></label>   
+                                    <div class="titulo">Estatus:</div>   
                                     <div class="field">
                                    <select  name="estatus" id="estatus">
                                        <option value="">Seleccione..</option>
@@ -159,20 +167,20 @@ if (isset($_POST['enviar'])) {
                                 </div>
                                 <div class="grid-10">
                                  <div class="field-group">
-                                    <label for="datepicker">Fecha de Ingreso:<br></label>   
+                                     <div class="titulo">Fecha de Ingreso:</div>   
                                     <div class="field">
                                     <input type="date" name="fecha_ing" id="datepicker" size="14"   value="<?php echo $fecha_ing;?>" disabled/>
                                     </div>
                                 </div>
                                 <div class="field-group">
-                                    <label for="required">Responsable del Requerimiento:</br></label>   
+                                    <div class="titulo">Responsable del Requerimiento:</div>   
                                     <div class="field">
                                    <input type="text" name="responsable_req" id="responsable_req" size="22" value="<?php echo $responsable;?>" disabled/>
                                     </div>
                                 </div>
                              
                                 <div class="field-group">
-                                    <label for="required">Documentos Entregados:</br></label>   
+                                    <div class="titulo">Documentos Entregados:</div>   
                                     <div class="field">
                                         <input type="checkbox"name="alcance" id="alcance" value="1" size="14" <?php echo $documentos[0]=="1" ? "checked disabled" : '';?>/>&nbsp;&nbsp;Alcance del Proyecto</br>
                                    <input type="checkbox" name="memoriad" id="memoriad" value="1" size="14" <?php echo $documentos[1]=="1" ? "checked disabled" : '';?> />&nbsp;&nbsp;Memoría Descriptiva</br>

@@ -10,17 +10,18 @@ _wm($usuario_datos[9], 'Acceso Autorizado en: ' . ucwords(array_pop(explode('/',
 ?>
 
 <?php
-include('notificador.php');
+
                         decode_get2($_SERVER["REQUEST_URI"], 2);
                         $id_np = _antinyeccionSQL($_GET["np"]);
                         decode_get2($_SERVER["REQUEST_URI"], 2);
                         $id_servi = _antinyeccionSQL($_GET["servi"]);
 ?>
+
 <div id="contentHeader">
     <h2>Servicios del Proceso</h2>
 </div> <!-- #contentHeader -->	
 <div class="container">
-    
+    <?php include('notificador.php'); ?>
     <div class="grid-24">	
         <div class="widget widget-table">
             <div class="widget-header">
@@ -54,23 +55,45 @@ include('notificador.php');
                             <tr class="gradeA">
                                 <td><?php echo $row["tipo_solicitud"].'-'.$row["n_proceso"].'-00'.$row["servicio"]. '-'.$actual[0] ?></td>
                                 <td><?php echo $row["tipo_solicitud"] [0]. '.'. $row["tipo_solicitud"] [1].'.'.$final?></td>
-                                <td><?php echo $row["montoec"] ?></td>
-                                <td><?php echo $row["montooc"] ?></td>
-                                <td><?php echo $row["montoate"] ?></td>
+                                <td><?php echo number_format($row['montoec'], 2, ',', '.');?> Bsf</td>
+                                <td><?php echo number_format($row['montooc'], 2, ',', '.');?> Bsf</td>
+                                <td><?php echo number_format($row['montoate'], 2, ',', '.');?> Bsf</td>
                               
 
                                 <td class="center">
                                     <?php
-                                    $parametros = 'id=' . $row[0];
+                                    $parametros = 'id=' . $row['id_cgestion2'];
+                                    $parametros .= '&np=' . $row['n_proceso'];
                                     $parametros = _desordenar($parametros);
-                                    $parametro = 'np=' . $row[1];
-                                    $parametro = _desordenar($parametro);
                                   
                                    
                                     ?>  
-                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametros. '&'. $parametro?>" id="editar" title="Editar" >
+                                    <?php 
+                                    if ($row['tipo_solicitud'] == 'EC'){
+                                        
+                                    ?>
+                                    <a href="dashboard.php?data=edicion_reg2&flag=1&<?php echo $parametros?>" id="editar" title="Editar" >
                                         <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
                                     </a>
+                                    <?php }?>
+                                     
+                                     <?php 
+                                    if ($row['tipo_solicitud'] == 'ATE'){
+                                      
+                                    ?>
+                                    <a href="dashboard.php?data=edicion_reg3&flag=1&<?php echo $parametros?>" id="editar" title="Editar" >
+                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
+                                    </a>
+                                    <?php }?>
+                                    
+                                    <?php 
+                                    if ($row['tipo_solicitud'] == 'AP'){
+                                      
+                                    ?>
+                                    <a href="dashboard.php?data=edicion_reg5&flag=1&<?php echo $parametros?>" id="editar" title="Editar" >
+                                        <div class="icons-holder" style="float:left;margin-left:15px"><span class="icon-pen-alt-fill"></span></div>
+                                    </a>
+                                    <?php }?>
                                 </td>
                             </tr>
 

@@ -96,7 +96,7 @@ if (!$_GET['flag']) {
         height: 450px; 
         overflow: auto;
     }
-    
+
     @media (max-width: 1175px){
         #Editado > div{
             margin-left: 0px;   
@@ -155,7 +155,7 @@ $parametros = _desordenar($parametros);
                                 <br>
                                 <div class="grid-24" id="SeccionSanciones">
                                     <div class="grid-6"> 
-                                        <img align="left" style=" border: solid 5px #ddd;max-width: 100px; max-height: 100px" src="../src/images/FOTOS/<?=$cedula?>.jpg" onerror="src='../intranet/src/images/FOTOS/No-User.png'"/>
+                                        <img align="left" style=" border: solid 5px #ddd;max-width: 100px; max-height: 100px" src="../src/images/FOTOS/<?= $cedula ?>.jpg" onerror="src='../intranet/src/images/FOTOS/No-User.png'"/>
                                     </div>
                                     <div class="grid-5">
                                         <div class="field-group">								
@@ -211,7 +211,8 @@ $parametros = _desordenar($parametros);
                         </div>
                     </div><!-- .grid -->
                 </div><!-- .grid -->
-            </div><!-- .grid -->	
+            </div>
+        </form>
     </div><!-- .grid -->	
     <div class="grid-6"> 
         <div id="gettingStarted" class="box">
@@ -222,9 +223,7 @@ $parametros = _desordenar($parametros);
             </div>
         </div>
     </div>
-</form>
 </div><!-- .row -->
-</div><!-- .container-->
 
 <script type="text/javascript">
     window.onload = function () {

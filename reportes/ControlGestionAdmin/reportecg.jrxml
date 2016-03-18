@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e3a067a-5382-4a3e-9ae0-2f375eacb05d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Query" class="java.lang.String"/>
+	<parameter name="img1" class="java.lang.String"/>
+	<parameter name="img2" class="java.lang.String"/>
+	<parameter name="Cantidad" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[$P!{Query}]]>
+	</queryString>
+	<field name="id_cgestion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_ingreso" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gerencia_req" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="obra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estatus" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_solicitud" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="n_proceso_completo" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<pageHeader>
+		<band height="142">
+			<image>
+				<reportElement x="0" y="0" width="802" height="72" uuid="043cbcb4-99ef-41f2-a5c9-eaf412431d90"/>
+				<imageExpression><![CDATA[$P{img1}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="222" y="92" width="343" height="20" uuid="90172f38-816d-4c4d-97b7-7d470513ac6a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="true" isUnderline="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}== 1 ? "Reporte de Procesos Incluidos" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement x="165" y="1" width="100" height="20" uuid="3e7c73a6-1fab-4875-84c7-6ea29be66c13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fecha de Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="265" y="0" width="97" height="20" uuid="4cd34ebd-c949-4c7a-b1ae-514718ebf9f4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Gerencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="0" width="100" height="20" uuid="67a23915-2e37-49f7-ba43-64479f4c71ee"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="154" height="20" uuid="d073e498-2de8-4a5f-81a3-46d2708cd1b5"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nombre de la Obra/Actividad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="714" y="0" width="86" height="20" uuid="06106cb4-be15-43e5-a06b-cd559068f953"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Tipo de Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="0" width="162" height="20" uuid="6c4b0586-7c62-452d-97e3-9da8d4e3cb8a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[N° Proceso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="614" y="0" width="100" height="20" uuid="145a4199-f296-48e2-9b26-ab5e787facb4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="53">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="165" y="1" width="100" height="20" uuid="ae9dce10-c6ac-440f-8884-10559e11909f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_ingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="1" width="100" height="20" uuid="a5ae38b6-4e30-4d61-b2d0-3d3be3c77532"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{responsable}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="462" y="1" width="152" height="20" isPrintInFirstWholeBand="true" uuid="cb4a71b7-59eb-4ca6-8976-eb3a6ca49326"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{obra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="714" y="1" width="87" height="20" uuid="42abb5af-1cd7-40fd-b3f1-9f5ac34a3791"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_solicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="1" width="162" height="20" uuid="9529682e-98c9-4610-b2db-98eb5dda7f22"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{n_proceso_completo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="265" y="1" width="99" height="20" isPrintInFirstWholeBand="true" uuid="08d5bd03-9da9-4b78-a1a7-71e63a4fe9a6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gerencia_req}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="614" y="1" width="100" height="20" uuid="78c963e4-a769-4e9e-aff9-5daef7cc714c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estatus}.compareTo("1")==0 ? "EN ELABORACIÓN" : "ENTREGADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="33" width="100" height="20" uuid="38e5445a-ab83-4fcb-8c24-f9ea765b75fd"/>
+				<textFieldExpression><![CDATA[$P{Cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="71">
+			<image>
+				<reportElement x="0" y="0" width="802" height="54" uuid="ef735563-a667-4d38-9148-74dbc01910fb"/>
+				<imageExpression><![CDATA[$P{img2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="722" y="51" width="43" height="20" uuid="a5c7a325-af47-4925-a2d9-217b5aa8480c"/>
+				<textElement textAlignment="Right">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="765" y="51" width="37" height="20" uuid="5a0b5ea7-40b6-47bd-8c6a-23beeef4b5b3"/>
+				<textElement>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de"+" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="322" height="20" uuid="408d4df5-b49e-49dc-b9fd-c2c6be714bc0"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="true" isUnderline="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER} != 1 ? "Reporte de Procesos Incluidos" : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="45"/>
+	</summary>
+</jasperReport>

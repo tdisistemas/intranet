@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c7a18a6-d76d-4f16-bf4c-9e70d0236d44">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="404"/>
+	<parameter name="Srs" class="java.lang.String"/>
+	<parameter name="titular" class="java.lang.String"/>
+	<parameter name="cedula_titular" class="java.lang.String"/>
+	<parameter name="cedula_beneficiario" class="java.lang.String"/>
+	<parameter name="beneficiario" class="java.lang.String"/>
+	<parameter name="parentesco" class="java.lang.String"/>
+	<parameter name="especialidad" class="java.lang.String"/>
+	<parameter name="procedimiento" class="java.lang.String"/>
+	<parameter name="tipo_de_servicio" class="java.lang.String"/>
+	<parameter name="monto" class="java.lang.String"/>
+	<parameter name="presupuesto" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="diagnostico" class="java.lang.String"/>
+	<parameter name="codigo" class="java.lang.String"/>
+	<parameter name="fechas" class="java.lang.String"/>
+	<parameter name="vence" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="12" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="137" splitType="Stretch">
+			<image>
+				<reportElement x="21" y="0" width="168" height="61" uuid="ed129a44-cd3d-4c23-b79b-795125006dd4"/>
+				<imageExpression><![CDATA["../../src/images/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="40" y="61" width="116" height="9" uuid="4379d7f6-f1e7-497f-adf1-ed1e1241ef1c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RIF: G-20008841-9]]></text>
+			</staticText>
+			<image>
+				<reportElement x="361" y="0" width="162" height="61" uuid="263f2911-b14f-4294-93e7-1bfd53bddb26"/>
+				<imageExpression><![CDATA["fas.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="40" y="70" width="204" height="12" uuid="5976e91b-4d49-47c5-a18a-a569108b7b86"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd &apos;de&apos; MMMMM &apos;de&apos; yyyy">
+				<reportElement x="397" y="70" width="144" height="12" uuid="02b3a68e-9296-4781-98ff-d354c4d9743c"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date($P{fecha})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="92" width="100" height="12" uuid="9e0d26ce-2acf-4fca-acae-2f7201879fee"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Señores.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="104" width="501" height="12" uuid="1a65739b-1435-49f1-80cb-25e75f973d4d"/>
+				<textElement>
+					<font fontName="Serif" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Srs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="116" width="100" height="12" uuid="364be6ab-0e31-4b17-9f88-d5c91c0ca773"/>
+				<text><![CDATA[Saludos Cordiales.]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd &apos;de&apos; yyyy">
+				<reportElement x="318" y="70" width="79" height="12" uuid="1b9dc1de-d7e8-42d7-a614-6bb7eee801e0"/>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Maracaibo,"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="593" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="0" width="508" height="12" uuid="bb172ff8-2b2e-435d-9a43-9c8653e3ca1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[La presente es con el fin  de dirigirme a ustedes y formalizar el compromiso de pago ante el caso del:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="163" y="480" width="229" height="108" uuid="d244522f-09e4-406c-998f-999cbf9500a0"/>
+				<imageExpression><![CDATA["f1.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="37" y="319" width="480" height="148" uuid="302430b9-13cb-49f1-8bc5-42bc022ca5f3"/>
+				<textElement textAlignment="Justified" markup="html">
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Para cualquier información adicional o exceso, sírvanse contactar al Fondo Autoadministrado de Salud de <b>Empresa Socialista Metro de Maracaibo, C.A</b>, a los siguientes números: <b>Teléfonos 0261-7355119. Móvil: 0412-6466888.</b> A objeto de tramitar el pago favor enviar la factura con todos los soportes correspondientes en original a: <b>Empresa Socialista Metro de Maracaibo, C.A; RIF: G-200088419 Gerencia de Recursos Humanos. División del Fondo Autoadministrado de Salud. Dirección: Av. Don Manuel Belloso vía Aeropuerto, Edificio Metro de Maracaibo, Piso 1 OF-58-999 Sector Altos de la Vanega, Maracaibo; Edo: Zulia.  (Solo día MARTES. Recepción de Facturas).VIGENCIA</b>: 30 días a partir de la fecha de emisión.<br>"+
+"Agradeciendo el apoyo y colaboración que le puedan brindar a la presente solicitud, quedo de ustedes.<br><br>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="73" y="467" width="409" height="13" uuid="6c2bb308-e067-4e92-ba87-b01aa1db15f9"/>
+				<textElement textAlignment="Center" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Atentamente,"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="39" y="20" width="226" height="25" forecolor="#000000" backcolor="#E2E2E2" uuid="81c440b7-f280-4e25-bcaa-ebcd42c959ec"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Titular: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="265" y="20" width="245" height="25" forecolor="#000000" backcolor="#E2E2E2" uuid="54c1ff41-34bf-4c39-8dec-fe9a48c32afe"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="39" y="45" width="226" height="25" backcolor="#E2E2E2" uuid="1e241500-f32c-480f-ab9e-629144a973b6"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cédula Titular:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="70" width="226" height="25" uuid="ce449109-ac85-45aa-a593-bfeadc4d8a90"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Beneficiario:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="70" width="245" height="25" uuid="afa50221-18a2-4c4e-8b8a-1fb4242fc7a1"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{beneficiario}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="95" width="226" height="25" uuid="b77f0fc6-6b2b-4751-90e8-6e7b1c3f79e4"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cédula Beneficiario:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="265" y="45" width="245" height="25" backcolor="#E2E2E2" uuid="e707377d-82bf-4759-a065-d5b6a6f99642"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Integer($P{cedula_titular})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement x="265" y="95" width="245" height="25" uuid="78224a79-7e2b-4bd4-817a-cb57eab8171c"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Integer($P{cedula_beneficiario})]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="120" width="226" height="25" uuid="2804a6db-0663-4749-9290-4f3639951739"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Parentesco:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="120" width="245" height="25" uuid="51e39fff-e12c-464b-b905-8789cbc550cd"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parentesco}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="145" width="226" height="25" uuid="86535eec-771d-4c9d-a007-044bd9bb193b"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Especialidad:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="145" width="245" height="25" uuid="6fd27dac-5a69-44c1-97b2-071e9899bca1"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{especialidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="170" width="226" height="25" uuid="7a2251f3-79d6-4be4-997b-552c47bf8f53"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Procedimiento:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="170" width="245" height="25" uuid="dac05443-757f-4bd2-8b93-866cc2188b8c"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{procedimiento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="220" width="226" height="25" uuid="ad802959-15b8-4cb5-bd68-34b08129bee0"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tipo de Servicio:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="220" width="245" height="25" uuid="37a09b5c-02f2-4849-8137-18c538dc753f"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipo_de_servicio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="245" width="101" height="25" uuid="9e913597-70d0-40ba-90ef-feb42d04024a"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Monto:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="140" y="245" width="87" height="25" uuid="935e0bbe-ccd6-4339-bccc-df9182c198d1"/>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($P{monto})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="245" width="38" height="25" uuid="5e4a86e5-1dfb-466b-843b-7839de9f3e05"/>
+				<box leftPadding="0" rightPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bs.f"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="245" width="116" height="25" uuid="e1648e63-b5eb-41b0-87f9-97ee2d8fc138"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nº Presupuesto:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="381" y="245" width="129" height="25" uuid="ab7a893f-e2b6-48ed-abbb-aa6a2acec509"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{presupuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="270" width="101" height="25" uuid="f1f92171-c05f-457f-bd88-a12f8adfb8ef"/>
+				<box>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Aprobado el:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="270" width="125" height="25" uuid="152e78c9-52fa-4f23-8029-d1f0572ea111"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="39" y="195" width="226" height="25" uuid="55478e7b-213d-4d2d-8a9c-4d3ba215794d"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Diagnóstico:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="265" y="195" width="245" height="25" uuid="cd4fc5ed-077d-4c9b-941a-06f8e5d12795"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{diagnostico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="227" y="559" width="100" height="20" uuid="2ce1ed84-1e69-4aae-83e6-5606d000aa44"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma Autorizada
+FASMETRO]]></text>
+			</staticText>
+			<image>
+				<reportElement x="430" y="499" width="80" height="80" uuid="b4651a29-1744-4fdf-a13b-f13cef3c5ccc"/>
+				<imageExpression><![CDATA["f2.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="381" y="270" width="129" height="25" uuid="17f60287-94da-48fa-9071-dbb6bf7b9d41"/>
+				<box>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vence}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="270" width="116" height="25" uuid="2cc46bd1-c88c-4ee6-be47-887bcbb82bf4"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Vigente hasta:"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="37" y="499" width="80" height="80" uuid="3de43716-3f22-4d22-9821-bb46ac1ab4d0"/>
+				<imageExpression><![CDATA[com.google.zxing.client.j2se.MatrixToImageWriter.toBufferedImage(new com.google.zxing.qrcode.QRCodeWriter().encode("Autenticación:\nTitular: "+$P{titular}+"\nBeneficiario: "+$P{beneficiario}+"\nCentro Clinico: "+$P{Srs}+"\nMonto: "+$P{monto}, com.google.zxing.BarcodeFormat.QR_CODE, 200, 200))]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="26" width="555" height="24" uuid="ad91e5be-662c-432c-867f-afb29a7f3556"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Av. Don Manuel Belloso vía Aeropuerto, Edificio Metro de Maracaibo, Piso 1 OF-58-999 Sector Altos de la Vanega, Maracaibo; Edo: Zulia
+Maracaibo, Estado Zulia, Venezuela.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="9" y="0" width="154" height="12" uuid="8c5cce28-8dbc-4716-b421-5852998f2299"/>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
